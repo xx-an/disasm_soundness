@@ -1,0 +1,3449 @@
+;-- section..plt:
+;-- .plt:
+0x00001220      ff356a5c2000   push qword [0x00206e90]                 ; [12] -r-x section size 640 named .plt
+0x00001226      ff256c5c2000   jmp qword [0x00206e98]                  ; [0x206e98:8]=0
+0x0000122c      0f1f4000       nop dword [rax]
+;-- imp.free:
+0x00001230      ff256a5c2000   jmp qword [reloc.free]                  ; [0x206ea0:8]=0x1236 ; "6\x12"
+0x00001236      6800000000     push 0
+0x0000123b      e9e0ffffff     jmp sym..plt
+;-- imp.abort:
+0x00001240      ff25625c2000   jmp qword [reloc.abort]                 ; [0x206ea8:8]=0x1246 ; "F\x12"
+0x00001246      6801000000     push 1
+0x0000124b      e9d0ffffff     jmp sym..plt
+;-- imp.__errno_location:
+0x00001250      ff255a5c2000   jmp qword [reloc.__errno_location]      ; [0x206eb0:8]=0x1256 ; "V\x12"
+0x00001256      6802000000     push 2
+0x0000125b      e9c0ffffff     jmp sym..plt
+;-- imp.strncmp:
+0x00001260      ff25525c2000   jmp qword [reloc.strncmp]               ; [0x206eb8:8]=0x1266 ; "f\x12"
+0x00001266      6803000000     push 3
+0x0000126b      e9b0ffffff     jmp sym..plt
+;-- imp._exit:
+0x00001270      ff254a5c2000   jmp qword [reloc._exit]                 ; [0x206ec0:8]=0x1276 ; "v\x12"
+0x00001276      6804000000     push 4
+0x0000127b      e9a0ffffff     jmp sym..plt
+;-- imp.__fpending:
+0x00001280      ff25425c2000   jmp qword [reloc.__fpending]            ; [0x206ec8:8]=0x1286
+0x00001286      6805000000     push 5
+0x0000128b      e990ffffff     jmp sym..plt
+;-- imp.textdomain:
+0x00001290      ff253a5c2000   jmp qword [reloc.textdomain]            ; [0x206ed0:8]=0x1296
+0x00001296      6806000000     push 6
+0x0000129b      e980ffffff     jmp sym..plt
+;-- imp.fclose:
+0x000012a0      ff25325c2000   jmp qword [reloc.fclose]                ; [0x206ed8:8]=0x12a6
+0x000012a6      6807000000     push 7
+0x000012ab      e970ffffff     jmp sym..plt
+;-- imp.bindtextdomain:
+0x000012b0      ff252a5c2000   jmp qword [reloc.bindtextdomain]        ; [0x206ee0:8]=0x12b6
+0x000012b6      6808000000     push 8
+0x000012bb      e960ffffff     jmp sym..plt
+;-- imp.dcgettext:
+0x000012c0      ff25225c2000   jmp qword [reloc.dcgettext]             ; [0x206ee8:8]=0x12c6
+0x000012c6      6809000000     push 9
+0x000012cb      e950ffffff     jmp sym..plt
+;-- imp.__ctype_get_mb_cur_max:
+0x000012d0      ff251a5c2000   jmp qword [reloc.__ctype_get_mb_cur_max] ; [0x206ef0:8]=0x12d6
+0x000012d6      680a000000     push 0xa
+0x000012db      e940ffffff     jmp sym..plt
+;-- imp.strlen:
+0x000012e0      ff25125c2000   jmp qword [reloc.strlen]                ; [0x206ef8:8]=0x12e6
+0x000012e6      680b000000     push 0xb
+0x000012eb      e930ffffff     jmp sym..plt
+;-- imp.__stack_chk_fail:
+0x000012f0      ff250a5c2000   jmp qword [reloc.__stack_chk_fail]      ; [0x206f00:8]=0x12f6
+0x000012f6      680c000000     push 0xc
+0x000012fb      e920ffffff     jmp sym..plt
+;-- imp.getopt_long:
+0x00001300      ff25025c2000   jmp qword [reloc.getopt_long]           ; [0x206f08:8]=0x1306
+0x00001306      680d000000     push 0xd
+0x0000130b      e910ffffff     jmp sym..plt
+;-- imp.mbrtowc:
+0x00001310      ff25fa5b2000   jmp qword [reloc.mbrtowc]               ; [0x206f10:8]=0x1316
+0x00001316      680e000000     push 0xe
+0x0000131b      e900ffffff     jmp sym..plt
+;-- imp.strrchr:
+0x00001320      ff25f25b2000   jmp qword [reloc.strrchr]               ; [0x206f18:8]=0x1326 ; "&\x13"
+0x00001326      680f000000     push 0xf
+0x0000132b      e9f0feffff     jmp sym..plt
+;-- imp.lseek:
+0x00001330      ff25ea5b2000   jmp qword [reloc.lseek]                 ; [0x206f20:8]=0x1336 ; "6\x13"
+0x00001336      6810000000     push 0x10
+0x0000133b      e9e0feffff     jmp sym..plt
+;-- imp.memset:
+0x00001340      ff25e25b2000   jmp qword [reloc.memset]                ; [0x206f28:8]=0x1346 ; "F\x13"
+0x00001346      6811000000     push 0x11
+0x0000134b      e9d0feffff     jmp sym..plt
+;-- imp.memcmp:
+0x00001350      ff25da5b2000   jmp qword [reloc.memcmp]                ; [0x206f30:8]=0x1356 ; "V\x13"
+0x00001356      6812000000     push 0x12
+0x0000135b      e9c0feffff     jmp sym..plt
+;-- imp.fputs_unlocked:
+0x00001360      ff25d25b2000   jmp qword [reloc.fputs_unlocked]        ; [0x206f38:8]=0x1366 ; "f\x13"
+0x00001366      6813000000     push 0x13
+0x0000136b      e9b0feffff     jmp sym..plt
+;-- imp.calloc:
+0x00001370      ff25ca5b2000   jmp qword [reloc.calloc]                ; [0x206f40:8]=0x1376 ; "v\x13"
+0x00001376      6814000000     push 0x14
+0x0000137b      e9a0feffff     jmp sym..plt
+;-- imp.memcpy:
+0x00001380      ff25c25b2000   jmp qword [reloc.memcpy]                ; [0x206f48:8]=0x1386
+0x00001386      6815000000     push 0x15
+0x0000138b      e990feffff     jmp sym..plt
+;-- imp.fileno:
+0x00001390      ff25ba5b2000   jmp qword [reloc.fileno]                ; [0x206f50:8]=0x1396
+0x00001396      6816000000     push 0x16
+0x0000139b      e980feffff     jmp sym..plt
+;-- imp.malloc:
+0x000013a0      ff25b25b2000   jmp qword [reloc.malloc]                ; [0x206f58:8]=0x13a6
+0x000013a6      6817000000     push 0x17
+0x000013ab      e970feffff     jmp sym..plt
+;-- imp.fflush:
+0x000013b0      ff25aa5b2000   jmp qword [reloc.fflush]                ; [0x206f60:8]=0x13b6
+0x000013b6      6818000000     push 0x18
+0x000013bb      e960feffff     jmp sym..plt
+;-- imp.nl_langinfo:
+0x000013c0      ff25a25b2000   jmp qword [reloc.nl_langinfo]           ; [0x206f68:8]=0x13c6
+0x000013c6      6819000000     push 0x19
+0x000013cb      e950feffff     jmp sym..plt
+;-- imp.__freading:
+0x000013d0      ff259a5b2000   jmp qword [reloc.__freading]            ; [0x206f70:8]=0x13d6
+0x000013d6      681a000000     push 0x1a
+0x000013db      e940feffff     jmp sym..plt
+;-- imp.realloc:
+0x000013e0      ff25925b2000   jmp qword [reloc.realloc]               ; [0x206f78:8]=0x13e6
+0x000013e6      681b000000     push 0x1b
+0x000013eb      e930feffff     jmp sym..plt
+;-- imp.setlocale:
+0x000013f0      ff258a5b2000   jmp qword [reloc.setlocale]             ; [0x206f80:8]=0x13f6
+0x000013f6      681c000000     push 0x1c
+0x000013fb      e920feffff     jmp sym..plt
+;-- imp.__printf_chk:
+0x00001400      ff25825b2000   jmp qword [reloc.__printf_chk]          ; [0x206f88:8]=0x1406
+0x00001406      681d000000     push 0x1d
+0x0000140b      e910feffff     jmp sym..plt
+;-- imp.error:
+0x00001410      ff257a5b2000   jmp qword [reloc.error]                 ; [0x206f90:8]=0x1416
+0x00001416      681e000000     push 0x1e
+0x0000141b      e900feffff     jmp sym..plt
+;-- imp.fseeko:
+0x00001420      ff25725b2000   jmp qword [reloc.fseeko]                ; [0x206f98:8]=0x1426 ; "&\x14"
+0x00001426      681f000000     push 0x1f
+0x0000142b      e9f0fdffff     jmp sym..plt
+;-- imp.__cxa_atexit:
+0x00001430      ff256a5b2000   jmp qword [reloc.__cxa_atexit]          ; [0x206fa0:8]=0x1436 ; "6\x14"
+0x00001436      6820000000     push 0x20                               ; "@"
+0x0000143b      e9e0fdffff     jmp sym..plt
+;-- imp.exit:
+0x00001440      ff25625b2000   jmp qword [reloc.exit]                  ; [0x206fa8:8]=0x1446 ; "F\x14"
+0x00001446      6821000000     push 0x21                               ; '!'
+0x0000144b      e9d0fdffff     jmp sym..plt
+;-- imp.fwrite:
+0x00001450      ff255a5b2000   jmp qword [reloc.fwrite]                ; [0x206fb0:8]=0x1456 ; "V\x14"
+0x00001456      6822000000     push 0x22                               ; '"'
+0x0000145b      e9c0fdffff     jmp sym..plt
+;-- imp.__fprintf_chk:
+0x00001460      ff25525b2000   jmp qword [reloc.__fprintf_chk]         ; [0x206fb8:8]=0x1466 ; "f\x14"
+0x00001466      6823000000     push 0x23                               ; '#'
+0x0000146b      e9b0fdffff     jmp sym..plt
+;-- imp.mbsinit:
+0x00001470      ff254a5b2000   jmp qword [reloc.mbsinit]               ; [0x206fc0:8]=0x1476 ; "v\x14"
+0x00001476      6824000000     push 0x24                               ; '$'
+0x0000147b      e9a0fdffff     jmp sym..plt
+;-- imp.iswprint:
+0x00001480      ff25425b2000   jmp qword [reloc.iswprint]              ; [0x206fc8:8]=0x1486
+0x00001486      6825000000     push 0x25                               ; '%'
+0x0000148b      e990fdffff     jmp sym..plt
+;-- imp.__ctype_b_loc:
+0x00001490      ff253a5b2000   jmp qword [reloc.__ctype_b_loc]         ; [0x206fd0:8]=0x1496
+0x00001496      6826000000     push 0x26                               ; '&'
+0x0000149b      e980fdffff     jmp sym..plt
+;-- section..plt.got:
+;-- .plt.got:
+0x000014a0      .qword 0x906600205b5225ff                              ; [13] -r-x section size 8 named .plt.got
+0x000014a8      0000           add byte [rax], al
+0x000014aa      0000           add byte [rax], al
+0x000014ac      0000           add byte [rax], al
+0x000014ae      0000           add byte [rax], al
+;-- main:
+;-- section..text:
+;-- .text:
+0x000014b0      4157           push r15                                ; [14] -r-x section size 12718 named .text
+0x000014b2      4156           push r14
+0x000014b4      4531ff         xor r15d, r15d
+0x000014b7      4155           push r13
+0x000014b9      4154           push r12
+0x000014bb      4531ed         xor r13d, r13d
+0x000014be      55             push rbp
+0x000014bf      53             push rbx
+0x000014c0      89fd           mov ebp, edi
+0x000014c2      4889f3         mov rbx, rsi
+0x000014c5      4531f6         xor r14d, r14d
+0x000014c8      4883ec28       sub rsp, 0x28
+0x000014cc      488b3e         mov rdi, qword [rsi]
+0x000014cf      64488b042528.  mov rax, qword fs:[0x28]
+0x000014d8      4889442418     mov qword [rsp + 0x18], rax
+0x000014dd      31c0           xor eax, eax
+0x000014df      4c8d642414     lea r12, [rsp + 0x14]
+0x000014e4      e837080000     call sym.set_program_name
+0x000014e9      488d35713c00.  lea rsi, [0x00005161]
+0x000014f0      bf06000000     mov edi, 6
+0x000014f5      e8f6feffff     call sym.imp.setlocale
+0x000014fa      488d352d3200.  lea rsi, str.usr_local_share_locale     ; 0x472e ; "/usr/local/share/locale"
+0x00001501      488d3dfd3100.  lea rdi, [0x00004705]                   ; "coreutils"
+0x00001508      e8a3fdffff     call sym.imp.bindtextdomain
+0x0000150d      488d3df13100.  lea rdi, [0x00004705]                   ; "coreutils"
+0x00001514      e877fdffff     call sym.imp.textdomain
+0x00001519      488d3d500700.  lea rdi, sym.close_stdout               ; 0x1c70 ; "USH\x83\xec\bH\x8b=\vT "
+0x00001520      e82b310000     call sym.atexit
+0x00001525      c644240f00     mov byte [rsp + 0xf], 0
+0x0000152a      48c704240000.  mov qword [rsp], 0
+0x00001532      488d0d075620.  lea rcx, obj.long_options               ; 0x206b40
+0x00001539      488d15063200.  lea rdx, str.r:t:u:l:c                  ; 0x4746 ; "+r:t:u:l:c"
+0x00001540      4d89e0         mov r8, r12
+0x00001543      4889de         mov rsi, rbx
+0x00001546      89ef           mov edi, ebp
+0x00001548      c74424140000.  mov dword [rsp + 0x14], 0
+0x00001550      e8abfdffff     call sym.imp.getopt_long
+0x00001555      83f8ff         cmp eax, 0xffffffff
+0x00001558      0f84d6000000   je 0x1634
+0x0000155e      83f86c         cmp eax, 0x6c
+0x00001561      0f84b2000000   je 0x1619
+0x00001567      7f47           jg 0x15b0
+0x00001569      3d7effffff     cmp eax, 0xffffff7e                     ; 4294967166
+0x0000156e      7478           je 0x15e8
+0x00001570      83f863         cmp eax, 0x63
+0x00001573      7469           je 0x15de
+0x00001575      3d7dffffff     cmp eax, 0xffffff7d                     ; 4294967165
+0x0000157a      7543           jne 0x15bf
+0x0000157c      488b3d055b20.  mov rdi, qword [obj.stdout]             ; obj.stdout__GLIBC_2.2.5
+                                                                       ; [0x207088:8]=0
+0x00001583      488b0d865a20.  mov rcx, qword [obj.Version]            ; [0x207010:8]=0x4be0 str.8.31
+0x0000158a      4c8d05023200.  lea r8, str.Russell_Coker               ; 0x4793 ; "Russell Coker"
+0x00001591      488d15693100.  lea rdx, str.GNU_coreutils              ; 0x4701 ; "GNU coreutils"
+0x00001598      488d35e53000.  lea rsi, str.runcon                     ; 0x4684 ; "runcon"
+0x0000159f      4531c9         xor r9d, r9d
+0x000015a2      31c0           xor eax, eax
+0x000015a4      e867290000     call sym.version_etc
+0x000015a9      31ff           xor edi, edi
+0x000015ab      e890feffff     call sym.imp.exit
+0x000015b0      83f874         cmp eax, 0x74
+0x000015b3      743a           je 0x15ef
+0x000015b5      83f875         cmp eax, 0x75
+0x000015b8      740f           je 0x15c9
+0x000015ba      83f872         cmp eax, 0x72
+0x000015bd      7445           je 0x1604
+0x000015bf      bf01000000     mov edi, 1
+0x000015c4      e8f7020000     call sym.usage
+0x000015c9      4d85ed         test r13, r13
+0x000015cc      0f8521010000   jne 0x16f3
+0x000015d2      4c8b2dbf5a20.  mov r13, qword [obj.optarg]             ; obj.optarg__GLIBC_2.2.5
+                                                                       ; [0x207098:8]=0
+0x000015d9      e954ffffff     jmp 0x1532
+0x000015de      c644240f01     mov byte [rsp + 0xf], 1
+0x000015e3      e94affffff     jmp 0x1532
+0x000015e8      31ff           xor edi, edi
+0x000015ea      e8d1020000     call sym.usage
+0x000015ef      4d85ff         test r15, r15
+0x000015f2      0f851f010000   jne 0x1717
+0x000015f8      4c8b3d995a20.  mov r15, qword [obj.optarg]             ; obj.optarg__GLIBC_2.2.5
+                                                                       ; [0x207098:8]=0
+0x000015ff      e92effffff     jmp 0x1532
+0x00001604      4d85f6         test r14, r14
+0x00001607      0f852e010000   jne 0x173b
+0x0000160d      4c8b35845a20.  mov r14, qword [obj.optarg]             ; obj.optarg__GLIBC_2.2.5
+                                                                       ; [0x207098:8]=0
+0x00001614      e919ffffff     jmp 0x1532
+0x00001619      48833c2400     cmp qword [rsp], 0
+0x0000161e      0f853b010000   jne 0x175f
+0x00001624      488b056d5a20.  mov rax, qword [obj.optarg]             ; obj.optarg__GLIBC_2.2.5
+                                                                       ; [0x207098:8]=0
+0x0000162b      48890424       mov qword [rsp], rax
+0x0000162f      e9fefeffff     jmp 0x1532
+0x00001634      8b05565a2000   mov eax, dword [obj.optind]             ; obj.optind__GLIBC_2.2.5
+                                                                       ; [0x207090:4]=0
+0x0000163a      39e8           cmp eax, ebp
+0x0000163c      7455           je 0x1693
+0x0000163e      4d85ed         test r13, r13
+0x00001641      7522           jne 0x1665
+0x00001643      4d85f6         test r14, r14
+0x00001646      751d           jne 0x1665
+0x00001648      4d85ff         test r15, r15
+0x0000164b      0f94c1         sete cl
+0x0000164e      48833c2400     cmp qword [rsp], 0
+0x00001653      0f94c2         sete dl
+0x00001656      84d1           test cl, dl
+0x00001658      740b           je 0x1665
+0x0000165a      807c240f00     cmp byte [rsp + 0xf], 0
+0x0000165f      0f841e010000   je 0x1783
+0x00001665      392d255a2000   cmp dword [obj.optind], ebp             ; obj.optind__GLIBC_2.2.5
+                                                                       ; [0x207090:4]=0
+0x0000166b      7c58           jl 0x16c5
+0x0000166d      488d354b3100.  lea rsi, str.no_command_specified       ; 0x47bf ; "no command specified"
+0x00001674      ba05000000     mov edx, 5
+0x00001679      31ff           xor edi, edi
+0x0000167b      e840fcffff     call sym.imp.dcgettext
+0x00001680      31f6           xor esi, esi
+0x00001682      4889c2         mov rdx, rax
+0x00001685      31ff           xor edi, edi
+0x00001687      31c0           xor eax, eax
+0x00001689      e882fdffff     call sym.imp.error
+0x0000168e      e92cffffff     jmp 0x15bf
+0x00001693      e8b8fbffff     call sym.imp.__errno_location
+0x00001698      488d35023100.  lea rsi, str.failed_to_get_current_context ; 0x47a1 ; "failed to get current context"
+0x0000169f      4889c3         mov rbx, rax
+0x000016a2      ba05000000     mov edx, 5
+0x000016a7      31ff           xor edi, edi
+0x000016a9      c7005f000000   mov dword [rax], 0x5f                   ; '_'
+                                                                       ; [0x5f:4]=0x1f800
+0x000016af      e80cfcffff     call sym.imp.dcgettext
+0x000016b4      8b33           mov esi, dword [rbx]
+0x000016b6      4889c2         mov rdx, rax
+0x000016b9      bf01000000     mov edi, 1
+0x000016be      31c0           xor eax, eax
+0x000016c0      e84bfdffff     call sym.imp.error
+0x000016c5      488b1d145a20.  mov rbx, qword [obj.program_name]       ; [0x2070e0:8]=0
+0x000016cc      488d35e53400.  lea rsi, str.s_may_be_used_only_on_a_SELinux_kernel ; 0x4bb8 ; "%s may be used only on a SELinux kernel"
+0x000016d3      ba05000000     mov edx, 5
+0x000016d8      31ff           xor edi, edi
+0x000016da      e8e1fbffff     call sym.imp.dcgettext
+0x000016df      4889d9         mov rcx, rbx
+0x000016e2      4889c2         mov rdx, rax
+0x000016e5      31f6           xor esi, esi
+0x000016e7      bf01000000     mov edi, 1
+0x000016ec      31c0           xor eax, eax
+0x000016ee      e81dfdffff     call sym.imp.error
+0x000016f3      488d35753000.  lea rsi, str.multiple_users             ; 0x476f ; "multiple users"
+0x000016fa      ba05000000     mov edx, 5
+0x000016ff      31ff           xor edi, edi
+0x00001701      e8bafbffff     call sym.imp.dcgettext
+0x00001706      31f6           xor esi, esi
+0x00001708      4889c2         mov rdx, rax
+0x0000170b      bf01000000     mov edi, 1
+0x00001710      31c0           xor eax, eax
+0x00001712      e8f9fcffff     call sym.imp.error
+0x00001717      488d35423000.  lea rsi, str.multiple_types             ; 0x4760 ; "multiple types"
+0x0000171e      ba05000000     mov edx, 5
+0x00001723      31ff           xor edi, edi
+0x00001725      e896fbffff     call sym.imp.dcgettext
+0x0000172a      31f6           xor esi, esi
+0x0000172c      4889c2         mov rdx, rax
+0x0000172f      bf01000000     mov edi, 1
+0x00001734      31c0           xor eax, eax
+0x00001736      e8d5fcffff     call sym.imp.error
+0x0000173b      488d350f3000.  lea rsi, str.multiple_roles             ; 0x4751 ; "multiple roles"
+0x00001742      ba05000000     mov edx, 5
+0x00001747      31ff           xor edi, edi
+0x00001749      e872fbffff     call sym.imp.dcgettext
+0x0000174e      31f6           xor esi, esi
+0x00001750      4889c2         mov rdx, rax
+0x00001753      bf01000000     mov edi, 1
+0x00001758      31c0           xor eax, eax
+0x0000175a      e8b1fcffff     call sym.imp.error
+0x0000175f      488d35183000.  lea rsi, str.multiple_levelranges       ; 0x477e ; "multiple levelranges"
+0x00001766      ba05000000     mov edx, 5
+0x0000176b      31ff           xor edi, edi
+0x0000176d      e84efbffff     call sym.imp.dcgettext
+0x00001772      31f6           xor esi, esi
+0x00001774      4889c2         mov rdx, rax
+0x00001777      bf01000000     mov edi, 1
+0x0000177c      31c0           xor eax, eax
+0x0000177e      e88dfcffff     call sym.imp.error
+0x00001783      39e8           cmp eax, ebp
+0x00001785      7d0e           jge 0x1795
+0x00001787      83c001         add eax, 1
+0x0000178a      890500592000   mov dword [obj.optind], eax             ; obj.optind__GLIBC_2.2.5
+                                                                       ; [0x207090:4]=0
+0x00001790      e9d0feffff     jmp 0x1665
+0x00001795      ba05000000     mov edx, 5
+0x0000179a      488d35e73300.  lea rsi, str.you_must_specify__c___t___u___l___r__or_context ; 0x4b88 ; "you must specify -c, -t, -u, -l, -r, or context"
+0x000017a1      e9d3feffff     jmp 0x1679
+0x000017a6      662e0f1f8400.  nop word cs:[rax + rax]
+;-- entry0:
+;-- _start:
+;-- rip:
+0x000017b0      31ed           xor ebp, ebp
+0x000017b2      4989d1         mov r9, rdx
+0x000017b5      5e             pop rsi
+0x000017b6      4889e2         mov rdx, rsp
+0x000017b9      4883e4f0       and rsp, 0xfffffffffffffff0
+0x000017bd      50             push rax
+0x000017be      54             push rsp
+0x000017bf      4c8d057a2e00.  lea r8, sym.__libc_csu_fini             ; 0x4640
+0x000017c6      488d0d032e00.  lea rcx, sym.__libc_csu_init            ; 0x45d0 ; "AWAVI\x89\xd7AUATL\x8d%N% "
+0x000017cd      488d3ddcfcff.  lea rdi, main                           ; sym.main
+                                                                       ; 0x14b0 ; "AWAVE1\xffAUATE1\xedUS\x89\xfdH\x89\xf3E1\xf6H\x83\xec(H\x8b>dH\x8b\x04%("
+0x000017d4      ff1506582000   call qword [reloc.__libc_start_main]    ; [0x206fe0:8]=0
+0x000017da      f4             hlt
+0x000017db      0f1f440000     nop dword [rax + rax]
+;-- deregister_tm_clones:
+0x000017e0      488d3d995820.  lea rdi, obj.__progname                 ; obj.program_invocation_short_name__GLIBC_2.2.5
+                                                                       ; 0x207080
+0x000017e7      55             push rbp
+0x000017e8      488d05915820.  lea rax, obj.__progname                 ; obj.program_invocation_short_name__GLIBC_2.2.5
+                                                                       ; 0x207080
+0x000017ef      4839f8         cmp rax, rdi
+0x000017f2      4889e5         mov rbp, rsp
+0x000017f5      7419           je 0x1810
+0x000017f7      488b05da5720.  mov rax, qword [reloc._ITM_deregisterTMCloneTable] ; [0x206fd8:8]=0
+0x000017fe      4885c0         test rax, rax
+0x00001801      740d           je 0x1810
+0x00001803      5d             pop rbp
+0x00001804      ffe0           jmp rax
+0x00001806      662e0f1f8400.  nop word cs:[rax + rax]
+0x00001810      5d             pop rbp
+0x00001811      c3             ret
+0x00001812      0f1f4000       nop dword [rax]
+0x00001816      662e0f1f8400.  nop word cs:[rax + rax]
+;-- register_tm_clones:
+0x00001820      488d3d595820.  lea rdi, obj.__progname                 ; obj.program_invocation_short_name__GLIBC_2.2.5
+                                                                       ; 0x207080
+0x00001827      488d35525820.  lea rsi, obj.__progname                 ; obj.program_invocation_short_name__GLIBC_2.2.5
+                                                                       ; 0x207080
+0x0000182e      55             push rbp
+0x0000182f      4829fe         sub rsi, rdi
+0x00001832      4889e5         mov rbp, rsp
+0x00001835      48c1fe03       sar rsi, 3
+0x00001839      4889f0         mov rax, rsi
+0x0000183c      48c1e83f       shr rax, 0x3f
+0x00001840      4801c6         add rsi, rax
+0x00001843      48d1fe         sar rsi, 1
+0x00001846      7418           je 0x1860
+0x00001848      488b05a15720.  mov rax, qword [reloc._ITM_registerTMCloneTable] ; [0x206ff0:8]=0
+0x0000184f      4885c0         test rax, rax
+0x00001852      740c           je 0x1860
+0x00001854      5d             pop rbp
+0x00001855      ffe0           jmp rax
+0x00001857      660f1f840000.  nop word [rax + rax]
+0x00001860      5d             pop rbp
+0x00001861      c3             ret
+0x00001862      0f1f4000       nop dword [rax]
+0x00001866      662e0f1f8400.  nop word cs:[rax + rax]
+;-- entry.fini0:
+;-- __do_global_dtors_aux:
+0x00001870      803d51582000.  cmp byte [obj.completed.7697], 0        ; [0x2070c8:1]=0
+0x00001877      752f           jne 0x18a8
+0x00001879      48833d775720.  cmp qword [reloc.__cxa_finalize], 0     ; [0x206ff8:8]=0
+0x00001881      55             push rbp
+0x00001882      4889e5         mov rbp, rsp
+0x00001885      740c           je 0x1893
+0x00001887      488b3d7a5720.  mov rdi, qword [obj.__dso_handle]       ; [0x207008:8]=0x207008 obj.__dso_handle
+0x0000188e      e80dfcffff     call sym..plt.got
+0x00001893      e848ffffff     call sym.deregister_tm_clones
+0x00001898      c60529582000.  mov byte [obj.completed.7697], 1        ; [0x2070c8:1]=0
+0x0000189f      5d             pop rbp
+0x000018a0      c3             ret
+0x000018a1      0f1f80000000.  nop dword [rax]
+0x000018a8      f3c3           ret
+0x000018aa      660f1f440000   nop word [rax + rax]
+;-- entry.init0:
+;-- frame_dummy:
+0x000018b0      55             push rbp
+0x000018b1      4889e5         mov rbp, rsp
+0x000018b4      5d             pop rbp
+0x000018b5      e966ffffff     jmp sym.register_tm_clones
+0x000018ba      660f1f440000   nop word [rax + rax]
+;-- usage:
+0x000018c0      4155           push r13
+0x000018c2      4154           push r12
+0x000018c4      ba05000000     mov edx, 5
+0x000018c9      55             push rbp
+0x000018ca      53             push rbx
+0x000018cb      89fd           mov ebp, edi
+0x000018cd      4881ec880000.  sub rsp, 0x88
+0x000018d4      488b1d055820.  mov rbx, qword [obj.program_name]       ; [0x2070e0:8]=0
+0x000018db      64488b042528.  mov rax, qword fs:[0x28]
+0x000018e4      4889442478     mov qword [rsp + 0x78], rax
+0x000018e9      31c0           xor eax, eax
+0x000018eb      85ff           test edi, edi
+0x000018ed      742e           je 0x191d
+0x000018ef      488d350a2f00.  lea rsi, str.Try___s___help__for_more_information. ; 0x4800 ; "Try '%s --help' for more information.\n"
+0x000018f6      31ff           xor edi, edi
+0x000018f8      e8c3f9ffff     call sym.imp.dcgettext
+0x000018fd      488b3dbc5720.  mov rdi, qword [obj.stderr]             ; obj.stderr__GLIBC_2.2.5
+                                                                       ; [0x2070c0:8]=0
+0x00001904      4889c2         mov rdx, rax
+0x00001907      4889d9         mov rcx, rbx
+0x0000190a      be01000000     mov esi, 1
+0x0000190f      31c0           xor eax, eax
+0x00001911      e84afbffff     call sym.imp.__fprintf_chk
+0x00001916      89ef           mov edi, ebp
+0x00001918      e823fbffff     call sym.imp.exit
+0x0000191d      488d35042f00.  lea rsi, str.Usage:__s_CONTEXT_COMMAND__args_____or:___s____c_____u_USER____r_ROLE____t_TYPE____l_RANGE__COMMAND__args ; 0x4828 ; "Usage: %s CONTEXT COMMAND [args]\n  or:  %s [ -c ] [-u USER] [-r ROLE] [-t TYPE] [-l RANGE] COMMAND [args]\n"
+0x00001924      31ff           xor edi, edi
+0x00001926      e895f9ffff     call sym.imp.dcgettext
+0x0000192b      4889d9         mov rcx, rbx
+0x0000192e      4889da         mov rdx, rbx
+0x00001931      4889c6         mov rsi, rax
+0x00001934      bf01000000     mov edi, 1
+0x00001939      31c0           xor eax, eax
+0x0000193b      e8c0faffff     call sym.imp.__printf_chk
+0x00001940      488b1d415720.  mov rbx, qword [obj.stdout]             ; obj.stdout__GLIBC_2.2.5
+                                                                       ; [0x207088:8]=0
+0x00001947      488d354a2f00.  lea rsi, str.Run_a_program_in_a_different_SELinux_security_context.__With_neither_CONTEXT_nor_COMMAND__print_the_current_security_context. ; 0x4898 ; "Run a program in a different SELinux security context.\nWith neither CONTEXT nor COMMAND, print the current security context.\n"
+0x0000194e      ba05000000     mov edx, 5
+0x00001953      31ff           xor edi, edi
+0x00001955      e866f9ffff     call sym.imp.dcgettext
+0x0000195a      4889de         mov rsi, rbx
+0x0000195d      4889c7         mov rdi, rax
+0x00001960      e8fbf9ffff     call sym.imp.fputs_unlocked
+0x00001965      488b1d1c5720.  mov rbx, qword [obj.stdout]             ; obj.stdout__GLIBC_2.2.5
+                                                                       ; [0x207088:8]=0
+0x0000196c      488d35a52f00.  lea rsi, str.Mandatory_arguments_to_long_options_are_mandatory_for_short_options_too. ; 0x4918 ; "\nMandatory arguments to long options are mandatory for short options too.\n"
+0x00001973      ba05000000     mov edx, 5
+0x00001978      31ff           xor edi, edi
+0x0000197a      e841f9ffff     call sym.imp.dcgettext
+0x0000197f      4889de         mov rsi, rbx
+0x00001982      4889c7         mov rdi, rax
+0x00001985      e8d6f9ffff     call sym.imp.fputs_unlocked
+0x0000198a      488b1df75620.  mov rbx, qword [obj.stdout]             ; obj.stdout__GLIBC_2.2.5
+                                                                       ; [0x207088:8]=0
+0x00001991      488d35d02f00.  lea rsi, str.CONTEXT____________Complete_security_context_____c____compute______compute_process_transition_context_before_modifying_____t____type_TYPE____type__for_same_role_as_parent______u____user_USER____user_identity_____r____role_ROLE____role_____l____range_RANGE__levelrange ; 0x4968 ; "  CONTEXT            Complete security context\n  -c, --compute      compute process transition context before modifying\n  -t, --type=TYPE    type (for same role as parent)\n  -u, --user=USER    user identity\n  -r, --role=ROLE    role\n  -l, --range=RANGE  levelrange\n\n"
+0x00001998      ba05000000     mov edx, 5
+0x0000199d      31ff           xor edi, edi
+0x0000199f      e81cf9ffff     call sym.imp.dcgettext
+0x000019a4      4889de         mov rsi, rbx
+0x000019a7      4889c7         mov rdi, rax
+0x000019aa      e8b1f9ffff     call sym.imp.fputs_unlocked
+0x000019af      488b1dd25620.  mov rbx, qword [obj.stdout]             ; obj.stdout__GLIBC_2.2.5
+                                                                       ; [0x207088:8]=0
+0x000019b6      488d35bb3000.  lea rsi, str.help_____display_this_help_and_exit ; 0x4a78 ; "      --help     display this help and exit\n"
+0x000019bd      ba05000000     mov edx, 5
+0x000019c2      31ff           xor edi, edi
+0x000019c4      e8f7f8ffff     call sym.imp.dcgettext
+0x000019c9      4889de         mov rsi, rbx
+0x000019cc      4889c7         mov rdi, rax
+0x000019cf      e88cf9ffff     call sym.imp.fputs_unlocked
+0x000019d4      488b1dad5620.  mov rbx, qword [obj.stdout]             ; obj.stdout__GLIBC_2.2.5
+                                                                       ; [0x207088:8]=0
+0x000019db      488d35c63000.  lea rsi, str.version__output_version_information_and_exit ; 0x4aa8 ; "      --version  output version information and exit\n"
+0x000019e2      ba05000000     mov edx, 5
+0x000019e7      31ff           xor edi, edi
+0x000019e9      e8d2f8ffff     call sym.imp.dcgettext
+0x000019ee      4889de         mov rsi, rbx
+0x000019f1      4889c7         mov rdi, rax
+0x000019f4      488d1d892c00.  lea rbx, str.runcon                     ; 0x4684 ; "runcon"
+0x000019fb      e860f9ffff     call sym.imp.fputs_unlocked
+0x00001a00      488d05842c00.  lea rax, [0x0000468b]                   ; "["
+0x00001a07      488d0dbe2c00.  lea rcx, str.sha256sum                  ; 0x46cc ; "sha256sum"
+0x00001a0e      48c744246000.  mov qword [rsp + 0x60], 0
+0x00001a17      48c744246800.  mov qword [rsp + 0x68], 0
+0x00001a20      4889e2         mov rdx, rsp
+0x00001a23      48890424       mov qword [rsp], rax
+0x00001a27      488d055f2c00.  lea rax, str.test_invocation            ; 0x468d ; "test invocation"
+0x00001a2e      48894c2430     mov qword [rsp + 0x30], rcx
+0x00001a33      488d0d9c2c00.  lea rcx, str.sha384sum                  ; 0x46d6 ; "sha384sum"
+0x00001a3a      4889442408     mov qword [rsp + 8], rax
+0x00001a3f      488d05bf2c00.  lea rax, [0x00004705]                   ; "coreutils"
+0x00001a46      48894c2440     mov qword [rsp + 0x40], rcx
+0x00001a4b      488d0d8e2c00.  lea rcx, str.sha512sum                  ; 0x46e0 ; "sha512sum"
+0x00001a52      4889442410     mov qword [rsp + 0x10], rax
+0x00001a57      488d053f2c00.  lea rax, str.Multi_call_invocation      ; 0x469d ; "Multi-call invocation"
+0x00001a5e      48894c2450     mov qword [rsp + 0x50], rcx
+0x00001a63      4889442418     mov qword [rsp + 0x18], rax
+0x00001a68      488d05442c00.  lea rax, str.sha224sum                  ; 0x46b3 ; "sha224sum"
+0x00001a6f      4889442420     mov qword [rsp + 0x20], rax
+0x00001a74      488d05422c00.  lea rax, str.sha2_utilities             ; 0x46bd ; "sha2 utilities"
+0x00001a7b      4889442428     mov qword [rsp + 0x28], rax
+0x00001a80      4889442438     mov qword [rsp + 0x38], rax
+0x00001a85      4889442448     mov qword [rsp + 0x48], rax
+0x00001a8a      4889442458     mov qword [rsp + 0x58], rax
+0x00001a8f      90             nop
+0x00001a90      4883c210       add rdx, 0x10
+0x00001a94      488b3a         mov rdi, qword [rdx]
+0x00001a97      4885ff         test rdi, rdi
+0x00001a9a      7413           je 0x1aaf
+0x00001a9c      b907000000     mov ecx, 7
+0x00001aa1      4889de         mov rsi, rbx
+0x00001aa4      f3a6           repe cmpsb byte [rsi], byte ptr [rdi]
+0x00001aa6      0f97c0         seta al
+0x00001aa9      1c00           sbb al, 0
+0x00001aab      84c0           test al, al
+0x00001aad      75e1           jne 0x1a90
+0x00001aaf      4c8b6208       mov r12, qword [rdx + 8]
+0x00001ab3      31ff           xor edi, edi
+0x00001ab5      ba05000000     mov edx, 5
+0x00001aba      488d35292c00.  lea rsi, str.s_online_help:___s         ; 0x46ea ; "\n%s online help: <%s>\n"
+0x00001ac1      4d85e4         test r12, r12
+0x00001ac4      0f84c1000000   je 0x1b8b
+0x00001aca      e8f1f7ffff     call sym.imp.dcgettext
+0x00001acf      488d0d0a3000.  lea rcx, str.https:__www.gnu.org_software_coreutils ; 0x4ae0 ; "https://www.gnu.org/software/coreutils/"
+0x00001ad6      488d15242c00.  lea rdx, str.GNU_coreutils              ; 0x4701 ; "GNU coreutils"
+0x00001add      4889c6         mov rsi, rax
+0x00001ae0      bf01000000     mov edi, 1
+0x00001ae5      31c0           xor eax, eax
+0x00001ae7      e814f9ffff     call sym.imp.__printf_chk
+0x00001aec      31f6           xor esi, esi
+0x00001aee      bf05000000     mov edi, 5
+0x00001af3      e8f8f8ffff     call sym.imp.setlocale
+0x00001af8      4885c0         test rax, rax
+0x00001afb      741c           je 0x1b19
+0x00001afd      488d350b2c00.  lea rsi, [0x0000470f]                   ; "en_"
+0x00001b04      ba03000000     mov edx, 3
+0x00001b09      4889c7         mov rdi, rax
+0x00001b0c      e84ff7ffff     call sym.imp.strncmp
+0x00001b11      85c0           test eax, eax
+0x00001b13      0f8507010000   jne 0x1c20
+0x00001b19      488d35f32b00.  lea rsi, str.Full_documentation___s_s   ; 0x4713 ; "Full documentation <%s%s>\n"
+0x00001b20      31ff           xor edi, edi
+0x00001b22      ba05000000     mov edx, 5
+0x00001b27      e894f7ffff     call sym.imp.dcgettext
+0x00001b2c      488d0d512b00.  lea rcx, str.runcon                     ; 0x4684 ; "runcon"
+0x00001b33      488d15a62f00.  lea rdx, str.https:__www.gnu.org_software_coreutils ; 0x4ae0 ; "https://www.gnu.org/software/coreutils/"
+0x00001b3a      4889c6         mov rsi, rax
+0x00001b3d      bf01000000     mov edi, 1
+0x00001b42      31c0           xor eax, eax
+0x00001b44      e8b7f8ffff     call sym.imp.__printf_chk
+0x00001b49      4939dc         cmp r12, rbx
+0x00001b4c      488d0d542b00.  lea rcx, [0x000046a7]                   ; " invocation"
+0x00001b53      488d1d073600.  lea rbx, [0x00005161]
+0x00001b5a      480f44d9       cmove rbx, rcx
+0x00001b5e      488d35eb2f00.  lea rsi, str.or_available_locally_via:_info___coreutils___s_s ; 0x4b50 ; "or available locally via: info '(coreutils) %s%s'\n"
+0x00001b65      31ff           xor edi, edi
+0x00001b67      ba05000000     mov edx, 5
+0x00001b6c      e84ff7ffff     call sym.imp.dcgettext
+0x00001b71      4889d9         mov rcx, rbx
+0x00001b74      4889c6         mov rsi, rax
+0x00001b77      4c89e2         mov rdx, r12
+0x00001b7a      bf01000000     mov edi, 1
+0x00001b7f      31c0           xor eax, eax
+0x00001b81      e87af8ffff     call sym.imp.__printf_chk
+0x00001b86      e98bfdffff     jmp 0x1916
+0x00001b8b      e830f7ffff     call sym.imp.dcgettext
+0x00001b90      488d0d492f00.  lea rcx, str.https:__www.gnu.org_software_coreutils ; 0x4ae0 ; "https://www.gnu.org/software/coreutils/"
+0x00001b97      488d15632b00.  lea rdx, str.GNU_coreutils              ; 0x4701 ; "GNU coreutils"
+0x00001b9e      4889c6         mov rsi, rax
+0x00001ba1      bf01000000     mov edi, 1
+0x00001ba6      31c0           xor eax, eax
+0x00001ba8      e853f8ffff     call sym.imp.__printf_chk
+0x00001bad      31f6           xor esi, esi
+0x00001baf      bf05000000     mov edi, 5
+0x00001bb4      e837f8ffff     call sym.imp.setlocale
+0x00001bb9      4885c0         test rax, rax
+0x00001bbc      7418           je 0x1bd6
+0x00001bbe      488d354a2b00.  lea rsi, [0x0000470f]                   ; "en_"
+0x00001bc5      ba03000000     mov edx, 3
+0x00001bca      4889c7         mov rdi, rax
+0x00001bcd      e88ef6ffff     call sym.imp.strncmp
+0x00001bd2      85c0           test eax, eax
+0x00001bd4      7543           jne 0x1c19
+0x00001bd6      488d35362b00.  lea rsi, str.Full_documentation___s_s   ; 0x4713 ; "Full documentation <%s%s>\n"
+0x00001bdd      ba05000000     mov edx, 5
+0x00001be2      31ff           xor edi, edi
+0x00001be4      4c8d25992a00.  lea r12, str.runcon                     ; 0x4684 ; "runcon"
+0x00001beb      488d1db52a00.  lea rbx, [0x000046a7]                   ; " invocation"
+0x00001bf2      e8c9f6ffff     call sym.imp.dcgettext
+0x00001bf7      488d0d862a00.  lea rcx, str.runcon                     ; 0x4684 ; "runcon"
+0x00001bfe      488d15db2e00.  lea rdx, str.https:__www.gnu.org_software_coreutils ; 0x4ae0 ; "https://www.gnu.org/software/coreutils/"
+0x00001c05      4889c6         mov rsi, rax
+0x00001c08      bf01000000     mov edi, 1
+0x00001c0d      31c0           xor eax, eax
+0x00001c0f      e8ecf7ffff     call sym.imp.__printf_chk
+0x00001c14      e945ffffff     jmp 0x1b5e
+0x00001c19      4c8d25642a00.  lea r12, str.runcon                     ; 0x4684 ; "runcon"
+0x00001c20      4c8b2d615420.  mov r13, qword [obj.stdout]             ; obj.stdout__GLIBC_2.2.5
+                                                                       ; [0x207088:8]=0
+0x00001c27      488d35da2e00.  lea rsi, str.Report_any_translation_bugs_to__https:__translationproject.org_team ; 0x4b08 ; "Report any translation bugs to <https://translationproject.org/team/>\n"
+0x00001c2e      31ff           xor edi, edi
+0x00001c30      ba05000000     mov edx, 5
+0x00001c35      e886f6ffff     call sym.imp.dcgettext
+0x00001c3a      4c89ee         mov rsi, r13
+0x00001c3d      4889c7         mov rdi, rax
+0x00001c40      e81bf7ffff     call sym.imp.fputs_unlocked
+0x00001c45      e9cffeffff     jmp 0x1b19
+0x00001c4a      660f1f440000   nop word [rax + rax]
+;-- close_stdout_set_file_name:
+0x00001c50      48893d815420.  mov qword [obj.file_name], rdi          ; ../coreutils-8.31/lib/closeout.c:52 ; [0x2070d8:8]=0
+0x00001c57      c3             ret                                     ; ../coreutils-8.31/lib/closeout.c:54
+0x00001c58      0f1f84000000.  nop dword [rax + rax]
+;-- close_stdout_set_ignore_EPIPE:
+0x00001c60      40883d695420.  mov byte [obj.ignore_EPIPE], dil        ; ../coreutils-8.31/lib/closeout.c:89 ; [0x2070d0:1]=0
+0x00001c67      c3             ret                                     ; ../coreutils-8.31/lib/closeout.c:91
+0x00001c68      0f1f84000000.  nop dword [rax + rax]
+;-- close_stdout:
+0x00001c70      55             push rbp                                ; ../coreutils-8.31/lib/closeout.c:118
+0x00001c71      53             push rbx
+0x00001c72      4883ec08       sub rsp, 8
+0x00001c76      488b3d0b5420.  mov rdi, qword [obj.stdout]             ; ../coreutils-8.31/lib/closeout.c:119 ; obj.stdout__GLIBC_2.2.5
+                                                                       ; [0x207088:8]=0
+0x00001c7d      e80e270000     call sym.close_stream
+0x00001c82      85c0           test eax, eax
+0x00001c84      7416           je 0x1c9c
+0x00001c86      e8c5f5ffff     call sym.imp.__errno_location
+0x00001c8b      803d3e542000.  cmp byte [obj.ignore_EPIPE], 0          ; ../coreutils-8.31/lib/closeout.c:120 ; [0x2070d0:1]=0
+0x00001c92      4889c3         mov rbx, rax
+0x00001c95      741c           je 0x1cb3
+0x00001c97      833820         cmp dword [rax], 0x20
+0x00001c9a      7517           jne 0x1cb3
+0x00001c9c      488b3d1d5420.  mov rdi, qword [obj.stderr]             ; ../coreutils-8.31/lib/closeout.c:134 ; obj.stderr__GLIBC_2.2.5
+                                                                       ; [0x2070c0:8]=0
+0x00001ca3      e8e8260000     call sym.close_stream
+0x00001ca8      85c0           test eax, eax
+0x00001caa      7546           jne 0x1cf2
+0x00001cac      4883c408       add rsp, 8                              ; ../coreutils-8.31/lib/closeout.c:136
+0x00001cb0      5b             pop rbx
+0x00001cb1      5d             pop rbp
+0x00001cb2      c3             ret
+0x00001cb3      488d352b2f00.  lea rsi, str.write_error                ; ../coreutils-8.31/lib/closeout.c:122 ; 0x4be5 ; "write error"
+0x00001cba      31ff           xor edi, edi
+0x00001cbc      ba05000000     mov edx, 5
+0x00001cc1      e8faf5ffff     call sym.imp.dcgettext
+0x00001cc6      488b3d0b5420.  mov rdi, qword [obj.file_name]          ; ../coreutils-8.31/lib/closeout.c:123 ; [0x2070d8:8]=0
+0x00001ccd      4889c5         mov rbp, rax                            ; ../coreutils-8.31/lib/closeout.c:122
+0x00001cd0      4885ff         test rdi, rdi                           ; ../coreutils-8.31/lib/closeout.c:123
+0x00001cd3      7428           je 0x1cfd
+0x00001cd5      e8561b0000     call sym.quotearg_colon                 ; ../coreutils-8.31/lib/closeout.c:124
+0x00001cda      8b33           mov esi, dword [rbx]
+0x00001cdc      488d150e2f00.  lea rdx, str.s:__s                      ; 0x4bf1 ; "%s: %s"
+0x00001ce3      4889c1         mov rcx, rax
+0x00001ce6      4989e8         mov r8, rbp
+0x00001ce9      31ff           xor edi, edi
+0x00001ceb      31c0           xor eax, eax
+0x00001ced      e81ef7ffff     call sym.imp.error
+0x00001cf2      8b3d20532000   mov edi, dword [obj.exit_failure]       ; ../coreutils-8.31/lib/closeout.c:135 ; [0x207018:4]=1
+0x00001cf8      e873f5ffff     call sym.imp._exit
+0x00001cfd      8b33           mov esi, dword [rbx]                    ; ../coreutils-8.31/lib/closeout.c:127
+0x00001cff      488d15ef2e00.  lea rdx, [0x00004bf5]                   ; "%s"
+0x00001d06      4889c1         mov rcx, rax
+0x00001d09      31ff           xor edi, edi
+0x00001d0b      31c0           xor eax, eax
+0x00001d0d      e8fef6ffff     call sym.imp.error
+0x00001d12      ebde           jmp 0x1cf2
+0x00001d14      662e0f1f8400.  nop word cs:[rax + rax]
+0x00001d1e      6690           nop
+;-- set_program_name:
+0x00001d20      4885ff         test rdi, rdi                           ; ../coreutils-8.31/lib/progname.c:40
+0x00001d23      53             push rbx
+0x00001d24      7477           je 0x1d9d                               ; ../coreutils-8.31/lib/progname.c:51
+0x00001d26      be2f000000     mov esi, 0x2f                           ; ../coreutils-8.31/lib/progname.c:59 ; '/'
+0x00001d2b      4889fb         mov rbx, rdi
+0x00001d2e      e8edf5ffff     call sym.imp.strrchr
+0x00001d33      4885c0         test rax, rax                           ; ../coreutils-8.31/lib/progname.c:60
+0x00001d36      7455           je 0x1d8d
+0x00001d38      4c8d4001       lea r8, [rax + 1]
+0x00001d3c      4c89c2         mov rdx, r8                             ; ../coreutils-8.31/lib/progname.c:61
+0x00001d3f      4829da         sub rdx, rbx
+0x00001d42      4883fa06       cmp rdx, 6
+0x00001d46      7e45           jle 0x1d8d
+0x00001d48      488d70fa       lea rsi, [rax - 6]
+0x00001d4c      488d3ddd2e00.  lea rdi, str..libs                      ; 0x4c30 ; "/.libs/"
+0x00001d53      b907000000     mov ecx, 7
+0x00001d58      f3a6           repe cmpsb byte [rsi], byte ptr [rdi]
+0x00001d5a      0f97c2         seta dl
+0x00001d5d      80da00         sbb dl, 0
+0x00001d60      84d2           test dl, dl
+0x00001d62      7529           jne 0x1d8d
+0x00001d64      488d3dcd2e00.  lea rdi, [0x00004c38]                   ; ../coreutils-8.31/lib/progname.c:64 ; "lt-"
+0x00001d6b      b903000000     mov ecx, 3
+0x00001d70      4c89c6         mov rsi, r8
+0x00001d73      4c89c3         mov rbx, r8
+0x00001d76      f3a6           repe cmpsb byte [rsi], byte ptr [rdi]
+0x00001d78      0f97c2         seta dl
+0x00001d7b      80da00         sbb dl, 0
+0x00001d7e      84d2           test dl, dl
+0x00001d80      750b           jne 0x1d8d
+0x00001d82      488d5804       lea rbx, [rax + 4]                      ; ../coreutils-8.31/lib/progname.c:66
+0x00001d86      48891df35220.  mov qword [obj.__progname], rbx         ; ../coreutils-8.31/lib/progname.c:70 ; obj.program_invocation_short_name__GLIBC_2.2.5
+                                                                       ; [0x207080:8]=0
+0x00001d8d      48891d4c5320.  mov qword [obj.program_name], rbx       ; ../coreutils-8.31/lib/progname.c:84 ; [0x2070e0:8]=0
+0x00001d94      48891d055320.  mov qword [obj.program_invocation_name], rbx ; ../coreutils-8.31/lib/progname.c:90 ; obj.__progname_full__GLIBC_2.2.5
+                                                                       ; [0x2070a0:8]=0
+0x00001d9b      5b             pop rbx                                 ; ../coreutils-8.31/lib/progname.c:92
+0x00001d9c      c3             ret
+0x00001d9d      488b0d1c5320.  mov rcx, qword [obj.stderr]             ; ../coreutils-8.31/lib/progname.c:54 ; obj.stderr__GLIBC_2.2.5
+                                                                       ; [0x2070c0:8]=0
+0x00001da4      488d3d4d2e00.  lea rdi, str.A_NULL_argv_0__was_passed_through_an_exec_system_call. ; 0x4bf8 ; "A NULL argv[0] was passed through an exec system call.\n"
+0x00001dab      ba37000000     mov edx, 0x37                           ; '7'
+0x00001db0      be01000000     mov esi, 1
+0x00001db5      e896f6ffff     call sym.imp.fwrite
+0x00001dba      e881f4ffff     call sym.imp.abort                      ; ../coreutils-8.31/lib/progname.c:56
+0x00001dbf      90             nop
+;-- gettext_quote.part.1:
+0x00001dc0      55             push rbp                                ; ../coreutils-8.31/lib/quotearg.c:207
+0x00001dc1      53             push rbx
+0x00001dc2      4889fd         mov rbp, rdi
+0x00001dc5      89f3           mov ebx, esi
+0x00001dc7      4883ec08       sub rsp, 8
+0x00001dcb      e8a0260000     call sym.locale_charset                 ; ../coreutils-8.31/lib/quotearg.c:233
+0x00001dd0      0fb610         movzx edx, byte [rax]                   ; ../coreutils-8.31/lib/c-strcaseeq.h:162
+0x00001dd3      83e2df         and edx, 0xffffffdf                     ; 4294967263
+0x00001dd6      80fa55         cmp dl, 0x55
+0x00001dd9      7475           je 0x1e50
+0x00001ddb      80fa47         cmp dl, 0x47                            ; ../coreutils-8.31/lib/c-strcaseeq.h:19
+0x00001dde      7420           je 0x1e00
+0x00001de0      488d05642e00.  lea rax, str.l______l                   ; 0x4c4b ; u"\"'`\u696c\u6574\u6172l\u6873\u6c65l\u6873\u6c65\u2d6c\u6c61\u6177\u7379\u7300\u6568\u6c6c\u652d\u6373\u7061e\u6873\u6c65\u2d6c\u7365\u6163\u6570\u612d\u776c\u7961s\u2d63\u616d\u6279e\u6c63\u636f\u6c61e"
+0x00001de7      488d155f2e00.  lea rdx, [0x00004c4d]                   ; ../coreutils-8.31/lib/c-strcaseeq.h:5 ; u"'`\u696c\u6574\u6172l\u6873\u6c65l\u6873\u6c65\u2d6c\u6c61\u6177\u7379\u7300\u6568\u6c6c\u652d\u6373\u7061e\u6873\u6c65\u2d6c\u7365\u6163\u6570\u612d\u776c\u7961s\u2d63\u616d\u6279e\u6c63\u636f\u6c61e"
+0x00001dee      83fb09         cmp ebx, 9
+0x00001df1      480f45c2       cmovne rax, rdx
+0x00001df5      4883c408       add rsp, 8
+0x00001df9      5b             pop rbx                                 ; ../coreutils-8.31/lib/c-strcaseeq.h:-37
+0x00001dfa      5d             pop rbp
+0x00001dfb      c3             ret
+0x00001dfc      0f1f4000       nop dword [rax]
+0x00001e00      0fb65001       movzx edx, byte [rax + 1]
+0x00001e04      83e2df         and edx, 0xffffffdf                     ; 4294967263
+0x00001e07      80fa42         cmp dl, 0x42
+0x00001e0a      75d4           jne 0x1de0
+0x00001e0c      80780231       cmp byte [rax + 2], 0x31
+0x00001e10      75ce           jne 0x1de0
+0x00001e12      80780338       cmp byte [rax + 3], 0x38
+0x00001e16      75c8           jne 0x1de0
+0x00001e18      80780430       cmp byte [rax + 4], 0x30
+0x00001e1c      75c2           jne 0x1de0
+0x00001e1e      80780533       cmp byte [rax + 5], 0x33
+0x00001e22      75bc           jne 0x1de0
+0x00001e24      80780630       cmp byte [rax + 6], 0x30
+0x00001e28      75b6           jne 0x1de0
+0x00001e2a      80780700       cmp byte [rax + 7], 0
+0x00001e2e      75b0           jne 0x1de0
+0x00001e30      807d0060       cmp byte [rbp], 0x60
+0x00001e34      488d05092e00.  lea rax, [0x00004c44]
+0x00001e3b      488d15062e00.  lea rdx, [0x00004c48]
+0x00001e42      480f45c2       cmovne rax, rdx
+0x00001e46      4883c408       add rsp, 8
+0x00001e4a      5b             pop rbx
+0x00001e4b      5d             pop rbp
+0x00001e4c      c3             ret
+0x00001e4d      0f1f00         nop dword [rax]
+0x00001e50      0fb65001       movzx edx, byte [rax + 1]
+0x00001e54      83e2df         and edx, 0xffffffdf                     ; 4294967263
+0x00001e57      80fa54         cmp dl, 0x54
+0x00001e5a      7584           jne 0x1de0
+0x00001e5c      0fb65002       movzx edx, byte [rax + 2]
+0x00001e60      83e2df         and edx, 0xffffffdf                     ; 4294967263
+0x00001e63      80fa46         cmp dl, 0x46
+0x00001e66      0f8574ffffff   jne 0x1de0
+0x00001e6c      8078032d       cmp byte [rax + 3], 0x2d
+0x00001e70      0f856affffff   jne 0x1de0
+0x00001e76      80780438       cmp byte [rax + 4], 0x38
+0x00001e7a      0f8560ffffff   jne 0x1de0
+0x00001e80      80780500       cmp byte [rax + 5], 0
+0x00001e84      0f8556ffffff   jne 0x1de0
+0x00001e8a      807d0060       cmp byte [rbp], 0x60
+0x00001e8e      488d05a72d00.  lea rax, [0x00004c3c]                   ; "\u2018"
+0x00001e95      488d15a42d00.  lea rdx, [0x00004c40]                   ; "\u2019"
+0x00001e9c      480f45c2       cmovne rax, rdx
+0x00001ea0      4883c408       add rsp, 8
+0x00001ea4      5b             pop rbx                                 ; ../coreutils-8.31/lib/quotearg.c:141
+0x00001ea5      5d             pop rbp
+0x00001ea6      c3             ret
+0x00001ea7      660f1f840000.  nop word [rax + rax]                    ; ../coreutils-8.31/lib/quotearg.c:133
+;-- quotearg_buffer_restyled:
+0x00001eb0      4157           push r15
+0x00001eb2      4156           push r14
+0x00001eb4      4589c7         mov r15d, r8d
+0x00001eb7      4155           push r13
+0x00001eb9      4154           push r12
+0x00001ebb      4989fe         mov r14, rdi
+0x00001ebe      55             push rbp
+0x00001ebf      53             push rbx
+0x00001ec0      4489cb         mov ebx, r9d
+0x00001ec3      4989f5         mov r13, rsi
+0x00001ec6      4889cd         mov rbp, rcx
+0x00001ec9      83e302         and ebx, 2
+0x00001ecc      4881ecb80000.  sub rsp, 0xb8
+0x00001ed3      488b8424f000.  mov rax, qword [rsp + 0xf0]
+0x00001edb      4889542410     mov qword [rsp + 0x10], rdx
+0x00001ee0      4489442408     mov dword [rsp + 8], r8d
+0x00001ee5      44894c2478     mov dword [rsp + 0x78], r9d
+0x00001eea      4889442420     mov qword [rsp + 0x20], rax
+0x00001eef      488b8424f800.  mov rax, qword [rsp + 0xf8]
+0x00001ef7      4889442468     mov qword [rsp + 0x68], rax             ; ../coreutils-8.31/lib/quotearg.c:140
+0x00001efc      488b84240001.  mov rax, qword [rsp + 0x100]            ; ../coreutils-8.31/lib/quotearg.c:187
+0x00001f04      4889442460     mov qword [rsp + 0x60], rax
+0x00001f09      64488b042528.  mov rax, qword fs:[0x28]
+0x00001f12      48898424a800.  mov qword [rsp + 0xa8], rax
+0x00001f1a      31c0           xor eax, eax
+0x00001f1c      e8aff3ffff     call sym.imp.__ctype_get_mb_cur_max
+0x00001f21      4183ff0a       cmp r15d, 0xa
+0x00001f25      4889442458     mov qword [rsp + 0x58], rax
+0x00001f2a      0f87af110000   ja 0x30df
+0x00001f30      488d0d692d00.  lea rcx, [0x00004ca0]
+0x00001f37      4489fa         mov edx, r15d
+0x00001f3a      48630491       movsxd rax, dword [rcx + rdx*4]
+0x00001f3e      4801c8         add rax, rcx
+0x00001f41      ffe0           jmp rax
+0x00001f43      c644240e01     mov byte [rsp + 0xe], 1
+0x00001f48      c644247c00     mov byte [rsp + 0x7c], 0
+0x00001f4d      4531e4         xor r12d, r12d                          ; ../coreutils-8.31/lib/quotearg.c:130
+0x00001f50      48c744245000.  mov qword [rsp + 0x50], 0
+0x00001f59      c644240f01     mov byte [rsp + 0xf], 1
+0x00001f5e      c644240d00     mov byte [rsp + 0xd], 0
+0x00001f63      488d05e32c00.  lea rax, [0x00004c4d]                   ; u"'`\u696c\u6574\u6172l\u6873\u6c65l\u6873\u6c65\u2d6c\u6c61\u6177\u7379\u7300\u6568\u6c6c\u652d\u6373\u7061e\u6873\u6c65\u2d6c\u7365\u6163\u6570\u612d\u776c\u7961s\u2d63\u616d\u6279e\u6c63\u636f\u6c61e"
+0x00001f6a      48c744241801.  mov qword [rsp + 0x18], 1
+0x00001f73      4531ff         xor r15d, r15d
+0x00001f76      c74424080200.  mov dword [rsp + 8], 2
+0x00001f7e      4889442448     mov qword [rsp + 0x48], rax
+0x00001f83      4531db         xor r11d, r11d
+0x00001f86      4889e8         mov rax, rbp
+0x00001f89      4589e0         mov r8d, r12d
+0x00001f8c      4c89dd         mov rbp, r11
+0x00001f8f      4989c3         mov r11, rax
+0x00001f92      660f1f440000   nop word [rax + rax]
+0x00001f98      4939eb         cmp r11, rbp
+0x00001f9b      410f95c4       setne r12b                              ; ../coreutils-8.31/lib/quotearg.c:150
+0x00001f9f      4983fbff       cmp r11, 0xffffffffffffffff
+0x00001fa3      750d           jne 0x1fb2
+0x00001fa5      488b442410     mov rax, qword [rsp + 0x10]
+0x00001faa      803c2800       cmp byte [rax + rbp], 0
+0x00001fae      410f95c4       setne r12b
+0x00001fb2      4584e4         test r12b, r12b
+0x00001fb5      0f8455060000   je 0x2610
+0x00001fbb      837c240802     cmp dword [rsp + 8], 2
+0x00001fc0      488b7c2410     mov rdi, qword [rsp + 0x10]
+0x00001fc5      4c8d0c2f       lea r9, [rdi + rbp]
+0x00001fc9      0f95c0         setne al
+0x00001fcc      2244240d       and al, byte [rsp + 0xd]
+0x00001fd0      4189c2         mov r10d, eax
+0x00001fd3      0f84a7000000   je 0x2080
+0x00001fd9      488b442418     mov rax, qword [rsp + 0x18]
+0x00001fde      4885c0         test rax, rax
+0x00001fe1      0f8429040000   je 0x2410
+0x00001fe7      4983fbff       cmp r11, 0xffffffffffffffff
+0x00001feb      488d5c0500     lea rbx, [rbp + rax]
+0x00001ff0      752e           jne 0x2020
+0x00001ff2      4883f801       cmp rax, 1
+0x00001ff6      7628           jbe 0x2020
+0x00001ff8      4488442438     mov byte [rsp + 0x38], r8b
+0x00001ffd      4488542430     mov byte [rsp + 0x30], r10b             ; ../coreutils-8.31/lib/quotearg.c:159
+0x00002002      4c894c2428     mov qword [rsp + 0x28], r9
+0x00002007      e8d4f2ffff     call sym.imp.strlen
+0x0000200c      440fb6442438   movzx r8d, byte [rsp + 0x38]
+0x00002012      440fb6542430   movzx r10d, byte [rsp + 0x30]
+0x00002018      4989c3         mov r11, rax
+0x0000201b      4c8b4c2428     mov r9, qword [rsp + 0x28]
+0x00002020      4c39db         cmp rbx, r11
+0x00002023      4488542428     mov byte [rsp + 0x28], r10b
+0x00002028      0f87b2050000   ja 0x25e0
+0x0000202e      488b542418     mov rdx, qword [rsp + 0x18]
+0x00002033      488b742448     mov rsi, qword [rsp + 0x48]
+0x00002038      4c89cf         mov rdi, r9
+0x0000203b      4c895c2440     mov qword [rsp + 0x40], r11
+0x00002040      4488442438     mov byte [rsp + 0x38], r8b
+0x00002045      4c894c2430     mov qword [rsp + 0x30], r9
+0x0000204a      e801f3ffff     call sym.imp.memcmp
+0x0000204f      85c0           test eax, eax                           ; ../coreutils-8.31/lib/quotearg.c:166
+0x00002051      4c8b4c2430     mov r9, qword [rsp + 0x30]
+0x00002056      440fb6442438   movzx r8d, byte [rsp + 0x38]
+0x0000205c      4c8b5c2440     mov r11, qword [rsp + 0x40]
+0x00002061      0f8579050000   jne 0x25e0
+0x00002067      807c240f00     cmp byte [rsp + 0xf], 0
+0x0000206c      440fb6542428   movzx r10d, byte [rsp + 0x28]
+0x00002072      0f857d0f0000   jne 0x2ff5
+0x00002078      0f1f84000000.  nop dword [rax + rax]
+0x00002080      410fb619       movzx ebx, byte [r9]                    ; ../coreutils-8.31/lib/quotearg.c:140
+0x00002084      80fb7e         cmp bl, 0x7e
+0x00002087      0f871b030000   ja 0x23a8
+0x0000208d      488d0d382c00.  lea rcx, [0x00004ccc]
+0x00002094      0fb6d3         movzx edx, bl
+0x00002097      48630491       movsxd rax, dword [rcx + rdx*4]
+0x0000209b      4801c8         add rax, rcx
+0x0000209e      ffe0           jmp rax
+0x000020a0      4531d2         xor r10d, r10d
+0x000020a3      4983fb01       cmp r11, 1
+0x000020a7      0f95c0         setne al
+0x000020aa      4983fbff       cmp r11, 0xffffffffffffffff
+0x000020ae      750c           jne 0x20bc
+0x000020b0      488b442410     mov rax, qword [rsp + 0x10]
+0x000020b5      80780100       cmp byte [rax + 1], 0
+0x000020b9      0f95c0         setne al
+0x000020bc      837c240802     cmp dword [rsp + 8], 2
+0x000020c1      0f94c2         sete dl
+0x000020c4      84c0           test al, al
+0x000020c6      0f844c020000   je 0x2318
+0x000020cc      4531e4         xor r12d, r12d
+0x000020cf      31c0           xor eax, eax
+0x000020d1      0f1f80000000.  nop dword [rax]
+0x000020d8      807c240d01     cmp byte [rsp + 0xd], 1
+0x000020dd      0f850f010000   jne 0x21f2
+0x000020e3      84d2           test dl, dl
+0x000020e5      0f8507010000   jne 0x21f2
+0x000020eb      488b742420     mov rsi, qword [rsp + 0x20]
+0x000020f0      4885f6         test rsi, rsi                           ; ../coreutils-8.31/lib/quotearg.c:337
+0x000020f3      7414           je 0x2109
+0x000020f5      89da           mov edx, ebx
+0x000020f7      c0ea05         shr dl, 5
+0x000020fa      0fb6d2         movzx edx, dl
+0x000020fd      8b1496         mov edx, dword [rsi + rdx*4]
+0x00002100      0fa3da         bt edx, ebx
+0x00002103      0f824a010000   jb 0x2253
+0x00002109      4584d2         test r10b, r10b
+0x0000210c      0f8541010000   jne 0x2253
+0x00002112      83f001         xor eax, 1
+0x00002115      4883c501       add rbp, 1                              ; ../coreutils-8.31/lib/quotearg.c:338
+0x00002119      4421c0         and eax, r8d                            ; ../coreutils-8.31/lib/quotearg.c:341
+0x0000211c      84c0           test al, al
+0x0000211e      7420           je 0x2140                               ; ../coreutils-8.31/lib/quotearg.c:338
+0x00002120      4d39fd         cmp r13, r15
+0x00002123      7605           jbe 0x212a
+0x00002125      43c6043e27     mov byte [r14 + r15], 0x27              ; '''
+                                                                       ; [0x27:1]=0
+0x0000212a      498d4701       lea rax, [r15 + 1]
+0x0000212e      4939c5         cmp r13, rax
+0x00002131      7606           jbe 0x2139
+0x00002133      43c6443e0127   mov byte [r14 + r15 + 1], 0x27          ; '''
+                                                                       ; [0x27:1]=0
+0x00002139      4983c702       add r15, 2
+0x0000213d      4531c0         xor r8d, r8d
+0x00002140      4d39ef         cmp r15, r13                            ; ../coreutils-8.31/lib/quotearg.c:18
+0x00002143      7304           jae 0x2149                              ; ../coreutils-8.31/lib/quotearg.c:68
+0x00002145      43881c3e       mov byte [r14 + r15], bl
+0x00002149      0fb67c240e     movzx edi, byte [rsp + 0xe]
+0x0000214e      4983c701       add r15, 1
+0x00002152      b800000000     mov eax, 0
+0x00002157      4584e4         test r12b, r12b
+0x0000215a      0f44f8         cmove edi, eax
+0x0000215d      40887c240e     mov byte [rsp + 0xe], dil
+0x00002162      e931feffff     jmp 0x1f98
+0x00002167      660f1f840000.  nop word [rax + rax]                    ; ../coreutils-8.31/lib/quotearg.c:19
+0x00002170      4531d2         xor r10d, r10d                          ; ../coreutils-8.31/lib/quotearg.c:18
+0x00002173      8b442408       mov eax, dword [rsp + 8]                ; ../coreutils-8.31/lib/quotearg.c:170
+0x00002177      83f802         cmp eax, 2
+0x0000217a      0f84b8050000   je 0x2738
+0x00002180      83f805         cmp eax, 5
+0x00002183      0f846f050000   je 0x26f8
+0x00002189      83f802         cmp eax, 2
+0x0000218c      bb3f000000     mov ebx, 0x3f                           ; '?'
+0x00002191      0f94c2         sete dl
+0x00002194      4531e4         xor r12d, r12d
+0x00002197      31c0           xor eax, eax
+0x00002199      e93affffff     jmp 0x20d8
+0x0000219e      6690           nop
+0x000021a0      4531d2         xor r10d, r10d
+0x000021a3      837c240802     cmp dword [rsp + 8], 2                  ; ../coreutils-8.31/lib/quotearg.c:-10
+0x000021a8      0f8402050000   je 0x26b0
+0x000021ae      448864247c     mov byte [rsp + 0x7c], r12b             ; ../coreutils-8.31/lib/quotearg.c:-1
+0x000021b3      31d2           xor edx, edx
+0x000021b5      31c0           xor eax, eax
+0x000021b7      bb27000000     mov ebx, 0x27                           ; '''
+0x000021bc      e917ffffff     jmp 0x20d8
+0x000021c1      0f1f80000000.  nop dword [rax]
+0x000021c8      ba09000000     mov edx, 9
+0x000021cd      bb74000000     mov ebx, 0x74                           ; 't'
+0x000021d2      837c240802     cmp dword [rsp + 8], 2
+0x000021d7      0f94c0         sete al
+0x000021da      2244240f       and al, byte [rsp + 0xf]
+0x000021de      0f854a010000   jne 0x232e
+0x000021e4      807c240d00     cmp byte [rsp + 0xd], 0
+0x000021e9      7565           jne 0x2250
+0x000021eb      89d3           mov ebx, edx
+0x000021ed      4531e4         xor r12d, r12d
+0x000021f0      31c0           xor eax, eax
+0x000021f2      807c240f00     cmp byte [rsp + 0xf], 0
+0x000021f7      0f85eefeffff   jne 0x20eb
+0x000021fd      e907ffffff     jmp 0x2109                              ; ../coreutils-8.31/lib/quotearg.c:210
+0x00002202      660f1f440000   nop word [rax + rax]
+0x00002208      ba08000000     mov edx, 8
+0x0000220d      bb62000000     mov ebx, 0x62                           ; 'b'
+0x00002212      ebd0           jmp 0x21e4
+0x00002214      0f1f4000       nop dword [rax]
+0x00002218      837c240802     cmp dword [rsp + 8], 2
+0x0000221d      0f84cd030000   je 0x25f0
+0x00002223      807c240d00     cmp byte [rsp + 0xd], 0
+0x00002228      0f8412020000   je 0x2440
+0x0000222e      807c240f00     cmp byte [rsp + 0xf], 0
+0x00002233      0f8407020000   je 0x2440
+0x00002239      48837c241800   cmp qword [rsp + 0x18], 0
+0x0000223f      0f85b6030000   jne 0x25fb
+0x00002245      bb5c000000     mov ebx, 0x5c                           ; '\'
+0x0000224a      660f1f440000   nop word [rax + rax]
+0x00002250      4531e4         xor r12d, r12d
+0x00002253      837c240802     cmp dword [rsp + 8], 2
+0x00002258      0f94c2         sete dl                                 ; ../coreutils-8.31/lib/quotearg.c:-61
+0x0000225b      807c240f00     cmp byte [rsp + 0xf], 0
+0x00002260      89d0           mov eax, edx
+0x00002262      0f8550080000   jne 0x2ab8
+0x00002268      4489c0         mov eax, r8d
+0x0000226b      83f001         xor eax, 1
+0x0000226e      20d0           and al, dl
+0x00002270      742f           je 0x22a1
+0x00002272      4d39fd         cmp r13, r15
+0x00002275      7605           jbe 0x227c
+0x00002277      43c6043e27     mov byte [r14 + r15], 0x27              ; '''
+                                                                       ; [0x27:1]=0
+0x0000227c      498d5701       lea rdx, [r15 + 1]
+0x00002280      4939d5         cmp r13, rdx
+0x00002283      7606           jbe 0x228b
+0x00002285      43c6443e0124   mov byte [r14 + r15 + 1], 0x24          ; '$'
+                                                                       ; [0x24:1]=0
+0x0000228b      498d5702       lea rdx, [r15 + 2]                      ; ../coreutils-8.31/lib/quotearg.c:-86
+0x0000228f      4939d5         cmp r13, rdx
+0x00002292      7606           jbe 0x229a
+0x00002294      43c6443e0227   mov byte [r14 + r15 + 2], 0x27          ; '''
+                                                                       ; [0x27:1]=0
+0x0000229a      4983c703       add r15, 3
+0x0000229e      4189c0         mov r8d, eax
+0x000022a1      4d39fd         cmp r13, r15
+0x000022a4      7605           jbe 0x22ab
+0x000022a6      43c6043e5c     mov byte [r14 + r15], 0x5c              ; '\'
+                                                                       ; [0x5c:1]=0
+0x000022ab      4983c701       add r15, 1
+0x000022af      4883c501       add rbp, 1
+0x000022b3      e988feffff     jmp 0x2140
+0x000022b8      0f1f84000000.  nop dword [rax + rax]
+0x000022c0      807c240d00     cmp byte [rsp + 0xd], 0
+0x000022c5      0f85c8010000   jne 0x2493
+0x000022cb      31d2           xor edx, edx
+0x000022cd      f644247801     test byte [rsp + 0x78], 1
+0x000022d2      0f8413ffffff   je 0x21eb
+0x000022d8      4883c501       add rbp, 1
+0x000022dc      e9b7fcffff     jmp 0x1f98
+0x000022e1      0f1f80000000.  nop dword [rax]                         ; ../coreutils-8.31/lib/quotearg.c:-533
+0x000022e8      837c240802     cmp dword [rsp + 8], 2
+0x000022ed      0f94c2         sete dl
+0x000022f0      31c0           xor eax, eax
+0x000022f2      e9e1fdffff     jmp 0x20d8
+0x000022f7      660f1f840000.  nop word [rax + rax]
+0x00002300      ba07000000     mov edx, 7
+0x00002305      bb61000000     mov ebx, 0x61                           ; 'a'
+0x0000230a      e9d5feffff     jmp 0x21e4
+0x0000230f      90             nop
+0x00002310      837c240802     cmp dword [rsp + 8], 2
+0x00002315      0f94c2         sete dl
+0x00002318      4885ed         test rbp, rbp
+0x0000231b      0f85abfdffff   jne 0x20cc
+0x00002321      0fb644240f     movzx eax, byte [rsp + 0xf]
+0x00002326      20d0           and al, dl
+0x00002328      0f84aafdffff   je 0x20d8
+0x0000232e      4c89dd         mov rbp, r11
+0x00002331      c74424080200.  mov dword [rsp + 8], 2
+0x00002339      e9fb060000     jmp 0x2a39
+0x0000233e      6690           nop
+0x00002340      837c240802     cmp dword [rsp + 8], 2
+0x00002345      0f94c2         sete dl
+0x00002348      4531e4         xor r12d, r12d                          ; ../coreutils-8.31/lib/quotearg.c:-788
+0x0000234b      ebd4           jmp 0x2321
+0x0000234d      0f1f00         nop dword [rax]
+0x00002350      837c240802     cmp dword [rsp + 8], 2
+0x00002355      bb20000000     mov ebx, 0x20                           ; "@"
+0x0000235a      0f94c2         sete dl
+0x0000235d      ebc2           jmp 0x2321
+0x0000235f      90             nop
+0x00002360      ba0d000000     mov edx, 0xd
+0x00002365      bb72000000     mov ebx, 0x72                           ; 'r'
+0x0000236a      e963feffff     jmp 0x21d2
+0x0000236f      90             nop
+0x00002370      ba0c000000     mov edx, 0xc
+0x00002375      bb66000000     mov ebx, 0x66                           ; 'f'
+0x0000237a      e965feffff     jmp 0x21e4
+0x0000237f      90             nop
+0x00002380      ba0b000000     mov edx, 0xb
+0x00002385      bb76000000     mov ebx, 0x76                           ; 'v'
+0x0000238a      e955feffff     jmp 0x21e4
+0x0000238f      90             nop
+0x00002390      ba0a000000     mov edx, 0xa
+0x00002395      bb6e000000     mov ebx, 0x6e                           ; ../coreutils-8.31/lib/quotearg.c:-781 ; 'n'
+0x0000239a      e933feffff     jmp 0x21d2
+0x0000239f      90             nop
+0x000023a0      4531d2         xor r10d, r10d
+0x000023a3      0f1f440000     nop dword [rax + rax]
+0x000023a8      48837c245801   cmp qword [rsp + 0x58], 1
+0x000023ae      0f85a4030000   jne 0x2758
+0x000023b4      4c895c2438     mov qword [rsp + 0x38], r11
+0x000023b9      4488442430     mov byte [rsp + 0x30], r8b
+0x000023be      4488542428     mov byte [rsp + 0x28], r10b
+0x000023c3      e8c8f0ffff     call sym.imp.__ctype_b_loc
+0x000023c8      488b08         mov rcx, qword [rax]
+0x000023cb      0fb6d3         movzx edx, bl
+0x000023ce      440fb6542428   movzx r10d, byte [rsp + 0x28]
+0x000023d4      440fb6442430   movzx r8d, byte [rsp + 0x30]
+0x000023da      4c8b5c2438     mov r11, qword [rsp + 0x38]
+0x000023df      bf01000000     mov edi, 1
+0x000023e4      0fb70451       movzx eax, word [rcx + rdx*2]
+0x000023e8      66250040       and ax, 0x4000
+0x000023ec      410f95c4       setne r12b
+0x000023f0      0f94c0         sete al
+0x000023f3      2244240d       and al, byte [rsp + 0xd]
+0x000023f7      84c0           test al, al
+0x000023f9      0f8592090000   jne 0x2d91
+0x000023ff      837c240802     cmp dword [rsp + 8], 2
+0x00002404      0f94c2         sete dl
+0x00002407      e9ccfcffff     jmp 0x20d8
+0x0000240c      0f1f4000       nop dword [rax]
+0x00002410      410fb619       movzx ebx, byte [r9]
+0x00002414      80fb7e         cmp bl, 0x7e
+0x00002417      7787           ja 0x23a0
+0x00002419      488d0da82a00.  lea rcx, [0x00004ec8]
+0x00002420      0fb6d3         movzx edx, bl
+0x00002423      48630491       movsxd rax, dword [rcx + rdx*4]
+0x00002427      4801c8         add rax, rcx
+0x0000242a      ffe0           jmp rax                                 ; ../coreutils-8.31/lib/quotearg.c:-814
+0x0000242c      0f1f4000       nop dword [rax]
+0x00002430      4531d2         xor r10d, r10d
+0x00002433      807c240d00     cmp byte [rsp + 0xd], 0
+0x00002438      0f85f0fdffff   jne 0x222e
+0x0000243e      6690           nop
+0x00002440      ba5c000000     mov edx, 0x5c                           ; '\'
+0x00002445      bb5c000000     mov ebx, 0x5c                           ; '\'
+0x0000244a      e995fdffff     jmp 0x21e4
+0x0000244f      90             nop
+0x00002450      ba0c000000     mov edx, 0xc
+0x00002455      4531d2         xor r10d, r10d
+0x00002458      bb66000000     mov ebx, 0x66                           ; 'f'
+0x0000245d      e982fdffff     jmp 0x21e4
+0x00002462      660f1f440000   nop word [rax + rax]
+0x00002468      ba0a000000     mov edx, 0xa
+0x0000246d      4531d2         xor r10d, r10d
+0x00002470      bb6e000000     mov ebx, 0x6e                           ; 'n'
+0x00002475      e958fdffff     jmp 0x21d2
+0x0000247a      660f1f440000   nop word [rax + rax]
+0x00002480      bb61000000     mov ebx, 0x61                           ; 'a'
+0x00002485      e9c6fdffff     jmp 0x2250
+0x0000248a      660f1f440000   nop word [rax + rax]
+0x00002490      4531d2         xor r10d, r10d
+0x00002493      837c240802     cmp dword [rsp + 8], 2
+0x00002498      0f94c2         sete dl
+0x0000249b      807c240f00     cmp byte [rsp + 0xf], 0
+0x000024a0      0f85940b0000   jne 0x303a
+0x000024a6      4489c0         mov eax, r8d
+0x000024a9      4c89f9         mov rcx, r15
+0x000024ac      83f001         xor eax, 1
+0x000024af      20d0           and al, dl
+0x000024b1      742d           je 0x24e0
+0x000024b3      4d39fd         cmp r13, r15
+0x000024b6      7605           jbe 0x24bd
+0x000024b8      43c6043e27     mov byte [r14 + r15], 0x27              ; '''
+                                                                       ; [0x27:1]=0
+0x000024bd      498d4f01       lea rcx, [r15 + 1]
+0x000024c1      4939cd         cmp r13, rcx
+0x000024c4      7606           jbe 0x24cc
+0x000024c6      43c6443e0124   mov byte [r14 + r15 + 1], 0x24          ; '$'
+                                                                       ; [0x24:1]=0
+0x000024cc      498d4f02       lea rcx, [r15 + 2]
+0x000024d0      4939cd         cmp r13, rcx
+0x000024d3      0f8730060000   ja 0x2b09
+0x000024d9      498d4f03       lea rcx, [r15 + 3]                      ; ../coreutils-8.31/lib/quotearg.c:-1318
+0x000024dd      4189c0         mov r8d, eax
+0x000024e0      4939cd         cmp r13, rcx
+0x000024e3      7605           jbe 0x24ea
+0x000024e5      41c6040e5c     mov byte [r14 + rcx], 0x5c              ; '\'
+                                                                       ; [0x5c:1]=0
+0x000024ea      837c240802     cmp dword [rsp + 8], 2
+0x000024ef      4c8d7901       lea r15, [rcx + 1]
+0x000024f3      0f8400060000   je 0x2af9
+0x000024f9      488d4501       lea rax, [rbp + 1]                      ; ../coreutils-8.31/lib/quotearg.c:-1474
+0x000024fd      4c39d8         cmp rax, r11
+0x00002500      7319           jae 0x251b                              ; ../coreutils-8.31/lib/quotearg.c:-1306
+0x00002502      488b442410     mov rax, qword [rsp + 0x10]
+0x00002507      0fb6442801     movzx eax, byte [rax + rbp + 1]
+0x0000250c      88442428       mov byte [rsp + 0x28], al
+0x00002510      83e830         sub eax, 0x30
+0x00002513      3c09           cmp al, 9
+0x00002515      0f862e080000   jbe 0x2d49
+0x0000251b      4489e0         mov eax, r12d
+0x0000251e      bb30000000     mov ebx, 0x30                           ; '0'
+0x00002523      4531e4         xor r12d, r12d
+0x00002526      e9adfbffff     jmp 0x20d8                              ; ../coreutils-8.31/lib/quotearg.c:-1416
+0x0000252b      0f1f440000     nop dword [rax + rax]
+0x00002530      837c240802     cmp dword [rsp + 8], 2
+0x00002535      4589d4         mov r12d, r10d
+0x00002538      0f94c2         sete dl
+0x0000253b      4531d2         xor r10d, r10d
+0x0000253e      31c0           xor eax, eax                            ; ../coreutils-8.31/lib/quotearg.c:-1415
+0x00002540      e993fbffff     jmp 0x20d8                              ; ../coreutils-8.31/lib/quotearg.c:-1473
+0x00002545      0f1f00         nop dword [rax]                         ; ../coreutils-8.31/lib/quotearg.c:-1415
+0x00002548      837c240802     cmp dword [rsp + 8], 2
+0x0000254d      0f94c2         sete dl
+0x00002550      4531d2         xor r10d, r10d
+0x00002553      e9c0fdffff     jmp 0x2318
+0x00002558      0f1f84000000.  nop dword [rax + rax]
+0x00002560      837c240802     cmp dword [rsp + 8], 2
+0x00002565      0f94c2         sete dl
+0x00002568      4531d2         xor r10d, r10d
+0x0000256b      4531e4         xor r12d, r12d
+0x0000256e      e9aefdffff     jmp 0x2321
+0x00002573      0f1f440000     nop dword [rax + rax]
+0x00002578      837c240802     cmp dword [rsp + 8], 2
+0x0000257d      4589d4         mov r12d, r10d
+0x00002580      bb20000000     mov ebx, 0x20                           ; "@"
+0x00002585      0f94c2         sete dl
+0x00002588      4531d2         xor r10d, r10d
+0x0000258b      e991fdffff     jmp 0x2321
+0x00002590      ba0d000000     mov edx, 0xd
+0x00002595      4531d2         xor r10d, r10d                          ; ../coreutils-8.31/lib/quotearg.c:-1252
+0x00002598      bb72000000     mov ebx, 0x72                           ; 'r'
+0x0000259d      e930fcffff     jmp 0x21d2
+0x000025a2      660f1f440000   nop word [rax + rax]
+0x000025a8      bb76000000     mov ebx, 0x76                           ; 'v'
+0x000025ad      e99efcffff     jmp 0x2250
+0x000025b2      660f1f440000   nop word [rax + rax]
+0x000025b8      ba09000000     mov edx, 9
+0x000025bd      4531d2         xor r10d, r10d
+0x000025c0      bb74000000     mov ebx, 0x74                           ; 't'
+0x000025c5      e908fcffff     jmp 0x21d2
+0x000025ca      660f1f440000   nop word [rax + rax]                    ; ../coreutils-8.31/lib/quotearg.c:-1475
+0x000025d0      bb62000000     mov ebx, 0x62                           ; 'b'
+0x000025d5      e976fcffff     jmp 0x2250
+0x000025da      660f1f440000   nop word [rax + rax]
+0x000025e0      4531d2         xor r10d, r10d
+0x000025e3      e998faffff     jmp 0x2080
+0x000025e8      0f1f84000000.  nop dword [rax + rax]
+0x000025f0      807c240f00     cmp byte [rsp + 0xf], 0
+0x000025f5      0f8565090000   jne 0x2f60
+0x000025fb      4883c501       add rbp, 1
+0x000025ff      4489c0         mov eax, r8d
+0x00002602      4531e4         xor r12d, r12d
+0x00002605      bb5c000000     mov ebx, 0x5c                           ; '\'
+0x0000260a      e90dfbffff     jmp 0x211c
+0x0000260f      90             nop
+0x00002610      837c240802     cmp dword [rsp + 8], 2
+0x00002615      0fb65c240f     movzx ebx, byte [rsp + 0xf]
+0x0000261a      4589c4         mov r12d, r8d
+0x0000261d      4c89dd         mov rbp, r11
+0x00002620      0f94c2         sete dl
+0x00002623      89d8           mov eax, ebx
+0x00002625      4d85ff         test r15, r15
+0x00002628      0f94c1         sete cl
+0x0000262b      21d0           and eax, edx
+0x0000262d      20c8           and al, cl
+0x0000262f      0f85610a0000   jne 0x3096                              ; ../coreutils-8.31/lib/quotearg.c:-1245
+0x00002635      89d8           mov eax, ebx
+0x00002637      83f001         xor eax, 1
+0x0000263a      20c2           and dl, al
+0x0000263c      0f846a090000   je 0x2fac
+0x00002642      807c247c00     cmp byte [rsp + 0x7c], 0
+0x00002647      0f845d090000   je 0x2faa
+0x0000264d      807c240e00     cmp byte [rsp + 0xe], 0                 ; ../coreutils-8.31/lib/quotearg.c:-1225
+0x00002652      0f85f5090000   jne 0x304d
+0x00002658      4d85ed         test r13, r13
+0x0000265b      0f94c0         sete al
+0x0000265e      48837c245000   cmp qword [rsp + 0x50], 0
+0x00002664      0f95c2         setne dl
+0x00002667      20d0           and al, dl
+0x00002669      0f841d0a0000   je 0x308c
+0x0000266f      4c8b6c2450     mov r13, qword [rsp + 0x50]
+0x00002674      488d1dd22500.  lea rbx, [0x00004c4d]                   ; u"'`\u696c\u6574\u6172l\u6873\u6c65l\u6873\u6c65\u2d6c\u6c61\u6177\u7379\u7300\u6568\u6c6c\u652d\u6373\u7061e\u6873\u6c65\u2d6c\u7365\u6163\u6570\u612d\u776c\u7961s\u2d63\u616d\u6279e\u6c63\u636f\u6c61e"
+0x0000267b      41c60627       mov byte [r14], 0x27                    ; '''
+                                                                       ; [0x27:1]=0
+0x0000267f      c74424080200.  mov dword [rsp + 8], 2
+0x00002687      41bf01000000   mov r15d, 1
+0x0000268d      48c744241801.  mov qword [rsp + 0x18], 1
+0x00002696      c644240f00     mov byte [rsp + 0xf], 0
+0x0000269b      48895c2448     mov qword [rsp + 0x48], rbx
+0x000026a0      8844247c       mov byte [rsp + 0x7c], al
+0x000026a4      e9daf8ffff     jmp 0x1f83
+0x000026a9      0f1f80000000.  nop dword [rax]
+0x000026b0      807c240f00     cmp byte [rsp + 0xf], 0
+0x000026b5      0f85a5080000   jne 0x2f60
+0x000026bb      4d85ed         test r13, r13
+0x000026be      0f84fc030000   je 0x2ac0                               ; ../coreutils-8.31/lib/quotearg.c:-1195
+0x000026c4      31d2           xor edx, edx
+0x000026c6      48837c245000   cmp qword [rsp + 0x50], 0
+0x000026cc      0f85ee030000   jne 0x2ac0                              ; ../coreutils-8.31/lib/quotearg.c:-1474
+0x000026d2      4c896c2450     mov qword [rsp + 0x50], r13
+0x000026d7      4983c703       add r15, 3
+0x000026db      31c0           xor eax, eax
+0x000026dd      448864247c     mov byte [rsp + 0x7c], r12b
+0x000026e2      4531c0         xor r8d, r8d
+0x000026e5      4989d5         mov r13, rdx
+0x000026e8      bb27000000     mov ebx, 0x27                           ; '''
+0x000026ed      e917faffff     jmp 0x2109
+0x000026f2      660f1f440000   nop word [rax + rax]
+0x000026f8      f644247804     test byte [rsp + 0x78], 4
+0x000026fd      7421           je 0x2720
+0x000026ff      488d4d02       lea rcx, [rbp + 2]                      ; ../coreutils-8.31/lib/quotearg.c:-1189
+0x00002703      4c39d9         cmp rcx, r11
+0x00002706      7318           jae 0x2720
+0x00002708      488b442410     mov rax, qword [rsp + 0x10]
+0x0000270d      807c28013f     cmp byte [rax + rbp + 1], 0x3f
+0x00002712      0f848a070000   je 0x2ea2
+0x00002718      0f1f84000000.  nop dword [rax + rax]
+0x00002720      31d2           xor edx, edx
+0x00002722      4531e4         xor r12d, r12d
+0x00002725      31c0           xor eax, eax
+0x00002727      bb3f000000     mov ebx, 0x3f                           ; '?'
+0x0000272c      e9a7f9ffff     jmp 0x20d8
+0x00002731      0f1f80000000.  nop dword [rax]
+0x00002738      807c240f00     cmp byte [rsp + 0xf], 0
+0x0000273d      0f851d080000   jne 0x2f60
+0x00002743      4531e4         xor r12d, r12d
+0x00002746      31c0           xor eax, eax
+0x00002748      bb3f000000     mov ebx, 0x3f                           ; '?'
+0x0000274d      e9b7f9ffff     jmp 0x2109                              ; ../coreutils-8.31/lib/quotearg.c:-1187
+0x00002752      660f1f440000   nop word [rax + rax]
+0x00002758      488d8424a000.  lea rax, [rsp + 0xa0]
+0x00002760      4983fbff       cmp r11, 0xffffffffffffffff
+0x00002764      48c78424a000.  mov qword [rsp + 0xa0], 0
+0x00002770      4889442428     mov qword [rsp + 0x28], rax             ; ../coreutils-8.31/lib/quotearg.c:-1179
+0x00002775      752d           jne 0x27a4
+0x00002777      488b7c2410     mov rdi, qword [rsp + 0x10]
+0x0000277c      4488442440     mov byte [rsp + 0x40], r8b
+0x00002781      4488542438     mov byte [rsp + 0x38], r10b
+0x00002786      4c894c2430     mov qword [rsp + 0x30], r9
+0x0000278b      e850ebffff     call sym.imp.strlen
+0x00002790      440fb6442440   movzx r8d, byte [rsp + 0x40]
+0x00002796      440fb6542438   movzx r10d, byte [rsp + 0x38]
+0x0000279c      4989c3         mov r11, rax                            ; ../coreutils-8.31/lib/quotearg.c:-1184
+0x0000279f      4c8b4c2430     mov r9, qword [rsp + 0x30]
+0x000027a4      488d84249c00.  lea rax, [rsp + 0x9c]
+0x000027ac      31c9           xor ecx, ecx
+0x000027ae      885c247e       mov byte [rsp + 0x7e], bl
+0x000027b2      448844247d     mov byte [rsp + 0x7d], r8b
+0x000027b7      4889cb         mov rbx, rcx
+0x000027ba      4c898c248800.  mov qword [rsp + 0x88], r9
+0x000027c2      4889442438     mov qword [rsp + 0x38], rax
+0x000027c7      448854247f     mov byte [rsp + 0x7f], r10b
+0x000027cc      4c89bc248000.  mov qword [rsp + 0x80], r15
+0x000027d4      4c89742440     mov qword [rsp + 0x40], r14
+0x000027d9      4c896c2470     mov qword [rsp + 0x70], r13
+0x000027de      4c895c2430     mov qword [rsp + 0x30], r11
+0x000027e3      488b442410     mov rax, qword [rsp + 0x10]
+0x000027e8      4c8d741d00     lea r14, [rbp + rbx]
+0x000027ed      488b542430     mov rdx, qword [rsp + 0x30]
+0x000027f2      488b4c2428     mov rcx, qword [rsp + 0x28]
+0x000027f7      488b7c2438     mov rdi, qword [rsp + 0x38]
+0x000027fc      4e8d2c30       lea r13, [rax + r14]
+0x00002800      4c29f2         sub rdx, r14
+0x00002803      4c89ee         mov rsi, r13
+0x00002806      e8f51a0000     call sym.rpl_mbrtowc
+0x0000280b      4885c0         test rax, rax
+0x0000280e      4989c7         mov r15, rax
+0x00002811      744e           je 0x2861
+0x00002813      4883f8ff       cmp rax, 0xffffffffffffffff
+0x00002817      0f8418060000   je 0x2e35
+0x0000281d      4883f8fe       cmp rax, 0xfffffffffffffffe
+0x00002821      0f849a050000   je 0x2dc1
+0x00002827      837c240802     cmp dword [rsp + 8], 2
+0x0000282c      0f94c0         sete al
+0x0000282f      2244240f       and al, byte [rsp + 0xf]
+0x00002833      0f8597010000   jne 0x29d0
+0x00002839      8bbc249c0000.  mov edi, dword [rsp + 0x9c]
+0x00002840      e83becffff     call sym.imp.iswprint
+0x00002845      488b7c2428     mov rdi, qword [rsp + 0x28]
+0x0000284a      85c0           test eax, eax
+0x0000284c      b800000000     mov eax, 0
+0x00002851      440f44e0       cmove r12d, eax
+0x00002855      4c01fb         add rbx, r15
+0x00002858      e813ecffff     call sym.imp.mbsinit
+0x0000285d      85c0           test eax, eax
+0x0000285f      7482           je 0x27e3
+0x00002861      4489e2         mov edx, r12d
+0x00002864      4889df         mov rdi, rbx
+0x00002867      440fb644247d   movzx r8d, byte [rsp + 0x7d]
+0x0000286d      83f201         xor edx, 1
+0x00002870      0fb65c247e     movzx ebx, byte [rsp + 0x7e]
+0x00002875      440fb654247f   movzx r10d, byte [rsp + 0x7f]
+0x0000287b      2254240d       and dl, byte [rsp + 0xd]
+0x0000287f      4c8bbc248000.  mov r15, qword [rsp + 0x80]
+0x00002887      4c8b742440     mov r14, qword [rsp + 0x40]
+0x0000288c      4c8b6c2470     mov r13, qword [rsp + 0x70]
+0x00002891      4c8b5c2430     mov r11, qword [rsp + 0x30]
+0x00002896      4883ff01       cmp rdi, 1
+0x0000289a      0f86fb050000   jbe 0x2e9b
+0x000028a0      4889f9         mov rcx, rdi
+0x000028a3      31f6           xor esi, esi                            ; ../coreutils-8.31/lib/quotearg.c:-1437
+0x000028a5      440fb64c240f   movzx r9d, byte [rsp + 0xf]
+0x000028ab      4801e9         add rcx, rbp
+0x000028ae      488b7c2410     mov rdi, qword [rsp + 0x10]
+0x000028b3      e9b6000000     jmp 0x296e
+0x000028b8      0f1f84000000.  nop dword [rax + rax]
+0x000028c0      837c240802     cmp dword [rsp + 8], 2
+0x000028c5      0f94c0         sete al
+0x000028c8      4584c9         test r9b, r9b
+0x000028cb      0f85af040000   jne 0x2d80
+0x000028d1      4489c6         mov esi, r8d
+0x000028d4      83f601         xor esi, 1
+0x000028d7      4020f0         and al, sil
+0x000028da      742f           je 0x290b                               ; ../coreutils-8.31/lib/quotearg.c:-1601
+0x000028dc      4d39fd         cmp r13, r15
+0x000028df      7605           jbe 0x28e6
+0x000028e1      43c6043e27     mov byte [r14 + r15], 0x27              ; '''
+                                                                       ; [0x27:1]=0
+0x000028e6      498d7701       lea rsi, [r15 + 1]
+0x000028ea      4939f5         cmp r13, rsi
+0x000028ed      7606           jbe 0x28f5                              ; ../coreutils-8.31/lib/quotearg.c:-1626
+0x000028ef      43c6443e0124   mov byte [r14 + r15 + 1], 0x24          ; '$'
+                                                                       ; [0x24:1]=0
+0x000028f5      498d7702       lea rsi, [r15 + 2]
+0x000028f9      4939f5         cmp r13, rsi
+0x000028fc      7606           jbe 0x2904
+0x000028fe      43c6443e0227   mov byte [r14 + r15 + 2], 0x27          ; '''
+                                                                       ; [0x27:1]=0
+0x00002904      4983c703       add r15, 3
+0x00002908      4189c0         mov r8d, eax
+0x0000290b      4d39fd         cmp r13, r15
+0x0000290e      7605           jbe 0x2915
+0x00002910      43c6043e5c     mov byte [r14 + r15], 0x5c              ; '\'
+                                                                       ; [0x5c:1]=0
+0x00002915      498d4701       lea rax, [r15 + 1]
+0x00002919      4939c5         cmp r13, rax
+0x0000291c      760d           jbe 0x292b
+0x0000291e      89d8           mov eax, ebx
+0x00002920      c0e806         shr al, 6
+0x00002923      83c030         add eax, 0x30
+0x00002926      4388443e01     mov byte [r14 + r15 + 1], al
+0x0000292b      498d4702       lea rax, [r15 + 2]
+0x0000292f      4939c5         cmp r13, rax
+0x00002932      7610           jbe 0x2944
+0x00002934      89d8           mov eax, ebx
+0x00002936      c0e803         shr al, 3
+0x00002939      83e007         and eax, 7                              ; ../coreutils-8.31/lib/quotearg.c:-1622
+0x0000293c      83c030         add eax, 0x30
+0x0000293f      4388443e02     mov byte [r14 + r15 + 2], al
+0x00002944      83e307         and ebx, 7
+0x00002947      4883c501       add rbp, 1
+0x0000294b      4983c703       add r15, 3
+0x0000294f      83c330         add ebx, 0x30
+0x00002952      4839cd         cmp rbp, rcx
+0x00002955      0f83e5f7ffff   jae 0x2140
+0x0000295b      89d6           mov esi, edx
+0x0000295d      4d39fd         cmp r13, r15
+0x00002960      7604           jbe 0x2966
+0x00002962      43881c3e       mov byte [r14 + r15], bl
+0x00002966      0fb61c2f       movzx ebx, byte [rdi + rbp]             ; ../coreutils-8.31/lib/quotearg.c:-1735
+0x0000296a      4983c701       add r15, 1
+0x0000296e      84d2           test dl, dl
+0x00002970      0f854affffff   jne 0x28c0
+0x00002976      89f0           mov eax, esi
+0x00002978      83f001         xor eax, 1
+0x0000297b      4421c0         and eax, r8d
+0x0000297e      4584d2         test r10b, r10b
+0x00002981      740e           je 0x2991
+0x00002983      4d39fd         cmp r13, r15
+0x00002986      7605           jbe 0x298d
+0x00002988      43c6043e5c     mov byte [r14 + r15], 0x5c              ; '\'
+                                                                       ; [0x5c:1]=0
+0x0000298d      4983c701       add r15, 1
+0x00002991      4883c501       add rbp, 1
+0x00002995      4839cd         cmp rbp, rcx
+0x00002998      0f837ef7ffff   jae 0x211c
+0x0000299e      84c0           test al, al
+0x000029a0      0f84f8030000   je 0x2d9e
+0x000029a6      4d39fd         cmp r13, r15
+0x000029a9      7605           jbe 0x29b0
+0x000029ab      43c6043e27     mov byte [r14 + r15], 0x27              ; '''
+                                                                       ; [0x27:1]=0
+0x000029b0      498d4701       lea rax, [r15 + 1]
+0x000029b4      4939c5         cmp r13, rax
+0x000029b7      7606           jbe 0x29bf
+0x000029b9      43c6443e0127   mov byte [r14 + r15 + 1], 0x27          ; '''
+                                                                       ; [0x27:1]=0
+0x000029bf      4983c702       add r15, 2
+0x000029c3      4531d2         xor r10d, r10d
+0x000029c6      4531c0         xor r8d, r8d
+0x000029c9      eb92           jmp 0x295d
+0x000029cb      0f1f440000     nop dword [rax + rax]
+0x000029d0      4983ff01       cmp r15, 1
+0x000029d4      0f845ffeffff   je 0x2839
+0x000029da      488b7c2410     mov rdi, qword [rsp + 0x10]
+0x000029df      4a8d0c3f       lea rcx, [rdi + r15]
+0x000029e3      4a8d543701     lea rdx, [rdi + r14 + 1]                ; ../coreutils-8.31/lib/quotearg.c:-1734
+0x000029e8      4e8d0431       lea r8, [rcx + r14]                     ; ../coreutils-8.31/lib/quotearg.c:-1735
+0x000029ec      eb0f           jmp 0x29fd
+0x000029ee      6690           nop
+0x000029f0      4883c201       add rdx, 1                              ; ../coreutils-8.31/lib/quotearg.c:-1742
+0x000029f4      4939d0         cmp r8, rdx
+0x000029f7      0f843cfeffff   je 0x2839
+0x000029fd      0fb60a         movzx ecx, byte [rdx]                   ; ../coreutils-8.31/lib/quotearg.c:-1852
+0x00002a00      83e95b         sub ecx, 0x5b
+0x00002a03      80f921         cmp cl, 0x21
+0x00002a06      77e8           ja 0x29f0                               ; ../coreutils-8.31/lib/quotearg.c:-1853
+0x00002a08      be01000000     mov esi, 1
+0x00002a0d      48d3e6         shl rsi, cl
+0x00002a10      4889f1         mov rcx, rsi
+0x00002a13      48be2b000000.  movabs rsi, 0x20000002b                 ; '+' ; 8589934635
+0x00002a1d      4885f1         test rcx, rsi
+0x00002a20      74ce           je 0x29f0
+0x00002a22      4c8b742440     mov r14, qword [rsp + 0x40]
+0x00002a27      4c8b6c2470     mov r13, qword [rsp + 0x70]
+0x00002a2c      488b6c2430     mov rbp, qword [rsp + 0x30]
+0x00002a31      c74424080200.  mov dword [rsp + 8], 2
+0x00002a39      807c240d00     cmp byte [rsp + 0xd], 0
+0x00002a3e      7410           je 0x2a50
+0x00002a40      84c0           test al, al                             ; ../coreutils-8.31/lib/quotearg.c:-1912
+0x00002a42      b804000000     mov eax, 4
+0x00002a47      0f44442408     cmove eax, dword [rsp + 8]
+0x00002a4c      89442408       mov dword [rsp + 8], eax
+0x00002a50      4883ec08       sub rsp, 8
+0x00002a54      4889e9         mov rcx, rbp
+0x00002a57      4c89ee         mov rsi, r13
+0x00002a5a      ff742468       push qword [rsp + 0x68]
+0x00002a5e      ff742478       push qword [rsp + 0x78]
+0x00002a62      4c89f7         mov rdi, r14
+0x00002a65      6a00           push 0
+0x00002a67      448b8c249800.  mov r9d, dword [rsp + 0x98]
+0x00002a6f      448b442428     mov r8d, dword [rsp + 0x28]
+0x00002a74      488b542430     mov rdx, qword [rsp + 0x30]
+0x00002a79      4183e1fd       and r9d, 0xfffffffd                     ; 4294967293
+0x00002a7d      e82ef4ffff     call sym.quotearg_buffer_restyled
+0x00002a82      4883c420       add rsp, 0x20
+0x00002a86      4989c7         mov r15, rax
+0x00002a89      488b9c24a800.  mov rbx, qword [rsp + 0xa8]
+0x00002a91      6448331c2528.  xor rbx, qword fs:[0x28]
+0x00002a9a      4c89f8         mov rax, r15
+0x00002a9d      0f8500060000   jne 0x30a3
+0x00002aa3      4881c4b80000.  add rsp, 0xb8
+0x00002aaa      5b             pop rbx
+0x00002aab      5d             pop rbp
+0x00002aac      415c           pop r12
+0x00002aae      415d           pop r13
+0x00002ab0      415e           pop r14
+0x00002ab2      415f           pop r15                                 ; ../coreutils-8.31/lib/quotearg.c:-2071
+0x00002ab4      c3             ret
+0x00002ab5      0f1f00         nop dword [rax]
+0x00002ab8      4c89dd         mov rbp, r11
+0x00002abb      e979ffffff     jmp 0x2a39
+0x00002ac0      4d39fd         cmp r13, r15
+0x00002ac3      7605           jbe 0x2aca
+0x00002ac5      43c6043e27     mov byte [r14 + r15], 0x27              ; '''
+                                                                       ; [0x27:1]=0
+0x00002aca      498d4701       lea rax, [r15 + 1]
+0x00002ace      4939c5         cmp r13, rax
+0x00002ad1      7606           jbe 0x2ad9
+0x00002ad3      43c6443e015c   mov byte [r14 + r15 + 1], 0x5c          ; '\'
+                                                                       ; [0x5c:1]=0
+0x00002ad9      498d4702       lea rax, [r15 + 2]
+0x00002add      4939c5         cmp r13, rax
+0x00002ae0      0f86ec050000   jbe 0x30d2
+0x00002ae6      4c89ea         mov rdx, r13
+0x00002ae9      43c6443e0227   mov byte [r14 + r15 + 2], 0x27          ; '''
+                                                                       ; [0x27:1]=0
+0x00002aef      4c8b6c2450     mov r13, qword [rsp + 0x50]
+0x00002af4      e9d9fbffff     jmp 0x26d2
+0x00002af9      4489e0         mov eax, r12d
+0x00002afc      bb30000000     mov ebx, 0x30                           ; ../coreutils-8.31/lib/quotearg.c:-2239 ; '0'
+0x00002b01      4531e4         xor r12d, r12d                          ; ../coreutils-8.31/lib/quotearg.c:-2241
+0x00002b04      e900f6ffff     jmp 0x2109                              ; ../coreutils-8.31/lib/quotearg.c:-2240
+0x00002b09      43c6443e0227   mov byte [r14 + r15 + 2], 0x27          ; '''
+                                                                       ; [0x27:1]=0
+0x00002b0f      e9c5f9ffff     jmp 0x24d9
+0x00002b14      85db           test ebx, ebx
+0x00002b16      0f8527f4ffff   jne 0x1f43
+0x00002b1c      c644240d01     mov byte [rsp + 0xd], 1
+0x00002b21      4d85ed         test r13, r13
+0x00002b24      0f8590050000   jne 0x30ba
+0x00002b2a      488d051c2100.  lea rax, [0x00004c4d]                   ; u"'`\u696c\u6574\u6172l\u6873\u6c65l\u6873\u6c65\u2d6c\u6c61\u6177\u7379\u7300\u6568\u6c6c\u652d\u6373\u7061e\u6873\u6c65\u2d6c\u7365\u6163\u6570\u612d\u776c\u7961s\u2d63\u616d\u6279e\u6c63\u636f\u6c61e"
+0x00002b31      48c744245000.  mov qword [rsp + 0x50], 0
+0x00002b3a      c644240e01     mov byte [rsp + 0xe], 1
+0x00002b3f      c644247c00     mov byte [rsp + 0x7c], 0
+0x00002b44      4531e4         xor r12d, r12d
+0x00002b47      c644240f00     mov byte [rsp + 0xf], 0
+0x00002b4c      48c744241801.  mov qword [rsp + 0x18], 1
+0x00002b55      4889442448     mov qword [rsp + 0x48], rax
+0x00002b5a      41bf01000000   mov r15d, 1
+0x00002b60      c74424080200.  mov dword [rsp + 8], 2
+0x00002b68      e916f4ffff     jmp 0x1f83                              ; ../coreutils-8.31/lib/quotearg.c:-1868
+0x00002b6d      0f1f00         nop dword [rax]
+0x00002b70      85db           test ebx, ebx
+0x00002b72      0f85f5030000   jne 0x2f6d
+0x00002b78      4d85ed         test r13, r13
+0x00002b7b      0f8425020000   je 0x2da6
+0x00002b81      41c60622       mov byte [r14], 0x22                    ; '"'
+                                                                       ; [0x22:1]=0
+0x00002b85      c644240e01     mov byte [rsp + 0xe], 1
+0x00002b8a      4531e4         xor r12d, r12d
+0x00002b8d      c644247c00     mov byte [rsp + 0x7c], 0
+0x00002b92      48c744245000.  mov qword [rsp + 0x50], 0
+0x00002b9b      488d05a92000.  lea rax, str.l______l                   ; 0x4c4b ; u"\"'`\u696c\u6574\u6172l\u6873\u6c65l\u6873\u6c65\u2d6c\u6c61\u6177\u7379\u7300\u6568\u6c6c\u652d\u6373\u7061e\u6873\u6c65\u2d6c\u7365\u6163\u6570\u612d\u776c\u7961s\u2d63\u616d\u6279e\u6c63\u636f\u6c61e"
+0x00002ba2      c644240f00     mov byte [rsp + 0xf], 0
+0x00002ba7      c644240d01     mov byte [rsp + 0xd], 1
+0x00002bac      48c744241801.  mov qword [rsp + 0x18], 1
+0x00002bb5      41bf01000000   mov r15d, 1
+0x00002bbb      4889442448     mov qword [rsp + 0x48], rax
+0x00002bc0      e9bef3ffff     jmp 0x1f83
+0x00002bc5      488d057f2000.  lea rax, str.l______l                   ; 0x4c4b ; u"\"'`\u696c\u6574\u6172l\u6873\u6c65l\u6873\u6c65\u2d6c\u6c61\u6177\u7379\u7300\u6568\u6c6c\u652d\u6373\u7061e\u6873\u6c65\u2d6c\u7365\u6163\u6570\u612d\u776c\u7961s\u2d63\u616d\u6279e\u6c63\u636f\u6c61e"
+0x00002bcc      c644240e01     mov byte [rsp + 0xe], 1
+0x00002bd1      c644247c00     mov byte [rsp + 0x7c], 0
+0x00002bd6      4531e4         xor r12d, r12d                          ; ../coreutils-8.31/lib/quotearg.c:-2145
+0x00002bd9      48c744245000.  mov qword [rsp + 0x50], 0
+0x00002be2      c644240f01     mov byte [rsp + 0xf], 1
+0x00002be7      c644240d01     mov byte [rsp + 0xd], 1
+0x00002bec      48c744241801.  mov qword [rsp + 0x18], 1
+0x00002bf5      4531ff         xor r15d, r15d
+0x00002bf8      4889442448     mov qword [rsp + 0x48], rax             ; ../coreutils-8.31/lib/quotearg.c:-2164
+0x00002bfd      c74424080500.  mov dword [rsp + 8], 5
+0x00002c05      e979f3ffff     jmp 0x1f83
+0x00002c0a      c644240e01     mov byte [rsp + 0xe], 1
+0x00002c0f      c644247c00     mov byte [rsp + 0x7c], 0
+0x00002c14      4531e4         xor r12d, r12d
+0x00002c17      48c744245000.  mov qword [rsp + 0x50], 0
+0x00002c20      c644240f00     mov byte [rsp + 0xf], 0                 ; ../coreutils-8.31/lib/quotearg.c:-2161
+0x00002c25      4531ff         xor r15d, r15d                          ; ../coreutils-8.31/lib/quotearg.c:-2235
+0x00002c28      c644240d01     mov byte [rsp + 0xd], 1
+0x00002c2d      48c744241800.  mov qword [rsp + 0x18], 0
+0x00002c36      48c744244800.  mov qword [rsp + 0x48], 0
+0x00002c3f      e93ff3ffff     jmp 0x1f83
+0x00002c44      837c24080a     cmp dword [rsp + 8], 0xa
+0x00002c49      7456           je 0x2ca1
+0x00002c4b      488d35fd1f00.  lea rsi, [0x00004c4f]                   ; ../coreutils-8.31/lib/quotearg.c:-2352 ; "`"
+0x00002c52      31ff           xor edi, edi                            ; ../coreutils-8.31/lib/quotearg.c:-2405
+0x00002c54      ba05000000     mov edx, 5
+0x00002c59      e862e6ffff     call sym.imp.dcgettext
+0x00002c5e      4889c1         mov rcx, rax
+0x00002c61      4889442468     mov qword [rsp + 0x68], rax
+0x00002c66      488d05e21f00.  lea rax, [0x00004c4f]                   ; "`"
+0x00002c6d      4839c1         cmp rcx, rax                            ; ../coreutils-8.31/lib/quotearg.c:-2353
+0x00002c70      0f8498030000   je 0x300e
+0x00002c76      488d35d01f00.  lea rsi, [0x00004c4d]                   ; u"'`\u696c\u6574\u6172l\u6873\u6c65l\u6873\u6c65\u2d6c\u6c61\u6177\u7379\u7300\u6568\u6c6c\u652d\u6373\u7061e\u6873\u6c65\u2d6c\u7365\u6163\u6570\u612d\u776c\u7961s\u2d63\u616d\u6279e\u6c63\u636f\u6c61e"
+0x00002c7d      31ff           xor edi, edi
+0x00002c7f      ba05000000     mov edx, 5
+0x00002c84      e837e6ffff     call sym.imp.dcgettext
+0x00002c89      4889c1         mov rcx, rax
+0x00002c8c      4889442460     mov qword [rsp + 0x60], rax
+0x00002c91      488d05b51f00.  lea rax, [0x00004c4d]                   ; u"'`\u696c\u6574\u6172l\u6873\u6c65l\u6873\u6c65\u2d6c\u6c61\u6177\u7379\u7300\u6568\u6c6c\u652d\u6373\u7061e\u6873\u6c65\u2d6c\u7365\u6163\u6570\u612d\u776c\u7961s\u2d63\u616d\u6279e\u6c63\u636f\u6c61e"
+0x00002c98      4839c1         cmp rcx, rax                            ; ../coreutils-8.31/lib/quotearg.c:-1922
+0x00002c9b      0f8483030000   je 0x3024
+0x00002ca1      4531ff         xor r15d, r15d
+0x00002ca4      85db           test ebx, ebx
+0x00002ca6      0f84c1010000   je 0x2e6d
+0x00002cac      85db           test ebx, ebx
+0x00002cae      488b5c2460     mov rbx, qword [rsp + 0x60]
+0x00002cb3      0f9544240f     setne byte [rsp + 0xf]
+0x00002cb8      4531e4         xor r12d, r12d
+0x00002cbb      4889df         mov rdi, rbx
+0x00002cbe      e81de6ffff     call sym.imp.strlen
+0x00002cc3      48895c2448     mov qword [rsp + 0x48], rbx
+0x00002cc8      4889442418     mov qword [rsp + 0x18], rax
+0x00002ccd      c644240e01     mov byte [rsp + 0xe], 1
+0x00002cd2      c644247c00     mov byte [rsp + 0x7c], 0
+0x00002cd7      48c744245000.  mov qword [rsp + 0x50], 0
+0x00002ce0      c644240d01     mov byte [rsp + 0xd], 1
+0x00002ce5      e999f2ffff     jmp 0x1f83
+0x00002cea      c644240e01     mov byte [rsp + 0xe], 1
+0x00002cef      c644247c00     mov byte [rsp + 0x7c], 0
+0x00002cf4      4531e4         xor r12d, r12d
+0x00002cf7      48c744245000.  mov qword [rsp + 0x50], 0
+0x00002d00      c644240f00     mov byte [rsp + 0xf], 0
+0x00002d05      4531ff         xor r15d, r15d
+0x00002d08      c644240d00     mov byte [rsp + 0xd], 0
+0x00002d0d      48c744241800.  mov qword [rsp + 0x18], 0
+0x00002d16      48c744244800.  mov qword [rsp + 0x48], 0
+0x00002d1f      e95ff2ffff     jmp 0x1f83
+0x00002d24      c644240e01     mov byte [rsp + 0xe], 1
+0x00002d29      c644247c00     mov byte [rsp + 0x7c], 0
+0x00002d2e      4531e4         xor r12d, r12d
+0x00002d31      48c744245000.  mov qword [rsp + 0x50], 0
+0x00002d3a      c644240f01     mov byte [rsp + 0xf], 1
+0x00002d3f      c644240d01     mov byte [rsp + 0xd], 1
+0x00002d44      e91af2ffff     jmp 0x1f63
+0x00002d49      4d39fd         cmp r13, r15
+0x00002d4c      7605           jbe 0x2d53
+0x00002d4e      43c6043e30     mov byte [r14 + r15], 0x30              ; '0'
+                                                                       ; [0x30:1]=0
+0x00002d53      488d4102       lea rax, [rcx + 2]
+0x00002d57      4939c5         cmp r13, rax
+0x00002d5a      7606           jbe 0x2d62
+0x00002d5c      41c6440e0230   mov byte [r14 + rcx + 2], 0x30          ; '0'
+                                                                       ; [0x30:1]=0
+0x00002d62      4489e0         mov eax, r12d
+0x00002d65      4c8d7903       lea r15, [rcx + 3]
+0x00002d69      4531e4         xor r12d, r12d
+0x00002d6c      bb30000000     mov ebx, 0x30                           ; '0'
+0x00002d71      e962f3ffff     jmp 0x20d8
+0x00002d76      662e0f1f8400.  nop word cs:[rax + rax]
+0x00002d80      0fb65c240f     movzx ebx, byte [rsp + 0xf]
+0x00002d85      4c89dd         mov rbp, r11
+0x00002d88      885c240d       mov byte [rsp + 0xd], bl
+0x00002d8c      e9a8fcffff     jmp 0x2a39
+0x00002d91      0fb654240d     movzx edx, byte [rsp + 0xd]
+0x00002d96      4531e4         xor r12d, r12d
+0x00002d99      e902fbffff     jmp 0x28a0
+0x00002d9e      4531d2         xor r10d, r10d
+0x00002da1      e9b7fbffff     jmp 0x295d
+0x00002da6      48c744245000.  mov qword [rsp + 0x50], 0
+0x00002daf      c644240e01     mov byte [rsp + 0xe], 1
+0x00002db4      4531e4         xor r12d, r12d
+0x00002db7      c644247c00     mov byte [rsp + 0x7c], 0
+0x00002dbc      e9dafdffff     jmp 0x2b9b
+0x00002dc1      4c8b5c2430     mov r11, qword [rsp + 0x30]
+0x00002dc6      4c89f6         mov rsi, r14
+0x00002dc9      4c89e9         mov rcx, r13
+0x00002dcc      4889d8         mov rax, rbx
+0x00002dcf      4889df         mov rdi, rbx
+0x00002dd2      440fb644247d   movzx r8d, byte [rsp + 0x7d]
+0x00002dd8      0fb65c247e     movzx ebx, byte [rsp + 0x7e]
+0x00002ddd      4c8b8c248800.  mov r9, qword [rsp + 0x88]
+0x00002de5      4c39de         cmp rsi, r11                            ; ../coreutils-8.31/lib/quotearg.c:-1799
+0x00002de8      440fb654247f   movzx r10d, byte [rsp + 0x7f]
+0x00002dee      4c8bbc248000.  mov r15, qword [rsp + 0x80]
+0x00002df6      4c8b742440     mov r14, qword [rsp + 0x40]
+0x00002dfb      4c8b6c2470     mov r13, qword [rsp + 0x70]
+0x00002e00      7326           jae 0x2e28
+0x00002e02      803900         cmp byte [rcx], 0                       ; ../coreutils-8.31/lib/quotearg.c:-1794
+0x00002e05      7510           jne 0x2e17
+0x00002e07      eb1f           jmp 0x2e28
+0x00002e09      0f1f80000000.  nop dword [rax]
+0x00002e10      41803c0100     cmp byte [r9 + rax], 0
+0x00002e15      740e           je 0x2e25
+0x00002e17      4883c001       add rax, 1
+0x00002e1b      488d540500     lea rdx, [rbp + rax]
+0x00002e20      4939d3         cmp r11, rdx
+0x00002e23      77eb           ja 0x2e10
+0x00002e25      4889c7         mov rdi, rax
+0x00002e28      0fb654240d     movzx edx, byte [rsp + 0xd]
+0x00002e2d      4531e4         xor r12d, r12d
+0x00002e30      e961faffff     jmp 0x2896
+0x00002e35      4889df         mov rdi, rbx
+0x00002e38      440fb644247d   movzx r8d, byte [rsp + 0x7d]
+0x00002e3e      0fb65c247e     movzx ebx, byte [rsp + 0x7e]
+0x00002e43      440fb654247f   movzx r10d, byte [rsp + 0x7f]
+0x00002e49      4c8bbc248000.  mov r15, qword [rsp + 0x80]
+0x00002e51      4531e4         xor r12d, r12d
+0x00002e54      4c8b742440     mov r14, qword [rsp + 0x40]
+0x00002e59      4c8b6c2470     mov r13, qword [rsp + 0x70]
+0x00002e5e      4c8b5c2430     mov r11, qword [rsp + 0x30]
+0x00002e63      0fb654240d     movzx edx, byte [rsp + 0xd]
+0x00002e68      e929faffff     jmp 0x2896
+0x00002e6d      488b542468     mov rdx, qword [rsp + 0x68]
+0x00002e72      0fb602         movzx eax, byte [rdx]
+0x00002e75      84c0           test al, al
+0x00002e77      0f842ffeffff   je 0x2cac
+0x00002e7d      0f1f00         nop dword [rax]
+0x00002e80      4d39fd         cmp r13, r15
+0x00002e83      7604           jbe 0x2e89
+0x00002e85      4388043e       mov byte [r14 + r15], al                ; ../coreutils-8.31/lib/quotearg.c:-1771
+0x00002e89      4983c701       add r15, 1                              ; ../coreutils-8.31/lib/quotearg.c:-1775
+0x00002e8d      420fb6043a     movzx eax, byte [rdx + r15]
+0x00002e92      84c0           test al, al
+0x00002e94      75ea           jne 0x2e80
+0x00002e96      e911feffff     jmp 0x2cac
+0x00002e9b      89d0           mov eax, edx
+0x00002e9d      e955f5ffff     jmp 0x23f7
+0x00002ea2      0fb61c08       movzx ebx, byte [rax + rcx]
+0x00002ea6      80fb3e         cmp bl, 0x3e
+0x00002ea9      0f8771f8ffff   ja 0x2720
+0x00002eaf      48b800000000.  movabs rax, 0x7000a38200000000          ; 8070630310989004800
+0x00002eb9      480fa3d8       bt rax, rbx
+0x00002ebd      0f835df8ffff   jae 0x2720
+0x00002ec3      807c240f00     cmp byte [rsp + 0xf], 0
+0x00002ec8      0f85e4010000   jne 0x30b2                              ; ../coreutils-8.31/lib/quotearg.c:-1763
+0x00002ece      4d39fd         cmp r13, r15
+0x00002ed1      7605           jbe 0x2ed8
+0x00002ed3      43c6043e3f     mov byte [r14 + r15], 0x3f              ; '?'
+                                                                       ; [0x3f:1]=0
+0x00002ed8      498d4701       lea rax, [r15 + 1]
+0x00002edc      4939c5         cmp r13, rax
+0x00002edf      7606           jbe 0x2ee7
+0x00002ee1      43c6443e0122   mov byte [r14 + r15 + 1], 0x22          ; '"'
+                                                                       ; [0x22:1]=0
+0x00002ee7      498d4702       lea rax, [r15 + 2]
+0x00002eeb      4939c5         cmp r13, rax
+0x00002eee      7606           jbe 0x2ef6
+0x00002ef0      43c6443e0222   mov byte [r14 + r15 + 2], 0x22          ; '"'
+                                                                       ; [0x22:1]=0
+0x00002ef6      498d4703       lea rax, [r15 + 3]
+0x00002efa      4939c5         cmp r13, rax                            ; ../coreutils-8.31/lib/quotearg.c:-1759
+0x00002efd      7606           jbe 0x2f05
+0x00002eff      43c6443e033f   mov byte [r14 + r15 + 3], 0x3f          ; '?'
+                                                                       ; [0x3f:1]=0
+0x00002f05      4983c704       add r15, 4
+0x00002f09      31d2           xor edx, edx
+0x00002f0b      4531e4         xor r12d, r12d
+0x00002f0e      31c0           xor eax, eax
+0x00002f10      4889cd         mov rbp, rcx
+0x00002f13      e9c0f1ffff     jmp 0x20d8
+0x00002f18      85db           test ebx, ebx
+0x00002f1a      0f8488010000   je 0x30a8
+0x00002f20      488d05261d00.  lea rax, [0x00004c4d]                   ; u"'`\u696c\u6574\u6172l\u6873\u6c65l\u6873\u6c65\u2d6c\u6c61\u6177\u7379\u7300\u6568\u6c6c\u652d\u6373\u7061e\u6873\u6c65\u2d6c\u7365\u6163\u6570\u612d\u776c\u7961s\u2d63\u616d\u6279e\u6c63\u636f\u6c61e"
+0x00002f27      c644240e01     mov byte [rsp + 0xe], 1
+0x00002f2c      c644247c00     mov byte [rsp + 0x7c], 0
+0x00002f31      4531e4         xor r12d, r12d
+0x00002f34      48c744245000.  mov qword [rsp + 0x50], 0
+0x00002f3d      c644240f01     mov byte [rsp + 0xf], 1
+0x00002f42      c644240d00     mov byte [rsp + 0xd], 0
+0x00002f47      48c744241801.  mov qword [rsp + 0x18], 1
+0x00002f50      4531ff         xor r15d, r15d
+0x00002f53      4889442448     mov qword [rsp + 0x48], rax
+0x00002f58      e926f0ffff     jmp 0x1f83
+0x00002f5d      0f1f00         nop dword [rax]                         ; ../coreutils-8.31/lib/quotearg.c:-1783
+0x00002f60      4c89dd         mov rbp, r11
+0x00002f63      0fb644240f     movzx eax, byte [rsp + 0xf]
+0x00002f68      e9ccfaffff     jmp 0x2a39
+0x00002f6d      488d05d71c00.  lea rax, str.l______l                   ; 0x4c4b ; u"\"'`\u696c\u6574\u6172l\u6873\u6c65l\u6873\u6c65\u2d6c\u6c61\u6177\u7379\u7300\u6568\u6c6c\u652d\u6373\u7061e\u6873\u6c65\u2d6c\u7365\u6163\u6570\u612d\u776c\u7961s\u2d63\u616d\u6279e\u6c63\u636f\u6c61e"
+0x00002f74      c644240e01     mov byte [rsp + 0xe], 1                 ; ../coreutils-8.31/lib/quotearg.c:-1785
+0x00002f79      c644247c00     mov byte [rsp + 0x7c], 0
+0x00002f7e      4531e4         xor r12d, r12d                          ; ../coreutils-8.31/lib/quotearg.c:-2555
+0x00002f81      48c744245000.  mov qword [rsp + 0x50], 0
+0x00002f8a      c644240f01     mov byte [rsp + 0xf], 1
+0x00002f8f      c644240d01     mov byte [rsp + 0xd], 1
+0x00002f94      48c744241801.  mov qword [rsp + 0x18], 1
+0x00002f9d      4531ff         xor r15d, r15d
+0x00002fa0      4889442448     mov qword [rsp + 0x48], rax
+0x00002fa5      e9d9efffff     jmp 0x1f83
+0x00002faa      89d0           mov eax, edx
+0x00002fac      488b5c2448     mov rbx, qword [rsp + 0x48]
+0x00002fb1      4885db         test rbx, rbx
+0x00002fb4      742c           je 0x2fe2
+0x00002fb6      84c0           test al, al
+0x00002fb8      7428           je 0x2fe2
+0x00002fba      0fb60b         movzx ecx, byte [rbx]
+0x00002fbd      4889d8         mov rax, rbx
+0x00002fc0      84c9           test cl, cl
+0x00002fc2      741e           je 0x2fe2
+0x00002fc4      4c89fa         mov rdx, r15
+0x00002fc7      4c29f8         sub rax, r15
+0x00002fca      4939d5         cmp r13, rdx
+0x00002fcd      7604           jbe 0x2fd3
+0x00002fcf      41880c16       mov byte [r14 + rdx], cl
+0x00002fd3      4883c201       add rdx, 1
+0x00002fd7      0fb60c10       movzx ecx, byte [rax + rdx]
+0x00002fdb      84c9           test cl, cl
+0x00002fdd      75eb           jne 0x2fca
+0x00002fdf      4989d7         mov r15, rdx
+0x00002fe2      4d39fd         cmp r13, r15
+0x00002fe5      0f869efaffff   jbe 0x2a89
+0x00002feb      43c6043e00     mov byte [r14 + r15], 0
+0x00002ff0      e994faffff     jmp 0x2a89
+0x00002ff5      837c240802     cmp dword [rsp + 8], 2
+0x00002ffa      0fb65c240f     movzx ebx, byte [rsp + 0xf]
+0x00002fff      4c89dd         mov rbp, r11
+0x00003002      0f94c0         sete al
+0x00003005      885c240d       mov byte [rsp + 0xd], bl
+0x00003009      e92bfaffff     jmp 0x2a39
+0x0000300e      8b742408       mov esi, dword [rsp + 8]
+0x00003012      4889cf         mov rdi, rcx
+0x00003015      e8a6edffff     call sym.gettext_quote.part.1
+0x0000301a      4889442468     mov qword [rsp + 0x68], rax
+0x0000301f      e952fcffff     jmp 0x2c76
+0x00003024      8b742408       mov esi, dword [rsp + 8]                ; ../coreutils-8.31/lib/quotearg.c:-2519
+0x00003028      4889cf         mov rdi, rcx
+0x0000302b      e890edffff     call sym.gettext_quote.part.1
+0x00003030      4889442460     mov qword [rsp + 0x60], rax
+0x00003035      e967fcffff     jmp 0x2ca1
+0x0000303a      0fb65c240f     movzx ebx, byte [rsp + 0xf]
+0x0000303f      4c89dd         mov rbp, r11
+0x00003042      89d0           mov eax, edx
+0x00003044      885c240d       mov byte [rsp + 0xd], bl
+0x00003048      e9ecf9ffff     jmp 0x2a39
+0x0000304d      4883ec08       sub rsp, 8
+0x00003051      41b805000000   mov r8d, 5
+0x00003057      4c89d9         mov rcx, r11
+0x0000305a      ff742468       push qword [rsp + 0x68]
+0x0000305e      ff742478       push qword [rsp + 0x78]                 ; ../coreutils-8.31/lib/quotearg.c:-2497
+0x00003062      4c89f7         mov rdi, r14
+0x00003065      ff742438       push qword [rsp + 0x38]
+0x00003069      448b8c249800.  mov r9d, dword [rsp + 0x98]
+0x00003071      488b542430     mov rdx, qword [rsp + 0x30]
+0x00003076      488b742470     mov rsi, qword [rsp + 0x70]
+0x0000307b      e830eeffff     call sym.quotearg_buffer_restyled
+0x00003080      4883c420       add rsp, 0x20                           ; ../coreutils-8.31/lib/quotearg.c:-2490
+0x00003084      4989c7         mov r15, rax
+0x00003087      e9fdf9ffff     jmp 0x2a89
+0x0000308c      0fb644247c     movzx eax, byte [rsp + 0x7c]
+0x00003091      e916ffffff     jmp 0x2fac
+0x00003096      c74424080200.  mov dword [rsp + 8], 2
+0x0000309e      e996f9ffff     jmp 0x2a39
+0x000030a3      e848e2ffff     call sym.imp.__stack_chk_fail
+0x000030a8      c644240d00     mov byte [rsp + 0xd], 0
+0x000030ad      e96ffaffff     jmp 0x2b21
+0x000030b2      4c89dd         mov rbp, r11
+0x000030b5      e996f9ffff     jmp 0x2a50
+0x000030ba      c644240e01     mov byte [rsp + 0xe], 1
+0x000030bf      31c0           xor eax, eax
+0x000030c1      4531e4         xor r12d, r12d
+0x000030c4      48c744245000.  mov qword [rsp + 0x50], 0
+0x000030cd      e9a2f5ffff     jmp 0x2674
+0x000030d2      4c89ea         mov rdx, r13
+0x000030d5      4c8b6c2450     mov r13, qword [rsp + 0x50]
+0x000030da      e9f3f5ffff     jmp 0x26d2
+0x000030df      e85ce1ffff     call sym.imp.abort
+0x000030e4      6690           nop
+0x000030e6      662e0f1f8400.  nop word cs:[rax + rax]
+;-- quotearg_n_options:
+0x000030f0      4157           push r15
+0x000030f2      4156           push r14
+0x000030f4      4c63ff         movsxd r15, edi
+0x000030f7      4155           push r13
+0x000030f9      4154           push r12
+0x000030fb      4989d6         mov r14, rdx
+0x000030fe      55             push rbp
+0x000030ff      53             push rbx
+0x00003100      4889cd         mov rbp, rcx
+0x00003103      4883ec28       sub rsp, 0x28
+0x00003107      4889742408     mov qword [rsp + 8], rsi
+0x0000310c      e83fe1ffff     call sym.imp.__errno_location
+0x00003111      4989c5         mov r13, rax
+0x00003114      8b00           mov eax, dword [rax]
+0x00003116      4585ff         test r15d, r15d
+0x00003119      488b1d403f20.  mov rbx, qword [obj.slotvec]            ; ../coreutils-8.31/lib/quotearg.c:-1864 ; [0x207060:8]=0x207070 obj.slotvec0 ; "pp "
+0x00003120      89442418       mov dword [rsp + 0x18], eax
+0x00003124      0f8867010000   js 0x3291
+0x0000312a      44393d273f20.  cmp dword [obj.nslots], r15d            ; [0x207058:4]=1
+0x00003131      7f62           jg 0x3195
+0x00003133      4181ffffffff.  cmp r15d, 0x7fffffff
+0x0000313a      0f8456010000   je 0x3296
+0x00003140      458d6701       lea r12d, [r15 + 1]                     ; ../coreutils-8.31/lib/quotearg.c:-1862
+0x00003144      488d05253f20.  lea rax, obj.slotvec0                   ; 0x207070
+0x0000314b      4963f4         movsxd rsi, r12d
+0x0000314e      48c1e604       shl rsi, 4
+0x00003152      4839c3         cmp rbx, rax
+0x00003155      0f8415010000   je 0x3270
+0x0000315b      4889df         mov rdi, rbx
+0x0000315e      e86d0f0000     call sym.xrealloc                       ; ../coreutils-8.31/lib/quotearg.c:-1859
+0x00003163      4889c3         mov rbx, rax
+0x00003166      488905f33e20.  mov qword [obj.slotvec], rax            ; [0x207060:8]=0x207070 obj.slotvec0 ; "pp "
+0x0000316d      48633de43e20.  movsxd rdi, dword [obj.nslots]          ; [0x207058:4]=1
+0x00003174      4489e2         mov edx, r12d
+0x00003177      31f6           xor esi, esi
+0x00003179      29fa           sub edx, edi
+0x0000317b      48c1e704       shl rdi, 4
+0x0000317f      4863d2         movsxd rdx, edx
+0x00003182      4801df         add rdi, rbx
+0x00003185      48c1e204       shl rdx, 4
+0x00003189      e8b2e1ffff     call sym.imp.memset
+0x0000318e      448925c33e20.  mov dword [obj.nslots], r12d            ; [0x207058:4]=1
+0x00003195      8b4504         mov eax, dword [rbp + 4]
+0x00003198      49c1e704       shl r15, 4
+0x0000319c      4883ec08       sub rsp, 8
+0x000031a0      4c01fb         add rbx, r15
+0x000031a3      4c8d7d08       lea r15, [rbp + 8]
+0x000031a7      448b4500       mov r8d, dword [rbp]
+0x000031ab      4c8b1b         mov r11, qword [rbx]
+0x000031ae      4c8b6308       mov r12, qword [rbx + 8]
+0x000031b2      4c89f1         mov rcx, r14
+0x000031b5      83c801         or eax, 1
+0x000031b8      89442424       mov dword [rsp + 0x24], eax
+0x000031bc      ff7530         push qword [rbp + 0x30]
+0x000031bf      4189c1         mov r9d, eax
+0x000031c2      ff7528         push qword [rbp + 0x28]
+0x000031c5      4157           push r15
+0x000031c7      4c89de         mov rsi, r11                            ; ../coreutils-8.31/lib/quotearg.c:-1850
+0x000031ca      488b542428     mov rdx, qword [rsp + 0x28]
+0x000031cf      4c89e7         mov rdi, r12
+0x000031d2      4c895c2430     mov qword [rsp + 0x30], r11
+0x000031d7      e8d4ecffff     call sym.quotearg_buffer_restyled
+0x000031dc      4883c420       add rsp, 0x20
+0x000031e0      4c8b5c2410     mov r11, qword [rsp + 0x10]
+0x000031e5      4939c3         cmp r11, rax
+0x000031e8      7767           ja 0x3251
+0x000031ea      488d7001       lea rsi, [rax + 1]
+0x000031ee      488d050b3f20.  lea rax, obj.slot0                      ; 0x207100
+0x000031f5      4939c4         cmp r12, rax
+0x000031f8      488933         mov qword [rbx], rsi
+0x000031fb      7412           je 0x320f
+0x000031fd      4c89e7         mov rdi, r12
+0x00003200      4889742410     mov qword [rsp + 0x10], rsi
+0x00003205      e826e0ffff     call sym.imp.free
+0x0000320a      488b742410     mov rsi, qword [rsp + 0x10]
+0x0000320f      4889f7         mov rdi, rsi
+0x00003212      4889742410     mov qword [rsp + 0x10], rsi
+0x00003217      e8540e0000     call sym.xmalloc
+0x0000321c      4883ec08       sub rsp, 8
+0x00003220      48894308       mov qword [rbx + 8], rax
+0x00003224      448b4500       mov r8d, dword [rbp]
+0x00003228      ff7530         push qword [rbp + 0x30]
+0x0000322b      ff7528         push qword [rbp + 0x28]
+0x0000322e      4c89f1         mov rcx, r14
+0x00003231      4157           push r15
+0x00003233      448b4c243c     mov r9d, dword [rsp + 0x3c]
+0x00003238      4889c7         mov rdi, rax
+0x0000323b      488b542428     mov rdx, qword [rsp + 0x28]
+0x00003240      488b742430     mov rsi, qword [rsp + 0x30]
+0x00003245      4989c4         mov r12, rax
+0x00003248      e863ecffff     call sym.quotearg_buffer_restyled
+0x0000324d      4883c420       add rsp, 0x20
+0x00003251      8b442418       mov eax, dword [rsp + 0x18]
+0x00003255      41894500       mov dword [r13], eax
+0x00003259      4883c428       add rsp, 0x28
+0x0000325d      4c89e0         mov rax, r12
+0x00003260      5b             pop rbx                                 ; ../coreutils-8.31/lib/quotearg.c:-1822
+0x00003261      5d             pop rbp
+0x00003262      415c           pop r12
+0x00003264      415d           pop r13
+0x00003266      415e           pop r14
+0x00003268      415f           pop r15
+0x0000326a      c3             ret
+0x0000326b      0f1f440000     nop dword [rax + rax]
+0x00003270      31ff           xor edi, edi                            ; ../coreutils-8.31/lib/quotearg.c:-1820
+0x00003272      e8590e0000     call sym.xrealloc
+0x00003277      660f6f05f13d.  movdqa xmm0, xmmword [obj.slotvec0]     ; ../coreutils-8.31/lib/quotearg.c:-1818
+0x0000327f      4889c3         mov rbx, rax
+0x00003282      488905d73d20.  mov qword [obj.slotvec], rax            ; [0x207060:8]=0x207070 obj.slotvec0 ; "pp "
+0x00003289      0f1100         movups xmmword [rax], xmm0
+0x0000328c      e9dcfeffff     jmp 0x316d
+0x00003291      e8aadfffff     call sym.imp.abort
+0x00003296      e825100000     call sym.xalloc_die
+0x0000329b      0f1f440000     nop dword [rax + rax]
+;-- clone_quoting_options:
+0x000032a0      4154           push r12
+0x000032a2      55             push rbp
+0x000032a3      53             push rbx
+0x000032a4      4889fb         mov rbx, rdi
+0x000032a7      e8a4dfffff     call sym.imp.__errno_location
+0x000032ac      448b20         mov r12d, dword [rax]
+0x000032af      4889c5         mov rbp, rax
+0x000032b2      488d05473f20.  lea rax, obj.default_quoting_options    ; 0x207200
+0x000032b9      4885db         test rbx, rbx
+0x000032bc      be38000000     mov esi, 0x38                           ; '8'
+0x000032c1      480f44d8       cmove rbx, rax
+0x000032c5      4889df         mov rdi, rbx
+0x000032c8      e8a30f0000     call sym.xmemdup
+0x000032cd      44896500       mov dword [rbp], r12d                   ; ../coreutils-8.31/lib/quotearg.c:-1862
+0x000032d1      5b             pop rbx
+0x000032d2      5d             pop rbp
+0x000032d3      415c           pop r12
+0x000032d5      c3             ret
+0x000032d6      662e0f1f8400.  nop word cs:[rax + rax]
+;-- get_quoting_style:
+0x000032e0      488d05193f20.  lea rax, obj.default_quoting_options    ; 0x207200
+0x000032e7      4885ff         test rdi, rdi
+0x000032ea      480f44f8       cmove rdi, rax
+0x000032ee      8b07           mov eax, dword [rdi]
+0x000032f0      c3             ret
+0x000032f1      0f1f440000     nop dword [rax + rax]
+0x000032f6      662e0f1f8400.  nop word cs:[rax + rax]
+;-- set_quoting_style:
+0x00003300      488d05f93e20.  lea rax, obj.default_quoting_options    ; 0x207200
+0x00003307      4885ff         test rdi, rdi
+0x0000330a      480f44f8       cmove rdi, rax
+0x0000330e      8937           mov dword [rdi], esi
+0x00003310      c3             ret
+0x00003311      0f1f440000     nop dword [rax + rax]                   ; ../coreutils-8.31/lib/quotearg.c:-1850
+0x00003316      662e0f1f8400.  nop word cs:[rax + rax]
+;-- set_char_quoting:
+0x00003320      488d05d93e20.  lea rax, obj.default_quoting_options    ; 0x207200
+0x00003327      4885ff         test rdi, rdi
+0x0000332a      89f1           mov ecx, esi
+0x0000332c      480f44f8       cmove rdi, rax                          ; ../coreutils-8.31/lib/quotearg.c:-1848
+0x00003330      89f0           mov eax, esi
+0x00003332      83e11f         and ecx, 0x1f
+0x00003335      c0e805         shr al, 5
+0x00003338      0fb6c0         movzx eax, al
+0x0000333b      488d7c8708     lea rdi, [rdi + rax*4 + 8]
+0x00003340      8b37           mov esi, dword [rdi]
+0x00003342      89f0           mov eax, esi
+0x00003344      d3e8           shr eax, cl
+0x00003346      31c2           xor edx, eax
+0x00003348      83e001         and eax, 1
+0x0000334b      83e201         and edx, 1
+0x0000334e      d3e2           shl edx, cl
+0x00003350      31f2           xor edx, esi
+0x00003352      8917           mov dword [rdi], edx
+0x00003354      c3             ret
+0x00003355      90             nop
+0x00003356      662e0f1f8400.  nop word cs:[rax + rax]
+;-- set_quoting_flags:
+0x00003360      488d05993e20.  lea rax, obj.default_quoting_options    ; 0x207200
+0x00003367      4885ff         test rdi, rdi
+0x0000336a      480f44f8       cmove rdi, rax
+0x0000336e      8b4704         mov eax, dword [rdi + 4]
+0x00003371      897704         mov dword [rdi + 4], esi
+0x00003374      c3             ret
+0x00003375      90             nop
+0x00003376      662e0f1f8400.  nop word cs:[rax + rax]
+;-- set_custom_quoting:
+0x00003380      488d05793e20.  lea rax, obj.default_quoting_options    ; 0x207200
+0x00003387      4885ff         test rdi, rdi
+0x0000338a      480f44f8       cmove rdi, rax
+0x0000338e      4885f6         test rsi, rsi
+0x00003391      c7070a000000   mov dword [rdi], 0xa                    ; ../coreutils-8.31/lib/quotearg.c:-2609
+0x00003397      740e           je 0x33a7
+0x00003399      4885d2         test rdx, rdx
+0x0000339c      7409           je 0x33a7
+0x0000339e      48897728       mov qword [rdi + 0x28], rsi
+0x000033a2      48895730       mov qword [rdi + 0x30], rdx
+0x000033a6      c3             ret
+0x000033a7      4883ec08       sub rsp, 8
+0x000033ab      e890deffff     call sym.imp.abort
+;-- quotearg_buffer:
+0x000033b0      4157           push r15
+0x000033b2      4156           push r14
+0x000033b4      488d05453e20.  lea rax, obj.default_quoting_options    ; 0x207200
+0x000033bb      4155           push r13
+0x000033bd      4154           push r12
+0x000033bf      4989fd         mov r13, rdi                            ; ../coreutils-8.31/lib/quotearg.c:-1840
+0x000033c2      55             push rbp
+0x000033c3      53             push rbx
+0x000033c4      4c89c3         mov rbx, r8
+0x000033c7      4989f6         mov r14, rsi
+0x000033ca      4989d7         mov r15, rdx
+0x000033cd      4883ec18       sub rsp, 0x18
+0x000033d1      4d85c0         test r8, r8
+0x000033d4      480f44d8       cmove rbx, rax
+0x000033d8      48894c2408     mov qword [rsp + 8], rcx
+0x000033dd      e86edeffff     call sym.imp.__errno_location
+0x000033e2      448b20         mov r12d, dword [rax]
+0x000033e5      4889c5         mov rbp, rax
+0x000033e8      488d4308       lea rax, [rbx + 8]
+0x000033ec      4883ec08       sub rsp, 8
+0x000033f0      448b4b04       mov r9d, dword [rbx + 4]
+0x000033f4      ff7330         push qword [rbx + 0x30]
+0x000033f7      448b03         mov r8d, dword [rbx]
+0x000033fa      ff7328         push qword [rbx + 0x28]
+0x000033fd      4c89fa         mov rdx, r15
+0x00003400      50             push rax
+0x00003401      488b4c2428     mov rcx, qword [rsp + 0x28]
+0x00003406      4c89f6         mov rsi, r14
+0x00003409      4c89ef         mov rdi, r13
+0x0000340c      e89feaffff     call sym.quotearg_buffer_restyled
+0x00003411      44896500       mov dword [rbp], r12d
+0x00003415      4883c438       add rsp, 0x38
+0x00003419      5b             pop rbx
+0x0000341a      5d             pop rbp
+0x0000341b      415c           pop r12
+0x0000341d      415d           pop r13                                 ; ../coreutils-8.31/lib/quotearg.c:-2609
+0x0000341f      415e           pop r14
+0x00003421      415f           pop r15
+0x00003423      c3             ret
+0x00003424      6690           nop
+0x00003426      662e0f1f8400.  nop word cs:[rax + rax]
+;-- quotearg_alloc_mem:
+0x00003430      4157           push r15                                ; ../coreutils-8.31/lib/quotearg.c:-1834
+0x00003432      4156           push r14
+0x00003434      488d05c53d20.  lea rax, obj.default_quoting_options    ; 0x207200
+0x0000343b      4155           push r13
+0x0000343d      4154           push r12                                ; ../coreutils-8.31/lib/quotearg.c:-1829
+0x0000343f      4989d4         mov r12, rdx
+0x00003442      55             push rbp
+0x00003443      53             push rbx
+0x00003444      4889cb         mov rbx, rcx
+0x00003447      4989fe         mov r14, rdi
+0x0000344a      4989f7         mov r15, rsi
+0x0000344d      4883ec38       sub rsp, 0x38                           ; ../coreutils-8.31/lib/quotearg.c:-1823
+0x00003451      4885c9         test rcx, rcx                           ; ../coreutils-8.31/lib/quotearg.c:-2649
+0x00003454      480f44d8       cmove rbx, rax
+0x00003458      31ed           xor ebp, ebp
+0x0000345a      e8f1ddffff     call sym.imp.__errno_location
+0x0000345f      4d85e4         test r12, r12
+0x00003462      4989c5         mov r13, rax
+0x00003465      8b00           mov eax, dword [rax]
+0x00003467      400f94c5       sete bpl
+0x0000346b      0b6b04         or ebp, dword [rbx + 4]
+0x0000346e      4c8d5308       lea r10, [rbx + 8]
+0x00003472      4883ec08       sub rsp, 8
+0x00003476      448b03         mov r8d, dword [rbx]
+0x00003479      4c89f9         mov rcx, r15
+0x0000347c      89442414       mov dword [rsp + 0x14], eax
+0x00003480      ff7330         push qword [rbx + 0x30]
+0x00003483      4c89f2         mov rdx, r14                            ; ../coreutils-8.31/lib/quotearg.c:-2650
+0x00003486      ff7328         push qword [rbx + 0x28]
+0x00003489      4152           push r10                                ; ../coreutils-8.31/lib/quotearg.c:-2651
+0x0000348b      31f6           xor esi, esi
+0x0000348d      4189e9         mov r9d, ebp
+0x00003490      31ff           xor edi, edi
+0x00003492      4c89542440     mov qword [rsp + 0x40], r10
+0x00003497      e814eaffff     call sym.quotearg_buffer_restyled
+0x0000349c      488d7001       lea rsi, [rax + 1]
+0x000034a0      4889442448     mov qword [rsp + 0x48], rax
+0x000034a5      4883c420       add rsp, 0x20
+0x000034a9      4889f7         mov rdi, rsi
+0x000034ac      4889742418     mov qword [rsp + 0x18], rsi
+0x000034b1      e8ba0b0000     call sym.xmalloc
+0x000034b6      4889442410     mov qword [rsp + 0x10], rax             ; ../coreutils-8.31/lib/quotearg.c:-1819
+0x000034bb      4883ec08       sub rsp, 8
+0x000034bf      ff7330         push qword [rbx + 0x30]
+0x000034c2      ff7328         push qword [rbx + 0x28]
+0x000034c5      4c8b542438     mov r10, qword [rsp + 0x38]
+0x000034ca      4189e9         mov r9d, ebp
+0x000034cd      448b03         mov r8d, dword [rbx]
+0x000034d0      4c89f9         mov rcx, r15
+0x000034d3      4c89f2         mov rdx, r14
+0x000034d6      4889c7         mov rdi, rax
+0x000034d9      4152           push r10
+0x000034db      488b742438     mov rsi, qword [rsp + 0x38]
+0x000034e0      e8cbe9ffff     call sym.quotearg_buffer_restyled
+0x000034e5      8b44242c       mov eax, dword [rsp + 0x2c]
+0x000034e9      4883c420       add rsp, 0x20
+0x000034ed      4d85e4         test r12, r12                           ; ../coreutils-8.31/lib/quotearg.c:-1814
+0x000034f0      41894500       mov dword [r13], eax
+0x000034f4      7409           je 0x34ff
+0x000034f6      4c8b5c2428     mov r11, qword [rsp + 0x28]
+0x000034fb      4d891c24       mov qword [r12], r11
+0x000034ff      488b442410     mov rax, qword [rsp + 0x10]
+0x00003504      4883c438       add rsp, 0x38
+0x00003508      5b             pop rbx
+0x00003509      5d             pop rbp
+0x0000350a      415c           pop r12
+0x0000350c      415d           pop r13
+0x0000350e      415e           pop r14
+0x00003510      415f           pop r15
+0x00003512      c3             ret
+0x00003513      0f1f00         nop dword [rax]
+0x00003516      662e0f1f8400.  nop word cs:[rax + rax]
+;-- quotearg_alloc:
+0x00003520      4889d1         mov rcx, rdx
+0x00003523      31d2           xor edx, edx
+0x00003525      e906ffffff     jmp sym.quotearg_alloc_mem
+0x0000352a      660f1f440000   nop word [rax + rax]
+;-- quotearg_free:
+0x00003530      8b05223b2000   mov eax, dword [obj.nslots]             ; [0x207058:4]=1
+0x00003536      4154           push r12
+0x00003538      4c8b25213b20.  mov r12, qword [obj.slotvec]            ; [0x207060:8]=0x207070 obj.slotvec0 ; "pp "
+0x0000353f      55             push rbp
+0x00003540      53             push rbx
+0x00003541      83f801         cmp eax, 1
+0x00003544      7e2b           jle 0x3571                              ; ../coreutils-8.31/lib/quotearg.c:-2610
+0x00003546      83e802         sub eax, 2
+0x00003549      498d5c2418     lea rbx, [r12 + 0x18]                   ; ../coreutils-8.31/lib/quotearg.c:-1794
+0x0000354e      48c1e004       shl rax, 4
+0x00003552      498d6c0428     lea rbp, [r12 + rax + 0x28]
+0x00003557      660f1f840000.  nop word [rax + rax]
+0x00003560      488b3b         mov rdi, qword [rbx]
+0x00003563      4883c310       add rbx, 0x10
+0x00003567      e8c4dcffff     call sym.imp.free
+0x0000356c      4839eb         cmp rbx, rbp
+0x0000356f      75ef           jne 0x3560
+0x00003571      498b7c2408     mov rdi, qword [r12 + 8]
+0x00003576      488d1d833b20.  lea rbx, obj.slot0                      ; 0x207100
+0x0000357d      4839df         cmp rdi, rbx
+0x00003580      7417           je 0x3599
+0x00003582      e8a9dcffff     call sym.imp.free
+0x00003587      48c705de3a20.  mov qword [obj.slotvec0], 0x100         ; [0x207070:8]=256
+0x00003592      48891ddf3a20.  mov qword [0x00207078], rbx             ; [0x207078:8]=0x207100 obj.slot0
+0x00003599      488d1dd03a20.  lea rbx, obj.slotvec0                   ; 0x207070
+0x000035a0      4939dc         cmp r12, rbx
+0x000035a3      740f           je 0x35b4
+0x000035a5      4c89e7         mov rdi, r12
+0x000035a8      e883dcffff     call sym.imp.free
+0x000035ad      48891dac3a20.  mov qword [obj.slotvec], rbx            ; [0x207060:8]=0x207070 obj.slotvec0 ; "pp "
+0x000035b4      5b             pop rbx
+0x000035b5      c705993a2000.  mov dword [obj.nslots], 1               ; [0x207058:4]=1
+0x000035bf      5d             pop rbp
+0x000035c0      415c           pop r12
+0x000035c2      c3             ret
+0x000035c3      0f1f00         nop dword [rax]
+0x000035c6      662e0f1f8400.  nop word cs:[rax + rax]
+;-- quotearg_n:
+0x000035d0      488d0d293c20.  lea rcx, obj.default_quoting_options    ; 0x207200
+0x000035d7      48c7c2ffffff.  mov rdx, 0xffffffffffffffff
+0x000035de      e90dfbffff     jmp sym.quotearg_n_options
+0x000035e3      0f1f00         nop dword [rax]                         ; ../coreutils-8.31/lib/quotearg.c:-1776
+0x000035e6      662e0f1f8400.  nop word cs:[rax + rax]
+;-- quotearg_n_mem:
+0x000035f0      488d0d093c20.  lea rcx, obj.default_quoting_options    ; 0x207200
+0x000035f7      e9f4faffff     jmp sym.quotearg_n_options
+0x000035fc      0f1f4000       nop dword [rax]
+;-- quotearg:
+0x00003600      488d0df93b20.  lea rcx, obj.default_quoting_options    ; 0x207200
+0x00003607      4889fe         mov rsi, rdi
+0x0000360a      48c7c2ffffff.  mov rdx, 0xffffffffffffffff
+0x00003611      31ff           xor edi, edi
+0x00003613      e9d8faffff     jmp sym.quotearg_n_options
+0x00003618      0f1f84000000.  nop dword [rax + rax]
+;-- quotearg_mem:
+0x00003620      488d0dd93b20.  lea rcx, obj.default_quoting_options    ; 0x207200
+0x00003627      4889f2         mov rdx, rsi
+0x0000362a      4889fe         mov rsi, rdi
+0x0000362d      31ff           xor edi, edi
+0x0000362f      e9bcfaffff     jmp sym.quotearg_n_options              ; ../coreutils-8.31/lib/quotearg.c:-1773
+0x00003634      6690           nop
+0x00003636      662e0f1f8400.  nop word cs:[rax + rax]
+;-- quotearg_n_style:
+0x00003640      4883ec48       sub rsp, 0x48
+0x00003644      4889d0         mov rax, rdx                            ; ../coreutils-8.31/lib/quotearg.c:-2620
+0x00003647      64488b142528.  mov rdx, qword fs:[0x28]
+0x00003650      4889542438     mov qword [rsp + 0x38], rdx
+0x00003655      31d2           xor edx, edx
+0x00003657      83fe0a         cmp esi, 0xa
+0x0000365a      7468           je 0x36c4
+0x0000365c      893424         mov dword [rsp], esi
+0x0000365f      4889e1         mov rcx, rsp
+0x00003662      48c7c2ffffff.  mov rdx, 0xffffffffffffffff
+0x00003669      4889c6         mov rsi, rax
+0x0000366c      48c744240400.  mov qword [rsp + 4], 0
+0x00003675      48c744240c00.  mov qword [rsp + 0xc], 0
+0x0000367e      48c744241400.  mov qword [rsp + 0x14], 0
+0x00003687      48c744241c00.  mov qword [rsp + 0x1c], 0
+0x00003690      48c744242400.  mov qword [rsp + 0x24], 0               ; ../coreutils-8.31/lib/quotearg.c:-1760
+0x00003699      48c744242c00.  mov qword [rsp + 0x2c], 0
+0x000036a2      c74424340000.  mov dword [rsp + 0x34], 0
+0x000036aa      e841faffff     call sym.quotearg_n_options
+0x000036af      488b4c2438     mov rcx, qword [rsp + 0x38]
+0x000036b4      6448330c2528.  xor rcx, qword fs:[0x28]
+0x000036bd      750a           jne 0x36c9                              ; ../coreutils-8.31/lib/quotearg.c:-1738
+0x000036bf      4883c448       add rsp, 0x48
+0x000036c3      c3             ret
+0x000036c4      e877dbffff     call sym.imp.abort
+0x000036c9      e822dcffff     call sym.imp.__stack_chk_fail
+0x000036ce      6690           nop
+;-- quotearg_n_style_mem:
+0x000036d0      4883ec48       sub rsp, 0x48
+0x000036d4      4889d0         mov rax, rdx
+0x000036d7      4889ca         mov rdx, rcx
+0x000036da      64488b0c2528.  mov rcx, qword fs:[0x28]
+0x000036e3      48894c2438     mov qword [rsp + 0x38], rcx
+0x000036e8      31c9           xor ecx, ecx
+0x000036ea      83fe0a         cmp esi, 0xa
+0x000036ed      7461           je 0x3750
+0x000036ef      893424         mov dword [rsp], esi
+0x000036f2      4889e1         mov rcx, rsp
+0x000036f5      4889c6         mov rsi, rax
+0x000036f8      48c744240400.  mov qword [rsp + 4], 0
+0x00003701      48c744240c00.  mov qword [rsp + 0xc], 0
+0x0000370a      48c744241400.  mov qword [rsp + 0x14], 0
+0x00003713      48c744241c00.  mov qword [rsp + 0x1c], 0
+0x0000371c      48c744242400.  mov qword [rsp + 0x24], 0
+0x00003725      48c744242c00.  mov qword [rsp + 0x2c], 0
+0x0000372e      c74424340000.  mov dword [rsp + 0x34], 0
+0x00003736      e8b5f9ffff     call sym.quotearg_n_options
+0x0000373b      488b542438     mov rdx, qword [rsp + 0x38]
+0x00003740      644833142528.  xor rdx, qword fs:[0x28]
+0x00003749      750a           jne 0x3755
+0x0000374b      4883c448       add rsp, 0x48
+0x0000374f      c3             ret
+0x00003750      e8ebdaffff     call sym.imp.abort
+0x00003755      e896dbffff     call sym.imp.__stack_chk_fail
+0x0000375a      660f1f440000   nop word [rax + rax]
+;-- quotearg_style:
+0x00003760      4889f2         mov rdx, rsi
+0x00003763      89fe           mov esi, edi
+0x00003765      31ff           xor edi, edi
+0x00003767      e9d4feffff     jmp sym.quotearg_n_style
+0x0000376c      0f1f4000       nop dword [rax]
+;-- quotearg_style_mem:
+0x00003770      4889d1         mov rcx, rdx
+0x00003773      4889f2         mov rdx, rsi
+0x00003776      89fe           mov esi, edi
+0x00003778      31ff           xor edi, edi
+0x0000377a      e951ffffff     jmp sym.quotearg_n_style_mem
+0x0000377f      90             nop
+;-- quotearg_char_mem:
+0x00003780      4883ec48       sub rsp, 0x48
+0x00003784      89d1           mov ecx, edx
+0x00003786      64488b042528.  mov rax, qword fs:[0x28]
+0x0000378f      4889442438     mov qword [rsp + 0x38], rax
+0x00003794      31c0           xor eax, eax
+0x00003796      488b05933a20.  mov rax, qword [0x00207230]             ; [0x207230:8]=0
+0x0000379d      4989e0         mov r8, rsp
+0x000037a0      83e11f         and ecx, 0x1f
+0x000037a3      660f6f05553a.  movdqa xmm0, xmmword [obj.default_quoting_options]
+0x000037ab      4889442430     mov qword [rsp + 0x30], rax
+0x000037b0      89d0           mov eax, edx
+0x000037b2      0f290424       movaps xmmword [rsp], xmm0
+0x000037b6      c0e805         shr al, 5
+0x000037b9      0fb6c0         movzx eax, al
+0x000037bc      4d8d4c8008     lea r9, [r8 + rax*4 + 8]
+0x000037c1      660f6f05473a.  movdqa xmm0, xmmword [0x00207210]
+0x000037c9      0f29442410     movaps xmmword [rsp + 0x10], xmm0
+0x000037ce      660f6f054a3a.  movdqa xmm0, xmmword [0x00207220]
+0x000037d6      0f29442420     movaps xmmword [rsp + 0x20], xmm0
+0x000037db      418b11         mov edx, dword [r9]
+0x000037de      89d0           mov eax, edx
+0x000037e0      d3e8           shr eax, cl
+0x000037e2      f7d0           not eax
+0x000037e4      83e001         and eax, 1
+0x000037e7      d3e0           shl eax, cl
+0x000037e9      4c89c1         mov rcx, r8
+0x000037ec      31d0           xor eax, edx
+0x000037ee      4889f2         mov rdx, rsi
+0x000037f1      4889fe         mov rsi, rdi
+0x000037f4      418901         mov dword [r9], eax
+0x000037f7      31ff           xor edi, edi
+0x000037f9      e8f2f8ffff     call sym.quotearg_n_options
+0x000037fe      488b742438     mov rsi, qword [rsp + 0x38]
+0x00003803      644833342528.  xor rsi, qword fs:[0x28]
+0x0000380c      7505           jne 0x3813
+0x0000380e      4883c448       add rsp, 0x48
+0x00003812      c3             ret
+0x00003813      e8d8daffff     call sym.imp.__stack_chk_fail
+0x00003818      0f1f84000000.  nop dword [rax + rax]
+;-- quotearg_char:
+0x00003820      400fbed6       movsx edx, sil
+0x00003824      48c7c6ffffff.  mov rsi, 0xffffffffffffffff
+0x0000382b      e950ffffff     jmp sym.quotearg_char_mem
+;-- quotearg_colon:
+0x00003830      ba3a000000     mov edx, 0x3a                           ; ':'
+0x00003835      48c7c6ffffff.  mov rsi, 0xffffffffffffffff
+0x0000383c      e93fffffff     jmp sym.quotearg_char_mem
+0x00003841      0f1f440000     nop dword [rax + rax]
+0x00003846      662e0f1f8400.  nop word cs:[rax + rax]
+;-- quotearg_colon_mem:
+0x00003850      ba3a000000     mov edx, 0x3a                           ; ':'
+0x00003855      e926ffffff     jmp sym.quotearg_char_mem
+0x0000385a      660f1f440000   nop word [rax + rax]
+;-- quotearg_n_style_colon:
+0x00003860      4883ec48       sub rsp, 0x48
+0x00003864      4889d0         mov rax, rdx
+0x00003867      64488b142528.  mov rdx, qword fs:[0x28]
+0x00003870      4889542438     mov qword [rsp + 0x38], rdx
+0x00003875      31d2           xor edx, edx
+0x00003877      83fe0a         cmp esi, 0xa
+0x0000387a      7468           je 0x38e4
+0x0000387c      893424         mov dword [rsp], esi
+0x0000387f      4889e1         mov rcx, rsp
+0x00003882      48c7c2ffffff.  mov rdx, 0xffffffffffffffff
+0x00003889      4889c6         mov rsi, rax
+0x0000388c      48c744240400.  mov qword [rsp + 4], 0
+0x00003895      48c744240c00.  mov qword [rsp + 0xc], 0x4000000        ; [0x4000000:8]=-1
+0x0000389e      48c744241400.  mov qword [rsp + 0x14], 0
+0x000038a7      48c744241c00.  mov qword [rsp + 0x1c], 0
+0x000038b0      48c744242400.  mov qword [rsp + 0x24], 0
+0x000038b9      48c744242c00.  mov qword [rsp + 0x2c], 0
+0x000038c2      c74424340000.  mov dword [rsp + 0x34], 0
+0x000038ca      e821f8ffff     call sym.quotearg_n_options
+0x000038cf      488b4c2438     mov rcx, qword [rsp + 0x38]
+0x000038d4      6448330c2528.  xor rcx, qword fs:[0x28]
+0x000038dd      750a           jne 0x38e9
+0x000038df      4883c448       add rsp, 0x48
+0x000038e3      c3             ret
+0x000038e4      e857d9ffff     call sym.imp.abort
+0x000038e9      e802daffff     call sym.imp.__stack_chk_fail
+0x000038ee      6690           nop
+;-- quotearg_n_custom_mem:
+0x000038f0      4883ec48       sub rsp, 0x48
+0x000038f4      4989c9         mov r9, rcx
+0x000038f7      488b0d323920.  mov rcx, qword [0x00207230]             ; [0x207230:8]=0
+0x000038fe      660f6f05fa38.  movdqa xmm0, xmmword [obj.default_quoting_options]
+0x00003906      64488b042528.  mov rax, qword fs:[0x28]
+0x0000390f      4889442438     mov qword [rsp + 0x38], rax
+0x00003914      31c0           xor eax, eax
+0x00003916      0f290424       movaps xmmword [rsp], xmm0
+0x0000391a      4885f6         test rsi, rsi
+0x0000391d      48894c2430     mov qword [rsp + 0x30], rcx
+0x00003922      c704240a0000.  mov dword [rsp], 0xa
+0x00003929      660f6f05df38.  movdqa xmm0, xmmword [0x00207210]
+0x00003931      0f29442410     movaps xmmword [rsp + 0x10], xmm0
+0x00003936      660f6f05e238.  movdqa xmm0, xmmword [0x00207220]
+0x0000393e      0f29442420     movaps xmmword [rsp + 0x20], xmm0
+0x00003943      7432           je 0x3977
+0x00003945      4885d2         test rdx, rdx
+0x00003948      742d           je 0x3977
+0x0000394a      4889742428     mov qword [rsp + 0x28], rsi
+0x0000394f      4889542430     mov qword [rsp + 0x30], rdx
+0x00003954      4889e1         mov rcx, rsp
+0x00003957      4c89c2         mov rdx, r8
+0x0000395a      4c89ce         mov rsi, r9
+0x0000395d      e88ef7ffff     call sym.quotearg_n_options
+0x00003962      488b7c2438     mov rdi, qword [rsp + 0x38]
+0x00003967      6448333c2528.  xor rdi, qword fs:[0x28]
+0x00003970      750a           jne 0x397c
+0x00003972      4883c448       add rsp, 0x48
+0x00003976      c3             ret
+0x00003977      e8c4d8ffff     call sym.imp.abort
+0x0000397c      e86fd9ffff     call sym.imp.__stack_chk_fail
+0x00003981      0f1f440000     nop dword [rax + rax]
+0x00003986      662e0f1f8400.  nop word cs:[rax + rax]
+;-- quotearg_n_custom:
+0x00003990      49c7c0ffffff.  mov r8, 0xffffffffffffffff
+0x00003997      e954ffffff     jmp sym.quotearg_n_custom_mem
+0x0000399c      0f1f4000       nop dword [rax]
+;-- quotearg_custom:
+0x000039a0      4889d1         mov rcx, rdx
+0x000039a3      49c7c0ffffff.  mov r8, 0xffffffffffffffff
+0x000039aa      4889f2         mov rdx, rsi
+0x000039ad      4889fe         mov rsi, rdi
+0x000039b0      31ff           xor edi, edi
+0x000039b2      e939ffffff     jmp sym.quotearg_n_custom_mem
+0x000039b7      660f1f840000.  nop word [rax + rax]
+;-- quotearg_custom_mem:
+0x000039c0      4989c8         mov r8, rcx
+0x000039c3      4889d1         mov rcx, rdx
+0x000039c6      4889f2         mov rdx, rsi
+0x000039c9      4889fe         mov rsi, rdi
+0x000039cc      31ff           xor edi, edi
+0x000039ce      e91dffffff     jmp sym.quotearg_n_custom_mem
+0x000039d3      0f1f00         nop dword [rax]
+0x000039d6      662e0f1f8400.  nop word cs:[rax + rax]
+;-- quote_n_mem:
+0x000039e0      488d0d393620.  lea rcx, obj.quote_quoting_options      ; 0x207020
+0x000039e7      e904f7ffff     jmp sym.quotearg_n_options
+0x000039ec      0f1f4000       nop dword [rax]
+;-- quote_mem:
+0x000039f0      488d0d293620.  lea rcx, obj.quote_quoting_options      ; 0x207020
+0x000039f7      4889f2         mov rdx, rsi
+0x000039fa      4889fe         mov rsi, rdi
+0x000039fd      31ff           xor edi, edi
+0x000039ff      e9ecf6ffff     jmp sym.quotearg_n_options
+0x00003a04      6690           nop
+0x00003a06      662e0f1f8400.  nop word cs:[rax + rax]
+;-- quote_n:
+0x00003a10      488d0d093620.  lea rcx, obj.quote_quoting_options      ; 0x207020
+0x00003a17      48c7c2ffffff.  mov rdx, 0xffffffffffffffff
+0x00003a1e      e9cdf6ffff     jmp sym.quotearg_n_options
+0x00003a23      0f1f00         nop dword [rax]
+0x00003a26      662e0f1f8400.  nop word cs:[rax + rax]
+;-- quote:
+0x00003a30      488d0de93520.  lea rcx, obj.quote_quoting_options      ; 0x207020
+0x00003a37      4889fe         mov rsi, rdi
+0x00003a3a      48c7c2ffffff.  mov rdx, 0xffffffffffffffff
+0x00003a41      31ff           xor edi, edi
+0x00003a43      e9a8f6ffff     jmp sym.quotearg_n_options
+0x00003a48      0f1f84000000.  nop dword [rax + rax]
+;-- version_etc_arn:
+0x00003a50      4157           push r15
+0x00003a52      4156           push r14
+0x00003a54      4155           push r13
+0x00003a56      4154           push r12
+0x00003a58      4d89cc         mov r12, r9
+0x00003a5b      55             push rbp
+0x00003a5c      53             push rbx
+0x00003a5d      4889fd         mov rbp, rdi
+0x00003a60      4c89c3         mov rbx, r8
+0x00003a63      4883ec28       sub rsp, 0x28
+0x00003a67      4885f6         test rsi, rsi
+0x00003a6a      0f8418010000   je 0x3b88
+0x00003a70      4989d0         mov r8, rdx
+0x00003a73      488d158e1600.  lea rdx, [0x00005108]                   ; "%s (%s) %s\n"
+0x00003a7a      4989c9         mov r9, rcx
+0x00003a7d      31c0           xor eax, eax
+0x00003a7f      4889f1         mov rcx, rsi
+0x00003a82      be01000000     mov esi, 1
+0x00003a87      e8d4d9ffff     call sym.imp.__fprintf_chk
+0x00003a8c      488d35881600.  lea rsi, [0x0000511b]                   ; "(C)"
+0x00003a93      31ff           xor edi, edi
+0x00003a95      ba05000000     mov edx, 5
+0x00003a9a      e821d8ffff     call sym.imp.dcgettext
+0x00003a9f      488d159a1900.  lea rdx, obj.version_etc_copyright      ; 0x5440 ; "Copyright %s %d Free Software Foundation, Inc."
+0x00003aa6      4889c1         mov rcx, rax
+0x00003aa9      41b8e3070000   mov r8d, 0x7e3
+0x00003aaf      be01000000     mov esi, 1
+0x00003ab4      4889ef         mov rdi, rbp
+0x00003ab7      31c0           xor eax, eax
+0x00003ab9      e8a2d9ffff     call sym.imp.__fprintf_chk
+0x00003abe      488d35e31600.  lea rsi, str.License_GPLv3_:_GNU_GPL_version_3_or_later__https:__gnu.org_licenses_gpl.html_.__This_is_free_software:_you_are_free_to_change_and_redistribute_it.__There_is_NO_WARRANTY__to_the_extent_permitted_by_law. ; 0x51a8 ; "\nLicense GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n\n"
+0x00003ac5      31ff           xor edi, edi
+0x00003ac7      ba05000000     mov edx, 5
+0x00003acc      e8efd7ffff     call sym.imp.dcgettext
+0x00003ad1      4889ee         mov rsi, rbp
+0x00003ad4      4889c7         mov rdi, rax
+0x00003ad7      e884d8ffff     call sym.imp.fputs_unlocked
+0x00003adc      4983fc09       cmp r12, 9
+0x00003ae0      0f873a030000   ja 0x3e20
+0x00003ae6      488d151b1900.  lea rdx, [0x00005408]
+0x00003aed      4a6304a2       movsxd rax, dword [rdx + r12*4]
+0x00003af1      4801d0         add rax, rdx
+0x00003af4      ffe0           jmp rax
+0x00003af6      662e0f1f8400.  nop word cs:[rax + rax]
+0x00003b00      4c8b4b38       mov r9, qword [rbx + 0x38]
+0x00003b04      488b4310       mov rax, qword [rbx + 0x10]
+0x00003b08      488d35091800.  lea rsi, str.Written_by__s___s___s____s___s___s___s___and__s. ; 0x5318 ; "Written by %s, %s, %s,\n%s, %s, %s, %s,\nand %s.\n"
+0x00003b0f      4c8b4308       mov r8, qword [rbx + 8]
+0x00003b13      ba05000000     mov edx, 5
+0x00003b18      31ff           xor edi, edi
+0x00003b1a      4c8b6b30       mov r13, qword [rbx + 0x30]
+0x00003b1e      4c8b6328       mov r12, qword [rbx + 0x28]
+0x00003b22      4c894c2410     mov qword [rsp + 0x10], r9
+0x00003b27      4c8b7b20       mov r15, qword [rbx + 0x20]
+0x00003b2b      4c8b7318       mov r14, qword [rbx + 0x18]
+0x00003b2f      48890424       mov qword [rsp], rax
+0x00003b33      4c89442408     mov qword [rsp + 8], r8
+0x00003b38      488b1b         mov rbx, qword [rbx]
+0x00003b3b      e880d7ffff     call sym.imp.dcgettext
+0x00003b40      4883ec08       sub rsp, 8
+0x00003b44      4c8b4c2418     mov r9, qword [rsp + 0x18]
+0x00003b49      4889c2         mov rdx, rax
+0x00003b4c      4889d9         mov rcx, rbx
+0x00003b4f      be01000000     mov esi, 1
+0x00003b54      4889ef         mov rdi, rbp
+0x00003b57      31c0           xor eax, eax
+0x00003b59      4151           push r9
+0x00003b5b      4155           push r13
+0x00003b5d      4154           push r12
+0x00003b5f      4157           push r15
+0x00003b61      4156           push r14
+0x00003b63      4c8b4c2430     mov r9, qword [rsp + 0x30]
+0x00003b68      4c8b442438     mov r8, qword [rsp + 0x38]
+0x00003b6d      e8eed8ffff     call sym.imp.__fprintf_chk
+0x00003b72      4883c430       add rsp, 0x30
+0x00003b76      4883c428       add rsp, 0x28
+0x00003b7a      5b             pop rbx
+0x00003b7b      5d             pop rbp
+0x00003b7c      415c           pop r12
+0x00003b7e      415d           pop r13
+0x00003b80      415e           pop r14
+0x00003b82      415f           pop r15
+0x00003b84      c3             ret
+0x00003b85      0f1f00         nop dword [rax]
+0x00003b88      4989c8         mov r8, rcx
+0x00003b8b      4889d1         mov rcx, rdx
+0x00003b8e      488d157f1500.  lea rdx, str.s__s                       ; 0x5114 ; "%s %s\n"
+0x00003b95      be01000000     mov esi, 1
+0x00003b9a      31c0           xor eax, eax
+0x00003b9c      e8bfd8ffff     call sym.imp.__fprintf_chk
+0x00003ba1      e9e6feffff     jmp 0x3a8c
+0x00003ba6      662e0f1f8400.  nop word cs:[rax + rax]
+0x00003bb0      4c8b5340       mov r10, qword [rbx + 0x40]
+0x00003bb4      4c8b4b38       mov r9, qword [rbx + 0x38]
+0x00003bb8      488d35891700.  lea rsi, str.Written_by__s___s___s____s___s___s___s____s__and__s. ; 0x5348 ; "Written by %s, %s, %s,\n%s, %s, %s, %s,\n%s, and %s.\n"
+0x00003bbf      488b4310       mov rax, qword [rbx + 0x10]
+0x00003bc3      4c8b4308       mov r8, qword [rbx + 8]
+0x00003bc7      ba05000000     mov edx, 5
+0x00003bcc      4c8b6b30       mov r13, qword [rbx + 0x30]
+0x00003bd0      4c8b6328       mov r12, qword [rbx + 0x28]
+0x00003bd4      4c8b7b20       mov r15, qword [rbx + 0x20]
+0x00003bd8      4c8b7318       mov r14, qword [rbx + 0x18]
+0x00003bdc      488b1b         mov rbx, qword [rbx]
+0x00003bdf      4c89542418     mov qword [rsp + 0x18], r10
+0x00003be4      4c894c2410     mov qword [rsp + 0x10], r9
+0x00003be9      48890424       mov qword [rsp], rax
+0x00003bed      4c89442408     mov qword [rsp + 8], r8
+0x00003bf2      31ff           xor edi, edi
+0x00003bf4      e8c7d6ffff     call sym.imp.dcgettext
+0x00003bf9      4c8b542418     mov r10, qword [rsp + 0x18]
+0x00003bfe      4152           push r10
+0x00003c00      e93fffffff     jmp 0x3b44
+0x00003c05      0f1f00         nop dword [rax]
+0x00003c08      488b1b         mov rbx, qword [rbx]
+0x00003c0b      488d350d1500.  lea rsi, str.Written_by__s.             ; 0x511f ; "Written by %s.\n"
+0x00003c12      ba05000000     mov edx, 5
+0x00003c17      31ff           xor edi, edi
+0x00003c19      e8a2d6ffff     call sym.imp.dcgettext
+0x00003c1e      4883c428       add rsp, 0x28
+0x00003c22      4889d9         mov rcx, rbx
+0x00003c25      4889ef         mov rdi, rbp
+0x00003c28      5b             pop rbx
+0x00003c29      5d             pop rbp
+0x00003c2a      415c           pop r12
+0x00003c2c      415d           pop r13
+0x00003c2e      415e           pop r14
+0x00003c30      415f           pop r15
+0x00003c32      4889c2         mov rdx, rax
+0x00003c35      be01000000     mov esi, 1
+0x00003c3a      31c0           xor eax, eax
+0x00003c3c      e91fd8ffff     jmp sym.imp.__fprintf_chk
+0x00003c41      0f1f80000000.  nop dword [rax]
+0x00003c48      4c8b6308       mov r12, qword [rbx + 8]
+0x00003c4c      488d35dc1400.  lea rsi, str.Written_by__s_and__s.      ; 0x512f ; "Written by %s and %s.\n"
+0x00003c53      488b1b         mov rbx, qword [rbx]
+0x00003c56      ba05000000     mov edx, 5
+0x00003c5b      31ff           xor edi, edi
+0x00003c5d      e85ed6ffff     call sym.imp.dcgettext
+0x00003c62      4883c428       add rsp, 0x28
+0x00003c66      4d89e0         mov r8, r12
+0x00003c69      4889d9         mov rcx, rbx
+0x00003c6c      4889ef         mov rdi, rbp
+0x00003c6f      4889c2         mov rdx, rax
+0x00003c72      be01000000     mov esi, 1
+0x00003c77      5b             pop rbx
+0x00003c78      5d             pop rbp
+0x00003c79      415c           pop r12
+0x00003c7b      415d           pop r13
+0x00003c7d      415e           pop r14
+0x00003c7f      415f           pop r15
+0x00003c81      31c0           xor eax, eax
+0x00003c83      e9d8d7ffff     jmp sym.imp.__fprintf_chk
+0x00003c88      0f1f84000000.  nop dword [rax + rax]
+0x00003c90      4c8b6b10       mov r13, qword [rbx + 0x10]
+0x00003c94      4c8b6308       mov r12, qword [rbx + 8]
+0x00003c98      488d35a71400.  lea rsi, str.Written_by__s___s__and__s. ; 0x5146 ; "Written by %s, %s, and %s.\n"
+0x00003c9f      488b1b         mov rbx, qword [rbx]
+0x00003ca2      ba05000000     mov edx, 5
+0x00003ca7      31ff           xor edi, edi
+0x00003ca9      e812d6ffff     call sym.imp.dcgettext
+0x00003cae      4883c428       add rsp, 0x28
+0x00003cb2      4d89e9         mov r9, r13
+0x00003cb5      4d89e0         mov r8, r12
+0x00003cb8      4889d9         mov rcx, rbx
+0x00003cbb      4889ef         mov rdi, rbp
+0x00003cbe      4889c2         mov rdx, rax
+0x00003cc1      5b             pop rbx
+0x00003cc2      5d             pop rbp
+0x00003cc3      415c           pop r12
+0x00003cc5      415d           pop r13
+0x00003cc7      415e           pop r14
+0x00003cc9      415f           pop r15
+0x00003ccb      be01000000     mov esi, 1
+0x00003cd0      31c0           xor eax, eax
+0x00003cd2      e989d7ffff     jmp sym.imp.__fprintf_chk
+0x00003cd7      660f1f840000.  nop word [rax + rax]
+0x00003ce0      488d35911500.  lea rsi, str.Written_by__s___s___s___and__s. ; 0x5278 ; "Written by %s, %s, %s,\nand %s.\n"
+0x00003ce7      ba05000000     mov edx, 5
+0x00003cec      31ff           xor edi, edi
+0x00003cee      4c8b7318       mov r14, qword [rbx + 0x18]
+0x00003cf2      4c8b6b10       mov r13, qword [rbx + 0x10]
+0x00003cf6      4c8b6308       mov r12, qword [rbx + 8]
+0x00003cfa      488b1b         mov rbx, qword [rbx]
+0x00003cfd      e8bed5ffff     call sym.imp.dcgettext
+0x00003d02      4883ec08       sub rsp, 8
+0x00003d06      4156           push r14
+0x00003d08      4889c2         mov rdx, rax
+0x00003d0b      4d89e9         mov r9, r13
+0x00003d0e      4d89e0         mov r8, r12
+0x00003d11      4889d9         mov rcx, rbx
+0x00003d14      4889ef         mov rdi, rbp
+0x00003d17      be01000000     mov esi, 1
+0x00003d1c      31c0           xor eax, eax
+0x00003d1e      e83dd7ffff     call sym.imp.__fprintf_chk
+0x00003d23      58             pop rax
+0x00003d24      5a             pop rdx
+0x00003d25      4883c428       add rsp, 0x28
+0x00003d29      5b             pop rbx
+0x00003d2a      5d             pop rbp
+0x00003d2b      415c           pop r12
+0x00003d2d      415d           pop r13
+0x00003d2f      415e           pop r14
+0x00003d31      415f           pop r15
+0x00003d33      c3             ret
+0x00003d34      0f1f4000       nop dword [rax]
+0x00003d38      4c8b7b20       mov r15, qword [rbx + 0x20]
+0x00003d3c      488d35551500.  lea rsi, str.Written_by__s___s___s____s__and__s. ; 0x5298 ; "Written by %s, %s, %s,\n%s, and %s.\n"
+0x00003d43      ba05000000     mov edx, 5
+0x00003d48      31ff           xor edi, edi
+0x00003d4a      4c8b7318       mov r14, qword [rbx + 0x18]
+0x00003d4e      4c8b6b10       mov r13, qword [rbx + 0x10]
+0x00003d52      4c8b6308       mov r12, qword [rbx + 8]
+0x00003d56      488b1b         mov rbx, qword [rbx]
+0x00003d59      e862d5ffff     call sym.imp.dcgettext
+0x00003d5e      4157           push r15
+0x00003d60      eba4           jmp 0x3d06
+0x00003d62      660f1f440000   nop word [rax + rax]
+0x00003d68      4c8b4308       mov r8, qword [rbx + 8]
+0x00003d6c      4c8b6328       mov r12, qword [rbx + 0x28]
+0x00003d70      488d35491500.  lea rsi, str.Written_by__s___s___s____s___s__and__s. ; 0x52c0 ; "Written by %s, %s, %s,\n%s, %s, and %s.\n"
+0x00003d77      4c8b7b20       mov r15, qword [rbx + 0x20]
+0x00003d7b      4c8b7318       mov r14, qword [rbx + 0x18]
+0x00003d7f      ba05000000     mov edx, 5
+0x00003d84      4c8b6b10       mov r13, qword [rbx + 0x10]
+0x00003d88      31ff           xor edi, edi
+0x00003d8a      488b1b         mov rbx, qword [rbx]
+0x00003d8d      4c890424       mov qword [rsp], r8
+0x00003d91      e82ad5ffff     call sym.imp.dcgettext
+0x00003d96      4883ec08       sub rsp, 8
+0x00003d9a      4d89e9         mov r9, r13
+0x00003d9d      4154           push r12
+0x00003d9f      4157           push r15
+0x00003da1      4156           push r14
+0x00003da3      4c8b442420     mov r8, qword [rsp + 0x20]
+0x00003da8      4889d9         mov rcx, rbx
+0x00003dab      4889c2         mov rdx, rax
+0x00003dae      4889ef         mov rdi, rbp
+0x00003db1      be01000000     mov esi, 1
+0x00003db6      31c0           xor eax, eax
+0x00003db8      e8a3d6ffff     call sym.imp.__fprintf_chk
+0x00003dbd      4883c420       add rsp, 0x20
+0x00003dc1      4883c428       add rsp, 0x28
+0x00003dc5      5b             pop rbx
+0x00003dc6      5d             pop rbp
+0x00003dc7      415c           pop r12
+0x00003dc9      415d           pop r13
+0x00003dcb      415e           pop r14
+0x00003dcd      415f           pop r15
+0x00003dcf      c3             ret
+0x00003dd0      4c8b4b10       mov r9, qword [rbx + 0x10]
+0x00003dd4      4c8b6b30       mov r13, qword [rbx + 0x30]
+0x00003dd8      488d35091500.  lea rsi, str.Written_by__s___s___s____s___s___s__and__s. ; 0x52e8 ; "Written by %s, %s, %s,\n%s, %s, %s, and %s.\n"
+0x00003ddf      4c8b6328       mov r12, qword [rbx + 0x28]
+0x00003de3      4c8b7b20       mov r15, qword [rbx + 0x20]
+0x00003de7      ba05000000     mov edx, 5
+0x00003dec      4c8b7318       mov r14, qword [rbx + 0x18]
+0x00003df0      4c8b4308       mov r8, qword [rbx + 8]
+0x00003df4      31ff           xor edi, edi
+0x00003df6      4c894c2408     mov qword [rsp + 8], r9
+0x00003dfb      488b1b         mov rbx, qword [rbx]
+0x00003dfe      4c890424       mov qword [rsp], r8
+0x00003e02      e8b9d4ffff     call sym.imp.dcgettext
+0x00003e07      4155           push r13
+0x00003e09      4154           push r12
+0x00003e0b      4157           push r15
+0x00003e0d      4156           push r14
+0x00003e0f      4c8b4c2428     mov r9, qword [rsp + 0x28]
+0x00003e14      eb8d           jmp 0x3da3
+0x00003e16      662e0f1f8400.  nop word cs:[rax + rax]
+0x00003e20      4c8b5340       mov r10, qword [rbx + 0x40]
+0x00003e24      4c8b4b38       mov r9, qword [rbx + 0x38]
+0x00003e28      ba05000000     mov edx, 5
+0x00003e2d      488b4310       mov rax, qword [rbx + 0x10]
+0x00003e31      4c8b4308       mov r8, qword [rbx + 8]
+0x00003e35      488d35441500.  lea rsi, str.Written_by__s___s___s____s___s___s___s____s___s__and_others. ; 0x5380 ; "Written by %s, %s, %s,\n%s, %s, %s, %s,\n%s, %s, and others.\n"
+0x00003e3c      4c8b6b30       mov r13, qword [rbx + 0x30]
+0x00003e40      4c8b6328       mov r12, qword [rbx + 0x28]
+0x00003e44      4c8b7b20       mov r15, qword [rbx + 0x20]
+0x00003e48      4c8b7318       mov r14, qword [rbx + 0x18]
+0x00003e4c      4c89542418     mov qword [rsp + 0x18], r10
+0x00003e51      4c894c2410     mov qword [rsp + 0x10], r9
+0x00003e56      48890424       mov qword [rsp], rax
+0x00003e5a      4c89442408     mov qword [rsp + 8], r8
+0x00003e5f      488b1b         mov rbx, qword [rbx]
+0x00003e62      e98bfdffff     jmp 0x3bf2
+0x00003e67      660f1f840000.  nop word [rax + rax]
+;-- version_etc_ar:
+0x00003e70      4531c9         xor r9d, r9d
+0x00003e73      49833800       cmp qword [r8], 0
+0x00003e77      7412           je 0x3e8b
+0x00003e79      0f1f80000000.  nop dword [rax]
+0x00003e80      4983c101       add r9, 1
+0x00003e84      4b833cc800     cmp qword [r8 + r9*8], 0
+0x00003e89      75f5           jne 0x3e80
+0x00003e8b      e9c0fbffff     jmp sym.version_etc_arn
+;-- version_etc_va:
+0x00003e90      4883ec68       sub rsp, 0x68
+0x00003e94      4d89c2         mov r10, r8
+0x00003e97      4531c9         xor r9d, r9d
+0x00003e9a      64488b042528.  mov rax, qword fs:[0x28]
+0x00003ea3      4889442458     mov qword [rsp + 0x58], rax
+0x00003ea8      31c0           xor eax, eax
+0x00003eaa      4989e0         mov r8, rsp
+0x00003ead      0f1f00         nop dword [rax]
+0x00003eb0      418b02         mov eax, dword [r10]
+0x00003eb3      83f82f         cmp eax, 0x2f
+0x00003eb6      7742           ja 0x3efa
+0x00003eb8      4189c3         mov r11d, eax
+0x00003ebb      4d035a10       add r11, qword [r10 + 0x10]
+0x00003ebf      83c008         add eax, 8
+0x00003ec2      418902         mov dword [r10], eax
+0x00003ec5      498b03         mov rax, qword [r11]
+0x00003ec8      4885c0         test rax, rax
+0x00003ecb      4b8904c8       mov qword [r8 + r9*8], rax
+0x00003ecf      740a           je 0x3edb
+0x00003ed1      4983c101       add r9, 1
+0x00003ed5      4983f90a       cmp r9, 0xa
+0x00003ed9      75d5           jne 0x3eb0
+0x00003edb      e870fbffff     call sym.version_etc_arn
+0x00003ee0      488b442458     mov rax, qword [rsp + 0x58]
+0x00003ee5      644833042528.  xor rax, qword fs:[0x28]
+0x00003eee      7505           jne 0x3ef5
+0x00003ef0      4883c468       add rsp, 0x68
+0x00003ef4      c3             ret
+0x00003ef5      e8f6d3ffff     call sym.imp.__stack_chk_fail
+0x00003efa      4d8b5a08       mov r11, qword [r10 + 8]
+0x00003efe      498d4308       lea rax, [r11 + 8]
+0x00003f02      49894208       mov qword [r10 + 8], rax
+0x00003f06      ebbd           jmp 0x3ec5
+0x00003f08      0f1f84000000.  nop dword [rax + rax]
+;-- version_etc:
+0x00003f10      55             push rbp
+0x00003f11      53             push rbx
+0x00003f12      41ba20000000   mov r10d, 0x20                          ; "@"
+0x00003f18      4531db         xor r11d, r11d
+0x00003f1b      4881ecb80000.  sub rsp, 0xb8
+0x00003f22      64488b042528.  mov rax, qword fs:[0x28]
+0x00003f2b      4889442478     mov qword [rsp + 0x78], rax
+0x00003f30      31c0           xor eax, eax
+0x00003f32      488d8424d000.  lea rax, [rsp + 0xd0]
+0x00003f3a      4c898424a000.  mov qword [rsp + 0xa0], r8
+0x00003f42      488d9c24d000.  lea rbx, [rsp + 0xd0]
+0x00003f4a      4c8d442420     lea r8, [rsp + 0x20]
+0x00003f4f      4c898c24a800.  mov qword [rsp + 0xa8], r9
+0x00003f57      c74424082000.  mov dword [rsp + 8], 0x20               ; [0x20:4]=64 ; "@"
+0x00003f5f      4889442410     mov qword [rsp + 0x10], rax
+0x00003f64      488d84248000.  lea rax, [rsp + 0x80]
+0x00003f6c      4531c9         xor r9d, r9d
+0x00003f6f      4889442418     mov qword [rsp + 0x18], rax
+0x00003f74      4889c5         mov rbp, rax
+0x00003f77      660f1f840000.  nop word [rax + rax]
+0x00003f80      4183fa2f       cmp r10d, 0x2f
+0x00003f84      7756           ja 0x3fdc
+0x00003f86      4489d0         mov eax, r10d
+0x00003f89      41bb01000000   mov r11d, 1
+0x00003f8f      4183c208       add r10d, 8
+0x00003f93      4801e8         add rax, rbp
+0x00003f96      488b00         mov rax, qword [rax]
+0x00003f99      4885c0         test rax, rax
+0x00003f9c      4b8904c8       mov qword [r8 + r9*8], rax
+0x00003fa0      740a           je 0x3fac
+0x00003fa2      4983c101       add r9, 1
+0x00003fa6      4983f90a       cmp r9, 0xa
+0x00003faa      75d4           jne 0x3f80
+0x00003fac      4584db         test r11b, r11b
+0x00003faf      7524           jne 0x3fd5
+0x00003fb1      e89afaffff     call sym.version_etc_arn
+0x00003fb6      488b442478     mov rax, qword [rsp + 0x78]
+0x00003fbb      644833042528.  xor rax, qword fs:[0x28]
+0x00003fc4      750a           jne 0x3fd0
+0x00003fc6      4881c4b80000.  add rsp, 0xb8
+0x00003fcd      5b             pop rbx
+0x00003fce      5d             pop rbp
+0x00003fcf      c3             ret
+0x00003fd0      e81bd3ffff     call sym.imp.__stack_chk_fail
+0x00003fd5      4489542408     mov dword [rsp + 8], r10d
+0x00003fda      ebd5           jmp 0x3fb1
+0x00003fdc      4889d8         mov rax, rbx
+0x00003fdf      4883c308       add rbx, 8
+0x00003fe3      ebb1           jmp 0x3f96
+0x00003fe5      90             nop
+0x00003fe6      662e0f1f8400.  nop word cs:[rax + rax]
+;-- emit_bug_reporting_address:
+0x00003ff0      53             push rbx
+0x00003ff1      488d356a1100.  lea rsi, str.Report_bugs_to:__s         ; 0x5162 ; "\nReport bugs to: %s\n"
+0x00003ff8      ba05000000     mov edx, 5
+0x00003ffd      31ff           xor edi, edi
+0x00003fff      e8bcd2ffff     call sym.imp.dcgettext
+0x00004004      488d156c1100.  lea rdx, str.bug_coreutils_gnu.org      ; 0x5177 ; "bug-coreutils@gnu.org"
+0x0000400b      4889c6         mov rsi, rax
+0x0000400e      bf01000000     mov edi, 1
+0x00004013      31c0           xor eax, eax
+0x00004015      e8e6d3ffff     call sym.imp.__printf_chk
+0x0000401a      488d356c1100.  lea rsi, str.s_home_page:___s           ; 0x518d ; "%s home page: <%s>\n"
+0x00004021      ba05000000     mov edx, 5
+0x00004026      31ff           xor edi, edi
+0x00004028      e893d2ffff     call sym.imp.dcgettext
+0x0000402d      488d0dac0a00.  lea rcx, str.https:__www.gnu.org_software_coreutils ; 0x4ae0 ; "https://www.gnu.org/software/coreutils/"
+0x00004034      488d15c60600.  lea rdx, str.GNU_coreutils              ; 0x4701 ; "GNU coreutils"
+0x0000403b      4889c6         mov rsi, rax
+0x0000403e      bf01000000     mov edi, 1
+0x00004043      31c0           xor eax, eax
+0x00004045      e8b6d3ffff     call sym.imp.__printf_chk
+0x0000404a      488b1d373020.  mov rbx, qword [obj.stdout]             ; obj.stdout__GLIBC_2.2.5
+                                                                       ; [0x207088:8]=0
+0x00004051      488d35681300.  lea rsi, str.General_help_using_GNU_software:__https:__www.gnu.org_gethelp ; 0x53c0 ; "General help using GNU software: <https://www.gnu.org/gethelp/>\n"
+0x00004058      31ff           xor edi, edi
+0x0000405a      ba05000000     mov edx, 5
+0x0000405f      e85cd2ffff     call sym.imp.dcgettext
+0x00004064      4889de         mov rsi, rbx
+0x00004067      4889c7         mov rdi, rax
+0x0000406a      5b             pop rbx
+0x0000406b      e9f0d2ffff     jmp sym.imp.fputs_unlocked
+;-- xmalloc:
+0x00004070      53             push rbx                                ; ../coreutils-8.31/lib/xmalloc.c:40
+0x00004071      4889fb         mov rbx, rdi
+0x00004074      e827d3ffff     call sym.imp.malloc                     ; ../coreutils-8.31/lib/xmalloc.c:41
+0x00004079      4885c0         test rax, rax                           ; ../coreutils-8.31/lib/xmalloc.c:42
+0x0000407c      7505           jne 0x4083
+0x0000407e      4885db         test rbx, rbx
+0x00004081      7502           jne 0x4085
+0x00004083      5b             pop rbx                                 ; ../coreutils-8.31/lib/xmalloc.c:45
+0x00004084      c3             ret
+0x00004085      e836020000     call sym.xalloc_die                     ; ../coreutils-8.31/lib/xmalloc.c:43
+0x0000408a      660f1f440000   nop word [rax + rax]
+;-- xnmalloc:
+0x00004090      4889f8         mov rax, rdi                            ; ../coreutils-8.31/lib/xalloc.h:100
+0x00004093      48f7e6         mul rsi
+0x00004096      4889c7         mov rdi, rax
+0x00004099      0f90c0         seto al
+0x0000409c      4885ff         test rdi, rdi
+0x0000409f      780a           js 0x40ab
+0x000040a1      0fb6c0         movzx eax, al
+0x000040a4      4885c0         test rax, rax
+0x000040a7      7502           jne 0x40ab
+0x000040a9      ebc5           jmp sym.xmalloc                         ; ../coreutils-8.31/lib/xalloc.h:103
+0x000040ab      4883ec08       sub rsp, 8                              ; ../coreutils-8.31/lib/xalloc.h:100
+0x000040af      e80c020000     call sym.xalloc_die                     ; ../coreutils-8.31/lib/xalloc.h:102
+0x000040b4      6690           nop
+0x000040b6      662e0f1f8400.  nop word cs:[rax + rax]
+;-- xcharalloc:
+0x000040c0      ebae           jmp sym.xmalloc
+0x000040c2      0f1f4000       nop dword [rax]                         ; ../coreutils-8.31/lib/xmalloc.c:-76
+0x000040c6      662e0f1f8400.  nop word cs:[rax + rax]                 ; ../coreutils-8.31/lib/xmalloc.c:-75
+;-- xrealloc:
+0x000040d0      4885f6         test rsi, rsi
+0x000040d3      53             push rbx
+0x000040d4      4889f3         mov rbx, rsi
+0x000040d7      7505           jne 0x40de
+0x000040d9      4885ff         test rdi, rdi
+0x000040dc      751a           jne 0x40f8
+0x000040de      4889de         mov rsi, rbx
+0x000040e1      e8fad2ffff     call sym.imp.realloc
+0x000040e6      4885c0         test rax, rax
+0x000040e9      7505           jne 0x40f0
+0x000040eb      4885db         test rbx, rbx
+0x000040ee      7511           jne 0x4101                              ; ../coreutils-8.31/lib/xmalloc.c:-63
+0x000040f0      5b             pop rbx                                 ; ../coreutils-8.31/lib/xmalloc.c:-65
+0x000040f1      c3             ret
+0x000040f2      660f1f440000   nop word [rax + rax]
+0x000040f8      e833d1ffff     call sym.imp.free
+0x000040fd      31c0           xor eax, eax
+0x000040ff      5b             pop rbx                                 ; ../coreutils-8.31/lib/xalloc.h:-15
+0x00004100      c3             ret
+0x00004101      e8ba010000     call sym.xalloc_die
+0x00004106      662e0f1f8400.  nop word cs:[rax + rax]
+;-- xnrealloc:
+0x00004110      4889f0         mov rax, rsi
+0x00004113      48f7e2         mul rdx
+0x00004116      4889c6         mov rsi, rax
+0x00004119      0f90c0         seto al
+0x0000411c      4885f6         test rsi, rsi
+0x0000411f      780a           js 0x412b
+0x00004121      0fb6c0         movzx eax, al
+0x00004124      4885c0         test rax, rax
+0x00004127      7502           jne 0x412b
+0x00004129      eba5           jmp sym.xrealloc
+0x0000412b      4883ec08       sub rsp, 8
+0x0000412f      e88c010000     call sym.xalloc_die                     ; ../coreutils-8.31/lib/xalloc.h:47
+0x00004134      6690           nop
+0x00004136      662e0f1f8400.  nop word cs:[rax + rax]
+;-- x2nrealloc:
+0x00004140      4885ff         test rdi, rdi
+0x00004143      4989d1         mov r9, rdx
+0x00004146      488b0e         mov rcx, qword [rsi]
+0x00004149      7435           je 0x4180
+0x0000414b      31d2           xor edx, edx
+0x0000414d      48b854555555.  movabs rax, 0x5555555555555554          ; 'TUUUUUUU'
+0x00004157      49f7f1         div r9
+0x0000415a      4839c8         cmp rax, rcx
+0x0000415d      763c           jbe 0x419b
+0x0000415f      4889c8         mov rax, rcx
+0x00004162      48d1e8         shr rax, 1
+0x00004165      488d4c0801     lea rcx, [rax + rcx + 1]
+0x0000416a      48890e         mov qword [rsi], rcx
+0x0000416d      490fafc9       imul rcx, r9
+0x00004171      4889ce         mov rsi, rcx
+0x00004174      e957ffffff     jmp sym.xrealloc                        ; ../coreutils-8.31/lib/xalloc.h:63
+0x00004179      0f1f80000000.  nop dword [rax]
+0x00004180      4885c9         test rcx, rcx
+0x00004183      7423           je 0x41a8
+0x00004185      4889c8         mov rax, rcx
+0x00004188      49f7e1         mul r9
+0x0000418b      0f90c2         seto dl
+0x0000418e      4885c0         test rax, rax                           ; ../coreutils-8.31/lib/xalloc.h:64
+0x00004191      0fb6d2         movzx edx, dl
+0x00004194      7805           js 0x419b
+0x00004196      4885d2         test rdx, rdx
+0x00004199      74cf           je 0x416a
+0x0000419b      4883ec08       sub rsp, 8
+0x0000419f      e81c010000     call sym.xalloc_die
+0x000041a4      0f1f4000       nop dword [rax]                         ; ../coreutils-8.31/lib/xalloc.h:61
+0x000041a8      31d2           xor edx, edx
+0x000041aa      b880000000     mov eax, 0x80
+0x000041af      4531c0         xor r8d, r8d
+0x000041b2      49f7f1         div r9
+0x000041b5      4885c0         test rax, rax
+0x000041b8      410f94c0       sete r8b
+0x000041bc      498d0c00       lea rcx, [r8 + rax]
+0x000041c0      ebc3           jmp 0x4185
+0x000041c2      0f1f4000       nop dword [rax]
+0x000041c6      662e0f1f8400.  nop word cs:[rax + rax]
+;-- x2realloc:
+0x000041d0      4885ff         test rdi, rdi
+0x000041d3      488b06         mov rax, qword [rsi]
+0x000041d6      7428           je 0x4200
+0x000041d8      48ba53555555.  movabs rdx, 0x5555555555555553          ; 'SUUUUUUU'
+0x000041e2      4839d0         cmp rax, rdx
+0x000041e5      772a           ja 0x4211
+0x000041e7      4889c2         mov rdx, rax
+0x000041ea      48d1ea         shr rdx, 1
+0x000041ed      488d440201     lea rax, [rdx + rax + 1]
+0x000041f2      488906         mov qword [rsi], rax
+0x000041f5      4889c6         mov rsi, rax
+0x000041f8      e9d3feffff     jmp sym.xrealloc
+0x000041fd      0f1f00         nop dword [rax]
+0x00004200      4885c0         test rax, rax
+0x00004203      ba80000000     mov edx, 0x80
+0x00004208      480f44c2       cmove rax, rdx
+0x0000420c      4885c0         test rax, rax
+0x0000420f      79e1           jns 0x41f2
+0x00004211      4883ec08       sub rsp, 8
+0x00004215      e8a6000000     call sym.xalloc_die
+0x0000421a      660f1f440000   nop word [rax + rax]
+;-- xzalloc:
+0x00004220      53             push rbx
+0x00004221      4889fb         mov rbx, rdi
+0x00004224      e847feffff     call sym.xmalloc
+0x00004229      4889da         mov rdx, rbx
+0x0000422c      31f6           xor esi, esi
+0x0000422e      4889c7         mov rdi, rax
+0x00004231      5b             pop rbx
+0x00004232      e909d1ffff     jmp sym.imp.memset
+0x00004237      660f1f840000.  nop word [rax + rax]
+;-- xcalloc:
+0x00004240      4889f8         mov rax, rdi
+0x00004243      4883ec08       sub rsp, 8
+0x00004247      48f7e6         mul rsi
+0x0000424a      0f90c2         seto dl
+0x0000424d      4885c0         test rax, rax
+0x00004250      7817           js 0x4269
+0x00004252      0fb6d2         movzx edx, dl
+0x00004255      4885d2         test rdx, rdx
+0x00004258      750f           jne 0x4269
+0x0000425a      e811d1ffff     call sym.imp.calloc
+0x0000425f      4885c0         test rax, rax
+0x00004262      7405           je 0x4269
+0x00004264      4883c408       add rsp, 8
+0x00004268      c3             ret
+0x00004269      e852000000     call sym.xalloc_die
+0x0000426e      6690           nop
+;-- xmemdup:
+0x00004270      55             push rbp
+0x00004271      53             push rbx
+0x00004272      4889fd         mov rbp, rdi
+0x00004275      4889f7         mov rdi, rsi
+0x00004278      4889f3         mov rbx, rsi
+0x0000427b      4883ec08       sub rsp, 8
+0x0000427f      e8ecfdffff     call sym.xmalloc
+0x00004284      4883c408       add rsp, 8
+0x00004288      4889da         mov rdx, rbx
+0x0000428b      4889ee         mov rsi, rbp
+0x0000428e      5b             pop rbx
+0x0000428f      5d             pop rbp
+0x00004290      4889c7         mov rdi, rax
+0x00004293      e9e8d0ffff     jmp sym.imp.memcpy
+0x00004298      0f1f84000000.  nop dword [rax + rax]
+;-- xstrdup:
+0x000042a0      53             push rbx
+0x000042a1      4889fb         mov rbx, rdi
+0x000042a4      e837d0ffff     call sym.imp.strlen
+0x000042a9      4889df         mov rdi, rbx
+0x000042ac      488d7001       lea rsi, [rax + 1]
+0x000042b0      5b             pop rbx
+0x000042b1      ebbd           jmp sym.xmemdup
+0x000042b3      662e0f1f8400.  nop word cs:[rax + rax]
+0x000042bd      0f1f00         nop dword [rax]
+;-- xalloc_die:
+0x000042c0      488d35a81100.  lea rsi, str.memory_exhausted           ; ../coreutils-8.31/lib/xalloc-die.c:33 ; 0x546f ; "memory exhausted"
+0x000042c7      4883ec08       sub rsp, 8
+0x000042cb      ba05000000     mov edx, 5                              ; ../coreutils-8.31/lib/xalloc-die.c:34
+0x000042d0      31ff           xor edi, edi
+0x000042d2      e8e9cfffff     call sym.imp.dcgettext
+0x000042d7      8b3d3b2d2000   mov edi, dword [obj.exit_failure]       ; [0x207018:4]=1
+0x000042dd      488d15110900.  lea rdx, [0x00004bf5]                   ; "%s"
+0x000042e4      4889c1         mov rcx, rax
+0x000042e7      31f6           xor esi, esi
+0x000042e9      31c0           xor eax, eax
+0x000042eb      e820d1ffff     call sym.imp.error
+0x000042f0      e84bcfffff     call sym.imp.abort                      ; ../coreutils-8.31/lib/xalloc-die.c:40
+0x000042f5      662e0f1f8400.  nop word cs:[rax + rax]
+0x000042ff      90             nop
+;-- rpl_mbrtowc:
+0x00004300      4155           push r13                                ; ../coreutils-8.31/lib/mbrtowc.c:386
+0x00004302      4154           push r12
+0x00004304      4989f5         mov r13, rsi
+0x00004307      55             push rbp
+0x00004308      53             push rbx
+0x00004309      4889fb         mov rbx, rdi
+0x0000430c      4989d4         mov r12, rdx
+0x0000430f      4883ec18       sub rsp, 0x18
+0x00004313      64488b042528.  mov rax, qword fs:[0x28]
+0x0000431c      4889442408     mov qword [rsp + 8], rax
+0x00004321      31c0           xor eax, eax
+0x00004323      488d442404     lea rax, [rsp + 4]                      ; ../coreutils-8.31/lib/mbrtowc.c:405
+0x00004328      4885ff         test rdi, rdi
+0x0000432b      480f44d8       cmove rbx, rax
+0x0000432f      4889df         mov rdi, rbx                            ; ../coreutils-8.31/lib/mbrtowc.c:439
+0x00004332      e8d9cfffff     call sym.imp.mbrtowc
+0x00004337      4883f8fd       cmp rax, 0xfffffffffffffffd             ; ../coreutils-8.31/lib/mbrtowc.c:447
+0x0000433b      4889c5         mov rbp, rax                            ; ../coreutils-8.31/lib/mbrtowc.c:439
+0x0000433e      7620           jbe 0x4360                              ; ../coreutils-8.31/lib/mbrtowc.c:447
+0x00004340      4d85e4         test r12, r12
+0x00004343      741b           je 0x4360
+0x00004345      31ff           xor edi, edi
+0x00004347      e8c4000000     call sym.hard_locale
+0x0000434c      84c0           test al, al
+0x0000434e      7510           jne 0x4360
+0x00004350      410fb64500     movzx eax, byte [r13]                   ; ../coreutils-8.31/lib/mbrtowc.c:450
+0x00004355      bd01000000     mov ebp, 1                              ; ../coreutils-8.31/lib/mbrtowc.c:451
+0x0000435a      8903           mov dword [rbx], eax                    ; ../coreutils-8.31/lib/mbrtowc.c:450
+0x0000435c      0f1f4000       nop dword [rax]
+0x00004360      488b542408     mov rdx, qword [rsp + 8]                ; ../coreutils-8.31/lib/mbrtowc.c:456
+0x00004365      644833142528.  xor rdx, qword fs:[0x28]
+0x0000436e      4889e8         mov rax, rbp
+0x00004371      750b           jne 0x437e
+0x00004373      4883c418       add rsp, 0x18
+0x00004377      5b             pop rbx
+0x00004378      5d             pop rbp
+0x00004379      415c           pop r12
+0x0000437b      415d           pop r13
+0x0000437d      c3             ret
+0x0000437e      e86dcfffff     call sym.imp.__stack_chk_fail
+0x00004383      662e0f1f8400.  nop word cs:[rax + rax]
+0x0000438d      0f1f00         nop dword [rax]
+;-- close_stream:
+0x00004390      4154           push r12                                ; ../coreutils-8.31/lib/close-stream.c:57
+0x00004392      55             push rbp
+0x00004393      4889fd         mov rbp, rdi
+0x00004396      53             push rbx
+0x00004397      e8e4ceffff     call sym.imp.__fpending                 ; ../coreutils-8.31/lib/close-stream.c:58
+0x0000439c      8b5d00         mov ebx, dword [rbp]
+0x0000439f      4889ef         mov rdi, rbp
+0x000043a2      4989c4         mov r12, rax
+0x000043a5      e806010000     call sym.rpl_fclose
+0x000043aa      83e320         and ebx, 0x20                           ; "@"
+0x000043ad      85db           test ebx, ebx
+0x000043af      7517           jne 0x43c8
+0x000043b1      85c0           test eax, eax
+0x000043b3      740a           je 0x43bf                               ; stdio.h:-186
+0x000043b5      4d85e4         test r12, r12                           ; stdio.h:-178
+0x000043b8      b8ffffffff     mov eax, 0xffffffff                     ; -1
+0x000043bd      7439           je 0x43f8
+0x000043bf      5b             pop rbx
+0x000043c0      5d             pop rbp
+0x000043c1      415c           pop r12
+0x000043c3      c3             ret
+0x000043c4      0f1f4000       nop dword [rax]
+0x000043c8      85c0           test eax, eax
+0x000043ca      751c           jne 0x43e8
+0x000043cc      e87fceffff     call sym.imp.__errno_location
+0x000043d1      c70000000000   mov dword [rax], 0
+0x000043d7      b8ffffffff     mov eax, 0xffffffff                     ; -1
+0x000043dc      5b             pop rbx
+0x000043dd      5d             pop rbp
+0x000043de      415c           pop r12
+0x000043e0      c3             ret
+0x000043e1      0f1f80000000.  nop dword [rax]
+0x000043e8      5b             pop rbx
+0x000043e9      b8ffffffff     mov eax, 0xffffffff                     ; -1
+0x000043ee      5d             pop rbp                                 ; stdio.h:-186
+0x000043ef      415c           pop r12
+0x000043f1      c3             ret
+0x000043f2      660f1f440000   nop word [rax + rax]
+0x000043f8      e853ceffff     call sym.imp.__errno_location
+0x000043fd      833809         cmp dword [rax], 9
+0x00004400      5b             pop rbx
+0x00004401      5d             pop rbp
+0x00004402      415c           pop r12                                 ; stdio.h:-178
+0x00004404      0f95c0         setne al
+0x00004407      0fb6c0         movzx eax, al
+0x0000440a      f7d8           neg eax
+0x0000440c      c3             ret
+0x0000440d      0f1f00         nop dword [rax]
+;-- hard_locale:
+0x00004410      4883ec08       sub rsp, 8                              ; ../coreutils-8.31/lib/hard-locale.c:39
+0x00004414      31f6           xor esi, esi                            ; ../coreutils-8.31/lib/hard-locale.c:41
+0x00004416      e8d5cfffff     call sym.imp.setlocale
+0x0000441b      4889c2         mov rdx, rax
+0x0000441e      b801000000     mov eax, 1                              ; ../coreutils-8.31/lib/hard-locale.c:40
+0x00004423      4885d2         test rdx, rdx                           ; ../coreutils-8.31/lib/hard-locale.c:43
+0x00004426      741d           je 0x4445
+0x00004428      488d3d511000.  lea rdi, [0x00005480]                   ; ../coreutils-8.31/lib/hard-locale.c:47 ; "C"
+0x0000442f      b902000000     mov ecx, 2
+0x00004434      4889d6         mov rsi, rdx
+0x00004437      f3a6           repe cmpsb byte [rsi], byte ptr [rdi]
+0x00004439      0f97c1         seta cl
+0x0000443c      80d900         sbb cl, 0
+0x0000443f      31c0           xor eax, eax                            ; ../coreutils-8.31/lib/hard-locale.c:48
+0x00004441      84c9           test cl, cl                             ; ../coreutils-8.31/lib/hard-locale.c:47
+0x00004443      750b           jne 0x4450
+0x00004445      4883c408       add rsp, 8                              ; ../coreutils-8.31/lib/hard-locale.c:72
+0x00004449      c3             ret
+0x0000444a      660f1f440000   nop word [rax + rax]
+0x00004450      488d3d2b1000.  lea rdi, str.POSIX                      ; ../coreutils-8.31/lib/hard-locale.c:47 ; 0x5482 ; "POSIX"
+0x00004457      b906000000     mov ecx, 6
+0x0000445c      4889d6         mov rsi, rdx
+0x0000445f      f3a6           repe cmpsb byte [rsi], byte ptr [rdi]
+0x00004461      0f97c0         seta al
+0x00004464      1c00           sbb al, 0
+0x00004466      84c0           test al, al
+0x00004468      0f95c0         setne al
+0x0000446b      4883c408       add rsp, 8                              ; ../coreutils-8.31/lib/hard-locale.c:72
+0x0000446f      c3             ret
+;-- locale_charset:
+0x00004470      4883ec08       sub rsp, 8
+0x00004474      bf0e000000     mov edi, 0xe                            ; ../coreutils-8.31/lib/localcharset.c:696
+0x00004479      e842cfffff     call sym.imp.nl_langinfo
+0x0000447e      4885c0         test rax, rax                           ; ../coreutils-8.31/lib/localcharset.c:754
+0x00004481      741d           je 0x44a0
+0x00004483      803800         cmp byte [rax], 0                       ; ../coreutils-8.31/lib/localcharset.c:908
+0x00004486      488d15fb0f00.  lea rdx, str.ASCII                      ; 0x5488 ; "ASCII"
+0x0000448d      480f44c2       cmove rax, rdx
+0x00004491      4883c408       add rsp, 8
+0x00004495      c3             ret
+0x00004496      662e0f1f8400.  nop word cs:[rax + rax]
+0x000044a0      488d05e10f00.  lea rax, str.ASCII                      ; 0x5488 ; "ASCII"
+0x000044a7      4883c408       add rsp, 8
+0x000044ab      c3             ret
+0x000044ac      0f1f4000       nop dword [rax]
+;-- rpl_fclose:
+0x000044b0      4154           push r12                                ; ../coreutils-8.31/lib/fclose.c:59
+0x000044b2      55             push rbp
+0x000044b3      53             push rbx
+0x000044b4      4889fb         mov rbx, rdi
+0x000044b7      e8d4ceffff     call sym.imp.fileno                     ; ../coreutils-8.31/lib/fclose.c:65
+0x000044bc      85c0           test eax, eax                           ; ../coreutils-8.31/lib/fclose.c:66
+0x000044be      4889df         mov rdi, rbx                            ; ../coreutils-8.31/lib/fclose.c:67
+0x000044c1      7854           js 0x4517                               ; ../coreutils-8.31/lib/fclose.c:66
+0x000044c3      e808cfffff     call sym.imp.__freading                 ; ../coreutils-8.31/lib/fclose.c:72
+0x000044c8      85c0           test eax, eax
+0x000044ca      752c           jne 0x44f8
+0x000044cc      4889df         mov rdi, rbx                            ; ../coreutils-8.31/lib/fclose.c:73
+0x000044cf      e85c000000     call sym.rpl_fflush
+0x000044d4      85c0           test eax, eax
+0x000044d6      743c           je 0x4514
+0x000044d8      e873cdffff     call sym.imp.__errno_location           ; ../coreutils-8.31/lib/fclose.c:74
+0x000044dd      448b20         mov r12d, dword [rax]
+0x000044e0      4889df         mov rdi, rbx                            ; ../coreutils-8.31/lib/fclose.c:100
+0x000044e3      4889c5         mov rbp, rax                            ; ../coreutils-8.31/lib/fclose.c:74
+0x000044e6      e8b5cdffff     call sym.imp.fclose                     ; ../coreutils-8.31/lib/fclose.c:100
+0x000044eb      4585e4         test r12d, r12d                         ; ../coreutils-8.31/lib/fclose.c:105
+0x000044ee      7530           jne 0x4520
+0x000044f0      5b             pop rbx                                 ; ../coreutils-8.31/lib/fclose.c:112
+0x000044f1      5d             pop rbp
+0x000044f2      415c           pop r12
+0x000044f4      c3             ret
+0x000044f5      0f1f00         nop dword [rax]
+0x000044f8      4889df         mov rdi, rbx                            ; ../coreutils-8.31/lib/fclose.c:72
+0x000044fb      e890ceffff     call sym.imp.fileno
+0x00004500      31f6           xor esi, esi
+0x00004502      ba01000000     mov edx, 1
+0x00004507      89c7           mov edi, eax
+0x00004509      e822ceffff     call sym.imp.lseek
+0x0000450e      4883f8ff       cmp rax, 0xffffffffffffffff
+0x00004512      75b8           jne 0x44cc
+0x00004514      4889df         mov rdi, rbx                            ; ../coreutils-8.31/lib/fclose.c:100
+0x00004517      5b             pop rbx                                 ; ../coreutils-8.31/lib/fclose.c:112
+0x00004518      5d             pop rbp
+0x00004519      415c           pop r12
+0x0000451b      e980cdffff     jmp sym.imp.fclose                      ; ../coreutils-8.31/lib/fclose.c:100
+0x00004520      44896500       mov dword [rbp], r12d                   ; ../coreutils-8.31/lib/fclose.c:107
+0x00004524      b8ffffffff     mov eax, 0xffffffff                     ; ../coreutils-8.31/lib/fclose.c:108 ; -1
+0x00004529      ebc5           jmp 0x44f0
+0x0000452b      0f1f440000     nop dword [rax + rax]
+;-- rpl_fflush:
+0x00004530      4885ff         test rdi, rdi                           ; ../coreutils-8.31/lib/fflush.c:130
+0x00004533      53             push rbx
+0x00004534      4889fb         mov rbx, rdi
+0x00004537      7411           je 0x454a                               ; ../coreutils-8.31/lib/fflush.c:150
+0x00004539      e892ceffff     call sym.imp.__freading
+0x0000453e      85c0           test eax, eax
+0x00004540      7408           je 0x454a
+0x00004542      f70300010000   test dword [rbx], 0x100                 ; ../coreutils-8.31/lib/fflush.c:43
+0x00004548      750e           jne 0x4558
+0x0000454a      4889df         mov rdi, rbx
+0x0000454d      5b             pop rbx
+0x0000454e      e95dceffff     jmp sym.imp.fflush
+0x00004553      0f1f440000     nop dword [rax + rax]
+0x00004558      4889df         mov rdi, rbx
+0x0000455b      ba01000000     mov edx, 1
+0x00004560      31f6           xor esi, esi
+0x00004562      e809000000     call sym.rpl_fseeko
+0x00004567      4889df         mov rdi, rbx
+0x0000456a      5b             pop rbx                                 ; ../coreutils-8.31/lib/fflush.c:25
+0x0000456b      e940ceffff     jmp sym.imp.fflush
+;-- rpl_fseeko:
+0x00004570      488b4708       mov rax, qword [rdi + 8]                ; ../coreutils-8.31/lib/fseeko.c:42
+0x00004574      48394710       cmp qword [rdi + 0x10], rax
+0x00004578      7406           je 0x4580                               ; ../coreutils-8.31/lib/fseeko.c:32
+0x0000457a      e9a1ceffff     jmp sym.imp.fseeko                      ; /sys_errlist.h:9
+0x0000457f      90             nop
+0x00004580      488b4720       mov rax, qword [rdi + 0x20]
+0x00004584      48394728       cmp qword [rdi + 0x28], rax
+0x00004588      75f0           jne 0x457a                              ; ../coreutils-8.31/lib/fseeko.c:33
+0x0000458a      48837f4800     cmp qword [rdi + 0x48], 0
+0x0000458f      75e9           jne 0x457a                              ; ../coreutils-8.31/lib/fseeko.c:21
+0x00004591      4154           push r12
+0x00004593      55             push rbp
+0x00004594      4189d4         mov r12d, edx
+0x00004597      53             push rbx
+0x00004598      4889f5         mov rbp, rsi                            ; ../coreutils-8.31/lib/fseeko.c:-20
+0x0000459b      4889fb         mov rbx, rdi
+0x0000459e      e8edcdffff     call sym.imp.fileno
+0x000045a3      4489e2         mov edx, r12d
+0x000045a6      4889ee         mov rsi, rbp                            ; ../coreutils-8.31/lib/fseeko.c:14
+0x000045a9      89c7           mov edi, eax                            ; /sys_errlist.h:17
+0x000045ab      e880cdffff     call sym.imp.lseek
+0x000045b0      4883f8ff       cmp rax, 0xffffffffffffffff
+0x000045b4      740c           je 0x45c2
+0x000045b6      8323ef         and dword [rbx], 0xffffffef             ; [0xffffffef:4]=-1 ; 4294967279
+0x000045b9      488983900000.  mov qword [rbx + 0x90], rax
+0x000045c0      31c0           xor eax, eax
+0x000045c2      5b             pop rbx                                 ; /sys_errlist.h:19
+0x000045c3      5d             pop rbp
+0x000045c4      415c           pop r12
+0x000045c6      c3             ret
+0x000045c7      660f1f840000.  nop word [rax + rax]
+;-- __libc_csu_init:
+0x000045d0      4157           push r15
+0x000045d2      4156           push r14
+0x000045d4      4989d7         mov r15, rdx
+0x000045d7      4155           push r13
+0x000045d9      4154           push r12
+0x000045db      4c8d254e2520.  lea r12, obj.__frame_dummy_init_array_entry ; loc.__init_array_start
+                                                                       ; 0x206b30
+0x000045e2      55             push rbp
+0x000045e3      488d2d4e2520.  lea rbp, obj.__do_global_dtors_aux_fini_array_entry ; loc.__init_array_end
+                                                                       ; 0x206b38 ; "p\x18"
+0x000045ea      53             push rbx
+0x000045eb      4189fd         mov r13d, edi
+0x000045ee      4989f6         mov r14, rsi
+0x000045f1      4c29e5         sub rbp, r12
+0x000045f4      4883ec08       sub rsp, 8
+0x000045f8      48c1fd03       sar rbp, 3
+0x000045fc      e8ffcbffff     call sym._init
+0x00004601      4885ed         test rbp, rbp
+0x00004604      7420           je 0x4626
+0x00004606      31db           xor ebx, ebx
+0x00004608      0f1f84000000.  nop dword [rax + rax]
+0x00004610      4c89fa         mov rdx, r15
+0x00004613      4c89f6         mov rsi, r14
+0x00004616      4489ef         mov edi, r13d
+0x00004619      41ff14dc       call qword [r12 + rbx*8]
+0x0000461d      4883c301       add rbx, 1
+0x00004621      4839dd         cmp rbp, rbx
+0x00004624      75ea           jne 0x4610
+0x00004626      4883c408       add rsp, 8
+0x0000462a      5b             pop rbx
+0x0000462b      5d             pop rbp
+0x0000462c      415c           pop r12
+0x0000462e      415d           pop r13
+0x00004630      415e           pop r14
+0x00004632      415f           pop r15
+0x00004634      c3             ret
+0x00004635      90             nop
+0x00004636      662e0f1f8400.  nop word cs:[rax + rax]
+;-- __libc_csu_fini:
+0x00004640      f3c3           ret
+0x00004642      662e0f1f8400.  nop word cs:[rax + rax]
+0x0000464c      0f1f4000       nop dword [rax]
+;-- atexit:
+0x00004650      488b15b12920.  mov rdx, qword [obj.__dso_handle]       ; [0x207008:8]=0x207008 obj.__dso_handle
+0x00004657      31f6           xor esi, esi
+0x00004659      e9d2cdffff     jmp sym.imp.__cxa_atexit
+0x0000465e      0000           add byte [rax], al

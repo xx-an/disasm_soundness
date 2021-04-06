@@ -1,0 +1,675 @@
+;-- section..plt:
+;-- .plt:
+0x000008d0      ff357a162000   push qword [0x00201f50]                 ; [12] -r-x section size 256 named .plt
+0x000008d6      ff257c162000   jmp qword [0x00201f58]                  ; [0x201f58:8]=0
+0x000008dc      0f1f4000       nop dword [rax]
+;-- imp.free:
+0x000008e0      ff257a162000   jmp qword [reloc.free]                  ; [0x201f60:8]=0x8e6
+0x000008e6      6800000000     push 0
+0x000008eb      e9e0ffffff     jmp sym..plt
+;-- imp.putchar:
+0x000008f0      ff2572162000   jmp qword [reloc.putchar]               ; [0x201f68:8]=0x8f6
+0x000008f6      6801000000     push 1
+0x000008fb      e9d0ffffff     jmp sym..plt
+;-- imp.abort:
+0x00000900      ff256a162000   jmp qword [reloc.abort]                 ; [0x201f70:8]=0x906
+0x00000906      6802000000     push 2
+0x0000090b      e9c0ffffff     jmp sym..plt
+;-- imp.__errno_location:
+0x00000910      ff2562162000   jmp qword [reloc.__errno_location]      ; [0x201f78:8]=0x916
+0x00000916      6803000000     push 3
+0x0000091b      e9b0ffffff     jmp sym..plt
+;-- imp.puts:
+0x00000920      ff255a162000   jmp qword [reloc.puts]                  ; [0x201f80:8]=0x926 ; "&\t"
+0x00000926      6804000000     push 4
+0x0000092b      e9a0ffffff     jmp sym..plt
+;-- imp.ferror:
+0x00000930      ff2552162000   jmp qword [reloc.ferror]                ; [0x201f88:8]=0x936 ; "6\t"
+0x00000936      6805000000     push 5
+0x0000093b      e990ffffff     jmp sym..plt
+;-- imp.fclose:
+0x00000940      ff254a162000   jmp qword [reloc.fclose]                ; [0x201f90:8]=0x946 ; "F\t"
+0x00000946      6806000000     push 6
+0x0000094b      e980ffffff     jmp sym..plt
+;-- imp.memset:
+0x00000950      ff2542162000   jmp qword [reloc.memset]                ; [0x201f98:8]=0x956 ; "V\t"
+0x00000956      6807000000     push 7
+0x0000095b      e970ffffff     jmp sym..plt
+;-- imp.strtol:
+0x00000960      ff253a162000   jmp qword [reloc.strtol]                ; [0x201fa0:8]=0x966 ; "f\t"
+0x00000966      6808000000     push 8
+0x0000096b      e960ffffff     jmp sym..plt
+;-- imp.malloc:
+0x00000970      ff2532162000   jmp qword [reloc.malloc]                ; [0x201fa8:8]=0x976 ; "v\t"
+0x00000976      6809000000     push 9
+0x0000097b      e950ffffff     jmp sym..plt
+;-- imp.__printf_chk:
+0x00000980      ff252a162000   jmp qword [reloc.__printf_chk]          ; [0x201fb0:8]=0x986
+0x00000986      680a000000     push 0xa
+0x0000098b      e940ffffff     jmp sym..plt
+;-- imp.exit:
+0x00000990      ff2522162000   jmp qword [reloc.exit]                  ; [0x201fb8:8]=0x996
+0x00000996      680b000000     push 0xb
+0x0000099b      e930ffffff     jmp sym..plt
+;-- imp.fwrite:
+0x000009a0      ff251a162000   jmp qword [reloc.fwrite]                ; [0x201fc0:8]=0x9a6
+0x000009a6      680c000000     push 0xc
+0x000009ab      e920ffffff     jmp sym..plt
+;-- imp.__fprintf_chk:
+0x000009b0      ff2512162000   jmp qword [reloc.__fprintf_chk]         ; [0x201fc8:8]=0x9b6
+0x000009b6      680d000000     push 0xd
+0x000009bb      e910ffffff     jmp sym..plt
+;-- imp.strerror:
+0x000009c0      ff250a162000   jmp qword [reloc.strerror]              ; [0x201fd0:8]=0x9c6
+0x000009c6      680e000000     push 0xe
+0x000009cb      e900ffffff     jmp sym..plt
+;-- section..plt.got:
+;-- .plt.got:
+0x000009d0      .qword 0x90660020162225ff                              ; [13] -r-x section size 8 named .plt.got
+0x000009d8      0000           add byte [rax], al
+0x000009da      0000           add byte [rax], al
+0x000009dc      0000           add byte [rax], al
+0x000009de      0000           add byte [rax], al
+;-- main:
+;-- section..text:
+;-- .text:
+0x000009e0      4157           push r15                                ; /0D:(KY]X:173 ; [14] -r-x section size 2050 named .text
+0x000009e2      4156           push r14
+0x000009e4      4155           push r13
+0x000009e6      4154           push r12
+0x000009e8      55             push rbp
+0x000009e9      53             push rbx
+0x000009ea      4883ec38       sub rsp, 0x38                           ; /0D:(KY]X:191
+0x000009ee      83ff02         cmp edi, 2                              ; /0D:(KY]X:241 ; "LF\x02\x01\x01"
+0x000009f1      7431           je 0xa24
+0x000009f3      488b0e         mov rcx, qword [rsi]
+0x000009f6      488d15ab0800.  lea rdx, str.Usage:__s_LIMIT__Produces_a_list_of_odd_primes____LIMIT ; /0D:(KY]X:262 ; 0x12a8 ; "Usage: %s LIMIT\nProduces a list of odd primes <= LIMIT\n"
+0x000009fd      488b3d3c1620.  mov rdi, qword [obj.stderr]             ; obj.stderr__GLIBC_2.2.5
+                                                                       ; [0x202040:8]=0
+0x00000a04      be01000000     mov esi, 1
+0x00000a09      31c0           xor eax, eax
+0x00000a0b      e8a0ffffff     call sym.imp.__fprintf_chk              ; /0D:(KY]X:239
+0x00000a10      b801000000     mov eax, 1
+0x00000a15      4883c438       add rsp, 0x38
+0x00000a19      5b             pop rbx                                 ; /0D:(KY]X:282
+0x00000a1a      5d             pop rbp
+0x00000a1b      415c           pop r12
+0x00000a1d      415d           pop r13
+0x00000a1f      415e           pop r14
+0x00000a21      415f           pop r15
+0x00000a23      c3             ret
+0x00000a24      488b7e08       mov rdi, qword [rsi + 8]
+0x00000a28      ba0a000000     mov edx, 0xa
+0x00000a2d      31f6           xor esi, esi
+0x00000a2f      4c890c24       mov qword [rsp], r9                     ; /0D:(KY]X:217
+0x00000a33      4c89542408     mov qword [rsp + 8], r10
+0x00000a38      e823ffffff     call sym.imp.strtol
+0x00000a3d      83f802         cmp eax, 2                              ; "LF\x02\x01\x01"
+0x00000a40      89c2           mov edx, eax
+0x00000a42      4c8b0c24       mov r9, qword [rsp]
+0x00000a46      4c8b542408     mov r10, qword [rsp + 8]
+0x00000a4b      0f8eb7020000   jle 0xd08
+0x00000a51      a801           test al, 1
+0x00000a53      7503           jne 0xa58
+0x00000a55      8d50ff         lea edx, [rax - 1]
+0x00000a58      8d5aff         lea ebx, [rdx - 1]
+0x00000a5b      4c890c24       mov qword [rsp], r9
+0x00000a5f      4c89542408     mov qword [rsp + 8], r10
+0x00000a64      d1fb           sar ebx, 1
+0x00000a66      4c63e3         movsxd r12, ebx
+0x00000a69      4c89e7         mov rdi, r12
+0x00000a6c      e8bf050000     call sym.xalloc
+0x00000a71      4c89e2         mov rdx, r12
+0x00000a74      be01000000     mov esi, 1
+0x00000a79      4889c7         mov rdi, rax
+0x00000a7c      4989c7         mov r15, rax                            ; /0D:(KY]X:310
+0x00000a7f      e8ccfeffff     call sym.imp.memset
+0x00000a84      496bfc30       imul rdi, r12, 0x30
+0x00000a88      e8a3050000     call sym.xalloc
+0x00000a8d      85db           test ebx, ebx
+0x00000a8f      4889c5         mov rbp, rax
+0x00000a92      0f8424030000   je 0xdbc
+0x00000a98      31db           xor ebx, ebx
+0x00000a9a      48896c2428     mov qword [rsp + 0x28], rbp
+0x00000a9f      31c0           xor eax, eax
+0x00000aa1      4889dd         mov rbp, rbx
+0x00000aa4      448d4c2d03     lea r9d, [rbp + rbp + 3]
+0x00000aa9      4c8d1c40       lea r11, [rax + rax*2]
+0x00000aad      4531d2         xor r10d, r10d
+0x00000ab0      8d7801         lea edi, [rax + 1]
+0x00000ab3      b8b17d39f5     mov eax, 0xf5397db1
+0x00000ab8      4531f6         xor r14d, r14d
+0x00000abb      4c89c9         mov rcx, r9
+0x00000abe      49c1e304       shl r11, 4
+0x00000ac2      4c035c2428     add r11, qword [rsp + 0x28]
+0x00000ac7      4c0facd101     shrd rcx, r10, 1
+0x00000acc      4d89c8         mov r8, r9
+0x00000acf      897c2424       mov dword [rsp + 0x24], edi
+0x00000ad3      83e107         and ecx, 7
+0x00000ad6      c1e102         shl ecx, 2
+0x00000ad9      45890b         mov dword [r11], r9d
+0x00000adc      d3e8           shr eax, cl
+0x00000ade      4189c5         mov r13d, eax
+0x00000ae1      eb0b           jmp 0xaee
+0x00000ae3      0f1f440000     nop dword [rax + rax]
+0x00000ae8      4989cd         mov r13, rcx
+0x00000aeb      4989de         mov r14, rbx
+0x00000aee      4c89f6         mov rsi, r14
+0x00000af1      4c89e8         mov rax, r13
+0x00000af4      4c89e9         mov rcx, r13
+0x00000af7      49f7e5         mul r13
+0x00000afa      4c89f3         mov rbx, r14
+0x00000afd      4c01e9         add rcx, r13
+0x00000b00      490faff5       imul rsi, r13
+0x00000b04      4c0fa4eb01     shld rbx, r13, 1
+0x00000b09      4889542408     mov qword [rsp + 8], rdx
+0x00000b0e      48890424       mov qword [rsp], rax
+0x00000b12      4801f6         add rsi, rsi
+0x00000b15      4801742408     add qword [rsp + 8], rsi
+0x00000b1a      488b1424       mov rdx, qword [rsp]
+0x00000b1e      488b742408     mov rsi, qword [rsp + 8]
+0x00000b23      488b0424       mov rax, qword [rsp]
+0x00000b27      490fafd2       imul rdx, r10
+0x00000b2b      490faff1       imul rsi, r9
+0x00000b2f      4801d6         add rsi, rdx
+0x00000b32      49f7e1         mul r9
+0x00000b35      4801f2         add rdx, rsi
+0x00000b38      4829c1         sub rcx, rax
+0x00000b3b      4c89e8         mov rax, r13
+0x00000b3e      4819d3         sbb rbx, rdx
+0x00000b41      4c89f2         mov rdx, r14
+0x00000b44      4831c8         xor rax, rcx
+0x00000b47      4831da         xor rdx, rbx
+0x00000b4a      4809c2         or rdx, rax
+0x00000b4d      7599           jne 0xae8
+0x00000b4f      48c7c7ffffff.  mov rdi, 0xffffffffffffffff
+0x00000b56      4d896b10       mov qword [r11 + 0x10], r13
+0x00000b5a      4d897318       mov qword [r11 + 0x18], r14
+0x00000b5e      4c89ca         mov rdx, r9
+0x00000b61      4c89d1         mov rcx, r10
+0x00000b64      4889fe         mov rsi, rdi
+0x00000b67      4489442420     mov dword [rsp + 0x20], r8d
+0x00000b6c      4c895c2418     mov qword [rsp + 0x18], r11
+0x00000b71      4c890c24       mov qword [rsp], r9                     ; /0D:(KY]X:344
+0x00000b75      4c89542408     mov qword [rsp + 8], r10
+0x00000b7a      e8f1040000     call sym.__udivti3                      ; /0D:(KY]X:347
+0x00000b7f      4c8b5c2418     mov r11, qword [rsp + 0x18]
+0x00000b84      448b442420     mov r8d, dword [rsp + 0x20]             ; /0D:(KY]X:383
+0x00000b89      49894320       mov qword [r11 + 0x20], rax
+0x00000b8d      4489c0         mov eax, r8d
+0x00000b90      49895328       mov qword [r11 + 0x28], rdx
+0x00000b94      410fafc0       imul eax, r8d
+0x00000b98      83e803         sub eax, 3
+0x00000b9b      d1e8           shr eax, 1
+0x00000b9d      89c2           mov edx, eax
+0x00000b9f      4939d4         cmp r12, rdx
+0x00000ba2      762f           jbe 0xbd3
+0x00000ba4      0f1f4000       nop dword [rax]
+0x00000ba8      41c6041700     mov byte [r15 + rdx], 0
+0x00000bad      428d1400       lea edx, [rax + r8]
+0x00000bb1      4c39e2         cmp rdx, r12
+0x00000bb4      4889d0         mov rax, rdx
+0x00000bb7      72ef           jb 0xba8
+0x00000bb9      4883c501       add rbp, 1
+0x00000bbd      4939ec         cmp r12, rbp
+0x00000bc0      761a           jbe 0xbdc
+0x00000bc2      660f1f440000   nop word [rax + rax]
+0x00000bc8      41803c2f00     cmp byte [r15 + rbp], 0
+0x00000bcd      0f85e0010000   jne 0xdb3
+0x00000bd3      4883c501       add rbp, 1
+0x00000bd7      4939ec         cmp r12, rbp
+0x00000bda      77ec           ja 0xbc8
+0x00000bdc      488b6c2428     mov rbp, qword [rsp + 0x28]
+0x00000be1      488d3df80600.  lea rdi, str.Generated_file____DO_NOT_EDIT ; 0x12e0 ; "/* Generated file -- DO NOT EDIT */\n"
+0x00000be8      e833fdffff     call sym.imp.puts
+0x00000bed      488d35400600.  lea rsi, str.define_WIDE_UINT_BITS__u   ; 0x1234 ; "#define WIDE_UINT_BITS %u\n"
+0x00000bf4      bf01000000     mov edi, 1
+0x00000bf9      31c0           xor eax, eax
+0x00000bfb      ba80000000     mov edx, 0x80                           ; "8\x02"
+0x00000c00      e87bfdffff     call sym.imp.__printf_chk
+0x00000c05      8b7c2424       mov edi, dword [rsp + 0x24]
+0x00000c09      85ff           test edi, edi
+0x00000c0b      0f84c2010000   je 0xdd3
+0x00000c11      8d47ff         lea eax, [rdi - 1]
+0x00000c14      41be08000000   mov r14d, 8
+0x00000c1a      4c893c24       mov qword [rsp], r15
+0x00000c1e      4889eb         mov rbx, rbp
+0x00000c21      4589f7         mov r15d, r14d
+0x00000c24      ba02000000     mov edx, 2
+0x00000c29      486bc030       imul rax, rax, 0x30
+0x00000c2d      4c8d6c0530     lea r13, [rbp + rax + 0x30]
+0x00000c32      4d89ee         mov r14, r13
+0x00000c35      4189fd         mov r13d, edi
+0x00000c38      0f1f84000000.  nop dword [rax + rax]
+0x00000c40      4539fd         cmp r13d, r15d
+0x00000c43      448b23         mov r12d, dword [rbx]
+0x00000c46      0f867d010000   jbe 0xdc9
+0x00000c4c      4489f8         mov eax, r15d
+0x00000c4f      488d0440       lea rax, [rax + rax*2]
+0x00000c53      48c1e004       shl rax, 4
+0x00000c57      8b4c0500       mov ecx, dword [rbp + rax]              ; /0D:(KY]X:550
+0x00000c5b      4429e1         sub ecx, r12d
+0x00000c5e      81f9ff000000   cmp ecx, 0xff
+0x00000c64      0f8774010000   ja 0xdde                                ; /0D:(KY]X:521
+0x00000c6a      4489e0         mov eax, r12d
+0x00000c6d      488d35db0500.  lea rsi, str.P___u___u                  ; 0x124f ; "P (%u, %u,\n   ("
+0x00000c74      bf01000000     mov edi, 1
+0x00000c79      29d0           sub eax, edx
+0x00000c7b      4883c330       add rbx, 0x30
+0x00000c7f      4183c701       add r15d, 1
+0x00000c83      89c2           mov edx, eax
+0x00000c85      31c0           xor eax, eax
+0x00000c87      e8f4fcffff     call sym.imp.__printf_chk
+0x00000c8c      488b7be0       mov rdi, qword [rbx - 0x20]
+0x00000c90      488b73e8       mov rsi, qword [rbx - 0x18]
+0x00000c94      31d2           xor edx, edx
+0x00000c96      b980000000     mov ecx, 0x80                           ; "8\x02"
+0x00000c9b      e860020000     call sym.print_wide_uint
+0x00000ca0      488d35b80500.  lea rsi, str.UINTMAX_MAX____u           ; 0x125f ; "),\n   UINTMAX_MAX / %u)\n"
+0x00000ca7      4489e2         mov edx, r12d
+0x00000caa      31c0           xor eax, eax
+0x00000cac      bf01000000     mov edi, 1
+0x00000cb1      e8cafcffff     call sym.imp.__printf_chk
+0x00000cb6      4939de         cmp r14, rbx
+0x00000cb9      4489e2         mov edx, r12d
+0x00000cbc      7582           jne 0xc40
+0x00000cbe      4c8b3c24       mov r15, qword [rsp]
+0x00000cc2      488d3daf0500.  lea rdi, str.undef_FIRST_OMITTED_PRIME  ; 0x1278 ; "\n#undef FIRST_OMITTED_PRIME"
+0x00000cc9      4183c402       add r12d, 2
+0x00000ccd      e84efcffff     call sym.imp.puts
+0x00000cd2      448b4d00       mov r9d, dword [rbp]
+0x00000cd6      450fafc9       imul r9d, r9d
+0x00000cda      4539e1         cmp r9d, r12d
+0x00000cdd      7771           ja 0xd50
+0x00000cdf      4489e7         mov edi, r12d
+0x00000ce2      488b4d18       mov rcx, qword [rbp + 0x18]
+0x00000ce6      4889f8         mov rax, rdi
+0x00000ce9      48f76510       mul qword [rbp + 0x10]
+0x00000ced      480fafcf       imul rcx, rdi
+0x00000cf1      4801ca         add rdx, rcx
+0x00000cf4      48395528       cmp qword [rbp + 0x28], rdx
+0x00000cf8      7708           ja 0xd02                                ; /0D:(KY]X:506
+0x00000cfa      7214           jb 0xd10
+0x00000cfc      48394520       cmp qword [rbp + 0x20], rax
+0x00000d00      720e           jb 0xd10
+0x00000d02      4183c402       add r12d, 2
+0x00000d06      ebd2           jmp 0xcda
+0x00000d08      31c0           xor eax, eax
+0x00000d0a      e906fdffff     jmp 0xa15
+0x00000d0f      90             nop
+0x00000d10      31f6           xor esi, esi
+0x00000d12      8d4601         lea eax, [rsi + 1]
+0x00000d15      488d0c40       lea rcx, [rax + rax*2]
+0x00000d19      4889c6         mov rsi, rax
+0x00000d1c      48c1e104       shl rcx, 4
+0x00000d20      4801e9         add rcx, rbp
+0x00000d23      8b01           mov eax, dword [rcx]
+0x00000d25      0fafc0         imul eax, eax
+0x00000d28      4439e0         cmp eax, r12d
+0x00000d2b      7723           ja 0xd50
+0x00000d2d      4c8b4118       mov r8, qword [rcx + 0x18]
+0x00000d31      4889f8         mov rax, rdi
+0x00000d34      48f76110       mul qword [rcx + 0x10]
+0x00000d38      4c0fafc7       imul r8, rdi
+0x00000d3c      4c01c2         add rdx, r8
+0x00000d3f      483b5128       cmp rdx, qword [rcx + 0x28]
+0x00000d43      72bd           jb 0xd02
+0x00000d45      77cb           ja 0xd12
+0x00000d47      483b4120       cmp rax, qword [rcx + 0x20]
+0x00000d4b      76b5           jbe 0xd02
+0x00000d4d      ebc3           jmp 0xd12
+0x00000d4f      90             nop
+0x00000d50      488d35b10500.  lea rsi, str.define_FIRST_OMITTED_PRIME__u ; 0x1308 ; "#define FIRST_OMITTED_PRIME %u\n"
+0x00000d57      4489e2         mov edx, r12d
+0x00000d5a      bf01000000     mov edi, 1
+0x00000d5f      31c0           xor eax, eax
+0x00000d61      e81afcffff     call sym.imp.__printf_chk
+0x00000d66      4c89ff         mov rdi, r15
+0x00000d69      e872fbffff     call sym.imp.free
+0x00000d6e      4889ef         mov rdi, rbp
+0x00000d71      e86afbffff     call sym.imp.free
+0x00000d76      488b3da31220.  mov rdi, qword [obj.stdout]             ; obj.stdout__GLIBC_2.2.5
+                                                                       ; [0x202020:8]=0
+0x00000d7d      e8aefbffff     call sym.imp.ferror
+0x00000d82      488b3d971220.  mov rdi, qword [obj.stdout]             ; obj.stdout__GLIBC_2.2.5
+                                                                       ; [0x202020:8]=0
+0x00000d89      89c3           mov ebx, eax
+0x00000d8b      e8b0fbffff     call sym.imp.fclose
+0x00000d90      01c3           add ebx, eax
+0x00000d92      0f8470ffffff   je 0xd08
+0x00000d98      e873fbffff     call sym.imp.__errno_location
+0x00000d9d      8b38           mov edi, dword [rax]                    ; /0D:(KY]X:366
+0x00000d9f      e81cfcffff     call sym.imp.strerror
+0x00000da4      488d15e90400.  lea rdx, str.write_error:__s            ; /0D:(KY]X:377 ; 0x1294 ; "write error: %s\n"
+0x00000dab      4889c1         mov rcx, rax
+0x00000dae      e94afcffff     jmp 0x9fd
+0x00000db3      8b442424       mov eax, dword [rsp + 0x24]
+0x00000db7      e9e8fcffff     jmp 0xaa4
+0x00000dbc      c74424240000.  mov dword [rsp + 0x24], 0
+0x00000dc4      e918feffff     jmp 0xbe1
+0x00000dc9      b9ff000000     mov ecx, 0xff
+0x00000dce      e997feffff     jmp 0xc6a
+0x00000dd3      41bc02000000   mov r12d, 2
+0x00000dd9      e9e4feffff     jmp 0xcc2
+0x00000dde      e81dfbffff     call sym.imp.abort
+0x00000de3      662e0f1f8400.  nop word cs:[rax + rax]
+0x00000ded      0f1f00         nop dword [rax]
+;-- entry0:
+;-- _start:
+;-- rip:
+0x00000df0      31ed           xor ebp, ebp
+0x00000df2      4989d1         mov r9, rdx
+0x00000df5      5e             pop rsi
+0x00000df6      4889e2         mov rdx, rsp
+0x00000df9      4883e4f0       and rsp, 0xfffffffffffffff0
+0x00000dfd      50             push rax
+0x00000dfe      54             push rsp
+0x00000dff      4c8d05da0300.  lea r8, sym.__libc_csu_fini             ; 0x11e0
+0x00000e06      488d0d630300.  lea rcx, sym.__libc_csu_init            ; 0x1170 ; "AWAVI\x89\xd7AUATL\x8d%\xc6\v "
+0x00000e0d      488d3dccfbff.  lea rdi, main                           ; sym.main
+                                                                       ; 0x9e0 ; "AWAVAUATUSH\x83\xec8\x83\xff\x02t1H\x8b\x0eH\x8d\x15\xab\b"
+0x00000e14      ff15c6112000   call qword [reloc.__libc_start_main]    ; [0x201fe0:8]=0
+0x00000e1a      f4             hlt
+0x00000e1b      0f1f440000     nop dword [rax + rax]
+;-- deregister_tm_clones:
+0x00000e20      488d3de91120.  lea rdi, loc._edata                     ; obj.__TMC_END
+                                                                       ; 0x202010
+0x00000e27      55             push rbp
+0x00000e28      488d05e11120.  lea rax, loc._edata                     ; obj.__TMC_END
+                                                                       ; 0x202010
+0x00000e2f      4839f8         cmp rax, rdi
+0x00000e32      4889e5         mov rbp, rsp
+0x00000e35      7419           je 0xe50
+0x00000e37      488b059a1120.  mov rax, qword [reloc._ITM_deregisterTMCloneTable] ; [0x201fd8:8]=0
+0x00000e3e      4885c0         test rax, rax
+0x00000e41      740d           je 0xe50
+0x00000e43      5d             pop rbp
+0x00000e44      ffe0           jmp rax
+0x00000e46      662e0f1f8400.  nop word cs:[rax + rax]
+0x00000e50      5d             pop rbp
+0x00000e51      c3             ret
+0x00000e52      0f1f4000       nop dword [rax]
+0x00000e56      662e0f1f8400.  nop word cs:[rax + rax]
+;-- register_tm_clones:
+0x00000e60      488d3da91120.  lea rdi, loc._edata                     ; obj.__TMC_END
+                                                                       ; 0x202010
+0x00000e67      488d35a21120.  lea rsi, loc._edata                     ; obj.__TMC_END
+                                                                       ; 0x202010
+0x00000e6e      55             push rbp
+0x00000e6f      4829fe         sub rsi, rdi
+0x00000e72      4889e5         mov rbp, rsp
+0x00000e75      48c1fe03       sar rsi, 3
+0x00000e79      4889f0         mov rax, rsi
+0x00000e7c      48c1e83f       shr rax, 0x3f
+0x00000e80      4801c6         add rsi, rax
+0x00000e83      48d1fe         sar rsi, 1
+0x00000e86      7418           je 0xea0
+0x00000e88      488b05611120.  mov rax, qword [reloc._ITM_registerTMCloneTable] ; [0x201ff0:8]=0
+0x00000e8f      4885c0         test rax, rax
+0x00000e92      740c           je 0xea0
+0x00000e94      5d             pop rbp
+0x00000e95      ffe0           jmp rax
+0x00000e97      660f1f840000.  nop word [rax + rax]
+0x00000ea0      5d             pop rbp
+0x00000ea1      c3             ret
+0x00000ea2      0f1f4000       nop dword [rax]
+0x00000ea6      662e0f1f8400.  nop word cs:[rax + rax]
+;-- entry.fini0:
+;-- __do_global_dtors_aux:
+0x00000eb0      803d91112000.  cmp byte [obj.completed.7697], 0        ; [0x202048:1]=0
+0x00000eb7      752f           jne 0xee8
+0x00000eb9      48833d371120.  cmp qword [reloc.__cxa_finalize], 0     ; [0x201ff8:8]=0
+0x00000ec1      55             push rbp
+0x00000ec2      4889e5         mov rbp, rsp
+0x00000ec5      740c           je 0xed3
+0x00000ec7      488b3d3a1120.  mov rdi, qword [obj.__dso_handle]       ; [0x202008:8]=0x202008 obj.__dso_handle
+0x00000ece      e8fdfaffff     call sym..plt.got
+0x00000ed3      e848ffffff     call sym.deregister_tm_clones
+0x00000ed8      c60569112000.  mov byte [obj.completed.7697], 1        ; [0x202048:1]=0
+0x00000edf      5d             pop rbp
+0x00000ee0      c3             ret
+0x00000ee1      0f1f80000000.  nop dword [rax]
+0x00000ee8      f3c3           ret
+0x00000eea      660f1f440000   nop word [rax + rax]
+;-- entry.init0:
+;-- frame_dummy:
+0x00000ef0      55             push rbp
+0x00000ef1      4889e5         mov rbp, rsp
+0x00000ef4      5d             pop rbp
+0x00000ef5      e966ffffff     jmp sym.register_tm_clones
+0x00000efa      660f1f440000   nop word [rax + rax]
+;-- print_wide_uint:
+0x00000f00      4156           push r14
+0x00000f02      4155           push r13
+0x00000f04      4154           push r12
+0x00000f06      55             push rbp
+0x00000f07      4989f4         mov r12, rsi
+0x00000f0a      53             push rbx
+0x00000f0b      89fb           mov ebx, edi
+0x00000f0d      89d5           mov ebp, edx
+0x00000f0f      81e3ffffff0f   and ebx, 0xfffffff
+0x00000f15      89d8           mov eax, ebx
+0x00000f17      4883ec10       sub rsp, 0x10
+0x00000f1b      4831f8         xor rax, rdi
+0x00000f1e      4809c6         or rsi, rax
+0x00000f21      755d           jne 0xf80
+0x00000f23      85ed           test ebp, ebp
+0x00000f25      ba07000000     mov edx, 7
+0x00000f2a      7524           jne 0xf50
+0x00000f2c      4883c410       add rsp, 0x10
+0x00000f30      89d9           mov ecx, ebx
+0x00000f32      488d35d80200.  lea rsi, str.0x_0_xU                    ; 0x1211 ; "0x%0*xU"
+0x00000f39      5b             pop rbx
+0x00000f3a      5d             pop rbp
+0x00000f3b      415c           pop r12
+0x00000f3d      415d           pop r13
+0x00000f3f      415e           pop r14
+0x00000f41      bf01000000     mov edi, 1
+0x00000f46      31c0           xor eax, eax
+0x00000f48      e933faffff     jmp sym.imp.__printf_chk
+0x00000f4d      0f1f00         nop dword [rax]
+0x00000f50      488d35ad0200.  lea rsi, str.uintmax_t                  ; 0x1204 ; "(uintmax_t) "
+0x00000f57      bf01000000     mov edi, 1
+0x00000f5c      31c0           xor eax, eax
+0x00000f5e      894c2408       mov dword [rsp + 8], ecx
+0x00000f62      e819faffff     call sym.imp.__printf_chk
+0x00000f67      8b4c2408       mov ecx, dword [rsp + 8]
+0x00000f6b      8d51ff         lea edx, [rcx - 1]
+0x00000f6e      83e203         and edx, 3
+0x00000f71      83c201         add edx, 1
+0x00000f74      ebb6           jmp 0xf2c
+0x00000f76      662e0f1f8400.  nop word cs:[rax + rax]
+0x00000f80      4989fb         mov r11, rdi
+0x00000f83      4d89e2         mov r10, r12
+0x00000f86      4d89e6         mov r14, r12
+0x00000f89      4d89d9         mov r9, r11
+0x00000f8c      49c1ea38       shr r10, 0x38
+0x00000f90      4d89dd         mov r13, r11
+0x00000f93      4d0face138     shrd r9, r12, 0x38
+0x00000f98      4c89d0         mov rax, r10
+0x00000f9b      49c1ee1c       shr r14, 0x1c
+0x00000f9f      8d5201         lea edx, [rdx + 1]
+0x00000fa2      4d0face51c     shrd r13, r12, 0x1c
+0x00000fa7      4c09c8         or rax, r9
+0x00000faa      7534           jne 0xfe0
+0x00000fac      4c89f6         mov rsi, r14
+0x00000faf      4c89ef         mov rdi, r13
+0x00000fb2      e849ffffff     call sym.print_wide_uint
+0x00000fb7      488d353c0200.  lea rsi, str.d                          ; 0x11fa ; " << %d | "
+0x00000fbe      ba1c000000     mov edx, 0x1c
+0x00000fc3      bf01000000     mov edi, 1
+0x00000fc8      31c0           xor eax, eax
+0x00000fca      e8b1f9ffff     call sym.imp.__printf_chk
+0x00000fcf      ba07000000     mov edx, 7
+0x00000fd4      e953ffffff     jmp 0xf2c
+0x00000fd9      0f1f80000000.  nop dword [rax]
+0x00000fe0      bf28000000     mov edi, 0x28                           ; '('
+0x00000fe5      894c240c       mov dword [rsp + 0xc], ecx
+0x00000fe9      89542408       mov dword [rsp + 8], edx
+0x00000fed      e8fef8ffff     call sym.imp.putchar
+0x00000ff2      8b4c240c       mov ecx, dword [rsp + 0xc]
+0x00000ff6      8b542408       mov edx, dword [rsp + 8]
+0x00000ffa      4c89f6         mov rsi, r14
+0x00000ffd      4c89ef         mov rdi, r13
+0x00001000      e8fbfeffff     call sym.print_wide_uint
+0x00001005      8d5503         lea edx, [rbp + 3]
+0x00001008      488d0d680200.  lea rcx, [0x00001277]
+0x0000100f      488d35de0100.  lea rsi, str.s                          ; 0x11f4 ; ")\n%*s"
+0x00001016      bf01000000     mov edi, 1
+0x0000101b      31c0           xor eax, eax
+0x0000101d      e85ef9ffff     call sym.imp.__printf_chk
+0x00001022      eb93           jmp 0xfb7
+0x00001024      6690           nop
+0x00001026      662e0f1f8400.  nop word cs:[rax + rax]
+;-- xalloc:
+0x00001030      4883ec08       sub rsp, 8
+0x00001034      e837f9ffff     call sym.imp.malloc
+0x00001039      4885c0         test rax, rax
+0x0000103c      7405           je 0x1043
+0x0000103e      4883c408       add rsp, 8
+0x00001042      c3             ret
+0x00001043      488b0df60f20.  mov rcx, qword [obj.stderr]             ; obj.stderr__GLIBC_2.2.5
+                                                                       ; [0x202040:8]=0
+0x0000104a      488d3dc80100.  lea rdi, str.Virtual_memory_exhausted.  ; 0x1219 ; "Virtual memory exhausted.\n"
+0x00001051      ba1a000000     mov edx, 0x1a
+0x00001056      be01000000     mov esi, 1
+0x0000105b      e840f9ffff     call sym.imp.fwrite
+0x00001060      bf01000000     mov edi, 1
+0x00001065      e826f9ffff     call sym.imp.exit
+0x0000106a      660f1f440000   nop word [rax + rax]
+;-- __udivti3:
+0x00001070      4885c9         test rcx, rcx
+0x00001073      4989d3         mov r11, rdx
+0x00001076      4889ca         mov rdx, rcx
+0x00001079      7535           jne 0x10b0
+0x0000107b      4939f3         cmp r11, rsi
+0x0000107e      0f87b4000000   ja 0x1138
+0x00001084      4d85db         test r11, r11
+0x00001087      4c89d9         mov rcx, r11
+0x0000108a      750d           jne 0x1099
+0x0000108c      b801000000     mov eax, 1
+0x00001091      31d2           xor edx, edx
+0x00001093      49f7f3         div r11
+0x00001096      4889c1         mov rcx, rax
+0x00001099      4889f0         mov rax, rsi
+0x0000109c      31d2           xor edx, edx
+0x0000109e      48f7f1         div rcx
+0x000010a1      4889c6         mov rsi, rax
+0x000010a4      4889f8         mov rax, rdi
+0x000010a7      48f7f1         div rcx
+0x000010aa      4889f2         mov rdx, rsi
+0x000010ad      c3             ret
+0x000010ae      6690           nop
+0x000010b0      4839f1         cmp rcx, rsi
+0x000010b3      777b           ja 0x1130
+0x000010b5      480fbdc1       bsr rax, rcx
+0x000010b9      4883f03f       xor rax, 0x3f
+0x000010bd      85c0           test eax, eax
+0x000010bf      4189c1         mov r9d, eax
+0x000010c2      0f8480000000   je 0x1148
+0x000010c8      89c1           mov ecx, eax
+0x000010ca      53             push rbx
+0x000010cb      bb40000000     mov ebx, 0x40                           ; segment.PHDR
+0x000010d0      48d3e2         shl rdx, cl
+0x000010d3      4863c8         movsxd rcx, eax
+0x000010d6      4d89da         mov r10, r11
+0x000010d9      4829cb         sub rbx, rcx
+0x000010dc      4989f0         mov r8, rsi
+0x000010df      89d9           mov ecx, ebx
+0x000010e1      49d3ea         shr r10, cl
+0x000010e4      89c1           mov ecx, eax
+0x000010e6      49d3e3         shl r11, cl
+0x000010e9      89d9           mov ecx, ebx
+0x000010eb      4909d2         or r10, rdx
+0x000010ee      49d3e8         shr r8, cl
+0x000010f1      89c1           mov ecx, eax
+0x000010f3      4889f8         mov rax, rdi
+0x000010f6      48d3e6         shl rsi, cl
+0x000010f9      89d9           mov ecx, ebx
+0x000010fb      4c89c2         mov rdx, r8
+0x000010fe      48d3e8         shr rax, cl
+0x00001101      4809f0         or rax, rsi
+0x00001104      49f7f2         div r10
+0x00001107      4989d0         mov r8, rdx
+0x0000110a      4889c6         mov rsi, rax
+0x0000110d      49f7e3         mul r11
+0x00001110      4939d0         cmp r8, rdx
+0x00001113      7210           jb 0x1125
+0x00001115      4489c9         mov ecx, r9d
+0x00001118      48d3e7         shl rdi, cl
+0x0000111b      4839c7         cmp rdi, rax
+0x0000111e      7348           jae 0x1168
+0x00001120      4939d0         cmp r8, rdx
+0x00001123      7543           jne 0x1168
+0x00001125      488d46ff       lea rax, [rsi - 1]
+0x00001129      31d2           xor edx, edx
+0x0000112b      5b             pop rbx
+0x0000112c      c3             ret
+0x0000112d      0f1f00         nop dword [rax]
+0x00001130      31d2           xor edx, edx
+0x00001132      31c0           xor eax, eax
+0x00001134      c3             ret
+0x00001135      0f1f00         nop dword [rax]
+0x00001138      4889f8         mov rax, rdi
+0x0000113b      4889f2         mov rdx, rsi
+0x0000113e      49f7f3         div r11
+0x00001141      31d2           xor edx, edx
+0x00001143      c3             ret
+0x00001144      0f1f4000       nop dword [rax]
+0x00001148      4839f1         cmp rcx, rsi
+0x0000114b      720d           jb 0x115a
+0x0000114d      31d2           xor edx, edx
+0x0000114f      31c0           xor eax, eax
+0x00001151      4939fb         cmp r11, rdi
+0x00001154      0f8753ffffff   ja 0x10ad
+0x0000115a      31d2           xor edx, edx
+0x0000115c      b801000000     mov eax, 1
+0x00001161      c3             ret
+0x00001162      660f1f440000   nop word [rax + rax]
+0x00001168      4889f0         mov rax, rsi
+0x0000116b      31d2           xor edx, edx
+0x0000116d      5b             pop rbx
+0x0000116e      c3             ret
+0x0000116f      90             nop
+;-- __libc_csu_init:
+0x00001170      4157           push r15
+0x00001172      4156           push r14
+0x00001174      4989d7         mov r15, rdx
+0x00001177      4155           push r13
+0x00001179      4154           push r12
+0x0000117b      4c8d25c60b20.  lea r12, obj.__frame_dummy_init_array_entry ; loc.__init_array_start
+                                                                       ; 0x201d48
+0x00001182      55             push rbp
+0x00001183      488d2dc60b20.  lea rbp, obj.__do_global_dtors_aux_fini_array_entry ; loc.__init_array_end
+                                                                       ; 0x201d50
+0x0000118a      53             push rbx
+0x0000118b      4189fd         mov r13d, edi
+0x0000118e      4989f6         mov r14, rsi
+0x00001191      4c29e5         sub rbp, r12
+0x00001194      4883ec08       sub rsp, 8
+0x00001198      48c1fd03       sar rbp, 3
+0x0000119c      e817f7ffff     call sym._init
+0x000011a1      4885ed         test rbp, rbp
+0x000011a4      7420           je 0x11c6
+0x000011a6      31db           xor ebx, ebx
+0x000011a8      0f1f84000000.  nop dword [rax + rax]
+0x000011b0      4c89fa         mov rdx, r15
+0x000011b3      4c89f6         mov rsi, r14
+0x000011b6      4489ef         mov edi, r13d
+0x000011b9      41ff14dc       call qword [r12 + rbx*8]
+0x000011bd      4883c301       add rbx, 1
+0x000011c1      4839dd         cmp rbp, rbx
+0x000011c4      75ea           jne 0x11b0
+0x000011c6      4883c408       add rsp, 8
+0x000011ca      5b             pop rbx
+0x000011cb      5d             pop rbp
+0x000011cc      415c           pop r12
+0x000011ce      415d           pop r13
+0x000011d0      415e           pop r14
+0x000011d2      415f           pop r15
+0x000011d4      c3             ret
+0x000011d5      90             nop
+0x000011d6      662e0f1f8400.  nop word cs:[rax + rax]
+;-- __libc_csu_fini:
+0x000011e0      f3c3           ret
+0x000011e2      0000           add byte [rax], al

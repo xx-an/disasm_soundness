@@ -1,0 +1,57 @@
+;-- entry0:
+;-- section..text:
+;-- .text:
+;-- _start:
+;-- rip:
+0x00000280      48c7c0010000.  mov rax, 1                              ; [06] -r-x section size 75 named .text
+0x00000287      48c7c3020000.  mov rbx, 2
+0x0000028e      4801d8         add rax, rbx
+0x00000291      4883f803       cmp rax, 3
+0x00000295      eb29           jmp loc.foo
+0x00000297      0102           add dword [rdx], eax
+0x00000299      90             nop
+0x0000029a      90             nop
+0x0000029b      90             nop
+0x0000029c      90             nop
+0x0000029d      90             nop
+0x0000029e      90             nop
+0x0000029f      90             nop
+0x000002a0      90             nop
+0x000002a1      90             nop
+0x000002a2      90             nop
+0x000002a3      90             nop
+0x000002a4      90             nop
+0x000002a5      90             nop
+0x000002a6      90             nop
+0x000002a7      90             nop
+0x000002a8      90             nop
+0x000002a9      90             nop
+0x000002aa      90             nop
+0x000002ab      90             nop
+0x000002ac      90             nop
+0x000002ad      90             nop
+0x000002ae      90             nop
+0x000002af      90             nop
+0x000002b0      90             nop
+0x000002b1      90             nop
+0x000002b2      90             nop
+0x000002b3      90             nop
+0x000002b4      90             nop
+0x000002b5      90             nop
+0x000002b6      90             nop
+0x000002b7      90             nop
+0x000002b8      90             nop
+0x000002b9      90             nop
+0x000002ba      90             nop
+0x000002bb      90             nop
+0x000002bc      90             nop
+0x000002bd      90             nop
+0x000002be      90             nop
+0x000002bf      90             nop
+;-- foo:
+0x000002c0      48c7c1040000.  mov rcx, 4
+0x000002c7      4801c1         add rcx, rax
+0x000002ca      c3             ret
+0x000002cb      0000           add byte [rax], al
+0x000002cd      0000           add byte [rax], al
+0x000002cf      00             invalid

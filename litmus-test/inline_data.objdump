@@ -1,0 +1,56 @@
+
+
+
+Disassembly of section .text:
+
+0000000000000280 <_start>:
+280:	48 c7 c0 01 00 00 00 	mov    rax,0x1
+287:	48 c7 c3 02 00 00 00 	mov    rbx,0x2
+28e:	48 01 d8             	add    rax,rbx
+291:	48 83 f8 03          	cmp    rax,0x3
+295:	eb 29                	jmp    2c0 <foo>
+297:	01 02                	add    DWORD PTR [rdx],eax
+299:	90                   	nop
+29a:	90                   	nop
+29b:	90                   	nop
+29c:	90                   	nop
+29d:	90                   	nop
+29e:	90                   	nop
+29f:	90                   	nop
+2a0:	90                   	nop
+2a1:	90                   	nop
+2a2:	90                   	nop
+2a3:	90                   	nop
+2a4:	90                   	nop
+2a5:	90                   	nop
+2a6:	90                   	nop
+2a7:	90                   	nop
+2a8:	90                   	nop
+2a9:	90                   	nop
+2aa:	90                   	nop
+2ab:	90                   	nop
+2ac:	90                   	nop
+2ad:	90                   	nop
+2ae:	90                   	nop
+2af:	90                   	nop
+2b0:	90                   	nop
+2b1:	90                   	nop
+2b2:	90                   	nop
+2b3:	90                   	nop
+2b4:	90                   	nop
+2b5:	90                   	nop
+2b6:	90                   	nop
+2b7:	90                   	nop
+2b8:	90                   	nop
+2b9:	90                   	nop
+2ba:	90                   	nop
+2bb:	90                   	nop
+2bc:	90                   	nop
+2bd:	90                   	nop
+2be:	90                   	nop
+2bf:	90                   	nop
+
+00000000000002c0 <foo>:
+2c0:	48 c7 c1 04 00 00 00 	mov    rcx,0x4
+2c7:	48 01 c1             	add    rcx,rax
+2ca:	c3                   	ret

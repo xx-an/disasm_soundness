@@ -1,0 +1,35 @@
+0x400203:	mov	rax, 1
+0x40020a:	mov	rbx, 2
+0x400211:	add	rax, rbx
+0x400214:	cmp	rdi, 3
+0x400218:	ja	0x400243
+
+
+0x40021a:	mov	eax, edi
+0x40021c:	lea	rdx, [0x40024b]
+0x400224:	mov	rax, qword ptr [rdx + rax*8]
+0x400228:	jmp	rax
+
+
+0x400243:	add	rbx, 1
+0x400247:	mov	rcx, rbx
+0x40024a:	ret	
+
+
+0x40022a:	add	rbx, 2
+0x40022e:	ret	
+
+
+0x40023c:	mov	rcx, rax
+0x40023f:	add	rbx, rcx
+0x400242:	ret	
+
+
+0x400237:	imul	rax, rdx
+0x40023b:	ret	
+
+
+0x40022f:	mov	rax, 1
+0x400236:	ret	
+
+

@@ -1,0 +1,124 @@
+
+"puts@plt" :
+4003f0(6): jmp 0x200c22(%rip)
+4003f6(5): push $0x0
+
+"_init" :
+4003c8(4): sub $0x8,%rsp
+4003cc(7): mov 0x200c25(%rip),%rax
+4003d3(3): test %rax,%rax
+4003d6(2): jz 0x4(%rip)
+4003d8(2): call %rax
+4003da(4): add $0x8,%rsp
+4003de(1): ret near (%rsp)
+
+"_start" :
+400400(2): xor %ebp,%ebp
+400402(3): mov %rdx,%r9
+400405(1): pop %rsi
+400406(3): mov %rsp,%rdx
+400409(4): and $0xfffffff0,%rsp
+40040d(1): push %rax
+40040e(1): push %rsp
+40040f(7): mov $0x400670,%r8
+400416(7): mov $0x400600,%rcx
+40041d(7): mov $0x4004f0,%rdi
+400424(6): call 0x200bc6(%rip)
+40042a(1): hlt 
+
+"deregister_tm_clones" :
+400440(1): push %rbp
+400441(5): mov $0x601030,%eax
+400446(6): cmp $0x601030,%rax
+40044c(3): mov %rsp,%rbp
+40044f(2): jz 0x19(%rip)
+400451(5): mov $0x0,%eax
+400456(3): test %rax,%rax
+400459(2): jz 0xf(%rip)
+40045b(1): pop %rbp
+40045c(5): mov $0x601030,%edi
+400461(2): jmp %rax
+400463(5): nop 0x0(%rax,%rax,1)
+400468(1): pop %rbp
+400469(1): ret near (%rsp)
+
+"register_tm_clones" :
+400470(5): mov $0x601030,%esi
+400475(1): push %rbp
+400476(7): sub $0x601030,%rsi
+40047d(3): mov %rsp,%rbp
+400480(4): sar $0x3,%rsi
+400484(3): mov %rsi,%rax
+400487(4): shr $0x3f,%rax
+40048b(3): add %rax,%rsi
+40048e(3): sar $0x1,%rsi
+400491(2): jz 0x17(%rip)
+400493(5): mov $0x0,%eax
+400498(3): test %rax,%rax
+40049b(2): jz 0xd(%rip)
+40049d(1): pop %rbp
+40049e(5): mov $0x601030,%edi
+4004a3(2): jmp %rax
+4004a5(3): nop (%rax)
+4004a8(1): pop %rbp
+4004a9(1): ret near (%rsp)
+
+"__do_global_dtors_aux" :
+4004b0(7): cmp $0x0,0x200b79(%rip)
+4004b7(2): jnz 0x19(%rip)
+4004b9(1): push %rbp
+4004ba(3): mov %rsp,%rbp
+4004bd(5): call 0xffffff83(%rip)
+4004c2(7): mov $0x1,0x200b67(%rip)
+4004c9(1): pop %rbp
+4004ca(1): ret near (%rsp)
+4004cb(5): nop 0x0(%rax,%rax,1)
+4004d0(2): REP ret near (%rsp)
+
+"frame_dummy" :
+4004e0(1): push %rbp
+4004e1(3): mov %rsp,%rbp
+4004e4(1): pop %rbp
+4004e5(2): jmp 0xffffff8b(%rip)
+
+"__libc_csu_init" :
+400600(2): push %r15
+400602(2): push %r14
+400604(3): mov %rdx,%r15
+400607(2): push %r13
+400609(2): push %r12
+40060b(7): lea 0x2007fe(%rip),%r12
+400612(1): push %rbp
+400613(7): lea 0x2007fe(%rip),%rbp
+40061a(1): push %rbx
+40061b(3): mov %edi,%r13d
+40061e(3): mov %rsi,%r14
+400621(3): sub %r12,%rbp
+400624(4): sub $0x8,%rsp
+400628(4): sar $0x3,%rbp
+40062c(5): call 0xfffffd9c(%rip)
+400631(3): test %rbp,%rbp
+400634(2): jz 0x22(%rip)
+400636(2): xor %ebx,%ebx
+400638(8): nop 0x0(%rax,%rax,1)
+400640(3): mov %r15,%rdx
+400643(3): mov %r14,%rsi
+400646(3): mov %r13d,%edi
+400649(4): call 0x0(%r12,%rbx,8)
+40064d(4): add $0x1,%rbx
+400651(3): cmp %rbx,%rbp
+400654(2): jnz 0xffffffec(%rip)
+400656(4): add $0x8,%rsp
+40065a(1): pop %rbx
+40065b(1): pop %rbp
+40065c(2): pop %r12
+40065e(2): pop %r13
+400660(2): pop %r14
+400662(2): pop %r15
+400664(1): ret near (%rsp)
+
+"_fini" :
+400674(4): sub $0x8,%rsp
+400678(4): add $0x8,%rsp
+40067c(1): ret near (%rsp)
+

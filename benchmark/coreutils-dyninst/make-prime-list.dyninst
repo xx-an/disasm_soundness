@@ -1,0 +1,657 @@
+
+"free@plt" :
+8e0(6): jmp 0x20167a(%rip)
+8e6(5): push $0x0
+
+"putchar@plt" :
+8f0(6): jmp 0x201672(%rip)
+8f6(5): push $0x1
+
+"abort@plt" :
+900(6): jmp 0x20166a(%rip)
+906(5): push $0x2
+
+"__errno_location@plt" :
+910(6): jmp 0x201662(%rip)
+916(5): push $0x3
+
+"puts@plt" :
+920(6): jmp 0x20165a(%rip)
+926(5): push $0x4
+
+"ferror@plt" :
+930(6): jmp 0x201652(%rip)
+936(5): push $0x5
+
+"fclose@plt" :
+940(6): jmp 0x20164a(%rip)
+946(5): push $0x6
+
+"memset@plt" :
+950(6): jmp 0x201642(%rip)
+956(5): push $0x7
+
+"strtol@plt" :
+960(6): jmp 0x20163a(%rip)
+966(5): push $0x8
+
+"malloc@plt" :
+970(6): jmp 0x201632(%rip)
+976(5): push $0x9
+
+"__printf_chk@plt" :
+980(6): jmp 0x20162a(%rip)
+986(5): push $0xa
+
+"exit@plt" :
+990(6): jmp 0x201622(%rip)
+996(5): push $0xb
+
+"fwrite@plt" :
+9a0(6): jmp 0x20161a(%rip)
+9a6(5): push $0xc
+
+"__fprintf_chk@plt" :
+9b0(6): jmp 0x201612(%rip)
+9b6(5): push $0xd
+
+"strerror@plt" :
+9c0(6): jmp 0x20160a(%rip)
+9c6(5): push $0xe
+
+".plt.got" :
+9d0(6): jmp 0x201622(%rip)
+9d6(2): nop 
+
+"_init" :
+8b8(4): sub $0x8,%rsp
+8bc(7): mov 0x201725(%rip),%rax
+8c3(3): test %rax,%rax
+8c6(2): jz 0x4(%rip)
+8c8(2): call %rax
+8ca(4): add $0x8,%rsp
+8ce(1): ret near (%rsp)
+
+"main" :
+9e0(2): push %r15
+9e2(2): push %r14
+9e4(2): push %r13
+9e6(2): push %r12
+9e8(1): push %rbp
+9e9(1): push %rbx
+9ea(4): sub $0x38,%rsp
+9ee(3): cmp $0x2,%edi
+9f1(2): jz 0x33(%rip)
+9f3(3): mov (%rsi),%rcx
+9f6(7): lea 0x8ab(%rip),%rdx
+9fd(7): mov 0x20163c(%rip),%rdi
+a04(5): mov $0x1,%esi
+a09(2): xor %eax,%eax
+a0b(5): call 0xffffffa5(%rip)
+a10(5): mov $0x1,%eax
+a15(4): add $0x38,%rsp
+a19(1): pop %rbx
+a1a(1): pop %rbp
+a1b(2): pop %r12
+a1d(2): pop %r13
+a1f(2): pop %r14
+a21(2): pop %r15
+a23(1): ret near (%rsp)
+a24(4): mov 0x8(%rsi),%rdi
+a28(5): mov $0xa,%edx
+a2d(2): xor %esi,%esi
+a2f(4): mov %r9,(%rsp)
+a33(5): mov %r10,0x8(%rsp)
+a38(5): call 0xffffff28(%rip)
+a3d(3): cmp $0x2,%eax
+a40(2): mov %eax,%edx
+a42(4): mov (%rsp),%r9
+a46(5): mov 0x8(%rsp),%r10
+a4b(6): jle 0x2bd(%rip)
+a51(2): test $0x1,%al
+a53(2): jnz 0x5(%rip)
+a55(3): lea 0xffffffff(%rax),%edx
+a58(3): lea 0xffffffff(%rdx),%ebx
+a5b(4): mov %r9,(%rsp)
+a5f(5): mov %r10,0x8(%rsp)
+a64(2): sar $0x1,%ebx
+a66(3): movsxd %ebx,%r12
+a69(3): mov %r12,%rdi
+a6c(5): call 0x5c4(%rip)
+a71(3): mov %r12,%rdx
+a74(5): mov $0x1,%esi
+a79(3): mov %rax,%rdi
+a7c(3): mov %rax,%r15
+a7f(5): call 0xfffffed1(%rip)
+a84(4): imul %r12,$0x30,%rdi
+a88(5): call 0x5a8(%rip)
+a8d(2): test %ebx,%ebx
+a8f(3): mov %rax,%rbp
+a92(6): jz 0x32a(%rip)
+a98(2): xor %ebx,%ebx
+a9a(5): mov %rbp,0x28(%rsp)
+a9f(2): xor %eax,%eax
+aa1(3): mov %rbx,%rbp
+aa4(5): lea 0x3(%rbp,%rbp,1),%r9d
+aa9(4): lea 0x0(%rax,%rax,2),%r11
+aad(3): xor %r10d,%r10d
+ab0(3): lea 0x1(%rax),%edi
+ab3(5): mov $0xf5397db1,%eax
+ab8(3): xor %r14d,%r14d
+abb(3): mov %r9,%rcx
+abe(4): shl/sal $0x4,%r11
+ac2(5): add 0x28(%rsp),%r11
+ac7(5): shrd %r10,$0x1,%rcx
+acc(3): mov %r9,%r8
+acf(4): mov %edi,0x24(%rsp)
+ad3(3): and $0x7,%ecx
+ad6(3): shl/sal $0x2,%ecx
+ad9(3): mov %r9d,(%r11)
+adc(2): shr %cl,%eax
+ade(3): mov %eax,%r13d
+ae1(2): jmp 0xd(%rip)
+ae3(5): nop 0x0(%rax,%rax,1)
+ae8(3): mov %rcx,%r13
+aeb(3): mov %rbx,%r14
+aee(3): mov %r14,%rsi
+af1(3): mov %r13,%rax
+af4(3): mov %r13,%rcx
+af7(3): mul %rax,%r13,%rdx
+afa(3): mov %r14,%rbx
+afd(3): add %r13,%rcx
+b00(4): imul %r13,%rsi
+b04(5): shld %r13,$0x1,%rbx
+b09(5): mov %rdx,0x8(%rsp)
+b0e(4): mov %rax,(%rsp)
+b12(3): add %rsi,%rsi
+b15(5): add %rsi,0x8(%rsp)
+b1a(4): mov (%rsp),%rdx
+b1e(5): mov 0x8(%rsp),%rsi
+b23(4): mov (%rsp),%rax
+b27(4): imul %r10,%rdx
+b2b(4): imul %r9,%rsi
+b2f(3): add %rdx,%rsi
+b32(3): mul %rax,%r9,%rdx
+b35(3): add %rsi,%rdx
+b38(3): sub %rax,%rcx
+b3b(3): mov %r13,%rax
+b3e(3): sbb %rdx,%rbx
+b41(3): mov %r14,%rdx
+b44(3): xor %rcx,%rax
+b47(3): xor %rbx,%rdx
+b4a(3): or %rax,%rdx
+b4d(2): jnz 0xffffff9b(%rip)
+b4f(7): mov $0xffffffff,%rdi
+b56(4): mov %r13,0x10(%r11)
+b5a(4): mov %r14,0x18(%r11)
+b5e(3): mov %r9,%rdx
+b61(3): mov %r10,%rcx
+b64(3): mov %rdi,%rsi
+b67(5): mov %r8d,0x20(%rsp)
+b6c(5): mov %r11,0x18(%rsp)
+b71(4): mov %r9,(%rsp)
+b75(5): mov %r10,0x8(%rsp)
+b7a(5): call 0x4f6(%rip)
+b7f(5): mov 0x18(%rsp),%r11
+b84(5): mov 0x20(%rsp),%r8d
+b89(4): mov %rax,0x20(%r11)
+b8d(3): mov %r8d,%eax
+b90(4): mov %rdx,0x28(%r11)
+b94(4): imul %r8d,%eax
+b98(3): sub $0x3,%eax
+b9b(2): shr $0x1,%eax
+b9d(2): mov %eax,%edx
+b9f(3): cmp %rdx,%r12
+ba2(2): jbe 0x31(%rip)
+ba4(4): nop 0x0(%rax)
+ba8(5): mov $0x0,0x0(%r15,%rdx,1)
+bad(4): lea 0x0(%rax,%r8,1),%edx
+bb1(3): cmp %r12,%rdx
+bb4(3): mov %rdx,%rax
+bb7(2): jb 0xfffffff1(%rip)
+bb9(4): add $0x1,%rbp
+bbd(3): cmp %rbp,%r12
+bc0(2): jbe 0x1c(%rip)
+bc2(6): nop 0x0(%rax,%rax,1)
+bc8(5): cmp $0x0,0x0(%r15,%rbp,1)
+bcd(6): jnz 0x1e6(%rip)
+bd3(4): add $0x1,%rbp
+bd7(3): cmp %rbp,%r12
+bda(2): jnbe 0xffffffee(%rip)
+bdc(5): mov 0x28(%rsp),%rbp
+be1(7): lea 0x6f8(%rip),%rdi
+be8(5): call 0xfffffd38(%rip)
+bed(7): lea 0x640(%rip),%rsi
+bf4(5): mov $0x1,%edi
+bf9(2): xor %eax,%eax
+bfb(5): mov $0x80,%edx
+c00(5): call 0xfffffd80(%rip)
+c05(4): mov 0x24(%rsp),%edi
+c09(2): test %edi,%edi
+c0b(6): jz 0x1c8(%rip)
+c11(3): lea 0xffffffff(%rdi),%eax
+c14(6): mov $0x8,%r14d
+c1a(4): mov %r15,(%rsp)
+c1e(3): mov %rbp,%rbx
+c21(3): mov %r14d,%r15d
+c24(5): mov $0x2,%edx
+c29(4): imul %rax,$0x30,%rax
+c2d(5): lea 0x30(%rbp,%rax,1),%r13
+c32(3): mov %r13,%r14
+c35(3): mov %edi,%r13d
+c38(8): nop 0x0(%rax,%rax,1)
+c40(3): cmp %r15d,%r13d
+c43(3): mov (%rbx),%r12d
+c46(6): jbe 0x183(%rip)
+c4c(3): mov %r15d,%eax
+c4f(4): lea 0x0(%rax,%rax,2),%rax
+c53(4): shl/sal $0x4,%rax
+c57(4): mov 0x0(%rbp,%rax,1),%ecx
+c5b(3): sub %r12d,%ecx
+c5e(6): cmp $0xff,%ecx
+c64(6): jnbe 0x17a(%rip)
+c6a(3): mov %r12d,%eax
+c6d(7): lea 0x5db(%rip),%rsi
+c74(5): mov $0x1,%edi
+c79(2): sub %edx,%eax
+c7b(4): add $0x30,%rbx
+c7f(4): add $0x1,%r15d
+c83(2): mov %eax,%edx
+c85(2): xor %eax,%eax
+c87(5): call 0xfffffcf9(%rip)
+c8c(4): mov 0xffffffe0(%rbx),%rdi
+c90(4): mov 0xffffffe8(%rbx),%rsi
+c94(2): xor %edx,%edx
+c96(5): mov $0x80,%ecx
+c9b(5): call 0x265(%rip)
+ca0(7): lea 0x5b8(%rip),%rsi
+ca7(3): mov %r12d,%edx
+caa(2): xor %eax,%eax
+cac(5): mov $0x1,%edi
+cb1(5): call 0xfffffccf(%rip)
+cb6(3): cmp %rbx,%r14
+cb9(3): mov %r12d,%edx
+cbc(2): jnz 0xffffff84(%rip)
+cbe(4): mov (%rsp),%r15
+cc2(7): lea 0x5af(%rip),%rdi
+cc9(4): add $0x2,%r12d
+ccd(5): call 0xfffffc53(%rip)
+cd2(4): mov 0x0(%rbp),%r9d
+cd6(4): imul %r9d,%r9d
+cda(3): cmp %r12d,%r9d
+cdd(2): jnbe 0x73(%rip)
+cdf(3): mov %r12d,%edi
+ce2(4): mov 0x18(%rbp),%rcx
+ce6(3): mov %rdi,%rax
+ce9(4): mul %rax,0x10(%rbp),%rdx
+ced(4): imul %rdi,%rcx
+cf1(3): add %rcx,%rdx
+cf4(4): cmp %rdx,0x28(%rbp)
+cf8(2): jnbe 0xa(%rip)
+cfa(2): jb 0x16(%rip)
+cfc(4): cmp %rax,0x20(%rbp)
+d00(2): jb 0x10(%rip)
+d02(4): add $0x2,%r12d
+d06(2): jmp 0xffffffd4(%rip)
+d08(2): xor %eax,%eax
+d0a(5): jmp 0xfffffd0b(%rip)
+d0f(1): nop 
+d10(2): xor %esi,%esi
+d12(3): lea 0x1(%rsi),%eax
+d15(4): lea 0x0(%rax,%rax,2),%rcx
+d19(3): mov %rax,%rsi
+d1c(4): shl/sal $0x4,%rcx
+d20(3): add %rbp,%rcx
+d23(2): mov (%rcx),%eax
+d25(3): imul %eax,%eax
+d28(3): cmp %r12d,%eax
+d2b(2): jnbe 0x25(%rip)
+d2d(4): mov 0x18(%rcx),%r8
+d31(3): mov %rdi,%rax
+d34(4): mul %rax,0x10(%rcx),%rdx
+d38(4): imul %rdi,%r8
+d3c(3): add %r8,%rdx
+d3f(4): cmp 0x28(%rcx),%rdx
+d43(2): jb 0xffffffbf(%rip)
+d45(2): jnbe 0xffffffcd(%rip)
+d47(4): cmp 0x20(%rcx),%rax
+d4b(2): jbe 0xffffffb7(%rip)
+d4d(2): jmp 0xffffffc5(%rip)
+d4f(1): nop 
+d50(7): lea 0x5b1(%rip),%rsi
+d57(3): mov %r12d,%edx
+d5a(5): mov $0x1,%edi
+d5f(2): xor %eax,%eax
+d61(5): call 0xfffffc1f(%rip)
+d66(3): mov %r15,%rdi
+d69(5): call 0xfffffb77(%rip)
+d6e(3): mov %rbp,%rdi
+d71(5): call 0xfffffb6f(%rip)
+d76(7): mov 0x2012a3(%rip),%rdi
+d7d(5): call 0xfffffbb3(%rip)
+d82(7): mov 0x201297(%rip),%rdi
+d89(2): mov %eax,%ebx
+d8b(5): call 0xfffffbb5(%rip)
+d90(2): add %eax,%ebx
+d92(6): jz 0xffffff76(%rip)
+d98(5): call 0xfffffb78(%rip)
+d9d(2): mov (%rax),%edi
+d9f(5): call 0xfffffc21(%rip)
+da4(7): lea 0x4e9(%rip),%rdx
+dab(3): mov %rax,%rcx
+dae(5): jmp 0xfffffc4f(%rip)
+db3(4): mov 0x24(%rsp),%eax
+db7(5): jmp 0xfffffced(%rip)
+dbc(8): mov $0x0,0x24(%rsp)
+dc4(5): jmp 0xfffffe1d(%rip)
+dc9(5): mov $0xff,%ecx
+dce(5): jmp 0xfffffe9c(%rip)
+dd3(6): mov $0x2,%r12d
+dd9(5): jmp 0xfffffee9(%rip)
+dde(5): call 0xfffffb22(%rip)
+
+"_start" :
+df0(2): xor %ebp,%ebp
+df2(3): mov %rdx,%r9
+df5(1): pop %rsi
+df6(3): mov %rsp,%rdx
+df9(4): and $0xfffffff0,%rsp
+dfd(1): push %rax
+dfe(1): push %rsp
+dff(7): lea 0x3da(%rip),%r8
+e06(7): lea 0x363(%rip),%rcx
+e0d(7): lea 0xfffffbcc(%rip),%rdi
+e14(6): call 0x2011c6(%rip)
+e1a(1): hlt 
+
+"deregister_tm_clones" :
+e20(7): lea 0x2011e9(%rip),%rdi
+e27(1): push %rbp
+e28(7): lea 0x2011e1(%rip),%rax
+e2f(3): cmp %rdi,%rax
+e32(3): mov %rsp,%rbp
+e35(2): jz 0x1b(%rip)
+e37(7): mov 0x20119a(%rip),%rax
+e3e(3): test %rax,%rax
+e41(2): jz 0xf(%rip)
+e43(1): pop %rbp
+e44(2): jmp %rax
+e46(a): nop 0x0(%rax,%rax,1)
+e50(1): pop %rbp
+e51(1): ret near (%rsp)
+
+"register_tm_clones" :
+e60(7): lea 0x2011a9(%rip),%rdi
+e67(7): lea 0x2011a2(%rip),%rsi
+e6e(1): push %rbp
+e6f(3): sub %rdi,%rsi
+e72(3): mov %rsp,%rbp
+e75(4): sar $0x3,%rsi
+e79(3): mov %rsi,%rax
+e7c(4): shr $0x3f,%rax
+e80(3): add %rax,%rsi
+e83(3): sar $0x1,%rsi
+e86(2): jz 0x1a(%rip)
+e88(7): mov 0x201161(%rip),%rax
+e8f(3): test %rax,%rax
+e92(2): jz 0xe(%rip)
+e94(1): pop %rbp
+e95(2): jmp %rax
+e97(9): nop 0x0(%rax,%rax,1)
+ea0(1): pop %rbp
+ea1(1): ret near (%rsp)
+
+"__do_global_dtors_aux" :
+eb0(7): cmp $0x0,0x201191(%rip)
+eb7(2): jnz 0x31(%rip)
+eb9(8): cmp $0x0,0x201137(%rip)
+ec1(1): push %rbp
+ec2(3): mov %rsp,%rbp
+ec5(2): jz 0xe(%rip)
+ec7(7): mov 0x20113a(%rip),%rdi
+ece(5): call 0xfffffb02(%rip)
+ed3(5): call 0xffffff4d(%rip)
+ed8(7): mov $0x1,0x201169(%rip)
+edf(1): pop %rbp
+ee0(1): ret near (%rsp)
+ee1(7): nop 0x0(%rax)
+ee8(2): REP ret near (%rsp)
+
+"frame_dummy" :
+ef0(1): push %rbp
+ef1(3): mov %rsp,%rbp
+ef4(1): pop %rbp
+ef5(5): jmp 0xffffff6b(%rip)
+
+"print_wide_uint" :
+f00(2): push %r14
+f02(2): push %r13
+f04(2): push %r12
+f06(1): push %rbp
+f07(3): mov %rsi,%r12
+f0a(1): push %rbx
+f0b(2): mov %edi,%ebx
+f0d(2): mov %edx,%ebp
+f0f(6): and $0xfffffff,%ebx
+f15(2): mov %ebx,%eax
+f17(4): sub $0x10,%rsp
+f1b(3): xor %rdi,%rax
+f1e(3): or %rax,%rsi
+f21(2): jnz 0x5f(%rip)
+f23(2): test %ebp,%ebp
+f25(5): mov $0x7,%edx
+f2a(2): jnz 0x26(%rip)
+f2c(4): add $0x10,%rsp
+f30(2): mov %ebx,%ecx
+f32(7): lea 0x2d8(%rip),%rsi
+f39(1): pop %rbx
+f3a(1): pop %rbp
+f3b(2): pop %r12
+f3d(2): pop %r13
+f3f(2): pop %r14
+f41(5): mov $0x1,%edi
+f46(2): xor %eax,%eax
+f48(5): jmp 0xfffffa38(%rip)
+f4d(3): nop (%rax)
+f50(7): lea 0x2ad(%rip),%rsi
+f57(5): mov $0x1,%edi
+f5c(2): xor %eax,%eax
+f5e(4): mov %ecx,0x8(%rsp)
+f62(5): call 0xfffffa1e(%rip)
+f67(4): mov 0x8(%rsp),%ecx
+f6b(3): lea 0xffffffff(%rcx),%edx
+f6e(3): and $0x3,%edx
+f71(3): add $0x1,%edx
+f74(2): jmp 0xffffffb8(%rip)
+f76(a): nop 0x0(%rax,%rax,1)
+f80(3): mov %rdi,%r11
+f83(3): mov %r12,%r10
+f86(3): mov %r12,%r14
+f89(3): mov %r11,%r9
+f8c(4): shr $0x38,%r10
+f90(3): mov %r11,%r13
+f93(5): shrd %r12,$0x38,%r9
+f98(3): mov %r10,%rax
+f9b(4): shr $0x1c,%r14
+f9f(3): lea 0x1(%rdx),%edx
+fa2(5): shrd %r12,$0x1c,%r13
+fa7(3): or %r9,%rax
+faa(2): jnz 0x36(%rip)
+fac(3): mov %r14,%rsi
+faf(3): mov %r13,%rdi
+fb2(5): call 0xffffff4e(%rip)
+fb7(7): lea 0x23c(%rip),%rsi
+fbe(5): mov $0x1c,%edx
+fc3(5): mov $0x1,%edi
+fc8(2): xor %eax,%eax
+fca(5): call 0xfffff9b6(%rip)
+fcf(5): mov $0x7,%edx
+fd4(5): jmp 0xffffff58(%rip)
+fd9(7): nop 0x0(%rax)
+fe0(5): mov $0x28,%edi
+fe5(4): mov %ecx,0xc(%rsp)
+fe9(4): mov %edx,0x8(%rsp)
+fed(5): call 0xfffff903(%rip)
+ff2(4): mov 0xc(%rsp),%ecx
+ff6(4): mov 0x8(%rsp),%edx
+ffa(3): mov %r14,%rsi
+ffd(3): mov %r13,%rdi
+1000(5): call 0xffffff00(%rip)
+1005(3): lea 0x3(%rbp),%edx
+1008(7): lea 0x268(%rip),%rcx
+100f(7): lea 0x1de(%rip),%rsi
+1016(5): mov $0x1,%edi
+101b(2): xor %eax,%eax
+101d(5): call 0xfffff963(%rip)
+1022(2): jmp 0xffffff95(%rip)
+
+"xalloc" :
+1030(4): sub $0x8,%rsp
+1034(5): call 0xfffff93c(%rip)
+1039(3): test %rax,%rax
+103c(2): jz 0x7(%rip)
+103e(4): add $0x8,%rsp
+1042(1): ret near (%rsp)
+1043(7): mov 0x200ff6(%rip),%rcx
+104a(7): lea 0x1c8(%rip),%rdi
+1051(5): mov $0x1a,%edx
+1056(5): mov $0x1,%esi
+105b(5): call 0xfffff945(%rip)
+1060(5): mov $0x1,%edi
+1065(5): call 0xfffff92b(%rip)
+
+"__udivti3" :
+1070(3): test %rcx,%rcx
+1073(3): mov %rdx,%r11
+1076(3): mov %rcx,%rdx
+1079(2): jnz 0x37(%rip)
+107b(3): cmp %rsi,%r11
+107e(6): jnbe 0xba(%rip)
+1084(3): test %r11,%r11
+1087(3): mov %r11,%rcx
+108a(2): jnz 0xf(%rip)
+108c(5): mov $0x1,%eax
+1091(2): xor %edx,%edx
+1093(3): div %r11,%rax
+1096(3): mov %rax,%rcx
+1099(3): mov %rsi,%rax
+109c(2): xor %edx,%edx
+109e(3): div %rcx,%rax
+10a1(3): mov %rax,%rsi
+10a4(3): mov %rdi,%rax
+10a7(3): div %rcx,%rax
+10aa(3): mov %rsi,%rdx
+10ad(1): ret near (%rsp)
+10ae(2): nop 
+10b0(3): cmp %rsi,%rcx
+10b3(2): jnbe 0x7d(%rip)
+10b5(4): bsr %rcx,%rax
+10b9(4): xor $0x3f,%rax
+10bd(2): test %eax,%eax
+10bf(3): mov %eax,%r9d
+10c2(6): jz 0x86(%rip)
+10c8(2): mov %eax,%ecx
+10ca(1): push %rbx
+10cb(5): mov $0x40,%ebx
+10d0(3): shl/sal %cl,%rdx
+10d3(3): movsxd %eax,%rcx
+10d6(3): mov %r11,%r10
+10d9(3): sub %rcx,%rbx
+10dc(3): mov %rsi,%r8
+10df(2): mov %ebx,%ecx
+10e1(3): shr %cl,%r10
+10e4(2): mov %eax,%ecx
+10e6(3): shl/sal %cl,%r11
+10e9(2): mov %ebx,%ecx
+10eb(3): or %rdx,%r10
+10ee(3): shr %cl,%r8
+10f1(2): mov %eax,%ecx
+10f3(3): mov %rdi,%rax
+10f6(3): shl/sal %cl,%rsi
+10f9(2): mov %ebx,%ecx
+10fb(3): mov %r8,%rdx
+10fe(3): shr %cl,%rax
+1101(3): or %rsi,%rax
+1104(3): div %r10,%rax
+1107(3): mov %rdx,%r8
+110a(3): mov %rax,%rsi
+110d(3): mul %rax,%r11,%rdx
+1110(3): cmp %rdx,%r8
+1113(2): jb 0x12(%rip)
+1115(3): mov %r9d,%ecx
+1118(3): shl/sal %cl,%rdi
+111b(3): cmp %rax,%rdi
+111e(2): jnb 0x4a(%rip)
+1120(3): cmp %rdx,%r8
+1123(2): jnz 0x45(%rip)
+1125(4): lea 0xffffffff(%rsi),%rax
+1129(2): xor %edx,%edx
+112b(1): pop %rbx
+112c(1): ret near (%rsp)
+112d(3): nop (%rax)
+1130(2): xor %edx,%edx
+1132(2): xor %eax,%eax
+1134(1): ret near (%rsp)
+1135(3): nop (%rax)
+1138(3): mov %rdi,%rax
+113b(3): mov %rsi,%rdx
+113e(3): div %r11,%rax
+1141(2): xor %edx,%edx
+1143(1): ret near (%rsp)
+1144(4): nop 0x0(%rax)
+1148(3): cmp %rsi,%rcx
+114b(2): jb 0xf(%rip)
+114d(2): xor %edx,%edx
+114f(2): xor %eax,%eax
+1151(3): cmp %rdi,%r11
+1154(6): jnbe 0xffffff59(%rip)
+115a(2): xor %edx,%edx
+115c(5): mov $0x1,%eax
+1161(1): ret near (%rsp)
+1162(6): nop 0x0(%rax,%rax,1)
+1168(3): mov %rsi,%rax
+116b(2): xor %edx,%edx
+116d(1): pop %rbx
+116e(1): ret near (%rsp)
+
+"__libc_csu_init" :
+1170(2): push %r15
+1172(2): push %r14
+1174(3): mov %rdx,%r15
+1177(2): push %r13
+1179(2): push %r12
+117b(7): lea 0x200bc6(%rip),%r12
+1182(1): push %rbp
+1183(7): lea 0x200bc6(%rip),%rbp
+118a(1): push %rbx
+118b(3): mov %edi,%r13d
+118e(3): mov %rsi,%r14
+1191(3): sub %r12,%rbp
+1194(4): sub $0x8,%rsp
+1198(4): sar $0x3,%rbp
+119c(5): call 0xfffff71c(%rip)
+11a1(3): test %rbp,%rbp
+11a4(2): jz 0x22(%rip)
+11a6(2): xor %ebx,%ebx
+11a8(8): nop 0x0(%rax,%rax,1)
+11b0(3): mov %r15,%rdx
+11b3(3): mov %r14,%rsi
+11b6(3): mov %r13d,%edi
+11b9(4): call 0x0(%r12,%rbx,8)
+11bd(4): add $0x1,%rbx
+11c1(3): cmp %rbx,%rbp
+11c4(2): jnz 0xffffffec(%rip)
+11c6(4): add $0x8,%rsp
+11ca(1): pop %rbx
+11cb(1): pop %rbp
+11cc(2): pop %r12
+11ce(2): pop %r13
+11d0(2): pop %r14
+11d2(2): pop %r15
+11d4(1): ret near (%rsp)
+
+"_fini" :
+11e4(4): sub $0x8,%rsp
+11e8(4): add $0x8,%rsp
+11ec(1): ret near (%rsp)
+

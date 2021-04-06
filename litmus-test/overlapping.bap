@@ -1,0 +1,13 @@
+
+Disassembly of section .text
+
+250: <_start>
+250:
+250: b8 10 00 00 00                               movl $0x10, %eax
+255: b9 20 00 00 00                               movl $0x20, %ecx
+25a:
+25a: 01 c8                                        addl %ecx, %eax
+25c: eb f4                                        jmp -0xc
+252:
+252: 00 00                                        addb %al, (%rax)
+254: 00 b9 20 00 00 00                            addb %bh, 0x20(%rcx)

@@ -1,0 +1,15 @@
+;-- entry0:
+;-- section..text:
+;-- .text:
+;-- _start:
+;-- rip:
+0x00000250      b810000000     mov eax, 0x10                           ; [06] -r-x section size 17 named .text
+0x00000255      b920000000     mov ecx, 0x20                           ; "@"
+0x0000025a      01c8           add eax, ecx
+0x0000025c      ebf4           jmp 0x252
+0x0000025e      01d8           add eax, ebx
+0x00000260      c3             ret
+0x00000261      0000           add byte [rax], al
+0x00000263      0000           add byte [rax], al
+0x00000265      0000           add byte [rax], al
+0x00000267      00             invalid

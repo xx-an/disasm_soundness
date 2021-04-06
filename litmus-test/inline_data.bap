@@ -1,0 +1,14 @@
+
+Disassembly of section .text
+
+280: <_start>
+280:
+280: 48 c7 c0 01 00 00 00                         movq $0x1, %rax
+287: 48 c7 c3 02 00 00 00                         movq $0x2, %rbx
+28e: 48 01 d8                                     addq %rbx, %rax
+291: 48 83 f8 03                                  cmpq $0x3, %rax
+295: eb 29                                        jmp 0x29
+2c0:
+2c0: 48 c7 c1 04 00 00 00                         movq $0x4, %rcx
+2c7: 48 01 c1                                     addq %rax, %rcx
+2ca: c3                                           retq
