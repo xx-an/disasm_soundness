@@ -1488,7 +1488,7 @@ The symbolic execution has been successfully terminated
 0x3245: shl rdx,0x4
 0x3249: call 0x12f0
 0x3249: jump address is 0x12f0
-0x12f0: jmp qword ptr [rip+0x205c11]
+0x12f0: jmp qword ptr [rip+0x205c12]
 0x12f0: the return address is 0x324e
 0x324e: mov dword ptr [rip+0x203e03],r12d
 Block exists: mov eax,dword ptr [rbp+4] at address 0x3255 is visited for 1 times
@@ -1513,7 +1513,7 @@ Block exists: mov eax,dword ptr [rbp+4] at address 0x3255 is visited for 1 times
 0x3245: shl rdx,0x4
 0x3249: call 0x12f0
 0x3249: jump address is 0x12f0
-0x12f0: jmp qword ptr [rip+0x205c11]
+0x12f0: jmp qword ptr [rip+0x205c12]
 0x12f0: the return address is 0x324e
 0x324e: mov dword ptr [rip+0x203e03],r12d
 Block exists: mov eax,dword ptr [rbp+4] at address 0x3255 is visited for 1 times
@@ -1832,7 +1832,7 @@ Block exists: mov byte ptr [rsp+0xe],dil at address 0x221d is visited for 3 time
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x26b0: cmp byte ptr [rsp+0xf],0x0
@@ -2008,7 +2008,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 4 time
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x26b0: cmp byte ptr [rsp+0xf],0x0
@@ -2101,7 +2101,7 @@ Block exists: mov qword ptr [rsp+0x50],r13 at address 0x2792 is visited for 3 ti
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-0x23a8: cmp dword ptr [rsp+0x8],0x2
+0x23a8: cmp dword ptr [rsp+8],0x2
 0x23ad: sete dl
 0x23b0: xor eax,eax
 0x23b2: jmp 0x2198
@@ -2110,7 +2110,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 4 time
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-0x23d0: cmp dword ptr [rsp+0x8],0x2
+0x23d0: cmp dword ptr [rsp+8],0x2
 0x23d5: sete dl
 Block exists: test rbp,rbp at address 0x23d8 is visited for 3 times
 
@@ -2303,7 +2303,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 5 time
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x26b0: cmp byte ptr [rsp+0xf],0x0
@@ -2390,7 +2390,7 @@ Block exists: mov qword ptr [rsp+0x50],r13 at address 0x2792 is visited for 5 ti
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-0x23a8: cmp dword ptr [rsp+0x8],0x2
+0x23a8: cmp dword ptr [rsp+8],0x2
 0x23ad: sete dl
 0x23b0: xor eax,eax
 0x23b2: jmp 0x2198
@@ -2399,7 +2399,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 5 time
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-0x23d0: cmp dword ptr [rsp+0x8],0x2
+0x23d0: cmp dword ptr [rsp+8],0x2
 0x23d5: sete dl
 Block exists: test rbp,rbp at address 0x23d8 is visited for 4 times
 
@@ -3203,7 +3203,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 7 time
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x26b0: cmp byte ptr [rsp+0xf],0x0
@@ -3295,7 +3295,7 @@ Block exists: mov qword ptr [rsp+0x50],r13 at address 0x2792 is visited for 7 ti
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-0x23a8: cmp dword ptr [rsp+0x8],0x2
+0x23a8: cmp dword ptr [rsp+8],0x2
 0x23ad: sete dl
 0x23b0: xor eax,eax
 0x23b2: jmp 0x2198
@@ -3304,7 +3304,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 7 time
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-0x23d0: cmp dword ptr [rsp+0x8],0x2
+0x23d0: cmp dword ptr [rsp+8],0x2
 0x23d5: sete dl
 Block exists: test rbp,rbp at address 0x23d8 is visited for 5 times
 
@@ -3912,7 +3912,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 8 time
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x26b0: cmp byte ptr [rsp+0xf],0x0
@@ -4004,7 +4004,7 @@ Block exists: mov qword ptr [rsp+0x50],r13 at address 0x2792 is visited for 9 ti
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-0x23a8: cmp dword ptr [rsp+0x8],0x2
+0x23a8: cmp dword ptr [rsp+8],0x2
 0x23ad: sete dl
 0x23b0: xor eax,eax
 0x23b2: jmp 0x2198
@@ -4013,7 +4013,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 8 time
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-0x23d0: cmp dword ptr [rsp+0x8],0x2
+0x23d0: cmp dword ptr [rsp+8],0x2
 0x23d5: sete dl
 Block exists: test rbp,rbp at address 0x23d8 is visited for 6 times
 
@@ -4793,7 +4793,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 9 time
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x26b0: cmp byte ptr [rsp+0xf],0x0
@@ -4885,7 +4885,7 @@ Block exists: mov qword ptr [rsp+0x50],r13 at address 0x2792 is visited for 11 t
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-0x23a8: cmp dword ptr [rsp+0x8],0x2
+0x23a8: cmp dword ptr [rsp+8],0x2
 0x23ad: sete dl
 0x23b0: xor eax,eax
 0x23b2: jmp 0x2198
@@ -4894,7 +4894,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 9 time
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-0x23d0: cmp dword ptr [rsp+0x8],0x2
+0x23d0: cmp dword ptr [rsp+8],0x2
 0x23d5: sete dl
 Block exists: test rbp,rbp at address 0x23d8 is visited for 7 times
 
@@ -5379,7 +5379,7 @@ Block exists: mov rsi,rbx at address 0x419e is visited for 2 times
 0x3245: shl rdx,0x4
 0x3249: call 0x12f0
 0x3249: jump address is 0x12f0
-0x12f0: jmp qword ptr [rip+0x205c11]
+0x12f0: jmp qword ptr [rip+0x205c12]
 0x12f0: the return address is 0x324e
 0x324e: mov dword ptr [rip+0x203e03],r12d
 0x3255: mov eax,dword ptr [rbp+4]
@@ -5918,7 +5918,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 10 tim
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2608
-0x2608: cmp dword ptr [rsp+0x8],0x2
+0x2608: cmp dword ptr [rsp+8],0x2
 0x260d: sete dl
 0x2610: xor r10d,r10d
 0x2613: jmp 0x23d8
@@ -5927,7 +5927,7 @@ Block exists: test rbp,rbp at address 0x23d8 is visited for 8 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2620
-0x2620: cmp dword ptr [rsp+0x8],0x2
+0x2620: cmp dword ptr [rsp+8],0x2
 0x2625: sete dl
 0x2628: xor r10d,r10d
 0x262b: xor r12d,r12d
@@ -5937,7 +5937,7 @@ Block exists: movzx eax,byte ptr [rsp+0xf] at address 0x23e1 is visited for 7 ti
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2638
-0x2638: cmp dword ptr [rsp+0x8],0x2
+0x2638: cmp dword ptr [rsp+8],0x2
 0x263d: mov r12d,r10d
 0x2640: mov ebx,0x20
 0x2645: sete dl
@@ -6969,7 +6969,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 11 tim
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2608
-0x2608: cmp dword ptr [rsp+0x8],0x2
+0x2608: cmp dword ptr [rsp+8],0x2
 0x260d: sete dl
 0x2610: xor r10d,r10d
 0x2613: jmp 0x23d8
@@ -6978,7 +6978,7 @@ Block exists: test rbp,rbp at address 0x23d8 is visited for 9 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2620
-0x2620: cmp dword ptr [rsp+0x8],0x2
+0x2620: cmp dword ptr [rsp+8],0x2
 0x2625: sete dl
 0x2628: xor r10d,r10d
 0x262b: xor r12d,r12d
@@ -6988,7 +6988,7 @@ Block exists: movzx eax,byte ptr [rsp+0xf] at address 0x23e1 is visited for 8 ti
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2638
-0x2638: cmp dword ptr [rsp+0x8],0x2
+0x2638: cmp dword ptr [rsp+8],0x2
 0x263d: mov r12d,r10d
 0x2640: mov ebx,0x20
 0x2645: sete dl
@@ -7260,7 +7260,7 @@ Block exists: setne al at address 0x2167 is visited for 9 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x22e3: cmp byte ptr [rsp+0xd],0x0
@@ -7327,7 +7327,7 @@ Block exists: lea rax,[r15+1] at address 0x2b8a is visited for 7 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-0x23a8: cmp dword ptr [rsp+0x8],0x2
+0x23a8: cmp dword ptr [rsp+8],0x2
 0x23ad: sete dl
 0x23b0: xor eax,eax
 0x23b2: jmp 0x2198
@@ -7336,7 +7336,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 11 tim
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-0x23d0: cmp dword ptr [rsp+0x8],0x2
+0x23d0: cmp dword ptr [rsp+8],0x2
 0x23d5: sete dl
 Block exists: test rbp,rbp at address 0x23d8 is visited for 9 times
 
@@ -8745,7 +8745,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 15 tim
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2608
-0x2608: cmp dword ptr [rsp+0x8],0x2
+0x2608: cmp dword ptr [rsp+8],0x2
 0x260d: sete dl
 0x2610: xor r10d,r10d
 0x2613: jmp 0x23d8
@@ -8754,7 +8754,7 @@ Block exists: test rbp,rbp at address 0x23d8 is visited for 13 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2620
-0x2620: cmp dword ptr [rsp+0x8],0x2
+0x2620: cmp dword ptr [rsp+8],0x2
 0x2625: sete dl
 0x2628: xor r10d,r10d
 0x262b: xor r12d,r12d
@@ -8764,7 +8764,7 @@ Block exists: movzx eax,byte ptr [rsp+0xf] at address 0x23e1 is visited for 11 t
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2638
-0x2638: cmp dword ptr [rsp+0x8],0x2
+0x2638: cmp dword ptr [rsp+8],0x2
 0x263d: mov r12d,r10d
 0x2640: mov ebx,0x20
 0x2645: sete dl
@@ -9411,7 +9411,7 @@ Block exists: setne al at address 0x2167 is visited for 13 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x22e3: cmp byte ptr [rsp+0xd],0x0
@@ -9477,7 +9477,7 @@ Block exists: lea rax,[r15+1] at address 0x2b8a is visited for 8 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-0x23a8: cmp dword ptr [rsp+0x8],0x2
+0x23a8: cmp dword ptr [rsp+8],0x2
 0x23ad: sete dl
 0x23b0: xor eax,eax
 0x23b2: jmp 0x2198
@@ -9486,7 +9486,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 15 tim
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-0x23d0: cmp dword ptr [rsp+0x8],0x2
+0x23d0: cmp dword ptr [rsp+8],0x2
 0x23d5: sete dl
 Block exists: test rbp,rbp at address 0x23d8 is visited for 13 times
 
@@ -9772,15 +9772,15 @@ Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x25f0 is visited for 3 tim
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2608
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x2608 is visited for 3 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x2608 is visited for 3 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2620
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x2620 is visited for 3 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x2620 is visited for 3 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2638
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x2638 is visited for 3 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x2638 is visited for 3 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2650
@@ -9871,15 +9871,15 @@ Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x25f0 is visited for 3 tim
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2608
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x2608 is visited for 3 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x2608 is visited for 3 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2620
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x2620 is visited for 3 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x2620 is visited for 3 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2638
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x2638 is visited for 3 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x2638 is visited for 3 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2650
@@ -9968,15 +9968,15 @@ Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x25f0 is visited for 3 tim
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2608
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x2608 is visited for 3 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x2608 is visited for 3 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2620
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x2620 is visited for 3 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x2620 is visited for 3 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2638
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x2638 is visited for 3 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x2638 is visited for 3 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2650
@@ -10874,7 +10874,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 16 tim
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2608
-0x2608: cmp dword ptr [rsp+0x8],0x2
+0x2608: cmp dword ptr [rsp+8],0x2
 0x260d: sete dl
 0x2610: xor r10d,r10d
 0x2613: jmp 0x23d8
@@ -10883,7 +10883,7 @@ Block exists: test rbp,rbp at address 0x23d8 is visited for 14 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2620
-0x2620: cmp dword ptr [rsp+0x8],0x2
+0x2620: cmp dword ptr [rsp+8],0x2
 0x2625: sete dl
 0x2628: xor r10d,r10d
 0x262b: xor r12d,r12d
@@ -10893,7 +10893,7 @@ Block exists: movzx eax,byte ptr [rsp+0xf] at address 0x23e1 is visited for 12 t
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2638
-0x2638: cmp dword ptr [rsp+0x8],0x2
+0x2638: cmp dword ptr [rsp+8],0x2
 0x263d: mov r12d,r10d
 0x2640: mov ebx,0x20
 0x2645: sete dl
@@ -11062,7 +11062,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 16 tim
 Block exists: test r10b,r10b at address 0x21c9 is visited for 17 times
 
 0x30fa: movzx ebx,byte ptr [rsp+0xf]
-0x3100: mov ebp,ebx
+0x30ff: mov rbp,r11
 0x3102: mov eax,edx
 0x3104: mov byte ptr [rsp+0xd],bl
 0x3108: jmp 0x2af9
@@ -11470,7 +11470,7 @@ Block exists: setne al at address 0x2167 is visited for 14 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x22e3: cmp byte ptr [rsp+0xd],0x0
@@ -11541,7 +11541,7 @@ Block exists: lea rax,[r15+1] at address 0x2b8a is visited for 9 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-0x23a8: cmp dword ptr [rsp+0x8],0x2
+0x23a8: cmp dword ptr [rsp+8],0x2
 0x23ad: sete dl
 0x23b0: xor eax,eax
 0x23b2: jmp 0x2198
@@ -11550,7 +11550,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 16 tim
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-0x23d0: cmp dword ptr [rsp+0x8],0x2
+0x23d0: cmp dword ptr [rsp+8],0x2
 0x23d5: sete dl
 Block exists: test rbp,rbp at address 0x23d8 is visited for 14 times
 
@@ -11643,7 +11643,7 @@ Block exists: cmp qword ptr [rsp+0x58],0x1 at address 0x2468 is visited for 11 t
 Block exists: mov eax,r8d at address 0x2566 is visited for 8 times
 
 0x30fa: movzx ebx,byte ptr [rsp+0xf]
-0x3100: mov ebp,ebx
+0x30ff: mov rbp,r11
 Block exists: mov eax,edx at address 0x3102 is visited for 1 times
 
 0x26d0: cmp dword ptr [rsp+0x8],0x2
@@ -12309,7 +12309,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 17 tim
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2608
-0x2608: cmp dword ptr [rsp+0x8],0x2
+0x2608: cmp dword ptr [rsp+8],0x2
 0x260d: sete dl
 0x2610: xor r10d,r10d
 0x2613: jmp 0x23d8
@@ -12318,7 +12318,7 @@ Block exists: test rbp,rbp at address 0x23d8 is visited for 15 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2620
-0x2620: cmp dword ptr [rsp+0x8],0x2
+0x2620: cmp dword ptr [rsp+8],0x2
 0x2625: sete dl
 0x2628: xor r10d,r10d
 0x262b: xor r12d,r12d
@@ -12328,7 +12328,7 @@ Block exists: movzx eax,byte ptr [rsp+0xf] at address 0x23e1 is visited for 13 t
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2638
-0x2638: cmp dword ptr [rsp+0x8],0x2
+0x2638: cmp dword ptr [rsp+8],0x2
 0x263d: mov r12d,r10d
 0x2640: mov ebx,0x20
 0x2645: sete dl
@@ -12497,7 +12497,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 17 tim
 Block exists: test r10b,r10b at address 0x21c9 is visited for 18 times
 
 0x30fa: movzx ebx,byte ptr [rsp+0xf]
-0x3100: mov ebp,ebx
+0x30ff: mov rbp,r11
 0x3102: mov eax,edx
 Block exists: mov byte ptr [rsp+0xd],bl at address 0x3104 is visited for 1 times
 
@@ -12899,7 +12899,7 @@ Block exists: setne al at address 0x2167 is visited for 15 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x22e3: cmp byte ptr [rsp+0xd],0x0
@@ -12972,7 +12972,7 @@ Block exists: lea rax,[r15+1] at address 0x2b8a is visited for 10 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-0x23a8: cmp dword ptr [rsp+0x8],0x2
+0x23a8: cmp dword ptr [rsp+8],0x2
 0x23ad: sete dl
 0x23b0: xor eax,eax
 0x23b2: jmp 0x2198
@@ -12981,7 +12981,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 17 tim
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-0x23d0: cmp dword ptr [rsp+0x8],0x2
+0x23d0: cmp dword ptr [rsp+8],0x2
 0x23d5: sete dl
 Block exists: test rbp,rbp at address 0x23d8 is visited for 15 times
 
@@ -13083,7 +13083,7 @@ Block exists: cmp r11,rbp at address 0x2058 is visited for 16 times
 Block exists: mov eax,r8d at address 0x2566 is visited for 9 times
 
 0x30fa: movzx ebx,byte ptr [rsp+0xf]
-0x3100: mov ebp,ebx
+0x30ff: mov rbp,r11
 Block exists: mov eax,edx at address 0x3102 is visited for 2 times
 
 0x26d0: cmp dword ptr [rsp+0x8],0x2
@@ -14054,7 +14054,7 @@ Block exists: lea rax,[r15+1] at address 0x2f98 is visited for 1 times
 0x2f9c: cmp r13,rax
 0x2f9f: jbe 0x2fa7
 0x2f9f: jump address is 0x2fa7
-0x2fa3: add dword ptr ds:[rdx],esp
+0x2fa1: mov byte ptr [r14+r15+1],0x22
 Block exists: lea rax,[r15+2] at address 0x2fa7 is visited for 1 times
 
 0x2fa7: lea rax,[r15+2]
@@ -14193,7 +14193,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 18 tim
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2608
-0x2608: cmp dword ptr [rsp+0x8],0x2
+0x2608: cmp dword ptr [rsp+8],0x2
 0x260d: sete dl
 0x2610: xor r10d,r10d
 0x2613: jmp 0x23d8
@@ -14202,7 +14202,7 @@ Block exists: test rbp,rbp at address 0x23d8 is visited for 16 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2620
-0x2620: cmp dword ptr [rsp+0x8],0x2
+0x2620: cmp dword ptr [rsp+8],0x2
 0x2625: sete dl
 0x2628: xor r10d,r10d
 0x262b: xor r12d,r12d
@@ -14212,7 +14212,7 @@ Block exists: movzx eax,byte ptr [rsp+0xf] at address 0x23e1 is visited for 14 t
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2638
-0x2638: cmp dword ptr [rsp+0x8],0x2
+0x2638: cmp dword ptr [rsp+8],0x2
 0x263d: mov r12d,r10d
 0x2640: mov ebx,0x20
 0x2645: sete dl
@@ -14381,7 +14381,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 18 tim
 Block exists: test r10b,r10b at address 0x21c9 is visited for 19 times
 
 0x30fa: movzx ebx,byte ptr [rsp+0xf]
-0x3100: mov ebp,ebx
+0x30ff: mov rbp,r11
 0x3102: mov eax,edx
 0x3104: mov byte ptr [rsp+0xd],bl
 0x3108: jmp 0x2af9
@@ -14789,7 +14789,7 @@ Block exists: setne al at address 0x2167 is visited for 16 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x22e3: cmp byte ptr [rsp+0xd],0x0
@@ -14862,7 +14862,7 @@ Block exists: lea rax,[r15+1] at address 0x2b8a is visited for 11 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-0x23a8: cmp dword ptr [rsp+0x8],0x2
+0x23a8: cmp dword ptr [rsp+8],0x2
 0x23ad: sete dl
 0x23b0: xor eax,eax
 0x23b2: jmp 0x2198
@@ -14871,7 +14871,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 18 tim
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-0x23d0: cmp dword ptr [rsp+0x8],0x2
+0x23d0: cmp dword ptr [rsp+8],0x2
 0x23d5: sete dl
 Block exists: test rbp,rbp at address 0x23d8 is visited for 16 times
 
@@ -14978,7 +14978,7 @@ Block exists: cmp byte ptr [rsp+0xf],0x0 at address 0x22b2 is visited for 18 tim
 Block exists: mov eax,r8d at address 0x2566 is visited for 10 times
 
 0x30fa: movzx ebx,byte ptr [rsp+0xf]
-0x3100: mov ebp,ebx
+0x30ff: mov rbp,r11
 Block exists: mov eax,edx at address 0x3102 is visited for 3 times
 
 0x26d0: cmp dword ptr [rsp+0x8],0x2
@@ -15646,7 +15646,7 @@ Block exists: lea rax,[r15+1] at address 0x2f98 is visited for 2 times
 0x2f9c: cmp r13,rax
 0x2f9f: jbe 0x2fa7
 0x2f9f: jump address is 0x2fa7
-0x2fa3: add dword ptr ds:[rdx],esp
+0x2fa1: mov byte ptr [r14+r15+1],0x22
 Block exists: lea rax,[r15+2] at address 0x2fa7 is visited for 2 times
 
 0x2fa7: lea rax,[r15+2]
@@ -15785,7 +15785,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 19 tim
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2608
-0x2608: cmp dword ptr [rsp+0x8],0x2
+0x2608: cmp dword ptr [rsp+8],0x2
 0x260d: sete dl
 0x2610: xor r10d,r10d
 0x2613: jmp 0x23d8
@@ -15794,7 +15794,7 @@ Block exists: test rbp,rbp at address 0x23d8 is visited for 17 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2620
-0x2620: cmp dword ptr [rsp+0x8],0x2
+0x2620: cmp dword ptr [rsp+8],0x2
 0x2625: sete dl
 0x2628: xor r10d,r10d
 0x262b: xor r12d,r12d
@@ -15804,7 +15804,7 @@ Block exists: movzx eax,byte ptr [rsp+0xf] at address 0x23e1 is visited for 15 t
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2638
-0x2638: cmp dword ptr [rsp+0x8],0x2
+0x2638: cmp dword ptr [rsp+8],0x2
 0x263d: mov r12d,r10d
 0x2640: mov ebx,0x20
 0x2645: sete dl
@@ -15973,7 +15973,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 19 tim
 Block exists: test r10b,r10b at address 0x21c9 is visited for 20 times
 
 0x30fa: movzx ebx,byte ptr [rsp+0xf]
-0x3100: mov ebp,ebx
+0x30ff: mov rbp,r11
 0x3102: mov eax,edx
 0x3104: mov byte ptr [rsp+0xd],bl
 0x3108: jmp 0x2af9
@@ -16381,7 +16381,7 @@ Block exists: setne al at address 0x2167 is visited for 17 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x22e3: cmp byte ptr [rsp+0xd],0x0
@@ -16454,7 +16454,7 @@ Block exists: lea rax,[r15+1] at address 0x2b8a is visited for 12 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-0x23a8: cmp dword ptr [rsp+0x8],0x2
+0x23a8: cmp dword ptr [rsp+8],0x2
 0x23ad: sete dl
 0x23b0: xor eax,eax
 0x23b2: jmp 0x2198
@@ -16463,7 +16463,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 19 tim
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-0x23d0: cmp dword ptr [rsp+0x8],0x2
+0x23d0: cmp dword ptr [rsp+8],0x2
 0x23d5: sete dl
 Block exists: test rbp,rbp at address 0x23d8 is visited for 17 times
 
@@ -16570,7 +16570,7 @@ Block exists: cmp byte ptr [rsp+0xf],0x0 at address 0x22b2 is visited for 19 tim
 Block exists: mov eax,r8d at address 0x2566 is visited for 11 times
 
 0x30fa: movzx ebx,byte ptr [rsp+0xf]
-0x3100: mov ebp,ebx
+0x30ff: mov rbp,r11
 Block exists: mov eax,edx at address 0x3102 is visited for 4 times
 
 0x26d0: cmp dword ptr [rsp+0x8],0x2
@@ -17143,7 +17143,7 @@ Block exists: lea rax,[r15+1] at address 0x2f98 is visited for 3 times
 0x2f9c: cmp r13,rax
 0x2f9f: jbe 0x2fa7
 0x2f9f: jump address is 0x2fa7
-0x2fa3: add dword ptr ds:[rdx],esp
+0x2fa1: mov byte ptr [r14+r15+1],0x22
 Block exists: lea rax,[r15+2] at address 0x2fa7 is visited for 3 times
 
 0x2fa7: lea rax,[r15+2]
@@ -17280,7 +17280,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 20 tim
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2608
-0x2608: cmp dword ptr [rsp+0x8],0x2
+0x2608: cmp dword ptr [rsp+8],0x2
 0x260d: sete dl
 0x2610: xor r10d,r10d
 0x2613: jmp 0x23d8
@@ -17289,7 +17289,7 @@ Block exists: test rbp,rbp at address 0x23d8 is visited for 18 times
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2620
-0x2620: cmp dword ptr [rsp+0x8],0x2
+0x2620: cmp dword ptr [rsp+8],0x2
 0x2625: sete dl
 0x2628: xor r10d,r10d
 0x262b: xor r12d,r12d
@@ -17299,7 +17299,7 @@ Block exists: movzx eax,byte ptr [rsp+0xf] at address 0x23e1 is visited for 16 t
 
 0x24ea: jmp rax
 0x24ea: jump address is 0x2638
-0x2638: cmp dword ptr [rsp+0x8],0x2
+0x2638: cmp dword ptr [rsp+8],0x2
 0x263d: mov r12d,r10d
 0x2640: mov ebx,0x20
 0x2645: sete dl
@@ -17468,7 +17468,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 20 tim
 Block exists: test r10b,r10b at address 0x21c9 is visited for 21 times
 
 0x30fa: movzx ebx,byte ptr [rsp+0xf]
-0x3100: mov ebp,ebx
+0x30ff: mov rbp,r11
 0x3102: mov eax,edx
 0x3104: mov byte ptr [rsp+0xd],bl
 0x3108: jmp 0x2af9
@@ -17876,7 +17876,7 @@ Block exists: setne al at address 0x2167 is visited for 18 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-0x22d8: cmp dword ptr [rsp+0x8],0x2
+0x22d8: cmp dword ptr [rsp+8],0x2
 0x22dd: je 0x26b0
 0x22dd: jump address is 0x26b0
 0x22e3: cmp byte ptr [rsp+0xd],0x0
@@ -17949,7 +17949,7 @@ Block exists: lea rax,[r15+1] at address 0x2b8a is visited for 13 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-0x23a8: cmp dword ptr [rsp+0x8],0x2
+0x23a8: cmp dword ptr [rsp+8],0x2
 0x23ad: sete dl
 0x23b0: xor eax,eax
 0x23b2: jmp 0x2198
@@ -17958,7 +17958,7 @@ Block exists: cmp byte ptr [rsp+0xd],0x1 at address 0x2198 is visited for 20 tim
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-0x23d0: cmp dword ptr [rsp+0x8],0x2
+0x23d0: cmp dword ptr [rsp+8],0x2
 0x23d5: sete dl
 Block exists: test rbp,rbp at address 0x23d8 is visited for 18 times
 
@@ -18065,7 +18065,7 @@ Block exists: cmp byte ptr [rsp+0xf],0x0 at address 0x22b2 is visited for 20 tim
 Block exists: mov eax,r8d at address 0x2566 is visited for 12 times
 
 0x30fa: movzx ebx,byte ptr [rsp+0xf]
-0x3100: mov ebp,ebx
+0x30ff: mov rbp,r11
 Block exists: mov eax,edx at address 0x3102 is visited for 5 times
 
 0x26d0: cmp dword ptr [rsp+0x8],0x2
@@ -18221,11 +18221,11 @@ Block exists: mov byte ptr [r14+r15],0x27 at address 0x2b85 is visited for 21 ti
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x23a8 is visited for 12 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x23a8 is visited for 12 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x23d0 is visited for 12 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x23d0 is visited for 12 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x2400
@@ -18288,7 +18288,7 @@ Block exists: movzx eax,byte ptr [rsp+0xf] at address 0x23e1 is visited for 16 t
 
 0x215e: jmp rax
 0x215e: jump address is 0x22d8
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x22d8 is visited for 13 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x22d8 is visited for 13 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x2233
@@ -18300,11 +18300,11 @@ Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x2263 is visited for 23 ti
 
 0x215e: jmp rax
 0x215e: jump address is 0x23a8
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x23a8 is visited for 12 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x23a8 is visited for 12 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x23d0
-Block exists: cmp dword ptr [rsp+0x8],0x2 at address 0x23d0 is visited for 12 times
+Block exists: cmp dword ptr [rsp+8],0x2 at address 0x23d0 is visited for 12 times
 
 0x215e: jmp rax
 0x215e: jump address is 0x2400
@@ -18445,7 +18445,7 @@ Block exists: mov rsi,rbx at address 0x419e is visited for 3 times
 0x3245: shl rdx,0x4
 0x3249: call 0x12f0
 0x3249: jump address is 0x12f0
-0x12f0: jmp qword ptr [rip+0x205c11]
+0x12f0: jmp qword ptr [rip+0x205c12]
 0x12f0: the return address is 0x324e
 0x324e: mov dword ptr [rip+0x203e03],r12d
 Block exists: mov eax,dword ptr [rbp+4] at address 0x3255 is visited for 4 times
@@ -18642,7 +18642,7 @@ Block exists: mov eax,dword ptr [rsp+0x18] at address 0x3311 is visited for 3 ti
 0x1e7a: call 0x11f0
 0x1e7a: jump address is 0x11f0
 0x11f0: jmp qword ptr [rip+0x205c92]
-3161
+3177
 2053
 58
-109.50989699363708
+80.41779804229736

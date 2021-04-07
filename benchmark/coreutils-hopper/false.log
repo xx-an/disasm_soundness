@@ -35,7 +35,7 @@ The symbolic execution has been successfully terminated
 0x1983: test rax,rax
 0x1986: je 0x19dd
 0x1986: jump address is 0x19dd
-0x1988: lea r8, [rax+1]
+0x1988: lea r8,[rax+1]
 0x198c: mov rdx,r8
 0x198f: sub rdx,rbx
 0x1992: cmp rdx,0x6
@@ -43,7 +43,7 @@ The symbolic execution has been successfully terminated
 0x1996: jump address is 0x19dd
 Block exists: mov qword ptr [rip+0x2046dc],rbx at address 0x19dd is visited for 1 times
 
-0x1998: lea rsi, [rax-6]
+0x1998: lea rsi,[rax-6]
 0x199c: lea rdi,[rip+0x2c95]
 0x19a3: mov ecx,0x7
 0x19a8: rep cmpsb byte [rsi],byte ptr [rdi]
@@ -66,7 +66,7 @@ Block exists: mov qword ptr [rip+0x2046dc],rbx at address 0x19dd is visited for 
 0x19d0: jump address is 0x19dd
 Block exists: mov qword ptr [rip+0x2046dc],rbx at address 0x19dd is visited for 1 times
 
-0x19d2: lea rbx, [rax+4]
+0x19d2: lea rbx,[rax+4]
 0x19d6: mov qword ptr [rip+0x2046a3],rbx
 Block exists: mov qword ptr [rip+0x2046dc],rbx at address 0x19dd is visited for 1 times
 
@@ -138,17 +138,17 @@ The symbolic execution has been successfully terminated
 0x3b62: mov r10d,0x20
 0x3b68: xor r11d,r11d
 0x3b6b: sub rsp,0xb8
-0x3b72: mov rax,qword ptr fs: [0x28]
+0x3b72: mov rax,qword ptr fs:[0x28]
 0x3b7b: mov qword ptr [rsp+0x78],rax
 0x3b80: xor eax,eax
-0x3b82: lea rax, [rsp+0xd0]
+0x3b82: lea rax,[rsp+0xd0]
 0x3b8a: mov qword ptr [rsp+0xa0],r8
-0x3b92: lea rbx, [rsp+0xd0]
-0x3b9a: lea r8, [rsp+0x20]
+0x3b92: lea rbx,[rsp+0xd0]
+0x3b9a: lea r8,[rsp+0x20]
 0x3b9f: mov qword ptr [rsp+0xa8],r9
 0x3ba7: mov dword ptr [rsp+0x8],0x20
 0x3baf: mov qword ptr [rsp+0x10],rax
-0x3bb4: lea rax, [rsp+0x80]
+0x3bb4: lea rax,[rsp+0x80]
 0x3bbc: xor r9d,r9d
 0x3bbf: mov qword ptr [rsp+0x18],rax
 0x3bc4: mov rbp,rax
@@ -349,7 +349,7 @@ trace back
 0x37d4: ret
 0x37d4: the return address is 0x3c06
 0x3c06: mov rax,qword ptr [rsp+0x78]
-0x3c0b: xor rax,qword ptr fs: [0x28]
+0x3c0b: xor rax,qword ptr fs:[0x28]
 0x3c14: jne 0x3c20
 0x3c14: jump address is 0x3c20
 0x3c16: add rsp,0xb8
@@ -641,7 +641,7 @@ Block exists: mov r10,qword ptr [rsp+0x18] at address 0x3849 is visited for 1 ti
 0x3c01: jump address is 0x36a0
 0x3c01: the return address is 0x3c06
 0x3c06: mov rax,qword ptr [rsp+0x78]
-0x3c0b: xor rax,qword ptr fs: [0x28]
+0x3c0b: xor rax,qword ptr fs:[0x28]
 0x3c14: jne 0x3c20
 0x3c14: jump address is 0x3c20
 0x3c16: add rsp,0xb8
@@ -674,7 +674,7 @@ Block exists: mov dword ptr [rsp+0x8],r10d at address 0x3c25 is visited for 1 ti
 0x1564: xor edi,edi
 0x1566: sub rsp,0x88
 0x156d: mov rbp,qword ptr [rip+0x204b4c]
-0x1574: mov rax,qword ptr fs: [0x28]
+0x1574: mov rax,qword ptr fs:[0x28]
 0x157d: mov qword ptr [rsp+0x78],rax
 0x1582: xor eax,eax
 0x1584: call 0x1190
@@ -1101,7 +1101,7 @@ Block exists: mov edi,0x1 at address 0x17ba is visited for 3 times
 0x1a0a: call 0x1110
 0x1a0a: jump address is 0x1110
 0x1110: jmp qword ptr [rip+0x204d92]
-2954
+2971
 612
 24
-1.4946939945220947
+1.3475210666656494
