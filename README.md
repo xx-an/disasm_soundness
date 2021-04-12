@@ -12,8 +12,6 @@ DSV structure:
 
     src
 
-    lib
-
     LICENSE
 
     README.md
