@@ -20,8 +20,8 @@ import argparse
 import logging
 from .common import utils
 from .common import global_var
-from .disassembler import helper
-from .disassembler.disasm_factory import Disasm_Factory
+from .normalizer import helper
+from .normalizer.normalizer_factory import Disasm_Factory
 from .cfg.cfg import CFG
 from .soundness import soundness
 from .dsv_check import neat_unreach
@@ -29,11 +29,12 @@ from .dsv_check import neat_unreach
 
 CHECK_RESULTS = ['', '$\\times$']
 
-def construct_cfg(exec_path, disasm_asm, disasm_type):
+def construct_cfg(disasm_asm, disasm_type):
     start_address = global_var.elf_info.entry_address
     main_address = global_var.elf_info.main_address
     address_sym_table = global_var.elf_info.address_sym_table
-    cfg = CFG(address_sym_table, disasm_asm.address_inst_map, disasm_asm.address_next_map, start_address, main_address, disasm_type)
+    address_inst_map = disasm_asm.get_address_inst_map()
+    cfg = CFG(address_sym_table, address_inst_map, disasm_asm.address_next_map, start_address, main_address, disasm_type)
     return cfg
 
 
@@ -94,7 +95,7 @@ def dsv_main(exec_path, disasm_path, disasm_type, verbose=False):
     disasm_factory = Disasm_Factory(disasm_path, exec_path, disasm_type)
     disasm_asm = disasm_factory.get_disasm()
     start_time = time.time()
-    cfg = construct_cfg(exec_path, disasm_asm, disasm_type)
+    cfg = construct_cfg(disasm_asm, disasm_type)
     exec_time = time.time() - start_time
     write_results(disasm_asm, cfg, exec_time)
     close_logger()

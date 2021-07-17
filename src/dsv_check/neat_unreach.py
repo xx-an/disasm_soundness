@@ -14,6 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+'''
+$ python -m src.dsv_check.neat_unreach -e benchmark/coreutils-build -l benchmark/coreutils-radare2 -t radare2 -f basename
+'''
+
 import os
 import xlwt
 import argparse

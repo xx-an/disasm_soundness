@@ -14,11 +14,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+'''
+$ python -m src.dsv_check.disasm_diff -t idapro -f basename
+'''
+
 import os
 import argparse
 from ..common import utils
 
-def check_diff(log_path, objdump_log_path):
+def check_diff(log_path, objdump_log_path, disasm_type):
     with open(log_path, 'r') as lf:
         with open(objdump_log_path, 'r') as of:
             lf_lines = lf.readlines()
@@ -40,12 +44,12 @@ def check_diff(log_path, objdump_log_path):
                         for i in range(1, 10):
                             of_inst = of_inst.replace('0x' + str(i) + ']',str(i) +']')
                         if address != of_address:
-                            print(line)
-                            print(of_line)
+                            print(disasm_type + ': ' + line)
+                            print('objdump: ' + of_line)
                             break
                         elif inst.strip() != of_inst.strip():
-                            print(line)
-                            print(of_line)
+                            print(disasm_type + ': ' + line)
+                            print('objdump: ' + of_line)
                 idx += 1
 
 
@@ -64,4 +68,4 @@ if __name__ == '__main__':
     file_name = args.file_name
     objdump_log_path = os.path.join(objdump_dir, file_name + '.log')
     log_path = os.path.join(log_dir, file_name + '.log')
-    check_diff(log_path, objdump_log_path)
+    check_diff(log_path, objdump_log_path, args.disasm_type)

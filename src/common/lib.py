@@ -178,6 +178,8 @@ INSTS_AFF_FLAGS_WO_CMP_TEST = {
 BAP_RELATED_INST = {'stos', 'fild', 'fld', 'fstp', 'fadd'}
 
 
+CODE_SEGMENTS = ('.plt.got', '.plt', '.text')
+
 CONDITIONAL_MOV_INST = set(map(lambda x: 'cmov' + x, CONDITIONAL_FLAGS.keys()))
 
 CONDITIONAL_SET_INST = set(map(lambda x: 'set' + x, CONDITIONAL_FLAGS.keys()))

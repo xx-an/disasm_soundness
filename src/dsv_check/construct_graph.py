@@ -20,7 +20,6 @@ import argparse
 from ..common import lib
 from ..common import utils
 from ..elf.elf_info import ELF_Info
-from ..disassembler import helper
 from .graph import Graph
 from .graph_node import Node
 from .disasm_objdump import Disasm_Objdump

@@ -17,7 +17,7 @@
 import re
 from ..common import utils
 from ..common.inst_element import Inst_Elem
-from ..disassembler import helper
+from ..normalizer import helper
 
 
 label_address_pattern = re.compile('^[0-9a-f]+ <[A-Za-z_@.0-9]+>:')
@@ -27,12 +27,9 @@ class Disasm_Objdump(object):
     def __init__(self, disasm_path):
         self.disasm_path = disasm_path
         self.address_inst_map = {}
-        self.invalid_address_list = []
         self.address_label_map = {}
-        self.address_entries_map = {}
         self.valid_address_no = 0
         self.read_asm_info()
-        self.inst_addresses = sorted(self.address_inst_map.keys())
 
     def get_address_inst_map(self):
         return self.address_inst_map
@@ -41,8 +38,6 @@ class Disasm_Objdump(object):
         with open(self.disasm_path, 'r') as f:
             lines = f.readlines()
             valid_section = False
-            prev_address = None
-            prev_inst = None
             for line in lines:
                 if label_address_pattern.search(line):
                     address, label = self._parse_address_label(line)
@@ -56,27 +51,20 @@ class Disasm_Objdump(object):
                     if inst:
                         inst = self.format_inst(address, inst)
                         self.address_inst_map[address] = inst
-                        if utils.check_jmp_with_address(inst):
-                            jmp_address = inst.split(' ', 1)[1].strip()
-                            if utils.imm_pat.match(jmp_address):
-                                jmp_address = int(jmp_address, 16)
-                                self._add_address_entry(jmp_address, address)
-                        if address not in self.address_label_map:
-                            if prev_inst and not prev_inst.startswith(('call ', 'jmp ', 'ret')):
-                                self._add_address_entry(address, prev_address)
                         if valid_section:
                             self.valid_address_no += 1
                         else:
                             self.invalid_address_list.append(address)
-                        prev_address = address
-                        prev_inst = inst
-
-
-    def _add_address_entry(self, address, entry_address):
-        if address in self.address_entries_map:
-            self.address_entries_map[address].append(entry_address)
-        else:
-            self.address_entries_map[address] = [entry_address]
+        inst_addresses = sorted(list(self.address_inst_map.keys()))
+        inst_num = len(inst_addresses)
+        for idx, address in enumerate(inst_addresses):
+            n_idx = idx + 1
+            if n_idx < inst_num:
+                rip = inst_addresses[n_idx]
+            else:
+                rip = -1
+            self.address_inst_map[address] = inst
+            self.address_next_map[address] = rip
 
 
     def _parse_line(self, line):

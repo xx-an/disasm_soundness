@@ -19,7 +19,7 @@ import argparse
 
 from ..common import utils
 from ..common import global_var
-from ..disassembler import helper
+from ..normalizer import helper
 
 '''
 $ python -m src.dsv_check.disassemble_in_batch -e benchmark/coreutils-build -d benchmark/coreutils-objdump -b 1
