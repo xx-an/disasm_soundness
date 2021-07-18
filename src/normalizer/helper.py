@@ -17,13 +17,17 @@
 import re
 import os
 import sys
-import bap
 import angr
 import r2pipe
 
 from ..common import lib
 from ..common import utils
 from ..common import global_var
+
+
+UNEXPLORED_FUNCTION_LABELS = {'_init', '_fini', '__libc_csu_init', '__libc_csu_fini', 
+'frame_dummy', 'register_tm_clones', 'deregister_tm_clones', '__do_global_dtors_aux'}
+
 
 BYTE_LEN_REPS = {
     'byte': 'byte', 
@@ -37,11 +41,6 @@ BYTE_LEN_REPS = {
     'xmmword': 'xmmword'
 }
 
-# INVALID_SECTION_LABELS = {'_fini', '__libc_csu_fini', 'frame_dummy', 'register_tm_clones', 'deregister_tm_clones', '__do_global_dtors_aux'}
-INVALID_SECTION_LABELS = {'_init', '_fini', '__libc_csu_init', '__libc_csu_fini', 
-'frame_dummy', 'register_tm_clones', 'deregister_tm_clones', '__do_global_dtors_aux'}
-
-VALID_SECTION_NAMES = {'.text', }
 
 BYTE_REP_PTR_MAP = {
     'q': 'qword ptr',
@@ -355,8 +354,6 @@ def generate_ida_ptr_rep(name, inst, length):
         word_ptr_rep = 'xmmword ptr'
     elif name == 'movq' and 'xmm' in inst:
         pass
-    elif name in (('movsx', 'movzx')):
-        word_ptr_rep = 'byte ptr'
     elif name == 'movsxd':
         if length in (16, 32):
             word_ptr_rep = BYTELEN_REP_MAP[length]
@@ -365,7 +362,7 @@ def generate_ida_ptr_rep(name, inst, length):
     elif name == 'movss':
         word_ptr_rep = 'dword ptr'
     elif name.startswith(('fld', 'fadd', 'fstp')):
-        word_ptr_rep = 'dword ptr'
+        word_ptr_rep = 'tbyte ptr'
     return word_ptr_rep
 
 
@@ -524,11 +521,6 @@ def normalize_arg_byte_len_rep(arg):
     return res
 
 
-def convert_imm_endh_to_hex(imm):
-    tmp = imm.rsplit('h', 1)[0].strip()
-    res = hex(int(tmp, 16))
-    return res
-
 def retrieve_bytelen_rep(name, args):
     word_ptr_rep = None
     if len(args) == 1:
@@ -584,3 +576,65 @@ def norm_ptr_rep(line):
     return res
 
 
+def eval_simple_formula(stack, op_stack):
+    res = stack[0]
+    for idx, op in enumerate(op_stack):
+        if op == '+':
+            res = res + stack[idx + 1]
+        elif op == '-':
+            res = res - stack[idx + 1]
+    return res
+
+
+def reconstruct_formula_expr(stack, op_stack, idx_list, imm_val):
+    res = ''
+    for idx, val in enumerate(stack):
+        if idx not in idx_list:
+            if idx > 0:
+                res += op_stack[idx - 1] + val
+            else:
+                res += val
+    if res:
+        res += '+' + hex(imm_val)
+    else:
+        res = hex(imm_val)
+    res = res.replace('+-', '-')
+    return res
+
+
+def calc_formula_expr(stack, op_stack, content):
+    res = content
+    imm_item_list = [(idx, utils.imm_str_to_int(val)) for idx, val in enumerate(stack) if utils.imm_pat.match(val) and (idx == 0 or op_stack[idx - 1] in (('+', '-')))]
+    idx_list = []
+    val_list = []
+    oper_list = []
+    for idx, val in imm_item_list:
+        num_val = val
+        if idx > 0:
+            op = op_stack[idx - 1]
+            if val_list:
+                oper_list.append(op)
+            else:
+                num_val = val if op == '+' else -val
+        idx_list.append(idx)
+        val_list.append(num_val)
+    if len(val_list) > 1:
+        imm_val = eval_simple_formula(val_list, oper_list)
+        res = reconstruct_formula_expr(stack, op_stack, idx_list, imm_val)
+    return res
+
+
+def simulate_eval_expr(content):
+    stack = []
+    op_stack = []
+    line = utils.rm_unused_spaces(content)
+    line_split = utils.simple_operator_pat.split(line)
+    for lsi in line_split:
+        lsi = lsi.strip()
+        if utils.simple_operator_pat.match(lsi):
+            op_stack.append(lsi)
+        else:
+            val = lsi
+            stack.append(val)
+    res = calc_formula_expr(stack, op_stack, content)
+    return res

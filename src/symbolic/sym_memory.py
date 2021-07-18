@@ -21,8 +21,6 @@ from ..common import utils
 from . import sym_helper
 from ..common import global_var
 
-letter_num_neg_pat = re.compile(r'\w+')
-sym_pat = re.compile(r'\W+')
 
 def get_sym_val(str_val, store, length):
     res = None
@@ -81,28 +79,16 @@ def eval_simple_formula(stack, op_stack):
 # line: 'rbp - 0x14'
 # line: 'rax'
 def calc_effective_address(line, store, length):
-    # line_split = re.split(r'(\W+)', line)
     stack = []
     op_stack = []
-    line = line.strip()
-    while line:
-        lsi = letter_num_neg_pat.match(line)
-        if lsi:
-            lsi = lsi.group(0)
+    line = utils.rm_unused_spaces(line.strip())
+    line_split = utils.simple_operator_pat.split(line)
+    for lsi in line_split:
+        if utils.simple_operator_pat.match(lsi):
+            op_stack.append(lsi)
+        else:
             val = get_sym_val(lsi, store, length)
             stack.append(val)
-        else:
-            lsi = sym_pat.match(line)
-            lsi = lsi.group(0).strip()
-            op_stack.append(lsi)
-        line = line.split(lsi, 1)[1].strip()
-    # for lsi in line_split:
-    #     lsi = lsi.strip()
-    #     if re.match(r'\w+|-\w+', lsi):
-    #         val = get_sym_val(lsi, store, length)
-    #         stack.append(val)
-    #     else:
-    #         op_stack.append(lsi)
     res = eval_simple_formula(stack, op_stack)
     return res
 
@@ -110,28 +96,16 @@ def calc_effective_address(line, store, length):
 # arg: DWORD PTR [rcx+rdx*4]
 def get_jump_table_address(store, arg, src_sym, src_val, length=lib.DEFAULT_REG_LEN):
     arg = utils.extract_content(arg, '[')
-    # arg_split = re.split(r'(\W+)', arg)
     stack = []
     op_stack = []
-    arg = arg.strip()
-    while arg:
-        ai = letter_num_neg_pat.match(arg)
-        if ai:
-            ai = ai.group(0)
+    arg = utils.rm_unused_spaces(arg.strip())
+    arg_split = utils.simple_operator_pat.split(arg)
+    for ai in arg_split:
+        if utils.simple_operator_pat.match(ai):
+            op_stack.append(ai)
+        else:
             val = get_idx_sym_val(store, ai, src_sym, src_val, length)
             stack.append(val)
-        else:
-            ai = sym_pat.match(arg)
-            ai = ai.group(0).strip()
-            op_stack.append(ai)
-        arg = arg.split(ai, 1)[1].strip()
-    # for ai in arg_split:
-    #     ai = ai.strip()
-    #     if re.match(r'\w+|-\w+', ai):
-    #         val = get_idx_sym_val(store, ai, src_sym, src_val, length)
-    #         stack.append(val)
-    #     else:
-    #         op_stack.append(ai)
     res = eval_simple_formula(stack, op_stack)
     return res
 
@@ -178,7 +152,6 @@ def pollute_mem_w_sym_address(store):
         if not sym_helper.sym_is_int_or_bitvecnum(addr):
             if sym_helper.sym_is_int_or_bitvecnum(store[lib.MEM][addr]):
                 store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
-
 
 
 def set_mem_sym(store, address, sym, length=lib.DEFAULT_REG_LEN):

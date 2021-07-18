@@ -151,37 +151,43 @@ class Disasm_Hopper(Disasm):
                 #     print(symbol)
         return res
         
-    def _replace_to_times_elements(self, content, count):
-        res = content
-        c_split = content.split('*')
-        for i, c in enumerate(c_split):
-            c_split[i] = self._replace_symbol(c, count)
-        res = '*'.join(c_split)
+    def _reconstruct_w_replaced_val(self, stack, op_stack):
+        res = ''
+        for idx, val in enumerate(stack):
+            if idx > 0:
+                res += op_stack[idx - 1] + val
+            else:
+                res += val
+        res = res.replace('+-', '-')
         return res
 
-    def _replace_each_symbol(self, content, count):
-        res = content
-        if '+' in content:
-            c_split = content.split('+')
-            for idx, elem in enumerate(c_split):
-                if '*' in elem:
-                    c_split[idx] = self._replace_to_times_elements(elem, count)
-                else:
-                    c_split[idx] = self._replace_symbol(elem, count)
-            res = '+'.join(c_split)
-        elif '-' in content:
-            c_split = content.split('-')
-            for idx, elem in enumerate(c_split):
-                if '*' in elem:
-                    c_split[idx] = self._replace_to_times_elements(elem, count)
-                else:
-                    c_split[idx] = self._replace_symbol(elem, count)
-            res = '-'.join(c_split)
-        elif '*' in content:
-            res = self._replace_to_times_elements(content, count)
-        else:
-            res = self._replace_symbol(content, count)
+
+    def _replace_each_symbol(self, stack, op_stack):
+        res = ''
+        for idx, lsi in enumerate(stack):
+            if not(lsi in lib.REG_NAMES or utils.imm_pat.match(lsi)):
+                stack[idx] = self._replace_symbol(lsi)
+        res = self._reconstruct_w_replaced_val(stack, op_stack)
         return res
+
+
+    def _replace_each_expr(self, content):
+        res = content
+        stack = []
+        op_stack = []
+        line = content.strip()
+        line_split = re.split(r'(\W+)', line)
+        for lsi in line_split:
+            lsi = lsi.strip()
+            if lsi:
+                if re.match(r'\w+|-\w+', lsi):
+                    val = lsi
+                    stack.append(val)
+                else:
+                    op_stack.append(lsi)
+        res = self._replace_each_symbol(stack, op_stack)
+        return res
+
 
     def _replace_symbol_with_value(self, address, inst_name, arg, count):
         res = arg
@@ -189,10 +195,10 @@ class Disasm_Hopper(Disasm):
             arg_split = arg.split('[', 1)
             prefix = arg_split[0].strip()
             mem_addr = arg_split[1].strip().rsplit(']', 1)[0].strip()
-            mem_addr = self._replace_each_symbol(mem_addr, count)
+            mem_addr = self._replace_each_expr(mem_addr, count)
             res = prefix + ' [' + mem_addr + ']'
         else:
-            res = self._replace_each_symbol(arg, count)
+            res = self._replace_symbol(arg, count)
         return res
 
     def _move_segment_rep(self, arg):
@@ -206,88 +212,12 @@ class Disasm_Hopper(Disasm):
                 res = prefix + ' ' + mem_addr_split[0] + ':[' + mem_addr_split[1] + ']'
         return res
 
+
     def _remove_ptr_rep_from_lea(self, inst_name, arg):
         res = arg
         if inst_name == 'lea' and ' ptr ' in arg:
             res = arg.split('ptr ', 1)[1].strip()
         return res
-
-
-    def _eval_simple_formula(self, stack, op_stack):
-        res = stack[0]
-        for idx, op in enumerate(op_stack):
-            if op == '+':
-                res = res + stack[idx + 1]
-            elif op == '-':
-                res = res - stack[idx + 1]
-        return res
-
-    def _reconstruct_expr(self, stack, op_stack, idx_list, imm_val):
-        res = ''
-        for idx, val in enumerate(stack):
-            if idx not in idx_list:
-                if idx > 0:
-                    res += op_stack[idx - 1] + val
-                else:
-                    res += val
-        if res:
-            res += '+' + hex(imm_val)
-        else:
-            res = hex(imm_val)
-        res = res.replace('+-', '-')
-        return res
-
-
-    def _cal_expr(self, stack, op_stack, content):
-        res = content
-        imm_item_list = [(idx, utils.imm_str_to_int(val)) for idx, val in enumerate(stack) if utils.imm_pat.match(val) and (idx == 0 or op_stack[idx - 1] in (('+', '-')))]
-        idx_list = []
-        val_list = []
-        oper_list = []
-        for idx, val in imm_item_list:
-            n_val = val
-            if idx > 0:
-                op = op_stack[idx - 1]
-                if val_list:
-                    oper_list.append(op)
-                else:
-                    n_val = val if op == '+' else -val
-            idx_list.append(idx)
-            val_list.append(n_val)
-        if len(val_list) > 1:
-            imm_val = self._eval_simple_formula(val_list, oper_list)
-            res = self._reconstruct_expr(stack, op_stack, idx_list, imm_val)
-        return res
-
-
-    def _eval_expr(self, content):
-        stack = []
-        op_stack = []
-        line = content.strip()
-        line_split = re.split(r'(\W+)', line)
-        for lsi in line_split:
-            lsi = lsi.strip()
-            if re.match(r'\w+|-\w+', lsi):
-                val = lsi
-                stack.append(val)
-            else:
-                op_stack.append(lsi)
-        res = self._cal_expr(stack, op_stack, content)
-        return res
-
-
-    def _exec_eval(self, arg):
-        res = arg
-        if arg.endswith(']'):
-            arg_split = arg.split('[', 1)
-            prefix = arg_split[0]
-            mem_addr = arg_split[1].strip().rsplit(']', 1)[0].strip()
-            mem_addr = self._eval_expr(mem_addr)
-            res = prefix + '[' + mem_addr + ']'
-        else:
-            res = self._eval_expr(arg)
-        return res
-
 
 
     def _format_arg(self, address, inst_name, arg, rip):
@@ -296,7 +226,7 @@ class Disasm_Hopper(Disasm):
         res = res.replace('+-', '-')
         res = self._move_segment_rep(res)
         res = self._remove_ptr_rep_from_lea(inst_name, res)
-        res = self._exec_eval(res)
+        res = helper.simulate_eval_expr(res)
         res = helper.rewrite_absolute_address_to_relative(res, rip)
         res = helper.modify_st_rep(res)
         res = res.lower()

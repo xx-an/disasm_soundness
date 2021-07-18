@@ -44,7 +44,7 @@ class Disasm_Bap(Disasm):
                 line = line.strip()
                 if line.startswith('Disassembly of section '):
                     section_name = self._parse_section_name(line)
-                    if section_name in helper.INVALID_SECTION_LABELS:
+                    if section_name in helper.UNEXPLORED_FUNCTION_LABELS:
                         valid_section = False
                     else:
                         valid_section = True

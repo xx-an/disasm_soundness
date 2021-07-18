@@ -46,7 +46,7 @@ class Disasm_Objdump(Disasm):
                 line = line.strip()
                 if label_address_pattern.search(line):
                     label = self._parse_address_label(line)
-                    if label in helper.INVALID_SECTION_LABELS or label.endswith(('@plt', '.plt')):
+                    if label in helper.UNEXPLORED_FUNCTION_LABELS or label.endswith(('@plt', '.plt')):
                         valid_section = False
                     else:
                         valid_section = True

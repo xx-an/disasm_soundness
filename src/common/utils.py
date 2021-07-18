@@ -85,6 +85,7 @@ def close_logger(log_name):
 delimits = {'(': ')', '[': ']', '{': '}'}
 exec_file_suffix = ['', '.so', '.o', '.os']
 float_pat = re.compile('^[0-9.]+$|^-[0-9.]+$')
+simple_operator_pat = re.compile(r'(\+|-|\*)')
 imm_pat = re.compile('^0x[0-9a-fA-F]+$|^[0-9]+$|^-[0-9]+$|^-0x[0-9a-fA-F]+$')
 imm_start_pat = re.compile('^0x[0-9a-fA-F]+|^[0-9]+|^-[0-9]+|^-0x[0-9a-fA-F]+')
 MEM_DATA_SEC_SUFFIX = 'mem@'
@@ -95,6 +96,11 @@ OPPOSITE_FLAG_MAP = {
     'l': 'ge',
     'le': 'g'
 }
+
+def convert_imm_endh_to_hex(imm):
+    tmp = imm.rsplit('h', 1)[0].strip()
+    res = hex(int(tmp, 16))
+    return res
 
 def imm_str_to_int(imm_str):
     res = 0
@@ -662,4 +668,14 @@ def u_hex(num):
     res = hex(num)
     res = res.split('0x', 1)[1]
     return res
+
+
+def rm_unused_spaces(content):
+    res = content.strip()
+    res = re.sub(r'[ ]*\+[ ]*', '+', res)
+    res = re.sub(r'[ ]*-[ ]*', '-', res)
+    res = re.sub(r'[ ]*\*[ ]*', '*', res)
+    res = res.replace('+-', '-')
+    return res
+
 

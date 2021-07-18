@@ -179,6 +179,8 @@ BAP_RELATED_INST = {'stos', 'fild', 'fld', 'fstp', 'fadd'}
 
 CODE_SEGMENTS = ('.plt.got', '.plt', '.text')
 
+DATA_SEGMENTS = ('.rodate', '.data', '.bss')
+
 CONDITIONAL_MOV_INST = set(map(lambda x: 'cmov' + x, CONDITIONAL_FLAGS.keys()))
 
 CONDITIONAL_SET_INST = set(map(lambda x: 'set' + x, CONDITIONAL_FLAGS.keys()))
