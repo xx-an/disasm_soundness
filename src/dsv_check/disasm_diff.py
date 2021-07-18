@@ -48,8 +48,9 @@ def check_diff(log_path, objdump_log_path, disasm_type):
                             print('objdump: ' + of_line)
                             break
                         elif inst.strip() != of_inst.strip():
-                            print(disasm_type + ': ' + line)
-                            print('objdump: ' + of_line)
+                            if not inst.startswith(('lea')):
+                                print(disasm_type + ': ' + line)
+                                print('objdump: ' + of_line)
                 idx += 1
 
 

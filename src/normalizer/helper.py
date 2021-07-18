@@ -328,10 +328,23 @@ def rewrite_att_inst_name(name, inst):
     return res, word_ptr_rep
 
 
-def generate_idapro_ptr_rep(name, inst):
+def get_ida_ptr_rep_from_item_type(item_type):
+    res = None
+    if item_type in (('dd', 'dq', 'db', 'dw')):
+        suffix = item_type[-1]
+        res = BYTE_REP_PTR_MAP[suffix]
+    return res
+
+
+def generate_ida_ptr_rep(name, inst, length):
     word_ptr_rep = None
     if name.startswith('jmp'):
         word_ptr_rep = 'qword ptr'
+    elif name == 'call':
+        word_ptr_rep = 'qword ptr'
+    elif name in ('mov', 'cmp'):
+        if length:
+            word_ptr_rep = BYTELEN_REP_MAP[length]
     elif name.startswith(('j')):
         word_ptr_rep = 'qword ptr'
     elif name.startswith(('set')):
@@ -342,12 +355,15 @@ def generate_idapro_ptr_rep(name, inst):
         word_ptr_rep = 'xmmword ptr'
     elif name == 'movq' and 'xmm' in inst:
         pass
-    elif name.startswith(('movs', 'movz')):   # movslq, movzbl, movsl
-        inst_name, src_len_rep = name[:-1], name[-1]
-        if src_len_rep in BYTE_REP_PTR_MAP:
-            word_ptr_rep = BYTE_REP_PTR_MAP[src_len_rep]
-        elif inst_name == 'movss':
+    elif name in (('movsx', 'movzx')):
+        word_ptr_rep = 'byte ptr'
+    elif name == 'movsxd':
+        if length in (16, 32):
+            word_ptr_rep = BYTELEN_REP_MAP[length]
+        else:
             word_ptr_rep = 'dword ptr'
+    elif name == 'movss':
+        word_ptr_rep = 'dword ptr'
     elif name.startswith(('fld', 'fadd', 'fstp')):
         word_ptr_rep = 'dword ptr'
     return word_ptr_rep

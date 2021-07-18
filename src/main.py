@@ -57,7 +57,7 @@ def write_results(disasm_asm, cfg, exec_time):
     utils.logger.info(exec_time)
 
 
-def check_soundness(elf_lib_dir, disasm_lib_dir, disasm_type, file_name):
+def check_soundness(elf_lib_dir, disasm_lib_dir, file_name):
     print(file_name)
     disasm_log_path = os.path.join(disasm_lib_dir, file_name + '.log')
     exec_path = os.path.join(elf_lib_dir, file_name)
@@ -66,8 +66,8 @@ def check_soundness(elf_lib_dir, disasm_lib_dir, disasm_type, file_name):
     return res
 
 
-def check_soundness_batch(elf_lib_dir, disasm_lib_dir, disasm_type):
-    disasm_log_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(disasm_lib_dir) for f in filenames if f.endswith('.log')]
+def check_soundness_batch(elf_lib_dir, disasm_lib_dir):
+    disasm_log_files = [os.path.join(dp, f) for dp, _, filenames in os.walk(disasm_lib_dir) for f in filenames if f.endswith('.log')]
     for disasm_log_path in disasm_log_files:
         file_name = utils.get_file_name(disasm_log_path)
         exec_path = os.path.join(elf_lib_dir, file_name)
@@ -102,7 +102,7 @@ def dsv_main(exec_path, disasm_path, disasm_type, verbose=False):
 
 
 def dsv_batch(elf_lib_dir, disasm_lib_dir, disasm_type, verbose=False):
-    disasm_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(disasm_lib_dir) for f in filenames if f.endswith(disasm_type)]
+    disasm_files = [os.path.join(dp, f) for dp, _, filenames in os.walk(disasm_lib_dir) for f in filenames if f.endswith(disasm_type)]
     for disasm_path in disasm_files:
         file_name = utils.get_file_name(disasm_path)
         print(file_name)
@@ -156,10 +156,9 @@ if __name__=='__main__':
     # 
     if args.soundness:
         if args.batch:
-            check_soundness_batch(elf_lib_dir, disasm_lib_dir, disasm_type)   
+            check_soundness_batch(elf_lib_dir, disasm_lib_dir)   
         else: 
-            
-            check_soundness(elf_lib_dir, disasm_lib_dir, disasm_type, args.file_name)
+            check_soundness(elf_lib_dir, disasm_lib_dir, args.file_name)
     else:
         if args.batch:
             dsv_batch(elf_lib_dir, disasm_lib_dir, disasm_type, args.verbose)

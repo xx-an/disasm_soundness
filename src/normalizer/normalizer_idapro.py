@@ -16,6 +16,7 @@
 
 import re
 import os
+import sys
 from ..common import lib
 from ..common import utils
 from ..common.inst_element import Inst_Elem
@@ -31,16 +32,26 @@ sym_pat = re.compile(r'\W+')
 imm_pat = re.compile('^0x[0-9a-fA-F]+$|^[0-9]+$|^-[0-9]+$|^-0x[0-9a-fA-F]+$|^[0-9a-fA-F]+$|^-[0-9a-fA-F]+$')
 
 variable_expr_pat = re.compile(r'^[.a-zA-Z_0-9]+:[0-9a-zA-Z]{16} [a-zA-Z0-9_]+')
-idapro_immediate_pat = re.compile(r'^[0-9A-F]+h')
+ida_immediate_pat = re.compile(r'^[0-9A-F]+h')
+
+subtract_hex_pat = re.compile(r'-[0-9a-fA-F]+h')
 
 class Disasm_IDAPro(Disasm):
     def __init__(self, disasm_path):
         self.disasm_path = disasm_path
         self.address_inst_map = {}
         self.address_next_map = {}
+        self._variable_offset_map = {}
         self._variable_value_map = {}
+        self._variable_ptr_rep_map = {}
         self.valid_address_no = 0
+        self._curr_ptr_rep = None
+        self._added_ptr_rep_map = {}
+        self._ida_struct_table = lib.init_ida_struct_info()
+        self._variable_w_ida_struct_type = {}
+        self._address_line_map = {}
         self.read_asm_info()
+        # print(self.address_inst_map[8150])
 
 
     def get_address_inst_map(self):
@@ -58,8 +69,9 @@ class Disasm_IDAPro(Disasm):
                     if address_inst_pattern.search(line):
                         address, inst = self._parse_line(line)
                         if inst and not inst.startswith('align'):
-                            inst = self._replace_inst_var_arg(address, inst)
+                            inst = self._replace_inst_var_arg(address, inst, line)
                             self.address_inst_map[address] = inst
+                            self._address_line_map[address] = line
                             self.valid_address_no += 1
         inst_addresses = sorted(list(self.address_inst_map.keys()))
         inst_num = len(inst_addresses)
@@ -68,7 +80,8 @@ class Disasm_IDAPro(Disasm):
             if n_idx < inst_num:
                 rip = inst_addresses[n_idx]
             inst = self.address_inst_map[address]
-            inst = self._format_inst(address, inst, rip)
+            line = self._address_line_map[address]
+            inst = self._format_inst(address, inst, rip, line)
             # print(hex(address) + ':' + inst)
             self.address_inst_map[address] = inst
             self.address_next_map[address] = rip
@@ -90,31 +103,70 @@ class Disasm_IDAPro(Disasm):
         var_str = line_split[1].strip()
         var_split = var_str.split(' ', 1)
         var_name = var_split[0]
+        # if self._record_timespec_name:
+        #     self._timespec_table[self._record_timespec_name][1] = address
+        #     self._record_timespec_name = None
         if var_name == 'LOAD':
             pass
-        elif ' db ' in var_str or 'dq' in var_str or' dd ' in var_str or ' proc ' in var_str:
+        elif ' db ' in var_str or ' dq ' in var_str or ' dd ' in var_str:
+            var_suffix = var_split[1].strip().split(' ', 1)[0].strip()
+            suffix = var_suffix[-1]
+            self._variable_offset_map[var_name] = address
             self._variable_value_map[var_name] = address
-        elif  var_name.endswith(':'):
-            var_name = var_name.rsplit(':', 1)[0].strip()
-            self._variable_value_map[var_name] = address
+            self._variable_ptr_rep_map[var_name] = helper.BYTE_REP_PTR_MAP[suffix]
+        # var_str: ps = mbstate_t ptr -48h
         elif ' = ' in var_str:
-            var_value = var_split[1].strip()
-            var_value = var_value.split(' ptr ', 1)[-1].strip()
+            self._variable_offset_map[var_name] = address
+            var_value = var_split[1].split('=', 1)[1].strip()
+            # var_value: mbstate_t ptr -48h
+            var_value_split = var_value.rsplit(' ', 1)
+            ptr_rep = var_value_split[0].strip()
+            type_spec = ptr_rep.split('ptr', 1)[0].strip()
+            if type_spec not in helper.BYTE_LEN_REPS:
+                if type_spec in self._ida_struct_table:
+                    self._variable_w_ida_struct_type[var_name] = type_spec
+                else:
+                    print(line)
+                    sys.exit('We have not recorded the specific information for ida type ' + type_spec)
+            else:
+                self._variable_ptr_rep_map[var_name] = ptr_rep
+            var_value = var_value_split[-1].strip()
             if var_value.endswith('h'):
                 var_value = int(var_value.rsplit('h', 1)[0].strip(), 16)
                 self._variable_value_map[var_name] = var_value
             elif utils.imm_pat.match(var_value):
                 var_value = int(var_value)
                 self._variable_value_map[var_name] = var_value
-            
+        elif var_name.startswith('xmmword_'):
+            self._variable_offset_map[var_name] = address
+            var_name_split = var_name.rsplit(':', 1)[0].strip().rsplit('_', 1)
+            if len(var_name_split) == 2:
+                var_value = var_name_split[1].strip()
+                var_value = int(var_value, 16)
+                self._variable_value_map[var_name] = var_value
+        elif ' proc ' in var_str or 'xmmword' in var_str:
+            self._variable_offset_map[var_name] = address
+            self._variable_value_map[var_name] = address
+        elif  var_name.endswith(':'):
+            var_name = var_name.rsplit(':', 1)[0].strip()
+            self._variable_offset_map[var_name] = address
+            self._variable_value_map[var_name] = address
+        else:
+            ida_struct_types = list(self._ida_struct_table.keys())
+            for ida_struct_type in ida_struct_types:
+                if ' ' + ida_struct_type + ' ' in var_str:
+                    self._variable_offset_map[var_name] = address
+                    self._variable_value_map[var_name] = address
+                    self._variable_w_ida_struct_type[var_name] = ida_struct_type
+                    break
 
 
     def _parse_line(self, line):
         address, inst = None, None
         if line:
             line = utils.remove_multiple_spaces(line)
-            line = line.split(';', 1)[0]
-            line_split = line.split(' ', 1)
+            line_split0 = line.split(';', 1)[0]
+            line_split = line_split0.split(' ', 1)
             if len(line_split) == 2:
                 address_str = line_split[0].rsplit(':', 1)[1].strip()
                 address = int(address_str, 16)
@@ -122,11 +174,11 @@ class Disasm_IDAPro(Disasm):
         return address, inst
 
 
-    def _replace_inst_var_arg(self, address, inst, rip=None):
+    def _replace_inst_var_arg(self, address, inst, line):
         inst_elem = Inst_Elem(inst)
-        return inst_elem.normalize(address, self._replace_symbol_with_value, self._proprocess_format_inst, 1)
+        return inst_elem.normalize(address, self._replace_symbol_with_value, self._preprocess_format_inst, line, 1)
 
-    def _proprocess_format_inst(self, inst):
+    def _preprocess_format_inst(self, inst):
         res = inst
         if ' short ' in inst:
             res = inst.replace(' short ', ' ')
@@ -136,26 +188,55 @@ class Disasm_IDAPro(Disasm):
         return res
 
 
-    def _format_inst(self, address, inst, rip):
+    def _format_inst(self, address, inst, rip, line):
         inst_elem = Inst_Elem(inst)
-        return inst_elem.normalize(address, self._format_arg, self._postprocess_format_inst, rip)
+        inst_args = list(map(lambda x: self._format_arg(address, inst_elem.inst_name, x, rip, line), inst_elem.inst_args))
+        # inst_arg = ','.join(inst_args)
+        result = self._postprocess_format_inst(address, inst, inst_elem.inst_name, inst_args)
+        # result = self.inst_name + ' ' + inst_arg
+        # return inst_elem.normalize(address, self._format_arg, self._postprocess_format_inst, rip)
+        return result
+
+
+    def _retrieve_ida_type_offset_type(self, symbol_type, item_entry):
+        if '.' in item_entry:
+            new_symbol_type, new_item_entry = item_entry.split('.', 1)
+            offset, item_type = self._ida_struct_table[symbol_type][new_symbol_type]
+            new_offset, item_type = self._retrieve_ida_type_offset_type(item_type, new_item_entry)
+            return offset + new_offset, item_type
+        else:
+            offset, item_type = self._ida_struct_table[symbol_type][item_entry]
+            return offset, item_type
 
 
     def _replace_symbol(self, symbol, count):
         res = symbol
-        if idapro_immediate_pat.match(symbol):
+        if '.' in symbol:
+            symbol_split = symbol.split('.', 1)
+            symbol_name = symbol_split[0].strip()
+            if symbol_name in self._variable_w_ida_struct_type:
+                symbol_type = self._variable_w_ida_struct_type[symbol_name]
+                item_entry = symbol_split[1].strip()
+                if symbol_name in self._variable_value_map:
+                    if symbol_type in self._ida_struct_table:
+                        offset, item_type = self._retrieve_ida_type_offset_type(symbol_type, item_entry)
+                        res = hex(self._variable_value_map[symbol_name] + offset)
+                        ptr_rep = helper.get_ida_ptr_rep_from_item_type(item_type)
+                        if ptr_rep:
+                            self._curr_ptr_rep = ptr_rep
+                    else:
+                        sys.exit('We have not recorded the specific information for ida type ' + symbol_type)
+        elif ida_immediate_pat.match(symbol):
             res = helper.convert_imm_endh_to_hex(symbol)
-        elif not (utils.imm_start_pat.match(symbol) or symbol in lib.REG_NAMES):
-            if count == 1:
-                if symbol in self._variable_value_map:
-                    res = hex(self._variable_value_map[symbol])
-            else:
-                if symbol in self._variable_value_map:
-                    res = hex(self._variable_value_map[symbol])
-                elif symbol.startswith('loc_'):
-                    remaining = symbol.split('loc_', 1)[1].strip()
-                    if imm_pat.match(remaining):
-                        res = hex(int(remaining, 16))
+        elif symbol not in lib.REG_NAMES:
+            if symbol in self._variable_value_map:
+                res = hex(self._variable_value_map[symbol])
+                if symbol in self._variable_ptr_rep_map:
+                    self._curr_ptr_rep = self._variable_ptr_rep_map[symbol]
+            elif symbol.startswith('loc_'):
+                remaining = symbol.split('loc_', 1)[1].strip()
+                if imm_pat.match(remaining):
+                    res = hex(int(remaining, 16))
         return res
         
     def _replace_to_times_elements(self, content, count):
@@ -191,14 +272,24 @@ class Disasm_IDAPro(Disasm):
         return res
 
 
-    def _replace_symbol_with_value(self, address, inst_name, arg, count):
+    def _replace_symbol_with_value(self, address, inst_name, arg, line, count):
         res = arg
+        self._curr_ptr_rep = None
         if arg.endswith(']'):
             arg_split = arg.split('[', 1)
             prefix = arg_split[0].strip()
             mem_addr = arg_split[1].strip().rsplit(']', 1)[0].strip()
             mem_addr = self._replace_each_symbol(mem_addr, count)
-            res = prefix + ' [' + mem_addr + ']'
+            if 'ptr' in prefix:
+                res = prefix + ' [' + mem_addr + ']'
+            elif self._curr_ptr_rep:
+                self._added_ptr_rep_map[address] = True
+                res = self._curr_ptr_rep + ' [' + mem_addr + ']'
+            else:
+                res = '[' + mem_addr + ']'
+        elif arg == 'name' and ';' in line:
+                if count == 2:
+                    res = hex(self._variable_value_map[arg])
         else:
             res = self._replace_each_symbol(arg, count)
         return res
@@ -289,6 +380,23 @@ class Disasm_IDAPro(Disasm):
                 res = prefix + '[' + mem_addr + ']'
             else:
                 res = '[' + mem_addr + ']'
+        elif arg.startswith('(') and arg.endswith(')'):
+            content = utils.extract_content(arg)
+            if 'offset ' in content:
+                original = None
+                new_var = None
+                content_split = re.split(r'(\W+)', content)
+                for idx, ci in enumerate(content_split):
+                    if ci == 'offset':
+                        if len(content) > idx + 2:
+                            variable = content_split[idx + 2]
+                            original = 'offset ' + variable
+                            if variable in self._variable_offset_map:
+                                new_var = hex(self._variable_offset_map[variable])
+                            break
+                if new_var:
+                    content = content.replace(original, new_var)
+            res = self._eval_expr(content)
         else:
             res = self._eval_expr(arg)
         return res
@@ -299,38 +407,59 @@ class Disasm_IDAPro(Disasm):
         if 's:' in arg and not arg.endswith(']'):
             arg_split = arg.split(':')
             remaining = arg_split[1].strip()
-            if idapro_immediate_pat.match(remaining):
+            if ida_immediate_pat.match(remaining):
                 res = arg_split[0].strip() + ':' + helper.convert_imm_endh_to_hex(remaining)
             else:
                 res = '[' + remaining + ']'
         return res
 
-    def _postprocess_format_inst(self, inst):
-        inst = inst.strip()
-        inst_split = inst.split(' ', 1)
-        inst_name = inst_split[0].strip()
-        inst_args = utils.extract_inst_args(inst_split)
-        length = lib.DEFAULT_REG_LEN
+
+    def _replace_remaining_hex_w_suffix_h(self, inst):
+        res = inst
+        m = subtract_hex_pat.search(inst)
+        if m:
+            hex_str = m.group(0)
+            new_hex_rep = helper.convert_imm_endh_to_hex(hex_str)
+            res = inst.replace(hex_str, new_hex_rep)
+        return res
+
+
+    def _postprocess_format_inst(self, address, inst, inst_name, inst_args):
+        length = None
         for idx, arg in enumerate(inst_args):
             if arg in lib.REG_NAMES:
                 length = utils.get_sym_length(arg)
         for idx, arg in enumerate(inst_args):
-            if (arg.endswith(']') and ' ptr ' not in arg) or 's:' in arg:
-                ptr_rep = helper.generate_idapro_ptr_rep(inst_name, inst)
-                if ptr_rep is None:
-                    ptr_rep = helper.BYTELEN_REP_MAP[length]
-                inst_args[idx] = ptr_rep + ' ' + arg
+            if arg.endswith(']') or 's:' in arg:
+                if ' ptr ' not in arg or address in self._added_ptr_rep_map:
+                    ptr_rep = helper.generate_ida_ptr_rep(inst_name, inst, length)
+                    if ptr_rep is None:
+                        if address not in self._added_ptr_rep_map:
+                            if (arg.endswith(']') and ' ptr ' not in arg) or 's:' in arg:
+                                if length:
+                                    ptr_rep = helper.BYTELEN_REP_MAP[length]
+                                elif 'rsp' in arg or 'rbp' in arg:
+                                    ptr_rep = 'qword ptr'
+                                else:
+                                    ptr_rep = 'dword ptr'
+                                inst_args[idx] = ptr_rep + ' ' + arg
+                    else:
+                        if 's:' in arg:
+                            inst_args[idx] = ptr_rep + ' ' + arg
+                        else:
+                            inst_args[idx] = ptr_rep + ' [' + arg.split('[', 1)[1].strip()
         if inst_name in (('retn', 'retf')):
             inst_name = 'ret'
         inst = inst_name + ' ' + ','.join(inst_args)
         if inst.endswith((' retn', ' retf')):
             inst = inst[:-1]
+        inst = self._replace_remaining_hex_w_suffix_h(inst)
         return inst.strip()
 
 
-    def _format_arg(self, address, inst_name, arg, rip):
+    def _format_arg(self, address, inst_name, arg, rip, line):
         res = self._remove_unused_seg_reg(arg)
-        res = self._replace_symbol_with_value(address, inst_name, res, 2)
+        res = self._replace_symbol_with_value(address, inst_name, res, line, 2)
         res = helper.add_or_remove_ptr_rep_arg(inst_name, res)
         res = res.replace('+-', '-')
         res = self._move_segment_rep(res)
@@ -339,6 +468,5 @@ class Disasm_IDAPro(Disasm):
         res = helper.modify_st_rep(res)
         res = res.lower()
         return res
-
-
+      
 

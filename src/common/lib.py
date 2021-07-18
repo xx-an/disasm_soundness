@@ -177,7 +177,6 @@ INSTS_AFF_FLAGS_WO_CMP_TEST = {
 
 BAP_RELATED_INST = {'stos', 'fild', 'fld', 'fstp', 'fadd'}
 
-
 CODE_SEGMENTS = ('.plt.got', '.plt', '.text')
 
 CONDITIONAL_MOV_INST = set(map(lambda x: 'cmov' + x, CONDITIONAL_FLAGS.keys()))
@@ -185,3 +184,62 @@ CONDITIONAL_MOV_INST = set(map(lambda x: 'cmov' + x, CONDITIONAL_FLAGS.keys()))
 CONDITIONAL_SET_INST = set(map(lambda x: 'set' + x, CONDITIONAL_FLAGS.keys()))
 
 INSTRUCTIONS = GENERAL_INSTRUCTIONS | JMP_INST | CONDITIONAL_MOV_INST | CONDITIONAL_SET_INST | BAP_RELATED_INST
+
+
+def init_ida_struct_info():
+    ida_struct_table = {}
+    ida_struct_table['mbstate_t'] = {}
+    ida_struct_table['mbstate_t']['__count'] = (0, 'dd')
+    ida_struct_table['mbstate_t']['__value'] = (4, '?')
+    ida_struct_table['timespec'] = {}
+    ida_struct_table['timespec']['tv_sec'] = (0, 'dq')
+    ida_struct_table['timespec']['tv_nsec'] = (8, 'dq')
+    ida_struct_table['sigset_t'] = {}
+    ida_struct_table['sigset_t']['__val'] = (0, 'dq')
+    ida_struct_table['tm'] = {}
+    ida_struct_table['tm']['tm_sec'] = (0, 'dd')
+    ida_struct_table['tm']['tm_min'] = (4, 'dd')
+    ida_struct_table['tm']['tm_hour'] = (8, 'dd')
+    ida_struct_table['tm']['tm_mday'] = (12, 'dd')
+    ida_struct_table['tm']['tm_mon'] = (16, 'dd')
+    ida_struct_table['tm']['tm_year'] = (20, 'dd')
+    ida_struct_table['tm']['tm_wday'] = (24, 'dd')
+    ida_struct_table['tm']['tm_yday'] = (28, 'dd')
+    ida_struct_table['tm']['tm_isdst'] = (32, 'dd')
+    ida_struct_table['tm']['tm_gmtoff'] = (40, 'dq')
+    ida_struct_table['tm']['tm_zone'] = (48, 'dq')
+    ida_struct_table['stat'] = {}
+    ida_struct_table['stat']['st_dev'] = (0, 'dq')
+    ida_struct_table['stat']['st_ino'] = (8, 'dq')
+    ida_struct_table['stat']['st_nlink'] = (16, 'dq')
+    ida_struct_table['stat']['st_mode'] = (24, 'dd')
+    ida_struct_table['stat']['st_uid'] = (28, 'dd')
+    ida_struct_table['stat']['st_gid'] = (32, 'dd')
+    ida_struct_table['stat']['st_rdev'] = (40, 'dq')
+    ida_struct_table['stat']['st_size'] = (48, 'dq')
+    ida_struct_table['stat']['st_blksize'] = (56, 'dq')
+    ida_struct_table['stat']['st_blocks'] = (64, 'dq')
+    ida_struct_table['stat']['st_atim'] = (72, 'timespec')
+    ida_struct_table['stat']['st_mtim'] = (88, 'timespec')
+    ida_struct_table['stat']['st_ctim'] = (104, 'timespec')
+    ida_struct_table['itimerspec'] = {}
+    ida_struct_table['itimerspec']['it_interval'] = (0, 'timespec')
+    ida_struct_table['itimerspec']['it_value'] = (16, 'timespec')
+    ida_struct_table['timeval'] = {}
+    ida_struct_table['timeval']['tv_sec'] = (0, 'dq')
+    ida_struct_table['timeval']['tv_usec'] = (8, 'dq')
+    ida_struct_table['statfs'] = {}
+    ida_struct_table['statfs']['f_type'] = (0, 'dq')
+    ida_struct_table['statfs']['f_bsize'] = (8, 'dq')
+    ida_struct_table['statfs']['f_blocks'] = (16, 'dq')
+    ida_struct_table['statfs']['f_bfree'] = (24, 'dq')
+    ida_struct_table['statfs']['f_bavail'] = (32, 'dq')
+    ida_struct_table['statfs']['f_files'] = (40, 'dq')
+    ida_struct_table['statfs']['f_ffree'] = (48, 'dq')
+    ida_struct_table['statfs']['f_fsid'] = (56, '?')
+    ida_struct_table['statfs']['f_namelen'] = (64, 'dq')
+    ida_struct_table['statfs']['f_frsize'] = (72, 'dq')
+    ida_struct_table['statfs']['f_flags'] = (80, 'dq')
+    ida_struct_table['statfs']['f_spare'] = (88, 'dq')
+    return ida_struct_table
+

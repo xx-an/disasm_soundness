@@ -1,4 +1,4 @@
-from .find_unchecked import *
+from .detect_exception import *
 from .disasm_diff import *
 from .neat_unreach import *
 from .disassemble_in_batch import *

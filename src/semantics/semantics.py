@@ -376,6 +376,7 @@ def parse_semantics(store, curr_rip, inst):
 
 INSTRUCTION_SEMANTICS_MAP = {
     'mov': mov,
+    'movabs': mov,
     'lea': lea,
     'push': push,
     'pop': pop,
