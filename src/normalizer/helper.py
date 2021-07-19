@@ -361,8 +361,6 @@ def generate_ida_ptr_rep(name, inst, length):
             word_ptr_rep = 'dword ptr'
     elif name == 'movss':
         word_ptr_rep = 'dword ptr'
-    elif name.startswith(('fld', 'fadd', 'fstp')):
-        word_ptr_rep = 'tbyte ptr'
     return word_ptr_rep
 
 
@@ -506,8 +504,8 @@ def add_ptr_suffix_arg(arg):
 
 def add_or_remove_ptr_rep_arg(inst_name, arg):
     res = arg
-    if inst_name.startswith(('cmpsb', 'scasb')) and ']' in arg:
-        res = arg.rsplit(' ', 1)[1].strip()
+    if inst_name.startswith('rep') and ('cmpsb' in inst_name or 'scasb' in inst_name) and ']' in arg:
+        res = '[' + arg.rsplit('[', 1)[1].strip()
     else:
         res = add_ptr_suffix_arg(arg)
     return res

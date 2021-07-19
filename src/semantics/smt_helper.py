@@ -198,7 +198,8 @@ def get_jump_address(store, rip, operand):
 # line: 'rbp - 0x14'
 # line: 'rax'
 def get_bottom_source(line, store):
-    line_split = re.split(r'(\W+)', line)
+    line = utils.rm_unused_spaces(line)
+    line_split = utils.simple_operator_pat.split(line)
     res, still_tb = [], False
     for lsi in line_split:
         lsi = lsi.strip()
@@ -213,7 +214,8 @@ def get_bottom_source(line, store):
 # line: 'rbp - 0x14'
 # line: 'rax'
 def get_mem_reg_source(line):
-    line_split = re.split(r'(\W+)', line)
+    line = utils.rm_unused_spaces(line)
+    line_split = utils.simple_operator_pat.split(line)
     res = []
     for lsi in line_split:
         lsi = lsi.strip()

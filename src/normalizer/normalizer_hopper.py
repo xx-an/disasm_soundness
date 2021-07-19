@@ -15,20 +15,19 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import re
-import os
 from ..common import lib
 from ..common import utils
 from ..common.inst_element import Inst_Elem
 from . import helper
 from .normalizer import Disasm
 
-section_name_address_pattern = re.compile('^[0-9a-f]+ <[A-Za-z_@.0-9]+>:')
 label_pattern = re.compile('^[A-Za-z_@.0-9]+:[A-Za-z_@.0-9 /]*$')
 address_inst_pattern = re.compile('^000000[0-9a-f]+         ')
 
-letter_num_neg_pat = re.compile(r'\w+')
-sym_pat = re.compile(r'\W+')
 imm_pat = re.compile('^0x[0-9a-fA-F]+$|^[0-9]+$|^-[0-9]+$|^-0x[0-9a-fA-F]+$|^[0-9a-fA-F]+$|^-[0-9a-fA-F]+$')
+
+variable_expr_pat = re.compile(r'^[0-9a-zA-Z_@.]+:')
+
 
 class Disasm_Hopper(Disasm):
     def __init__(self, disasm_path):
@@ -49,40 +48,52 @@ class Disasm_Hopper(Disasm):
         with open(self.disasm_path, 'r') as f:
             lines = f.readlines()
             label_name = None
-            valid_section = False
+            code_section = False
+            data_section = False
             variable_start = False
             label_addr_assigned = False
+            variable_name = None
             for line in lines:
                 line = line.strip()
-                # if to_parsed_section:
-                if variable_start:
-                    if line:
-                        self._read_variable_value(line)
-                    else:
-                        variable_start = False
-                elif line == '; Variables:':
-                    variable_start = True
-                elif line.startswith('; Section '):
+                if line.startswith('; Section '):
                     section_name = line.split('Section', 1)[1].strip()
-                    if section_name in (('.text', '.plt', '.plt.got')):
-                        valid_section = True
+                    if section_name in lib.CODE_SEGMENTS:
+                        code_section = True
+                    elif section_name not in ('.init', '.fini'):
+                        data_section = True
                     else:
-                        valid_section = False
-                elif label_pattern.search(line):
-                    label_name = line.rsplit(':')[0].strip()
-                    label_addr_assigned = False
-                elif address_inst_pattern.search(line):
-                    address, inst = self._parse_line(line)
-                    if address:
-                        if label_name:
-                            if not label_addr_assigned:
-                                label_addr_assigned = True
-                                self.label_address_map[label_name] = address
-                    if valid_section:
-                        if inst:
-                            inst = self._replace_inst_var_arg(address, inst)
-                            self.address_inst_map[address] = inst
-                            self.valid_address_no += 1
+                        code_section = False
+                        data_section = False
+                elif code_section:
+                    if variable_start:
+                        if line:
+                            self._read_variable_value(line)
+                        else:
+                            variable_start = False
+                    elif line == '; Variables:':
+                        variable_start = True
+                    elif address_inst_pattern.search(line):
+                        address, inst = self._parse_line(line)
+                        if address:
+                            if label_name:
+                                if not label_addr_assigned:
+                                    label_addr_assigned = True
+                                    self.label_address_map[label_name] = address
+                            if inst:
+                                inst = self._replace_inst_var_arg(address, inst)
+                                self.address_inst_map[address] = inst
+                                self.valid_address_no += 1
+                    elif label_pattern.search(line):
+                        label_name = line.rsplit(':')[0].strip()
+                        label_addr_assigned = False
+                elif data_section:
+                    if variable_start:
+                        address = self._read_line_address(line)
+                        self.variable_value_map[variable_name] = address
+                        variable_start = False
+                    elif variable_expr_pat.match(line):
+                        variable_name = line.strip().split(':', 1)[0].strip()
+                        variable_start = True
         inst_addresses = sorted(list(self.address_inst_map.keys()))
         inst_num = len(inst_addresses)
         for idx, address in enumerate(inst_addresses):
@@ -105,6 +116,12 @@ class Disasm_Hopper(Disasm):
             var_value = var_split[1].strip().rsplit(',', 1)[-1].strip()
             var_value = int(var_value)
             self.variable_value_map[var_name] = var_value
+
+    def _read_line_address(self, line):
+        line_split = line.strip().split(' ', 1)
+        address_str = line_split[0]
+        address = int(address_str, 16)
+        return address
 
 
     def _parse_line(self, line):
@@ -162,30 +179,26 @@ class Disasm_Hopper(Disasm):
         return res
 
 
-    def _replace_each_symbol(self, stack, op_stack):
+    def _replace_each_symbol(self, stack, op_stack, count):
         res = ''
         for idx, lsi in enumerate(stack):
             if not(lsi in lib.REG_NAMES or utils.imm_pat.match(lsi)):
-                stack[idx] = self._replace_symbol(lsi)
+                stack[idx] = self._replace_symbol(lsi, count)
         res = self._reconstruct_w_replaced_val(stack, op_stack)
         return res
 
 
-    def _replace_each_expr(self, content):
-        res = content
+    def _replace_each_expr(self, content, count):
         stack = []
         op_stack = []
-        line = content.strip()
-        line_split = re.split(r'(\W+)', line)
+        line = utils.rm_unused_spaces(content)
+        line_split = utils.simple_operator_pat.split(line)
         for lsi in line_split:
-            lsi = lsi.strip()
-            if lsi:
-                if re.match(r'\w+|-\w+', lsi):
-                    val = lsi
-                    stack.append(val)
-                else:
-                    op_stack.append(lsi)
-        res = self._replace_each_symbol(stack, op_stack)
+            if utils.simple_operator_pat.match(lsi):
+                op_stack.append(lsi)
+            else:
+                stack.append(lsi)
+        res = self._replace_each_symbol(stack, op_stack, count)
         return res
 
 
@@ -200,6 +213,7 @@ class Disasm_Hopper(Disasm):
         else:
             res = self._replace_symbol(arg, count)
         return res
+
 
     def _move_segment_rep(self, arg):
         res = arg
@@ -219,6 +233,17 @@ class Disasm_Hopper(Disasm):
             res = arg.split('ptr ', 1)[1].strip()
         return res
 
+    def _exec_eval(self, arg):
+        res = arg
+        if arg.endswith(']'):
+            arg_split = arg.split('[', 1)
+            prefix = arg_split[0]
+            mem_addr = arg_split[1].strip().rsplit(']', 1)[0].strip()
+            mem_addr = helper.simulate_eval_expr(mem_addr)
+            res = prefix + '[' + mem_addr + ']'
+        else:
+            res = helper.simulate_eval_expr(arg)
+        return res
 
     def _format_arg(self, address, inst_name, arg, rip):
         res = self._replace_symbol_with_value(address, inst_name, arg, 2)
@@ -226,7 +251,7 @@ class Disasm_Hopper(Disasm):
         res = res.replace('+-', '-')
         res = self._move_segment_rep(res)
         res = self._remove_ptr_rep_from_lea(inst_name, res)
-        res = helper.simulate_eval_expr(res)
+        res = self._exec_eval(res)
         res = helper.rewrite_absolute_address_to_relative(res, rip)
         res = helper.modify_st_rep(res)
         res = res.lower()

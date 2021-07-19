@@ -179,7 +179,7 @@ BAP_RELATED_INST = {'stos', 'fild', 'fld', 'fstp', 'fadd'}
 
 CODE_SEGMENTS = ('.plt.got', '.plt', '.text')
 
-DATA_SEGMENTS = ('.rodate', '.data', '.bss')
+DATA_SEGMENTS = ('.rodata', '.data', '.bss')
 
 CONDITIONAL_MOV_INST = set(map(lambda x: 'cmov' + x, CONDITIONAL_FLAGS.keys()))
 
@@ -243,5 +243,14 @@ def init_ida_struct_info():
     ida_struct_table['statfs']['f_frsize'] = (72, 'dq')
     ida_struct_table['statfs']['f_flags'] = (80, 'dq')
     ida_struct_table['statfs']['f_spare'] = (88, 'dq')
+    ida_struct_table['termios'] = {}
+    ida_struct_table['termios']['c_iflag'] = (0, 'dd')
+    ida_struct_table['termios']['c_oflag'] = (4, 'dd')
+    ida_struct_table['termios']['c_cflag'] = (8, 'dd')
+    ida_struct_table['termios']['c_lflag'] = (12, 'dd')
+    ida_struct_table['termios']['c_line'] = (16, 'db')
+    ida_struct_table['termios']['c_cc'] = (17, 'db')
+    ida_struct_table['termios']['c_ispeed'] = (52, 'dd')
+    ida_struct_table['termios']['c_ospeed'] = (56, 'dd')
     return ida_struct_table
 

@@ -18,9 +18,18 @@ from . import utils
 
 class Inst_Elem(object):
     def __init__(self, inst):
-        inst = inst.strip()
+        inst = utils.remove_multiple_spaces(inst)
         inst_split = inst.split(' ', 1)
-        self.inst_name = inst_split[0].strip()
+        if inst_split[0].startswith('rep'):
+            args_str = ''
+            inst_split_split = inst_split[1].strip().split(' ', 1)
+            i_name = inst_split_split[0]
+            if len(inst_split_split) > 1:
+                args_str = inst_split_split[1]
+            self.inst_name = inst_split[0].strip() + ' ' + i_name
+            inst_split[1] = args_str
+        else:
+            self.inst_name = inst_split[0].strip()
         self.inst_args = utils.extract_inst_args(inst_split)
 
 

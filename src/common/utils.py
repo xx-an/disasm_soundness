@@ -457,7 +457,7 @@ def get_bytes_len(bytes_rep):
 
 
 def remove_multiple_spaces(line):
-    return ' '.join(line.split())
+    return ' '.join(line.strip().split())
 
 
 def str_to_bytes(line):

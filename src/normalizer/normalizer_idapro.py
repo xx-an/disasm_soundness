@@ -23,11 +23,8 @@ from ..common.inst_element import Inst_Elem
 from . import helper
 from .normalizer import Disasm
 
-section_name_address_pattern = re.compile('^[0-9a-f]+ <[A-Za-z_@.0-9]+>:')
-label_pattern = re.compile('^[A-Za-z_@.0-9]+:[A-Za-z_@.0-9 /]*$')
-address_inst_pattern = re.compile('^[.a-zA-Z]+:[0-9a-zA-Z]{16}[ ]{17}')
+address_inst_pattern = re.compile('^[.a-zA-Z]+:[0-9a-zA-Z]{16}[ ]{17}[a-zA-Z]')
 
-letter_num_neg_pat = re.compile(r'\w+')
 imm_pat = re.compile('^0x[0-9a-fA-F]+$|^[0-9]+$|^-[0-9]+$|^-0x[0-9a-fA-F]+$|^[0-9a-fA-F]+$|^-[0-9a-fA-F]+$')
 
 variable_expr_pat = re.compile(r'^[.a-zA-Z_0-9]+:[0-9a-zA-Z]{16} [a-zA-Z0-9_]+')
@@ -52,8 +49,7 @@ class Disasm_IDAPro(Disasm):
         self._address_line_map = {}
         self._ida_struct_types = list(self._ida_struct_table.keys())
         self.read_asm_info()
-        # print(self.address_inst_map[36836])
-
+        
 
     def get_address_inst_map(self):
         return self.address_inst_map
@@ -75,7 +71,7 @@ class Disasm_IDAPro(Disasm):
                 elif self._is_located_at_code_segments(line):
                     if address_inst_pattern.search(line):
                         address, inst = self._parse_line(line)
-                        if inst and not inst.startswith('align'):
+                        if inst and not inst.startswith(('align', 'assume', 'public')):
                             inst = self._replace_inst_var_arg(address, inst, line)
                             self.address_inst_map[address] = inst
                             self._address_line_map[address] = line
@@ -88,8 +84,7 @@ class Disasm_IDAPro(Disasm):
                 rip = inst_addresses[n_idx]
             inst = self.address_inst_map[address]
             line = self._address_line_map[address]
-            inst = self._format_inst(address, inst, rip, line)
-            # print(hex(address) + ':' + inst)
+            inst = self._format_inst(address, inst, rip)
             self.address_inst_map[address] = inst
             self.address_next_map[address] = rip
 
@@ -106,7 +101,7 @@ class Disasm_IDAPro(Disasm):
         var_name = var_split[0]
         if var_name == 'LOAD':
             pass
-        elif ' db ' in var_str or ' dq ' in var_str or ' dd ' in var_str or ' dt ' in var_str:
+        elif ' db ' in var_str or ' dq ' in var_str or ' dw ' in var_str or ' dd ' in var_str or ' dt ' in var_str:
             var_suffix = var_split[1].strip().split(' ', 1)[0].strip()
             suffix = var_suffix[-1]
             self._variable_offset_map[var_name] = address
@@ -121,6 +116,7 @@ class Disasm_IDAPro(Disasm):
                 var_value = var_name_split[1].strip()
                 var_value = int(var_value, 16)
                 self._variable_value_map[var_name] = var_value
+                self._variable_ptr_rep_map[var_name] = 'xmmword ptr'
         elif ' proc ' in var_str or 'xmmword' in var_str:
             self._variable_offset_map[var_name] = address
             self._variable_value_map[var_name] = address
@@ -152,7 +148,7 @@ class Disasm_IDAPro(Disasm):
 
     def _replace_inst_var_arg(self, address, inst, line):
         inst_elem = Inst_Elem(inst)
-        return inst_elem.normalize(address, self._replace_symbol_with_value, self._preprocess_format_inst, line, 1)
+        return inst_elem.normalize(address, self._replace_symbol_with_value, self._preprocess_format_inst, 1)
 
     def _preprocess_format_inst(self, inst):
         res = inst
@@ -164,9 +160,9 @@ class Disasm_IDAPro(Disasm):
         return res
 
 
-    def _format_inst(self, address, inst, rip, line):
+    def _format_inst(self, address, inst, rip):
         inst_elem = Inst_Elem(inst)
-        inst_args = list(map(lambda x: self._format_arg(address, inst_elem.inst_name, x, rip, line), inst_elem.inst_args))
+        inst_args = list(map(lambda x: self._format_arg(address, inst_elem.inst_name, x, rip), inst_elem.inst_args))
         result = self._postprocess_format_inst(address, inst, inst_elem.inst_name, inst_args)
         return result
 
@@ -223,7 +219,7 @@ class Disasm_IDAPro(Disasm):
         return res
 
 
-    def _replace_symbol_with_value(self, address, inst_name, arg, line, count):
+    def _replace_symbol_with_value(self, address, inst_name, arg, count):
         res = arg
         self._curr_ptr_rep = None
         if arg.endswith(']'):
@@ -293,12 +289,18 @@ class Disasm_IDAPro(Disasm):
     def _remove_unused_seg_reg(self, arg):
         res = arg
         if 's:' in arg and not arg.endswith(']'):
-            arg_split = arg.split(':')
+            arg_split = arg.strip().split(':')
+            prefix = arg_split[0].strip()
             remaining = arg_split[1].strip()
             if ida_immediate_pat.match(remaining):
-                res = arg_split[0].strip() + ':' + utils.convert_imm_endh_to_hex(remaining)
+                res = prefix + ':' + utils.convert_imm_endh_to_hex(remaining)
             else:
-                res = '[' + remaining + ']'
+                if ' ptr ' in prefix:
+                    prefix_split = prefix.rsplit(' ', 1)
+                    ptr_rep = prefix_split[0].strip()
+                    res = ptr_rep + ' [' + remaining + ']'
+                else:
+                    res = '[' + remaining + ']'
         return res
 
 
@@ -329,15 +331,24 @@ class Disasm_IDAPro(Disasm):
         return inst
 
 
-    def _format_arg(self, address, inst_name, arg, rip, line):
+    def _format_arg(self, address, inst_name, arg, rip):
         res = self._remove_unused_seg_reg(arg)
-        res = self._replace_symbol_with_value(address, inst_name, res, line, 2)
+        res = self._replace_symbol_with_value(address, inst_name, res, 2)
         res = res.replace('+-', '-')
         res = self._move_segment_rep(res)
         res = self._exec_eval(res)
         res = helper.rewrite_absolute_address_to_relative(res, rip)
         res = helper.modify_st_rep(res)
+        res = self._remove_lea_ptr_rep(inst_name, res)
         res = res.lower()
+        return res
+
+
+    def _remove_lea_ptr_rep(self, inst_name, arg):
+        res = arg
+        if inst_name == 'lea':
+            if arg.endswith(']'):
+                res = '[' + arg.split('[', 1)[1].strip()
         return res
 
 
