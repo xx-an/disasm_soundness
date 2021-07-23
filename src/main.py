@@ -41,20 +41,19 @@ def construct_cfg(disasm_asm, disasm_type):
 def set_logger(disasm_path, disasm_type, verbose=False):
     for log_name in utils.LOG_NAMES:
         logger_path = disasm_path.replace('.' + disasm_type, '.' + log_name)
-        utils.setup_logger(log_name, logger_path, verbose)
+        utils.setup_logger(log_name, logger_path, verbose, logging.DEBUG)
 
 def close_logger():
     for log_name in utils.LOG_NAMES:
         utils.close_logger(log_name)
 
 
-def write_results(disasm_asm, cfg, exec_time):
+def write_results(disasm_asm, cfg):
     reachable_address_num = len(cfg.reachable_addresses())
     indirects_num = len(cfg.indirect_inst_set)
     utils.logger.info(disasm_asm.valid_address_no)
     utils.logger.info(reachable_address_num)
     utils.logger.info(indirects_num)
-    utils.logger.info(exec_time)
 
 
 def check_soundness(elf_lib_dir, disasm_lib_dir, file_name):
@@ -77,6 +76,7 @@ def check_soundness_batch(elf_lib_dir, disasm_lib_dir):
             soundness.sound_disasm_file(global_var.elf_content, disasm_log_path)
             time.sleep(10)
 
+
 def check_soundness_specified(file_names, elf_lib_dir, disasm_lib_dir, disasm_type):
     for file_name in file_names:
         print(file_name)
@@ -94,10 +94,8 @@ def dsv_main(exec_path, disasm_path, disasm_type, verbose=False):
     helper.disassemble_to_asm(exec_path, disasm_path, disasm_type)
     disasm_factory = Disasm_Factory(disasm_path, exec_path, disasm_type)
     disasm_asm = disasm_factory.get_disasm()
-    start_time = time.time()
     cfg = construct_cfg(disasm_asm, disasm_type)
-    exec_time = time.time() - start_time
-    write_results(disasm_asm, cfg, exec_time)
+    write_results(disasm_asm, cfg)
     close_logger()
 
 

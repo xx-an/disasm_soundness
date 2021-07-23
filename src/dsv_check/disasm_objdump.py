@@ -30,6 +30,7 @@ class Disasm_Objdump(object):
         self.address_label_map = {}
         self.valid_address_no = 0
         self.read_asm_info()
+        self.inst_addresses = sorted(list(self.address_inst_map.keys()))
 
     def get_address_inst_map(self):
         return self.address_inst_map
@@ -111,6 +112,3 @@ class Disasm_Objdump(object):
         if utils.check_jmp_with_address(inst_name):
             res = helper.convert_to_hex(res)
         return res
-
-
-

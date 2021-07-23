@@ -57,8 +57,8 @@ class CFG(object):
         self.add_new_block(None, start_address, start_inst, sym_store, constraint)
         while self.block_stack:
             curr = self.block_stack.pop()
-            utils.logger.info('%s: %s' % (hex(curr.address), curr.inst))
-            # utils.logger.info(curr.sym_store.pp_store())
+            utils.logger.debug('%s: %s' % (hex(curr.address), curr.inst))
+            # utils.logger.debug(curr.sym_store.pp_store())
             address, inst, sym_store, constraint = curr.address, curr.inst, curr.sym_store, curr.constraint
             if utils.check_branch_inst(inst):
                 self.construct_branch(curr, address, inst, sym_store, constraint)
@@ -67,16 +67,16 @@ class CFG(object):
             
 
     def construct_conditional_branches(self, block, address, inst, new_address, sym_store, constraint):
-        res = smt_helper.parse_predicate(sym_store.store, inst, True)
-        if res == False:
-            self.add_fall_through_block(block, address, inst, sym_store, constraint)
-        elif res == True:
-            self.jump_to_block(block, address, inst, new_address, sym_store, constraint)
-        else:
-            jmp_constraint = self.add_new_constraint(sym_store.store, constraint, inst, True)
-            self.jump_to_block(block, address, inst, new_address, sym_store, jmp_constraint)
-            fall_through_constraint = self.add_new_constraint(sym_store.store, constraint, inst, False)
-            self.add_fall_through_block(block, address, inst, sym_store, fall_through_constraint)
+        # res = smt_helper.parse_predicate(sym_store.store, inst, True)
+        # if res == False:
+        #     self.add_fall_through_block(block, address, inst, sym_store, constraint)
+        # elif res == True:
+        #     self.jump_to_block(block, address, inst, new_address, sym_store, constraint)
+        # else:
+        jmp_constraint = self.add_new_constraint(sym_store.store, constraint, inst, True)
+        self.jump_to_block(block, address, inst, new_address, sym_store, jmp_constraint)
+        fall_through_constraint = self.add_new_constraint(sym_store.store, constraint, inst, False)
+        self.add_fall_through_block(block, address, inst, sym_store, fall_through_constraint)
             
 
     def construct_branch(self, block, address, inst, sym_store, constraint):

@@ -15,9 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import re
-import random
 import os
-import sys
 import errno
 from typing import List
 import logging
@@ -679,3 +677,21 @@ def rm_unused_spaces(content):
     return res
 
 
+def init_ida_struct_info():
+    ida_struct_table = {}
+    ida_info_path = os.path.join(PROJECT_DIR, 'ida_struct.info')
+    with open(ida_info_path, 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            line = line.strip()
+            if line and not line.startswith('#'):
+                line_split = line.split(':', 1)
+                if len(line_split) == 2:
+                    struct_name = line_split[0]
+                    ida_struct_table[struct_name] = {}
+                else:
+                    item_name = line_split[0]
+                    offset_str, item_type = line_split[1].strip().split(',', 1)
+                    offset = int(offset_str.strip())
+                    ida_struct_table[struct_name][item_name] = (offset, item_type.strip())
+    return ida_struct_table

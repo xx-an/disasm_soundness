@@ -44,7 +44,7 @@ class Disasm_IDAPro(Disasm):
         self._curr_ptr_rep = None
         self._global_data_name = set([])
         self._added_ptr_rep_map = {}
-        self._ida_struct_table = lib.init_ida_struct_info()
+        self._ida_struct_table = utils.init_ida_struct_info()
         self._variable_w_ida_struct_type = {}
         self._address_line_map = {}
         self._ida_struct_types = list(self._ida_struct_table.keys())
@@ -279,6 +279,10 @@ class Disasm_IDAPro(Disasm):
             else:
                 res = '[' + mem_addr + ']'
         elif arg.startswith('(') and arg.endswith(')'):
+            content = utils.extract_content(arg)
+            content = self._handle_offset_operation(content)
+            res = helper.simulate_eval_expr(content)
+        elif arg.startswith('offset '):
             content = self._handle_offset_operation(arg)
             res = helper.simulate_eval_expr(content)
         else:
@@ -429,7 +433,7 @@ class Disasm_IDAPro(Disasm):
 
     
     def _handle_offset_operation(self, arg):
-        content = utils.extract_content(arg)
+        content = arg
         if 'offset ' in content:
             original = None
             new_var = None

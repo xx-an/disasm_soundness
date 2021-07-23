@@ -28,27 +28,34 @@ def _check_bin_eq(address, inst, elf_content):
         print('The binary representations are not equivalent for inst: ' + inst + ' at address ' + str(hex(address)))
         print('gcc binary rep: ' + bin_rep)
         print('elf binary rep: ' + elf_bytes)
+        return False
     return True
 
 
 def sound(elf_content, disasm_asm, cfg):
+    res = True
+    unsound_cases = 0
     addresses = cfg.reachable_addresses()
     address_inst_map = disasm_asm.get_address_inst_map()
     for address in addresses:
         inst = address_inst_map[address]
         res = _check_bin_eq(address, inst, elf_content)
         if not res:
-            return False
-    return True
+            unsound_cases += 1
+            res = False
+    return res, unsound_cases
         
 
 def sound_disasm_file(elf_content, disasm_log_file):
+    res = True
+    unsound_cases = 0
     reachable = Reachable(disasm_log_file)
     reachable_address_table = reachable.reachable_address_table
     for address in reachable_address_table.keys():
         inst = reachable_address_table[address]
         res = _check_bin_eq(address, inst, elf_content)
         if not res:
-            return False
-    return True
+            unsound_cases += 1
+            res = False
+    return res, unsound_cases
 

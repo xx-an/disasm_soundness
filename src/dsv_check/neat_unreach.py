@@ -270,7 +270,7 @@ if __name__ == '__main__':
     parser.add_argument('-t', '--disasm_type', default='objdump', type=str, help='Disassembler type')
     parser.add_argument('-f', '--file_name', type=str, help='Benchmark file name')
     parser.add_argument('-v', '--verbose', default=False, action='store_true', help='Print the starts of unreachable instruction blocks')
-    parser.add_argument('-b', '--batch', default=1, type=int, help='Run neat_unreach in batch mode')
+    parser.add_argument('-b', '--batch', default=0, type=int, help='Run neat_unreach in batch mode')
     parser.add_argument('-e', '--elf_dir', default='benchmark/coreutils-build', type=str, help='Benchmark folder name')
     parser.add_argument('-l', '--log_dir', default='benchmark/coreutils-objdump', type=str, help='Disassembled folder name')
     args = parser.parse_args()

@@ -22,6 +22,7 @@ class Reachable(object):
         self.reachable_address_table = {}
         self.read_from_log_file()
 
+
     def read_from_log_file(self):
         with open(self.log_file, 'r') as f:
             lines = f.readlines()
