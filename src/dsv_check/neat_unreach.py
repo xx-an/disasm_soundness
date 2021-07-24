@@ -83,13 +83,8 @@ def remove_implicit_called_functions(new_content, unreach_addresses, disasm_asm,
     inst_addresses = disasm_asm.inst_addresses
     address_inst_map = disasm_asm.address_inst_map
     address_entries_map = disasm_asm.address_entries_map
-    # print_info = ''
     for start_address, end_address in zip(start_address_list, end_address_list):
-        # print_info += 'To remove implicit function from following address pair\n'
-        # print_info += utils.u_hex(start_address) + ': ' + address_inst_map[start_address] + '\n'
-        # print_info += utils.u_hex(end_address) + ': ' + address_inst_map[end_address] + '\n'
         if start_address in label_address_list:
-            # print_info += 'address ' + hex(start_address) + ' is the start address of function ' + disasm_asm.address_label_map[start_address] + '\n'
             if start_address in address_entries_map:
                 if len(address_entries_map[start_address]) > 0:
                     for entry_address in address_entries_map[start_address]:
@@ -113,79 +108,69 @@ def not_continuous(prev_address, address, disasm_asm):
             return False
     return False
 
-def remove_invalid_inst(aux_path, disasm_asm):
+def remove_unexplored_inst(new_log_path, disasm_asm):
     new_content = ''
     unreach_addresses = []
-    with open(aux_path, 'r') as f:
+    unreach_started = False
+    with open(new_log_path, 'r') as f:
         lines = f.readlines()
         prev_address = None
         for line in lines:
-            address_str, inst = line.strip().split(':', 1)
-            address = int(address_str, 16)
-            inst = inst.strip()
-            if address in disasm_asm.address_label_map:
-                new_content += '\n'
-            elif not_continuous(prev_address, address, disasm_asm):
-                new_content += '\n'
-            if address not in disasm_asm.invalid_address_list:
-                if not (inst.startswith('nop ') or inst == 'nop'):
-                    new_content += line
-                    unreach_addresses.append(address)
-            prev_address = address
+            line = line.strip()
+            if line:
+                if utils.LOG_UNREACHABLE_INDICATOR in line:
+                    unreach_started = True
+                elif unreach_started:
+                    if ':' in line:
+                        address_str, inst = line.strip().split(':', 1)
+                        address = int(address_str, 16)
+                        inst = inst.strip()
+                        if address in disasm_asm.address_label_map:
+                            new_content += '\n'
+                        elif not_continuous(prev_address, address, disasm_asm):
+                            new_content += '\n'
+                        if address not in disasm_asm.unexplored_address_list:
+                            if not (inst.startswith('nop ') or inst == 'nop'):
+                                new_content += line + '\n'
+                                unreach_addresses.append(address)
+                        prev_address = address
     return new_content, unreach_addresses
 
 
-def normalize_unreachable(aux_path, disasm_asm, graph):
-    new_content, unreach_addresses = remove_invalid_inst(aux_path, disasm_asm)
+def normalize_unreachable(new_log_path, disasm_asm, graph):
+    new_content, unreach_addresses = remove_unexplored_inst(new_log_path, disasm_asm)
     new_content = remove_implicit_called_functions(new_content, unreach_addresses, disasm_asm, graph)
-    with open(aux_path, 'w+') as f:
+    with open(new_log_path, 'w+') as f:
         f.write(new_content)
 
 
 def read_parameters(log_path):
-    res = ''
     res_list = []
-    i = 0
-    with open(log_path, 'r') as f:
-        lines = f.readlines()
-        for line in lines:
-            line = line.strip()
-            if utils.imm_pat.match(line):
-                tmp = int(line)
-                if i == 0:
-                    total = tmp
-                elif i == 1:
-                    white = tmp
-                elif i == 2:
-                    res += str(grey_cnt) + '\t'
-                    res_list.append(grey_cnt)
-                    res += str(total - white - grey_cnt) + '\t'
-                    res_list.append(total - white - grey_cnt)
-                    ratio = round(grey_cnt / total, 2)
-                    res += str(ratio) + '\t'
-                    res_list.append(ratio)
-                res += line + '\t'
-                res_list.append(tmp)
-                i += 1
-            elif utils.float_pat.match(line):
-                res += str(round(float(line), 2)) + '\t'
-                # res += line + '\t'
-                tmp = round(float(line), 2)
-                res_list.append(tmp)
-    return res, res_list
+    res = utils.execute_command('tail ' + log_path)
+    res = res.strip().split('\n')
+    total_cnt = int(res[-3])
+    white_cnt = int(res[-2])
+    indirects_cnt = int(res[-1])
+    res_list.append(total_cnt)
+    res_list.append(white_cnt)
+    res_list.append(grey_cnt)
+    black_cnt = total_cnt - white_cnt - grey_cnt
+    res_list.append(black_cnt)
+    ratio = round(grey_cnt / white_cnt, 2)
+    res_list.append(ratio)
+    res_list.append(indirects_cnt)
+    return res_list
 
 
-def neat_main(file_name, disasm_asm, graph, log_path, new_aux_path):
+def neat_main(disasm_asm, graph, log_path, new_log_path):
     global cnt, grey_cnt, print_info, _start_segment_address
-    cnt = 0
-    grey_cnt = 0
+    cnt, grey_cnt = 0, 0
     print_info = ''
     _start_segment_address = graph.start_segment_address
-    normalize_unreachable(new_aux_path, disasm_asm, graph)
-    log_parameter, para_list = read_parameters(log_path)
-    if log_parameter:
-        res = file_name + '\t' + log_parameter
+    normalize_unreachable(new_log_path, disasm_asm, graph)
+    para_list = read_parameters(log_path)
     return para_list
+
 
 def main_single(file_name, exec_dir, log_dir, disasm_type, verbose):
     exec_path = os.path.join(exec_dir, file_name)
@@ -195,18 +180,17 @@ def main_single(file_name, exec_dir, log_dir, disasm_type, verbose):
         objdump_dir = log_dir.replace(disasm_type, 'objdump')
     disasm_path = os.path.join(objdump_dir, file_name + '.objdump')
     log_path = os.path.join(log_dir, file_name + '.log')
-    aux_path = os.path.join(log_dir, file_name + '.aux')
-    cmd = 'cp ' + aux_path + ' ' + log_path + ' ' + target_dir
+    cmd = 'cp ' + log_path + ' ' + target_dir
     utils.execute_command(cmd)
-    new_aux_path = os.path.join(target_dir, file_name + '.aux')
     new_log_path = os.path.join(target_dir, file_name + '.log')
     disasm_asm = Disasm_Objdump(disasm_path)
     ei = ELF_Info(exec_path)
     cg = Construct_Graph(disasm_asm, new_log_path, ei)
-    para_list = neat_main(file_name, disasm_asm, cg, log_path, new_aux_path)
+    para_list = neat_main(disasm_asm, cg, log_path, new_log_path)
     if verbose:
         print(print_info)
     return para_list
+
 
 def main_batch(exec_dir, log_dir, disasm_type, verbose):
     disasm_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(log_dir) for f in filenames if
@@ -231,20 +215,12 @@ def main_batch(exec_dir, log_dir, disasm_type, verbose):
 
 
 def main_specified(file_names, exec_dir, log_dir, disasm_type, verbose):
-    # sheet = add_xlws_sheet(workbook, disasm_type)
-    # line_no = 1
     for file_name in file_names:
         try:
             print(file_name)
             if not (file_name.startswith(('bench-', 'sha')) or file_name in (('sort', 'test-localcharset'))):
                 para_list = main_single(file_name, exec_dir, log_dir, disasm_type, verbose)
-                # sheet.write(line_no, 0, file_name)
-                # i = 1
-                # for para in para_list:
-                #     sheet.write(line_no, i, para)
-                #     i += 1
                 print(file_name + '\t' + '\t'.join(list(map(lambda x: str(x), para_list))))
-                # line_no += 1
         except:
             continue
 
@@ -261,7 +237,6 @@ def add_xlws_sheet(workbook, disasm_type):
     sheet.write(0, 4, '# of black instructions')
     sheet.write(0, 5, 'Ratio (grey/white)')
     sheet.write(0, 6, '# of indirects')
-    sheet.write(0, 7, 'Execution time(s)')
     return sheet
 
 
@@ -270,7 +245,7 @@ if __name__ == '__main__':
     parser.add_argument('-t', '--disasm_type', default='objdump', type=str, help='Disassembler type')
     parser.add_argument('-f', '--file_name', type=str, help='Benchmark file name')
     parser.add_argument('-v', '--verbose', default=False, action='store_true', help='Print the starts of unreachable instruction blocks')
-    parser.add_argument('-b', '--batch', default=0, type=int, help='Run neat_unreach in batch mode')
+    parser.add_argument('-b', '--batch', default=False, action='store_true', help='Run neat_unreach in batch mode')
     parser.add_argument('-e', '--elf_dir', default='benchmark/coreutils-build', type=str, help='Benchmark folder name')
     parser.add_argument('-l', '--log_dir', default='benchmark/coreutils-objdump', type=str, help='Disassembled folder name')
     args = parser.parse_args()
@@ -281,25 +256,22 @@ if __name__ == '__main__':
         log_dir = log_dir.replace('objdump', disasm_type)
     log_dir = os.path.join(utils.PROJECT_DIR, log_dir)
     exec_dir = os.path.join(utils.PROJECT_DIR, args.elf_dir)
-    if args.batch == 0:
+    if args.batch:
+        main_batch(exec_dir, log_dir, args.disasm_type, args.verbose)
+    else:
         para_list = main_single(args.file_name, exec_dir, log_dir, args.disasm_type, args.verbose)
         print(args.file_name + '\t' + '\t'.join(list(map(lambda x: str(x), para_list))))
         print(args.file_name + ' & ' + ' & '.join(list(map(lambda x: str(x), para_list))))
-    elif args.batch == 1:
-        # workbook = create_statistics_xlsw()
-        main_batch(exec_dir, log_dir, args.disasm_type, args.verbose)
-        # xls_path = os.path.join(os.path.dirname(exec_dir), 'statistics.xls')
-        # workbook.save(xls_path)
-    elif args.batch == 2:
-        # workbook = create_statistics_xlsw()
-        file_names = ['mknod', 'date', 'id', 'csplit', 'paste', 'du', 'logname', 'pr']
-        main_specified(file_names, exec_dir, log_dir, args.disasm_type, args.verbose)
-        # xls_path = os.path.join(os.path.dirname(exec_dir), 'statistics_' + args.disasm_type + '.xls')
-        # workbook.save(xls_path)
-    else:
-        workbook = create_statistics_xlsw()
-        for disasm_type in ['objdump', 'radare2', 'angr', 'bap', 'ghidra', 'dyninst']:
-            log_dir = log_dir if 'objdump' not in log_dir else log_dir.replace('objdump', disasm_type)
-            main_batch(exec_dir, log_dir, disasm_type, args.verbose)
-        xls_path = os.path.join(os.path.dirname(exec_dir), 'statistics.xls')
-        workbook.save(xls_path)
+   
+    
+    # # Execute the results for specified test cases
+    # file_names = ['mknod', 'date', 'id', 'csplit', 'paste', 'du', 'logname', 'pr']
+    # main_specified(file_names, exec_dir, log_dir, args.disasm_type, args.verbose)
+    
+    # # Save the results for all the disassemblers
+    # workbook = create_statistics_xlsw()
+    # for disasm_type in ['objdump', 'radare2', 'angr', 'bap', 'hopper', 'idapro', 'ghidra', 'dyninst']:
+    #     log_dir = log_dir if 'objdump' not in log_dir else log_dir.replace('objdump', disasm_type)
+    #     main_batch(exec_dir, log_dir, disasm_type, args.verbose)
+    # xls_path = os.path.join(os.path.dirname(exec_dir), 'statistics.xls')
+    # workbook.save(xls_path)

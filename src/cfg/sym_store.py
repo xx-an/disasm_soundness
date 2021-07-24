@@ -83,9 +83,14 @@ class Sym_Store:
             s = self.store[k]
             s_old = old.store[k]
             for ki, v in s.items():
-                v_old = s_old.get(ki, None)
-                if v_old is not None:
-                    s[ki] = sym_helper.merge_sym(v_old, v, address_inst_map)
+                    v_old = s_old.get(ki, None)
+                    if k == lib.REG:
+                        if ki not in ('rsp', 'rbp'):
+                            if v_old is not None:
+                                s[ki] = sym_helper.merge_sym(v_old, v, address_inst_map)
+                    else:
+                        if v_old is not None:
+                            s[ki] = sym_helper.merge_sym(v_old, v, address_inst_map)
 
 
     def aux_mem_eq(self, other, address_inst_map, k=lib.AUX_MEM):
@@ -106,16 +111,18 @@ class Sym_Store:
     def state_ith_eq(self, old, address_inst_map, k=lib.REG):
         s = self.store[k]
         s_old = old.store[k]
-        for k in s:
-            v = s[k]
-            v_old = s_old.get(k, None)
-            if v_old is not None:
-                if not sym_helper.bitvec_eq(v_old, v, address_inst_map):
-                    return False
-        # for ki in other_v:
-        #     val = v.get(ki, None)
-        #     if val is None:
-        #         return False
+        for ki in s:
+            v = s[ki]
+            v_old = s_old.get(ki, None)
+            if k == lib.REG:
+                if ki not in ('rsp', 'rbp'):
+                    if v_old is not None:
+                        if not sym_helper.bitvec_eq(v_old, v, address_inst_map):
+                            return False
+            else:
+                if v_old is not None:
+                        if not sym_helper.bitvec_eq(v_old, v, address_inst_map):
+                            return False
         return True
 
 

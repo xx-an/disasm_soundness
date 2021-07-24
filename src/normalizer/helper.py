@@ -71,14 +71,8 @@ def disassemble_to_asm(exec_path, disasm_path, disasm_type='objdump'):
     elif disasm_type == 'bap':
         cmd = 'bap -d asm ' + exec_path + ' > ' + disasm_path
         utils.execute_command(cmd)
-    elif disasm_type == 'dyninst':
-        dyninst_path = os.path.join(utils.PROJECT_DIR, 'lib/disassemble_dyninst')
-        cmd = dyninst_path + ' ' + exec_path + ' > ' + disasm_path
-        utils.execute_command(cmd)
     elif disasm_type == 'angr':
         disassemble_angr(exec_path, disasm_path)
-    elif disasm_type == 'ghidra':
-        disassemble_ghidra(exec_path, disasm_path)
     else:
         raise Exception('The assembly file has not been generated')
 
@@ -108,27 +102,6 @@ def disassemble_radare2(exec_path, asm_path):
             res += r.cmd('pD ' + str(sec_size_table[sec_name]))
     with open(asm_path, 'w+') as f:
         f.write(res)
-
-
-def disassemble_ghidra(exec_path, asm_path):
-    cmd = os.path.join(utils.PROJECT_DIR, 'lib/ghidra_9.0.4/support/analyzeHeadless') + ' '
-    cmd += os.path.join(utils.PROJECT_DIR, 'lib/ghidra_9.0.4/') + ' ghidra.gpr -deleteProject'
-    cmd += ' -import ' + exec_path
-    cmd += ' -scriptPath ' + os.path.join(utils.PROJECT_DIR, 'src/disassembler/')
-    cmd += ' -postScript ghidra_disasm.py'
-    cmd += ' ' + str(global_var.elf_info.code_base_addr)
-    res = utils.execute_command(cmd)
-    lines = res.split('\n')
-    with open(asm_path, 'w+') as f:
-        code_start = False
-        for line in lines:
-            if code_start:
-                if line.startswith('--- instructions ---'):
-                    break
-                else:
-                    f.write(line + '\n')
-            if line.startswith('--- instructions ---'):
-                code_start = True
 
     
 # [Sections]

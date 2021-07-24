@@ -135,11 +135,13 @@ class Construct_Graph(object):
                 v_entries = self.address_entries_map[v]
                 for ve in v_entries:
                     if node.located_in_this_node(ve):
+                        # if end_addr == 15656: print(ve)
                         if ve >= start_addr:
                             queue.append(v)
                             prev_node[v] = n
                             visited[v] = True
                             break
+        # if end_addr == 15656: print(queue)
         while queue:
             n = queue.pop(0)
             if n == end_vertex:
@@ -167,8 +169,6 @@ class Construct_Graph(object):
     def find_path(self, start_addr, end_addr):
         start_node_id = self.search_node_id(start_addr)
         end_node_id = self.search_node_id(end_addr)
-        # print(hex(start_node_id))
-        # print(hex(end_node_id))
         if start_node_id is not None and end_node_id is not None:
             if start_node_id == end_node_id:
                 node = self.node_set[start_node_id]
@@ -204,49 +204,52 @@ class Construct_Graph(object):
             lines = f.readlines()
             for line in lines:
                 line = line.strip()
-                if ': jump address is ' in line or ': the return address is ' in line:
-                    infix = ': jump address is ' if ': jump address is ' in line else ': the return address is '
-                    line_split = line.split(infix)
-                    addr = int(line_split[0].strip(), 16)
-                    # if addr not in disasm_asm.invalid_address_list:
-                    jmp_addr_str = line_split[1].strip()
-                    if utils.imm_pat.match(jmp_addr_str):
-                        inst = self.address_inst_map[addr]
-                        inst_name = inst.split(' ', 1)[0]
-                        jmp_addr = int(jmp_addr_str, 16)
-                        if inst_name == 'call':
-                            if jmp_addr not in disasm.invalid_address_list:
-                                self._add_to_address_entries_map(jmp_addr, addr)
-                                self.call_to_addr_set.add(addr)
+                if line:
+                    if utils.LOG_UNREACHABLE_INDICATOR in line: 
+                        break
+                    elif ': jump address is ' in line or ': the return address is ' in line:
+                        infix = ': jump address is ' if ': jump address is ' in line else ': the return address is '
+                        line_split = line.split(infix)
+                        addr = int(line_split[0].strip(), 16)
+                        # if addr not in disasm_asm.unexplored_address_list:
+                        jmp_addr_str = line_split[1].strip()
+                        if utils.imm_pat.match(jmp_addr_str):
+                            inst = self.address_inst_map[addr]
+                            inst_name = inst.split(' ', 1)[0]
+                            jmp_addr = int(jmp_addr_str, 16)
+                            if inst_name == 'call':
+                                if jmp_addr not in disasm.unexplored_address_list:
+                                    self._add_to_address_entries_map(jmp_addr, addr)
+                                    self.call_to_addr_set.add(addr)
+                                else:
+                                    new_inst = self.address_inst_map[jmp_addr]
+                                    if new_inst.startswith('jmp') and new_inst.endswith(']') and 'rip' in new_inst:
+                                        idx = self.inst_addresses.index(jmp_addr)
+                                        rip = self.inst_addresses[idx + 1]
+                                        next_addr = utils.extract_content(new_inst, '[')
+                                        next_addr = next_addr.replace('rip', hex(rip))
+                                        next_addr = eval(next_addr)
+                                        if next_addr in self.elf_info.address_sym_table:
+                                            sym_name = self.elf_info.address_sym_table[next_addr][0]
+                                            if sym_name in lib.TERMINATION_FUNCTIONS:
+                                                self.call_to_addr_set.add(addr)
                             else:
-                                new_inst = self.address_inst_map[jmp_addr]
-                                if new_inst.startswith('jmp') and new_inst.endswith(']') and 'rip' in new_inst:
-                                    idx = self.inst_addresses.index(jmp_addr)
-                                    rip = self.inst_addresses[idx + 1]
-                                    next_addr = utils.extract_content(new_inst, '[')
-                                    next_addr = next_addr.replace('rip', hex(rip))
-                                    next_addr = eval(next_addr)
-                                    if next_addr in self.elf_info.address_sym_table:
-                                        sym_name = self.elf_info.address_sym_table[next_addr][0]
-                                        if sym_name in lib.TERMINATION_FUNCTIONS:
-                                            self.call_to_addr_set.add(addr)
-                        else:
-                            self._add_to_address_entries_map(jmp_addr, addr)
-                elif ': jump addresses resolved using jump table ' in line:
-                    line_split = line.split(': jump addresses resolved using jump table ')
-                    addr = int(line_split[0].strip(), 16)
-                    # if addr not in disasm_asm.invalid_address_list:
-                    jmp_table_entries = utils.extract_content(line_split[1].strip(), '[')
-                    jmp_table_entries = jmp_table_entries.split(',')
-                    jump_targets = [utils.imm_str_to_int(x.strip()) for x in jmp_table_entries]
-                    for target in jump_targets:
-                        self._add_to_address_entries_map(target, addr)
+                                self._add_to_address_entries_map(jmp_addr, addr)
+                    elif ': jump addresses resolved using jump table ' in line:
+                        line_split = line.split(': jump addresses resolved using jump table ')
+                        addr = int(line_split[0].strip(), 16)
+                        # if addr not in disasm_asm.unexplored_address_list:
+                        jmp_table_entries = utils.extract_content(line_split[1].strip(), '[')
+                        jmp_table_entries = jmp_table_entries.split(',')
+                        jump_targets = [utils.imm_str_to_int(x.strip()) for x in jmp_table_entries]
+                        for target in jump_targets:
+                            self._add_to_address_entries_map(target, addr)
 
 
     def construct_splitted_content(self, disasm_asm):
         new_content = ''
         for address in self.address_inst_map:
-            # if address not in disasm_asm.invalid_address_list:
+            # if address not in disasm_asm.unexplored_address_list:
             inst = self.address_inst_map[address]
             if address in disasm_asm.address_label_map:
                 new_content += '\n'

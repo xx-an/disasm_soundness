@@ -422,15 +422,9 @@ INSTRUCTION_SEMANTICS_MAP = {
 
 def start_init(store, _start_address):
     dests = lib.REG64_NAMES
-    # dests = 'rax, rcx, rdx, r8, r9, r10, r11, rsi, rdi, rsp'
-    # ext_func_helper.set_reg_val(store, rip, 'rbx')
-    # ext_func_helper.set_reg_val(store, rip, 'r12', _start_address)
-    # ext_func_helper.set_reg_val(store, rip, 'r14')
-    # ext_func_helper.set_reg_val(store, rip, 'r15')
     ext_func_helper.set_regs_sym(store, rip, dests)
     sym_engine.set_sym(store, rip, 'rsp', sym_helper.bit_vec_val_sym(utils.INIT_STACK_FRAME_POINTER))
     ext_func_helper.set_segment_regs_sym(store, rip)
-    utils.logger.debug('The following registers are set to symbolic value: ' + str(dests))
     ext_func_helper.clear_flags(store)
     sym_src = sym_helper.gen_sym()
     sym_rsp = sym_engine.get_sym(store, rip, 'rsp')

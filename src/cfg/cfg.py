@@ -22,6 +22,7 @@ from ..common import lib
 from .block import Block
 from .constraint import Constraint
 from .sym_store import Sym_Store
+from . import cfg_helper
 from ..semantics import semantics
 from ..semantics import semantics_traceback
 from ..semantics import smt_helper
@@ -29,7 +30,7 @@ from ..symbolic import sym_helper
 from ..symbolic import sym_engine
 
 class CFG(object):
-    def __init__(self, address_sym_table, address_inst_map, address_next_map, start_address, main_address, disasm_type):
+    def __init__(self, address_sym_table, address_inst_map, address_next_map, start_address, main_address, valid_address_no, disasm_type):
         self.block_set = {}
         self.block_stack = []
         self.address_block_map = {}
@@ -40,6 +41,7 @@ class CFG(object):
         self.disasm_type = disasm_type
         self.dummy_block = Block(None, None, '', None, None)
         self.main_address = main_address
+        self.valid_address_no = valid_address_no
         self.address_except_set = set()
         self.ret_call_address_map = {}
         self.address_jt_entries_map = {}
@@ -50,6 +52,8 @@ class CFG(object):
         sym_helper.cnt_init()
         semantics.start_init(sym_store.store, start_address)
         self.build_cfg(start_address, sym_store, constraint)
+        # print(self.ret_call_address_map)
+        self.pp_unreachable_instrs()
 
     
     def build_cfg(self, start_address, sym_store, constraint):
@@ -63,20 +67,20 @@ class CFG(object):
             if utils.check_branch_inst(inst):
                 self.construct_branch(curr, address, inst, sym_store, constraint)
             else:
-                self.add_fall_through_block(curr, address, inst, sym_store, constraint)
-            
+                self.add_next_block(curr, address, sym_store, constraint)
+                
 
     def construct_conditional_branches(self, block, address, inst, new_address, sym_store, constraint):
-        # res = smt_helper.parse_predicate(sym_store.store, inst, True)
-        # if res == False:
-        #     self.add_fall_through_block(block, address, inst, sym_store, constraint)
-        # elif res == True:
-        #     self.jump_to_block(block, address, inst, new_address, sym_store, constraint)
-        # else:
-        jmp_constraint = self.add_new_constraint(sym_store.store, constraint, inst, True)
-        self.jump_to_block(block, address, inst, new_address, sym_store, jmp_constraint)
-        fall_through_constraint = self.add_new_constraint(sym_store.store, constraint, inst, False)
-        self.add_fall_through_block(block, address, inst, sym_store, fall_through_constraint)
+        res = smt_helper.parse_predicate(sym_store.store, inst, True)
+        if res == False:
+            self.add_fall_through_block(block, address, inst, sym_store, constraint)
+        elif res == True:
+            self.jump_to_block(block, inst, new_address, sym_store, constraint)
+        else:
+            jmp_constraint = self.add_new_constraint(sym_store.store, constraint, inst, True)
+            self.jump_to_block(block, inst, new_address, sym_store, jmp_constraint)
+            fall_through_constraint = self.add_new_constraint(sym_store.store, constraint, inst, False)
+            self.add_fall_through_block(block, address, inst, sym_store, fall_through_constraint)
             
 
     def construct_branch(self, block, address, inst, sym_store, constraint):
@@ -93,14 +97,14 @@ class CFG(object):
                 if utils.check_not_single_branch_inst(inst):    # je xxx
                     self.construct_conditional_branches(block, address, inst, new_address, sym_store, constraint)
                 else:
-                    if new_address in self.address_block_map and new_address in self.address_sym_table and new_address in self.ret_call_address_map.values():
+                    if new_address in self.address_block_map and new_address in self.address_sym_table and new_address in list(self.ret_call_address_map.values()):
                         if self._explored_func_block(sym_store, new_address):
                             func_name = self.address_sym_table[new_address][0]
                             self.external_branch(func_name, block, address, inst, sym_store, constraint)
                         else:
-                            self.jump_to_block(block, address, inst, new_address, sym_store, constraint)
+                            self.jump_to_block(block, inst, new_address, sym_store, constraint)
                     else:
-                        self.jump_to_block(block, address, inst, new_address, sym_store, constraint)
+                        self.jump_to_block(block, inst, new_address, sym_store, constraint)
             elif new_address in self.address_sym_table:
                 ext_func_name = self.address_sym_table[new_address][0]
                 self.external_branch(ext_func_name, block, address, inst, sym_store, constraint)
@@ -145,7 +149,7 @@ class CFG(object):
             next_address = self.main_address
             utils.logger.info(hex(address) + ': jump address is ' + sym_helper.string_of_address(next_address))
             semantics.ext__libc_start_main(store, self.main_address)
-            self.jump_to_block(block, address, inst, next_address, sym_store, constraint)
+            self.jump_to_block(block, inst, next_address, sym_store, constraint)
         elif ext_func_name == 'pthread_create':
             store, rip, heap_addr = sym_store.store, sym_store.rip, sym_store.heap_addr
             jmp_sym_store = Sym_Store(store, rip, heap_addr)
@@ -155,7 +159,7 @@ class CFG(object):
                 rdi_val = sym_helper.int_from_sym(sym_rdi)
                 if rdi_val in self.address_inst_map:
                     utils.logger.info(hex(address) + ': jump address is ' + sym_helper.string_of_address(rdi_val))
-                    self.jump_to_block(block, address, inst, rdi_val, jmp_sym_store, constraint)
+                    self.jump_to_block(block, inst, rdi_val, jmp_sym_store, constraint)
             fall_through_sym_store = Sym_Store(store, rip, heap_addr)
             semantics.ext_func_call(fall_through_sym_store.store, ext_func_name)
             self.build_ret_branch(block, address, inst, fall_through_sym_store, constraint)
@@ -177,22 +181,29 @@ class CFG(object):
                 utils.logger.info(hex(address) + ': the return address is {}'.format(hex(new_address)))
                 if new_address in self.address_inst_map:
                     if new_address not in self.ret_call_address_map:
+                        # call 0x1453: 
+                        # call_target: 0x1453
                         call_target = self._get_prev_inst_target(new_address)
                         if call_target:
                             self.ret_call_address_map[new_address] = call_target
-                    self.jump_to_block(block, address, inst, new_address, sym_store, constraint)
+                    self.jump_to_block(block, inst, new_address, sym_store, constraint)
                 else:
                     self.jump_to_dummy(block)
             elif sym_helper.is_term_address(new_address):
                 self.jump_to_dummy(block)
                 utils.logger.info('The symbolic execution has been successfully terminated\n')
             else:
+                utils.logger.info(hex(address) + ': the return address is {}'.format(new_address))
                 if constraint is not None:
                     res = self._check_path_reachability(constraint)
                     if res == False: return
                 # utils.logger.info('Cannot resolve the return address of ' + inst + ' at address ' + hex(address))
                 # sys.exit('Cannot resolve the return address of ' + inst + ' at address ' + hex(address))
-            
+        else:
+            utils.logger.info(hex(address) + ': the return address is {}'.format(new_address))
+        #     trace_list = cfg_helper.backtrack_to_start(block, address, self.block_set)
+        #     cfg_helper.pp_trace_list(trace_list, self.address_inst_map)
+
 
     def trace_back(self, blk, sym_names, trace_list):
         utils.logger.info('trace back')
@@ -241,15 +252,22 @@ class CFG(object):
         return -1
 
 
+    def add_next_block(self, block, address, sym_store, constraint):
+        new_address = self._get_next_address(address)
+        new_inst = self.address_inst_map[new_address]
+        if new_address != -1:
+            self.add_new_block(block, new_address, new_inst, sym_store, constraint)
+
+
     def add_fall_through_block(self, block, address, inst, sym_store, constraint):
         new_address = self._get_next_address(address)
         if new_address != -1:
-            self.jump_to_block(block, address, inst, new_address, sym_store, constraint)
+            self.jump_to_block(block, inst, new_address, sym_store, constraint)
 
 
-    def jump_to_block(self, block, address, inst, new_address, sym_store, constraint):
+    def jump_to_block(self, block, inst, new_address, sym_store, constraint):
         new_inst = self.address_inst_map[new_address]
-        _exist, new_sym_store = self.check_block_exist(block, address, inst, sym_store, constraint, new_address, new_inst)
+        _exist, new_sym_store = self.check_block_exist(block, inst, sym_store, new_address, new_inst)
         if not _exist:
             if new_sym_store:
                 self._add_new_block(block, new_address, new_inst, new_sym_store, constraint)
@@ -382,25 +400,6 @@ class CFG(object):
             self._add_new_block(blk, address, inst, new_sym_store, constraint)
 
 
-    def remove_unreachable_tb_blocks(self, blk):
-        address_list = []
-        while blk:
-            address = blk.address
-            address_list.append(address)
-            utils.logger.info('tb: ' + hex(address) + ' ' + blk.inst)
-            if blk.parent_no in self.block_set:
-                parent_blk = self.block_set[blk.parent_no]
-                p_address = self._get_prev_address(address)
-                if p_address != parent_blk.address:
-                    if utils.check_not_single_branch_inst(parent_blk.inst):
-                        break
-            else:
-                break
-            blk = parent_blk
-        for address in address_list:
-            self.address_block_map[address][0] = 0
-
-
     def _check_path_reachability(self, constraint):
         res = True
         asserts, pred = constraint.get_asserts_and_query()
@@ -421,12 +420,12 @@ class CFG(object):
 
     def _get_prev_inst_target(self, address):
         target = None
-        p_address = self._get_prev_address(address)
-        if p_address:
-            p_inst = self.address_inst_map[p_address]
-            if p_inst.startswith('call'):
-                blk = self.address_block_map[p_address][1]
-                jmp_target = smt_helper.get_jump_address(blk.sym_store.store, address, p_inst.split(' ', 1)[1].strip())
+        prev_address = self._get_prev_address(address)
+        if prev_address:
+            prev_inst = self.address_inst_map[prev_address]
+            if prev_inst.startswith('call'):
+                blk = self.address_block_map[prev_address][1]
+                jmp_target = smt_helper.get_jump_address(blk.sym_store.store, address, prev_inst.split(' ', 1)[1].strip())
                 if sym_helper.sym_is_int_or_bitvecnum(jmp_target):
                     target = jmp_target
         return target
@@ -455,9 +454,9 @@ class CFG(object):
         return res
 
 
-    def check_block_exist(self, block, address, inst, sym_store, constraint, new_address, new_inst):
+    def check_block_exist(self, block, inst, sym_store, new_address, new_inst):
         if new_address not in self.address_except_set:
-            _exist, res = self._exist_block(address, sym_store, new_address, new_inst)
+            _exist, res = self._exist_block(sym_store, new_address, new_inst)
             if _exist:
                 block.add_to_children_list(res.block_no)
                 return True, None
@@ -469,7 +468,7 @@ class CFG(object):
         return False, None
         
 
-    def _exist_block(self, address, sym_store, new_address, new_inst):
+    def _exist_block(self, sym_store, new_address, new_inst):
         if new_address in self.address_block_map:
             cnt, blk = self.address_block_map[new_address]
             if cnt == 0:
@@ -519,10 +518,18 @@ class CFG(object):
 
 
     def reachable_addresses(self):
-        res = set(self.address_block_map.keys())
+        reachable_addresses = set(self.address_block_map.keys())
+        return reachable_addresses
+
+
+    def pp_unreachable_instrs(self):
+        reachable_addresses = set(self.address_block_map.keys())
         inst_addresses = sorted(list(self.address_inst_map.keys()))
+        utils.logger.info(utils.LOG_UNREACHABLE_INDICATOR)
         for address in inst_addresses:
-            if address not in res:
-                utils.aux_logger.info(hex(address) + ': ' + self.address_inst_map[address])
-        return res
+            if address not in reachable_addresses:
+                utils.logger.info(hex(address) + ': ' + self.address_inst_map[address])
+        utils.logger.info(self.valid_address_no)
+        utils.logger.info(len(reachable_addresses))
+        utils.logger.info(len(self.indirect_inst_set))
             

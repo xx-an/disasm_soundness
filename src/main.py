@@ -29,12 +29,13 @@ from .dsv_check import neat_unreach
 
 CHECK_RESULTS = ['', '$\\times$']
 
+
 def construct_cfg(disasm_asm, disasm_type):
     start_address = global_var.elf_info.entry_address
     main_address = global_var.elf_info.main_address
     address_sym_table = global_var.elf_info.address_sym_table
     address_inst_map = disasm_asm.get_address_inst_map()
-    cfg = CFG(address_sym_table, address_inst_map, disasm_asm.address_next_map, start_address, main_address, disasm_type)
+    cfg = CFG(address_sym_table, address_inst_map, disasm_asm.address_next_map, start_address, main_address, disasm_asm.valid_address_no, disasm_type)
     return cfg
 
 
@@ -48,13 +49,24 @@ def close_logger():
         utils.close_logger(log_name)
 
 
-def write_results(disasm_asm, cfg):
-    reachable_address_num = len(cfg.reachable_addresses())
-    indirects_num = len(cfg.indirect_inst_set)
-    utils.logger.info(disasm_asm.valid_address_no)
-    utils.logger.info(reachable_address_num)
-    utils.logger.info(indirects_num)
-
+def write_results(disasm_type, cnt_list, res, unsounded_cases, print_info):
+    if res:
+        utils.output_logger.info('The disassembly process carried out by ' + disasm_type + ' is sound')
+    else:
+        utils.output_logger.info('The disassembly process carried out by ' + disasm_type + ' is unsound')
+    utils.output_logger.info('# of total instructions: ' + str(cnt_list[0]))
+    utils.output_logger.info('# of white instructions: ' + str(cnt_list[1]))
+    utils.output_logger.info('# of grey instructions: ' + str(cnt_list[2]))
+    utils.output_logger.info('# of black instructions: ' + str(cnt_list[3]))
+    utils.output_logger.info('Ratio (grey/white): ' + str(cnt_list[4]))
+    utils.output_logger.info('# of indirects: ' + str(cnt_list[5]))
+    if not res:
+        utils.output_logger.info('# of incorrectly disassembled instructions: ' + str(unsounded_cases))
+        utils.output_logger.info('\n' + print_info)
+        print(print_info)
+    else:
+        utils.output_logger.info('# of incorrectly disassembled instructions: 0')
+    
 
 def check_soundness(elf_lib_dir, disasm_lib_dir, file_name):
     print(file_name)
@@ -88,14 +100,19 @@ def check_soundness_specified(file_names, elf_lib_dir, disasm_lib_dir, disasm_ty
             time.sleep(10)
         
 
-def dsv_main(exec_path, disasm_path, disasm_type, verbose=False):
+def dsv_main(elf_lib_dir, exec_path, disasm_path, disasm_type, verbose=False):
     set_logger(disasm_path, disasm_type, verbose)
+    file_name = utils.get_file_name(disasm_path)
     global_var.get_elf_info(exec_path)
     helper.disassemble_to_asm(exec_path, disasm_path, disasm_type)
     disasm_factory = Disasm_Factory(disasm_path, exec_path, disasm_type)
     disasm_asm = disasm_factory.get_disasm()
     cfg = construct_cfg(disasm_asm, disasm_type)
-    write_results(disasm_asm, cfg)
+    time.sleep(10)
+    cnt_list = neat_unreach.main_single(file_name, elf_lib_dir, disasm_lib_dir, disasm_type, False)
+    print(file_name + '\t' + '\t'.join(list(map(lambda x: str(x), cnt_list))))
+    res, unsounded_cases, print_info = soundness.sound(global_var.elf_content, disasm_asm, cfg)
+    write_results(disasm_type, cnt_list, res, unsounded_cases, print_info)
     close_logger()
 
 
@@ -103,17 +120,14 @@ def dsv_batch(elf_lib_dir, disasm_lib_dir, disasm_type, verbose=False):
     disasm_files = [os.path.join(dp, f) for dp, _, filenames in os.walk(disasm_lib_dir) for f in filenames if f.endswith(disasm_type)]
     for disasm_path in disasm_files:
         file_name = utils.get_file_name(disasm_path)
-        print(file_name)
         exec_path = os.path.join(elf_lib_dir, file_name)
         if os.path.exists(exec_path):
             try:
-                dsv_main(exec_path, disasm_path, disasm_type, verbose)
-                time.sleep(15)
-                para_list = neat_unreach.main_single(file_name, elf_lib_dir, disasm_lib_dir, disasm_type, False)
-                print(file_name + '\t' + '\t'.join(list(map(lambda x: str(x), para_list))))
+                print(file_name)
+                dsv_main(elf_lib_dir, exec_path, disasm_path, disasm_type, verbose)
             except:
                 close_logger()
-                time.sleep(15)
+                time.sleep(10)
                 continue
 
 
@@ -123,7 +137,7 @@ def dsv_specified(file_names, elf_lib_dir, disasm_lib_dir, disasm_type, verbose=
         exec_path = os.path.join(elf_lib_dir, file_name)
         disasm_path = os.path.join(disasm_lib_dir, file_name + '.' + disasm_type)
         try:
-            dsv_main(exec_path, disasm_path, disasm_type, verbose)
+            dsv_main(elf_lib_dir, exec_path, disasm_path, disasm_type, verbose)
             time.sleep(15)
             para_list = neat_unreach.main_single(file_name, elf_lib_dir, disasm_lib_dir, disasm_type, False)
             print(file_name + '\t' + '\t'.join(list(map(lambda x: str(x), para_list))))
@@ -163,7 +177,7 @@ if __name__=='__main__':
         else:
             disasm_path = os.path.join(disasm_lib_dir, args.file_name + '.' + disasm_type)
             exec_path = os.path.join(elf_lib_dir, args.file_name)
-            dsv_main(exec_path, disasm_path, disasm_type, args.verbose)
+            dsv_main(elf_lib_dir, exec_path, disasm_path, disasm_type, args.verbose)
     # 
     # file_names = ['date', 'id', 'paste', 'logname', 'pr']
     # dsv_specified(file_names, elf_lib_dir, disasm_lib_dir, disasm_type, args.verbose)

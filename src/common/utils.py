@@ -36,16 +36,15 @@ INIT_STACK_FRAME_POINTER = 2**48-9
 MAX_DEVIATION = 5
 SEGMENT_REG_INIT_VAL = 0
 
-ASSEMBLY_FILE_NAME = 'test.s'
-
-DISASM_TYPES = ['objdump', 'radare2', 'angr', 'bap', 'ghidra', 'dyninst']
-
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(os.path.realpath(__file__)))))
 
-LOG_NAMES = ['log', 'aux']
+ASSEMBLY_FILE_PATH = os.path.join(PROJECT_DIR, 'test.s')
+ASM_OBJ_FILE_PATH = os.path.join(PROJECT_DIR, 'test.o')
+
+LOG_NAMES = ['log', 'output']
 
 logger = logging.getLogger(LOG_NAMES[0])
-aux_logger = logging.getLogger(LOG_NAMES[1])
+output_logger = logging.getLogger(LOG_NAMES[1])
 
 def setup_logger(log_name, log_path, verbose, level=logging.INFO):
     file_handler = logging.FileHandler(log_path, mode='w+')
@@ -57,12 +56,12 @@ def setup_logger(log_name, log_path, verbose, level=logging.INFO):
             logger.propagate = False
         logger.addHandler(file_handler) 
     else:
-        global aux_logger
-        aux_logger = logging.getLogger(log_name)
-        aux_logger.setLevel(level)
+        global output_logger
+        output_logger = logging.getLogger(log_name)
+        output_logger.setLevel(level)
         if not verbose:
-            aux_logger.propagate = False
-        aux_logger.addHandler(file_handler) 
+            output_logger.propagate = False
+        output_logger.addHandler(file_handler) 
     
 
 def close_logger(log_name):
@@ -73,11 +72,11 @@ def close_logger(log_name):
             handler.close()
             logger.removeHandler(handler)
     else:
-        global aux_logger
-        aux_logger = logging.getLogger(log_name)
-        for handler in aux_logger.handlers:
+        global output_logger
+        output_logger = logging.getLogger(log_name)
+        for handler in output_logger.handlers:
             handler.close()
-            aux_logger.removeHandler(handler)
+            output_logger.removeHandler(handler)
 
 
 delimits = {'(': ')', '[': ']', '{': '}'}
@@ -86,7 +85,9 @@ float_pat = re.compile('^[0-9.]+$|^-[0-9.]+$')
 simple_operator_pat = re.compile(r'(\+|-|\*)')
 imm_pat = re.compile('^0x[0-9a-fA-F]+$|^[0-9]+$|^-[0-9]+$|^-0x[0-9a-fA-F]+$')
 imm_start_pat = re.compile('^0x[0-9a-fA-F]+|^[0-9]+|^-[0-9]+|^-0x[0-9a-fA-F]+')
+
 MEM_DATA_SEC_SUFFIX = 'mem@'
+LOG_UNREACHABLE_INDICATOR = 'Unreachable instructions:'
 
 OPPOSITE_FLAG_MAP = {
     'b': 'ae',
@@ -435,10 +436,10 @@ def generate_inst_bin(line, syntax='intel'):
         line_str = '.intel_syntax noprefix\n' + line
         if syntax == 'att':
             line_str = '.att_syntax noprefix\n' + line
-        dump_str_to_file(line_str.strip(), ASSEMBLY_FILE_NAME)
-        cmd = 'gcc -c ' + ASSEMBLY_FILE_NAME + ' -o test.o'
+        dump_str_to_file(line_str.strip(), ASSEMBLY_FILE_PATH)
+        cmd = 'gcc -c ' + ASSEMBLY_FILE_PATH + ' -o ' + ASM_OBJ_FILE_PATH
         _ = execute_command(cmd)
-        cmd = 'readelf -x .text test.o'
+        cmd = 'readelf -x .text ' + ASM_OBJ_FILE_PATH
         out = execute_command(cmd)
         out_split = out.split('\n')
         for out_elem in out_split:
