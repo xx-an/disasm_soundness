@@ -25,9 +25,9 @@ label_pattern = re.compile('^[A-Za-z_@.0-9]+:[A-Za-z_@.0-9 /]*$')
 address_inst_pattern = re.compile('^000000[0-9a-f]+         ')
 
 imm_pat = re.compile('^0x[0-9a-fA-F]+$|^[0-9]+$|^-[0-9]+$|^-0x[0-9a-fA-F]+$|^[0-9a-fA-F]+$|^-[0-9a-fA-F]+$')
-
 variable_expr_pat = re.compile(r'^[0-9a-zA-Z_@.]+:')
 
+minus_expr_suffix_pat = re.compile(r'[0-9a-zA-Z_][ ]*-')
 
 class Disasm_Hopper(Disasm):
     def __init__(self, disasm_path):
@@ -103,7 +103,7 @@ class Disasm_Hopper(Disasm):
             inst = self.address_inst_map[address]
             inst = self._format_inst(address, inst, rip)
             # print(hex(address) + ':' + inst)
-            self.address_inst_map[address] = inst
+            self.address_inst_map[address] = inst.strip()
             self.address_next_map[address] = rip
 
 
@@ -160,6 +160,10 @@ class Disasm_Hopper(Disasm):
                     remaining = symbol.split('loc_', 1)[1].strip()
                     if imm_pat.match(remaining):
                         res = hex(int(remaining, 16))
+                elif symbol.startswith('sub_'):
+                    remaining = symbol.split('sub_', 1)[1].strip()
+                    if imm_pat.match(remaining):
+                        res = hex(int(remaining, 16))
                 elif symbol.startswith('switch_table_'):
                     remaining = symbol.split('switch_table_', 1)[1].strip()
                     if imm_pat.match(remaining):
@@ -210,6 +214,8 @@ class Disasm_Hopper(Disasm):
             mem_addr = arg_split[1].strip().rsplit(']', 1)[0].strip()
             mem_addr = self._replace_each_expr(mem_addr, count)
             res = prefix + ' [' + mem_addr + ']'
+        elif '+' in arg or minus_expr_suffix_pat.search(arg):
+            res = self._replace_each_expr(arg, count)
         else:
             res = self._replace_symbol(arg, count)
         return res
@@ -254,6 +260,7 @@ class Disasm_Hopper(Disasm):
         res = self._exec_eval(res)
         res = helper.rewrite_absolute_address_to_relative(res, rip)
         res = helper.modify_st_rep(res)
+        res = helper.remove_hopper_brackets_from_seg_mem_rep(res)
         res = res.lower()
         return res
 

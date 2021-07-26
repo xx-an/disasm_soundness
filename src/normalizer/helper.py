@@ -529,6 +529,19 @@ def add_jump_address_wordptr_rep(arg):
     return res
 
 
+def remove_hopper_brackets_from_seg_mem_rep(arg):
+    res = arg
+    if 's:' in arg and arg.endswith(']'):
+        prefix, rem = arg.split(':', 1)
+        if rem.startswith('['):
+            content = utils.extract_content(rem, '[')
+            if utils.imm_pat.match(content):
+                res = prefix + ':' + content
+    return res
+
+
+
+
 # input1: 'mov    rax,QWORD PTR [rip+0x200a5a] '
 # output1: 'mov    rax,qword ptr [rip+0x200a5a] '
 def norm_ptr_rep(line):
@@ -573,6 +586,22 @@ def reconstruct_formula_expr(stack, op_stack, idx_list, imm_val):
     return res
 
 
+def reconstruct_formula(stack, op_stack):
+    res = ''
+    for idx, val in enumerate(stack):
+        if idx > 0:
+            op = op_stack[idx - 1] 
+            res += op
+            if op in ('+', '-') and utils.imm_start_pat.match(val):
+                res += hex(utils.imm_str_to_int(val))
+            else:
+                res += val
+        else:
+            res += val
+    res = res.replace('+-', '-')
+    return res
+
+
 def calc_formula_expr(stack, op_stack, content):
     res = content
     imm_item_list = [(idx, utils.imm_str_to_int(val)) for idx, val in enumerate(stack) if utils.imm_pat.match(val) and (idx == 0 or op_stack[idx - 1] in (('+', '-')))]
@@ -592,6 +621,8 @@ def calc_formula_expr(stack, op_stack, content):
     if len(val_list) > 1:
         imm_val = eval_simple_formula(val_list, oper_list)
         res = reconstruct_formula_expr(stack, op_stack, idx_list, imm_val)
+    else:
+        res = reconstruct_formula(stack, op_stack)
     return res
 
 

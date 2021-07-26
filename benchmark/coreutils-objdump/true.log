@@ -183,6 +183,73 @@ The symbolic execution has been successfully terminated
 0x3bf6: cmp r9,0xa
 0x3bfa: jne 0x3bd0
 0x3bfa: jump address is 0x3bd0
+0x3bd0: cmp r10d,0x2f
+0x3bd4: ja 0x3c2c
+0x3bd4: jump address is 0x3c2c
+0x3bd6: mov eax,r10d
+0x3bd9: mov r11d,0x1
+0x3bdf: add r10d,0x8
+0x3be3: add rax,rbp
+0x3be6: mov rax,qword ptr [rax]
+0x3be9: test rax,rax
+0x3bec: mov qword ptr [r8+r9*8],rax
+0x3bf0: je 0x3bfc
+0x3bf0: jump address is 0x3bfc
+0x3bf2: add r9,0x1
+0x3bf6: cmp r9,0xa
+0x3bfa: jne 0x3bd0
+0x3bfa: jump address is 0x3bd0
+Block exists: test r11b,r11b at address 0x3bfc is visited for 1 times
+
+0x3bd0: cmp r10d,0x2f
+0x3bd4: ja 0x3c2c
+0x3bd4: jump address is 0x3c2c
+Block exists: mov eax,r10d at address 0x3bd6 is visited for 2 times
+
+0x3c2c: mov rax,rbx
+0x3c2f: add rbx,0x8
+0x3c33: jmp 0x3be6
+0x3c33: jump address is 0x3be6
+0x3be6: mov rax,qword ptr [rax]
+0x3be9: test rax,rax
+0x3bec: mov qword ptr [r8+r9*8],rax
+0x3bf0: je 0x3bfc
+0x3bf0: jump address is 0x3bfc
+0x3bf2: add r9,0x1
+0x3bf6: cmp r9,0xa
+0x3bfa: jne 0x3bd0
+0x3bfa: jump address is 0x3bd0
+Block exists: test r11b,r11b at address 0x3bfc is visited for 2 times
+
+0x3bd0: cmp r10d,0x2f
+0x3bd4: ja 0x3c2c
+0x3bd4: jump address is 0x3c2c
+0x3bd6: mov eax,r10d
+0x3bd9: mov r11d,0x1
+0x3bdf: add r10d,0x8
+0x3be3: add rax,rbp
+0x3be6: mov rax,qword ptr [rax]
+0x3be9: test rax,rax
+0x3bec: mov qword ptr [r8+r9*8],rax
+0x3bf0: je 0x3bfc
+0x3bf0: jump address is 0x3bfc
+Block exists: test r11b,r11b at address 0x3bfc is visited for 2 times
+
+Block exists: add r9,0x1 at address 0x3bf2 is visited for 3 times
+
+0x3c2c: mov rax,rbx
+0x3c2f: add rbx,0x8
+0x3c33: jmp 0x3be6
+0x3c33: jump address is 0x3be6
+0x3be6: mov rax,qword ptr [rax]
+0x3be9: test rax,rax
+0x3bec: mov qword ptr [r8+r9*8],rax
+0x3bf0: je 0x3bfc
+0x3bf0: jump address is 0x3bfc
+Block exists: test r11b,r11b at address 0x3bfc is visited for 2 times
+
+Block exists: add r9,0x1 at address 0x3bf2 is visited for 3 times
+
 0x3bfc: test r11b,r11b
 0x3bff: jne 0x3c25
 0x3bff: jump address is 0x3c25
@@ -322,7 +389,20 @@ Execute the function: __fprintf_chk
 0x37d0: pop r14
 0x37d2: pop r15
 0x37d4: ret
-0x37d4: the return address is ag
+0x37d4: the return address is 0x3c06
+0x3c06: mov rax,qword ptr [rsp+0x78]
+0x3c0b: xor rax,qword ptr fs:0x28
+0x3c14: jne 0x3c20
+0x3c14: jump address is 0x3c20
+0x3c16: add rsp,0xb8
+0x3c1d: pop rbx
+0x3c1e: pop rbp
+0x3c1f: ret
+0x3c1f: the return address is 0x1429
+0x1429: jmp 0x13fa
+0x1429: jump address is 0x13fa
+Block exists: xor eax,eax at address 0x13fa is visited for 1 times
+
 0x3744: jmp rax
 0x3744: jump address is 0x3750
 0x3750: mov r9,qword ptr [rbx+0x38]
@@ -415,7 +495,9 @@ Execute the function: __fprintf_chk
 0x3a1b: pop r14
 0x3a1d: pop r15
 0x3a1f: ret
-0x3a1f: the return address is ag
+0x3a1f: the return address is 0x3c06
+Block exists: mov rax,qword ptr [rsp+0x78] at address 0x3c06 is visited for 1 times
+
 0x3744: jmp rax
 0x3744: jump address is 0x39b8
 0x39b8: mov r8,qword ptr [rbx+0x8]
@@ -496,7 +578,9 @@ Execute the function: __fprintf_chk
 0x397f: pop r14
 0x3981: pop r15
 0x3983: ret
-0x3983: the return address is ag
+0x3983: the return address is 0x3c06
+Block exists: mov rax,qword ptr [rsp+0x78] at address 0x3c06 is visited for 1 times
+
 0x3744: jmp rax
 0x3744: jump address is 0x3930
 0x3930: lea rsi,[rip+0x1361]
@@ -562,7 +646,9 @@ Execute the function: dcgettext
 0x1330: jmp qword ptr [rip+0x204c82]
 Execute the function: __fprintf_chk
 
-0x1330: the return address is ag
+0x1330: the return address is 0x3c06
+Block exists: mov rax,qword ptr [rsp+0x78] at address 0x3c06 is visited for 1 times
+
 0x3744: jmp rax
 0x3744: jump address is 0x3898
 0x3898: mov r12,qword ptr [rbx+0x8]
@@ -594,7 +680,9 @@ Execute the function: dcgettext
 0x1330: jmp qword ptr [rip+0x204c82]
 Execute the function: __fprintf_chk
 
-0x1330: the return address is ag
+0x1330: the return address is 0x3c06
+Block exists: mov rax,qword ptr [rsp+0x78] at address 0x3c06 is visited for 1 times
+
 0x3744: jmp rax
 0x3744: jump address is 0x3858
 0x3858: mov rbx,qword ptr [rbx]
@@ -624,10 +712,21 @@ Execute the function: dcgettext
 0x1330: jmp qword ptr [rip+0x204c82]
 Execute the function: __fprintf_chk
 
-0x1330: the return address is ag
+0x1330: the return address is 0x3c06
+Block exists: mov rax,qword ptr [rsp+0x78] at address 0x3c06 is visited for 1 times
+
 0x3744: jmp rax
 0x3744: jump address is 0x37c6
-Block exists: add rsp,0x28 at address 0x37c6 is visited for 1 times
+0x37c6: add rsp,0x28
+0x37ca: pop rbx
+0x37cb: pop rbp
+0x37cc: pop r12
+0x37ce: pop r13
+0x37d0: pop r14
+0x37d2: pop r15
+0x37d4: ret
+0x37d4: the return address is 0x3c06
+Block exists: mov rax,qword ptr [rsp+0x78] at address 0x3c06 is visited for 1 times
 
 0x3a70: mov r10,qword ptr [rbx+0x40]
 0x3a74: mov r9,qword ptr [rbx+0x38]
@@ -655,435 +754,31 @@ Execute the function: dcgettext
 0x1190: the return address is 0x3849
 Block exists: mov r10,qword ptr [rsp+0x18] at address 0x3849 is visited for 1 times
 
-0x37d8: mov r8,rcx
-0x37db: mov rcx,rdx
-0x37de: lea rdx,[rip+0x134f]
-0x37e5: mov esi,0x1
-0x37ea: xor eax,eax
-0x37ec: call 0x1330
-0x37ec: jump address is 0x1330
-0x1330: jmp qword ptr [rip+0x204c82]
-Execute the function: __fprintf_chk
-
-0x1330: the return address is 0x37f1
-0x37f1: jmp 0x36dc
-0x37f1: jump address is 0x36dc
-Block exists: lea rsi,[rip+0x1458] at address 0x36dc is visited for 1 times
-
 0x3c25: mov dword ptr [rsp+0x8],r10d
 0x3c2a: jmp 0x3c01
 0x3c2a: jump address is 0x3c01
 0x3c01: call 0x36a0
 0x3c01: jump address is 0x36a0
-0x36a0: push r15
-0x36a2: push r14
-0x36a4: push r13
-0x36a6: push r12
-0x36a8: mov r12,r9
-0x36ab: push rbp
-0x36ac: push rbx
-0x36ad: mov rbp,rdi
-0x36b0: mov rbx,r8
-0x36b3: sub rsp,0x28
-0x36b7: test rsi,rsi
-0x36ba: je 0x37d8
-0x36ba: jump address is 0x37d8
-0x36c0: mov r8,rdx
-0x36c3: lea rdx,[rip+0x145e]
-0x36ca: mov r9,rcx
-0x36cd: xor eax,eax
-0x36cf: mov rcx,rsi
-0x36d2: mov esi,0x1
-0x36d7: call 0x1330
-0x36d7: jump address is 0x1330
-0x1330: jmp qword ptr [rip+0x204c82]
-Execute the function: __fprintf_chk
+Execute the function: version_etc_arn
 
-0x1330: the return address is 0x36dc
-0x36dc: lea rsi,[rip+0x1458]
-0x36e3: xor edi,edi
-0x36e5: mov edx,0x5
-0x36ea: call 0x1190
-0x36ea: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x36ef
-0x36ef: lea rdx,[rip+0x176a]
-0x36f6: mov rcx,rax
-0x36f9: mov r8d,0x7e3
-0x36ff: mov esi,0x1
-0x3704: mov rdi,rbp
-0x3707: xor eax,eax
-0x3709: call 0x1330
-0x3709: jump address is 0x1330
-0x1330: jmp qword ptr [rip+0x204c82]
-Execute the function: __fprintf_chk
-
-0x1330: the return address is 0x370e
-0x370e: lea rsi,[rip+0x14b3]
-0x3715: xor edi,edi
-0x3717: mov edx,0x5
-0x371c: call 0x1190
-0x371c: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x3721
-0x3721: mov rsi,rbp
-0x3724: mov rdi,rax
-0x3727: call 0x1220
-0x3727: jump address is 0x1220
-0x1220: jmp qword ptr [rip+0x204d0a]
-Execute the function: fputs_unlocked
-
-0x1220: the return address is 0x372c
-0x372c: cmp r12,0x9
-0x3730: ja 0x3a70
-0x3730: jump address is 0x3a70
-0x3736: lea rdx,[rip+0x16eb]
-0x373d: movsxd rax,dword ptr [rdx+r12*4]
-0x3741: add rax,rdx
-0x3744: jmp rax
-trace back
-0x3744: jmp rax
-0x3744: jump address is 0x3800
-Block exists: mov r10,qword ptr [rbx+0x40] at address 0x3800 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x3750
-Block exists: mov r9,qword ptr [rbx+0x38] at address 0x3750 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x3a20
-Block exists: mov r9,qword ptr [rbx+0x10] at address 0x3a20 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x39b8
-Block exists: mov r8,qword ptr [rbx+0x8] at address 0x39b8 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x3988
-Block exists: mov r15,qword ptr [rbx+0x20] at address 0x3988 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x3930
-Block exists: lea rsi,[rip+0x1361] at address 0x3930 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x38e0
-Block exists: mov r13,qword ptr [rbx+0x10] at address 0x38e0 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x3898
-Block exists: mov r12,qword ptr [rbx+0x8] at address 0x3898 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x3858
-Block exists: mov rbx,qword ptr [rbx] at address 0x3858 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x37c6
-Block exists: add rsp,0x28 at address 0x37c6 is visited for 1 times
-
-0x3a70: mov r10,qword ptr [rbx+0x40]
-0x3a74: mov r9,qword ptr [rbx+0x38]
-0x3a78: mov edx,0x5
-0x3a7d: mov rax,qword ptr [rbx+0x10]
-0x3a81: mov r8,qword ptr [rbx+0x8]
-0x3a85: lea rsi,[rip+0x1314]
-0x3a8c: mov r13,qword ptr [rbx+0x30]
-0x3a90: mov r12,qword ptr [rbx+0x28]
-0x3a94: mov r15,qword ptr [rbx+0x20]
-0x3a98: mov r14,qword ptr [rbx+0x18]
-0x3a9c: mov qword ptr [rsp+0x18],r10
-0x3aa1: mov qword ptr [rsp+0x10],r9
-0x3aa6: mov qword ptr [rsp],rax
-0x3aaa: mov qword ptr [rsp+0x8],r8
-0x3aaf: mov rbx,qword ptr [rbx]
-0x3ab2: jmp 0x3842
-0x3ab2: jump address is 0x3842
-Block exists: xor edi,edi at address 0x3842 is visited for 2 times
-
-0x37d8: mov r8,rcx
-0x37db: mov rcx,rdx
-0x37de: lea rdx,[rip+0x134f]
-0x37e5: mov esi,0x1
-0x37ea: xor eax,eax
-0x37ec: call 0x1330
-0x37ec: jump address is 0x1330
-0x1330: jmp qword ptr [rip+0x204c82]
-Execute the function: __fprintf_chk
-
-0x1330: the return address is 0x37f1
-0x37f1: jmp 0x36dc
-0x37f1: jump address is 0x36dc
-Block exists: lea rsi,[rip+0x1458] at address 0x36dc is visited for 2 times
-
-0x3bd0: cmp r10d,0x2f
-0x3bd4: ja 0x3c2c
-0x3bd4: jump address is 0x3c2c
-0x3bd6: mov eax,r10d
-0x3bd9: mov r11d,0x1
-0x3bdf: add r10d,0x8
-0x3be3: add rax,rbp
-0x3be6: mov rax,qword ptr [rax]
-0x3be9: test rax,rax
-0x3bec: mov qword ptr [r8+r9*8],rax
-0x3bf0: je 0x3bfc
-0x3bf0: jump address is 0x3bfc
-0x3bf2: add r9,0x1
-0x3bf6: cmp r9,0xa
-0x3bfa: jne 0x3bd0
-0x3bfa: jump address is 0x3bd0
-Block exists: test r11b,r11b at address 0x3bfc is visited for 3 times
-
-0x3bd0: cmp r10d,0x2f
-0x3bd4: ja 0x3c2c
-0x3bd4: jump address is 0x3c2c
-0x3bd6: mov eax,r10d
-0x3bd9: mov r11d,0x1
-0x3bdf: add r10d,0x8
-0x3be3: add rax,rbp
-0x3be6: mov rax,qword ptr [rax]
-0x3be9: test rax,rax
-0x3bec: mov qword ptr [r8+r9*8],rax
-0x3bf0: je 0x3bfc
-0x3bf0: jump address is 0x3bfc
-Block exists: test r11b,r11b at address 0x3bfc is visited for 3 times
-
-Block exists: add r9,0x1 at address 0x3bf2 is visited for 2 times
-
-0x3c2c: mov rax,rbx
-0x3c2f: add rbx,0x8
-0x3c33: jmp 0x3be6
-0x3c33: jump address is 0x3be6
-0x3be6: mov rax,qword ptr [rax]
-0x3be9: test rax,rax
-0x3bec: mov qword ptr [r8+r9*8],rax
-0x3bf0: je 0x3bfc
-0x3bf0: jump address is 0x3bfc
-0x3bf2: add r9,0x1
-0x3bf6: cmp r9,0xa
-0x3bfa: jne 0x3bd0
-0x3bfa: jump address is 0x3bd0
-Block exists: test r11b,r11b at address 0x3bfc is visited for 4 times
-
-0x3bd0: cmp r10d,0x2f
-0x3bd4: ja 0x3c2c
-0x3bd4: jump address is 0x3c2c
-0x3bd6: mov eax,r10d
-0x3bd9: mov r11d,0x1
-0x3bdf: add r10d,0x8
-0x3be3: add rax,rbp
-0x3be6: mov rax,qword ptr [rax]
-0x3be9: test rax,rax
-0x3bec: mov qword ptr [r8+r9*8],rax
-0x3bf0: je 0x3bfc
-0x3bf0: jump address is 0x3bfc
-Block exists: test r11b,r11b at address 0x3bfc is visited for 4 times
-
-Block exists: add r9,0x1 at address 0x3bf2 is visited for 3 times
-
-0x3c2c: mov rax,rbx
-0x3c2f: add rbx,0x8
-0x3c33: jmp 0x3be6
-0x3c33: jump address is 0x3be6
-0x3be6: mov rax,qword ptr [rax]
-0x3be9: test rax,rax
-0x3bec: mov qword ptr [r8+r9*8],rax
-0x3bf0: je 0x3bfc
-0x3bf0: jump address is 0x3bfc
-Block exists: test r11b,r11b at address 0x3bfc is visited for 4 times
-
-Block exists: add r9,0x1 at address 0x3bf2 is visited for 3 times
+0x3c01: the return address is 0x3c06
+0x3c06: mov rax,qword ptr [rsp+0x78]
+0x3c0b: xor rax,qword ptr fs:0x28
+0x3c14: jne 0x3c20
+0x3c14: jump address is 0x3c20
+0x3c16: add rsp,0xb8
+0x3c1d: pop rbx
+0x3c1e: pop rbp
+0x3c1f: ret
+0x3c1f: the return address is 0x1429
+0x1429: jmp 0x13fa
+0x1429: jump address is 0x13fa
+Block exists: xor eax,eax at address 0x13fa is visited for 1 times
 
 0x3bfc: test r11b,r11b
 0x3bff: jne 0x3c25
 0x3bff: jump address is 0x3c25
-0x3c01: call 0x36a0
-0x3c01: jump address is 0x36a0
-0x36a0: push r15
-0x36a2: push r14
-0x36a4: push r13
-0x36a6: push r12
-0x36a8: mov r12,r9
-0x36ab: push rbp
-0x36ac: push rbx
-0x36ad: mov rbp,rdi
-0x36b0: mov rbx,r8
-0x36b3: sub rsp,0x28
-0x36b7: test rsi,rsi
-0x36ba: je 0x37d8
-0x36ba: jump address is 0x37d8
-0x36c0: mov r8,rdx
-0x36c3: lea rdx,[rip+0x145e]
-0x36ca: mov r9,rcx
-0x36cd: xor eax,eax
-0x36cf: mov rcx,rsi
-0x36d2: mov esi,0x1
-0x36d7: call 0x1330
-0x36d7: jump address is 0x1330
-0x1330: jmp qword ptr [rip+0x204c82]
-Execute the function: __fprintf_chk
-
-0x1330: the return address is 0x36dc
-0x36dc: lea rsi,[rip+0x1458]
-0x36e3: xor edi,edi
-0x36e5: mov edx,0x5
-0x36ea: call 0x1190
-0x36ea: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x36ef
-0x36ef: lea rdx,[rip+0x176a]
-0x36f6: mov rcx,rax
-0x36f9: mov r8d,0x7e3
-0x36ff: mov esi,0x1
-0x3704: mov rdi,rbp
-0x3707: xor eax,eax
-0x3709: call 0x1330
-0x3709: jump address is 0x1330
-0x1330: jmp qword ptr [rip+0x204c82]
-Execute the function: __fprintf_chk
-
-0x1330: the return address is 0x370e
-0x370e: lea rsi,[rip+0x14b3]
-0x3715: xor edi,edi
-0x3717: mov edx,0x5
-0x371c: call 0x1190
-0x371c: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x3721
-0x3721: mov rsi,rbp
-0x3724: mov rdi,rax
-0x3727: call 0x1220
-0x3727: jump address is 0x1220
-0x1220: jmp qword ptr [rip+0x204d0a]
-Execute the function: fputs_unlocked
-
-0x1220: the return address is 0x372c
-0x372c: cmp r12,0x9
-0x3730: ja 0x3a70
-0x3730: jump address is 0x3a70
-0x3736: lea rdx,[rip+0x16eb]
-0x373d: movsxd rax,dword ptr [rdx+r12*4]
-0x3741: add rax,rdx
-0x3744: jmp rax
-trace back
-0x3744: jmp rax
-0x3744: jump address is 0x3800
-Block exists: mov r10,qword ptr [rbx+0x40] at address 0x3800 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x3750
-Block exists: mov r9,qword ptr [rbx+0x38] at address 0x3750 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x3a20
-Block exists: mov r9,qword ptr [rbx+0x10] at address 0x3a20 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x39b8
-Block exists: mov r8,qword ptr [rbx+0x8] at address 0x39b8 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x3988
-Block exists: mov r15,qword ptr [rbx+0x20] at address 0x3988 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x3930
-Block exists: lea rsi,[rip+0x1361] at address 0x3930 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x38e0
-Block exists: mov r13,qword ptr [rbx+0x10] at address 0x38e0 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x3898
-Block exists: mov r12,qword ptr [rbx+0x8] at address 0x3898 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x3858
-Block exists: mov rbx,qword ptr [rbx] at address 0x3858 is visited for 1 times
-
-0x3744: jmp rax
-0x3744: jump address is 0x37c6
-Block exists: add rsp,0x28 at address 0x37c6 is visited for 1 times
-
-0x3a70: mov r10,qword ptr [rbx+0x40]
-0x3a74: mov r9,qword ptr [rbx+0x38]
-0x3a78: mov edx,0x5
-0x3a7d: mov rax,qword ptr [rbx+0x10]
-0x3a81: mov r8,qword ptr [rbx+0x8]
-0x3a85: lea rsi,[rip+0x1314]
-0x3a8c: mov r13,qword ptr [rbx+0x30]
-0x3a90: mov r12,qword ptr [rbx+0x28]
-0x3a94: mov r15,qword ptr [rbx+0x20]
-0x3a98: mov r14,qword ptr [rbx+0x18]
-0x3a9c: mov qword ptr [rsp+0x18],r10
-0x3aa1: mov qword ptr [rsp+0x10],r9
-0x3aa6: mov qword ptr [rsp],rax
-0x3aaa: mov qword ptr [rsp+0x8],r8
-0x3aaf: mov rbx,qword ptr [rbx]
-0x3ab2: jmp 0x3842
-0x3ab2: jump address is 0x3842
-Block exists: xor edi,edi at address 0x3842 is visited for 2 times
-
-0x37d8: mov r8,rcx
-0x37db: mov rcx,rdx
-0x37de: lea rdx,[rip+0x134f]
-0x37e5: mov esi,0x1
-0x37ea: xor eax,eax
-0x37ec: call 0x1330
-0x37ec: jump address is 0x1330
-0x1330: jmp qword ptr [rip+0x204c82]
-Execute the function: __fprintf_chk
-
-0x1330: the return address is 0x37f1
-0x37f1: jmp 0x36dc
-0x37f1: jump address is 0x36dc
-Block exists: lea rsi,[rip+0x1458] at address 0x36dc is visited for 3 times
-
-0x3c25: mov dword ptr [rsp+0x8],r10d
-0x3c2a: jmp 0x3c01
-0x3c2a: jump address is 0x3c01
-0x3c01: call 0x36a0
-0x3c01: jump address is 0x36a0
-Block exists: push r15 at address 0x36a0 is visited for 3 times
-
-0x3bfc: test r11b,r11b
-0x3bff: jne 0x3c25
-0x3bff: jump address is 0x3c25
-Block exists: mov dword ptr [rsp+0x8],r10d at address 0x3c25 is visited for 2 times
-
-0x3c01: call 0x36a0
-0x3c01: jump address is 0x36a0
-Block exists: push r15 at address 0x36a0 is visited for 3 times
-
-0x3c2c: mov rax,rbx
-0x3c2f: add rbx,0x8
-0x3c33: jmp 0x3be6
-0x3c33: jump address is 0x3be6
-Block exists: mov rax,qword ptr [rax] at address 0x3be6 is visited for 3 times
-
-0x3bfc: test r11b,r11b
-0x3bff: jne 0x3c25
-0x3bff: jump address is 0x3c25
-Block exists: mov dword ptr [rsp+0x8],r10d at address 0x3c25 is visited for 2 times
-
-0x3c01: call 0x36a0
-0x3c01: jump address is 0x36a0
-Block exists: push r15 at address 0x36a0 is visited for 3 times
-
-0x3c2c: mov rax,rbx
-0x3c2f: add rbx,0x8
-0x3c33: jmp 0x3be6
-0x3c33: jump address is 0x3be6
-Block exists: mov rax,qword ptr [rax] at address 0x3be6 is visited for 3 times
+Block exists: mov dword ptr [rsp+0x8],r10d at address 0x3c25 is visited for 1 times
 
 0x142b: xor edi,edi
 0x142d: call 0x1550
@@ -1352,166 +1047,6 @@ Execute the function: __printf_chk
 0x1310: jmp qword ptr [rip+0x204c92]
 Execute the function: exit
 
-0x17d6: call 0x1190
-0x17d6: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x17db
-0x17db: lea rcx,[rip+0x2d5e]
-0x17e2: lea rdx,[rip+0x2b5b]
-0x17e9: mov rsi,rax
-0x17ec: mov edi,0x1
-0x17f1: xor eax,eax
-0x17f3: call 0x12d0
-0x17f3: jump address is 0x12d0
-0x12d0: jmp qword ptr [rip+0x204cb2]
-Execute the function: __printf_chk
-
-0x12d0: the return address is 0x17f8
-0x17f8: xor esi,esi
-0x17fa: mov edi,0x5
-0x17ff: call 0x12c0
-0x17ff: jump address is 0x12c0
-0x12c0: jmp qword ptr [rip+0x204cba]
-Execute the function: setlocale
-
-0x12c0: the return address is 0x1804
-0x1804: test rax,rax
-0x1807: je 0x1852
-0x1807: jump address is 0x1852
-0x1809: lea rsi,[rip+0x2b42]
-0x1810: mov edx,0x3
-0x1815: mov rdi,rax
-0x1818: call 0x1130
-0x1818: jump address is 0x1130
-0x1130: jmp qword ptr [rip+0x204d82]
-Execute the function: strncmp
-
-0x1130: the return address is 0x181d
-0x181d: test eax,eax
-0x181f: je 0x1852
-0x181f: jump address is 0x1852
-Block exists: lea rsi,[rip+0x2afd] at address 0x1852 is visited for 1 times
-
-0x1821: lea r12,[rip+0x2a9c]
-0x1828: mov r13,qword ptr [rip+0x204859]
-0x182f: lea rsi,[rip+0x2d32]
-0x1836: xor edi,edi
-0x1838: mov edx,0x5
-0x183d: call 0x1190
-0x183d: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x1842
-0x1842: mov rsi,r13
-0x1845: mov rdi,rax
-0x1848: call 0x1220
-0x1848: jump address is 0x1220
-0x1220: jmp qword ptr [rip+0x204d0a]
-Execute the function: fputs_unlocked
-
-0x1220: the return address is 0x184d
-0x184d: jmp 0x1762
-0x184d: jump address is 0x1762
-0x1762: lea rsi,[rip+0x2bed]
-0x1769: xor edi,edi
-0x176b: mov edx,0x5
-0x1770: call 0x1190
-0x1770: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x1775
-0x1775: lea rcx,[rip+0x2b48]
-0x177c: lea rdx,[rip+0x2dbd]
-0x1783: mov rsi,rax
-0x1786: mov edi,0x1
-0x178b: xor eax,eax
-0x178d: call 0x12d0
-0x178d: jump address is 0x12d0
-0x12d0: jmp qword ptr [rip+0x204cb2]
-Execute the function: __printf_chk
-
-0x12d0: the return address is 0x1792
-0x1792: cmp r12,rbp
-0x1795: lea rcx,[rip+0x2b4e]
-0x179c: lea rbp,[rip+0x2b2a]
-0x17a3: cmove rbp,rcx
-0x17a7: lea rsi,[rip+0x2e02]
-0x17ae: mov edx,0x5
-0x17b3: xor edi,edi
-0x17b5: call 0x1190
-0x17b5: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x17ba
-0x17ba: mov edi,0x1
-0x17bf: mov rsi,rax
-0x17c2: mov rcx,rbp
-0x17c5: mov rdx,r12
-0x17c8: xor eax,eax
-0x17ca: call 0x12d0
-0x17ca: jump address is 0x12d0
-0x12d0: jmp qword ptr [rip+0x204cb2]
-Execute the function: __printf_chk
-
-0x12d0: the return address is 0x17cf
-0x17cf: mov edi,ebx
-0x17d1: call 0x1310
-0x17d1: jump address is 0x1310
-0x1310: jmp qword ptr [rip+0x204c92]
-Execute the function: exit
-
-0x17a3: cmove rbp,rcx
-0x17a7: lea rsi,[rip+0x2e02]
-0x17ae: mov edx,0x5
-0x17b3: xor edi,edi
-0x17b5: call 0x1190
-0x17b5: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x17ba
-Block exists: mov edi,0x1 at address 0x17ba is visited for 2 times
-
-0x1852: lea rsi,[rip+0x2afd]
-0x1859: mov edx,0x5
-0x185e: xor edi,edi
-0x1860: lea r12,[rip+0x2a5d]
-0x1867: lea rbp,[rip+0x2a7c]
-0x186e: call 0x1190
-0x186e: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x1873
-0x1873: lea rcx,[rip+0x2a4a]
-0x187a: lea rdx,[rip+0x2cbf]
-0x1881: mov rsi,rax
-0x1884: mov edi,0x1
-0x1889: xor eax,eax
-0x188b: call 0x12d0
-0x188b: jump address is 0x12d0
-0x12d0: jmp qword ptr [rip+0x204cb2]
-Execute the function: __printf_chk
-
-0x12d0: the return address is 0x1890
-0x1890: jmp 0x17a7
-0x1890: jump address is 0x17a7
-0x17a7: lea rsi,[rip+0x2e02]
-0x17ae: mov edx,0x5
-0x17b3: xor edi,edi
-0x17b5: call 0x1190
-0x17b5: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x17ba
-Block exists: mov edi,0x1 at address 0x17ba is visited for 2 times
-
 0x16d8: mov rdi,qword ptr [rdx+0x10]
 0x16dc: add rdx,0x10
 0x16e0: test rdi,rdi
@@ -1572,7 +1107,7 @@ Execute the function: strncmp
 0x175a: test eax,eax
 0x175c: jne 0x1828
 0x175c: jump address is 0x1828
-Block exists: lea rsi,[rip+0x2bed] at address 0x1762 is visited for 3 times
+Block exists: lea rsi,[rip+0x2bed] at address 0x1762 is visited for 2 times
 
 0x1828: mov r13,qword ptr [rip+0x204859]
 0x182f: lea rsi,[rip+0x2d32]
@@ -1594,7 +1129,7 @@ Execute the function: fputs_unlocked
 0x1220: the return address is 0x184d
 0x184d: jmp 0x1762
 0x184d: jump address is 0x1762
-Block exists: lea rsi,[rip+0x2bed] at address 0x1762 is visited for 3 times
+Block exists: lea rsi,[rip+0x2bed] at address 0x1762 is visited for 2 times
 
 0x1762: lea rsi,[rip+0x2bed]
 0x1769: xor edi,edi
@@ -1656,7 +1191,7 @@ Execute the function: exit
 Execute the function: dcgettext
 
 0x1190: the return address is 0x17ba
-Block exists: mov edi,0x1 at address 0x17ba is visited for 3 times
+Block exists: mov edi,0x1 at address 0x17ba is visited for 2 times
 
 0x17d6: call 0x1190
 0x17d6: jump address is 0x1190
@@ -1698,7 +1233,7 @@ Execute the function: strncmp
 0x181d: test eax,eax
 0x181f: je 0x1852
 0x181f: jump address is 0x1852
-Block exists: lea rsi,[rip+0x2afd] at address 0x1852 is visited for 2 times
+Block exists: lea rsi,[rip+0x2afd] at address 0x1852 is visited for 1 times
 
 0x1821: lea r12,[rip+0x2a9c]
 0x1828: mov r13,qword ptr [rip+0x204859]
@@ -1711,7 +1246,7 @@ Block exists: lea rsi,[rip+0x2afd] at address 0x1852 is visited for 2 times
 Execute the function: dcgettext
 
 0x1190: the return address is 0x1842
-Block exists: mov rsi,r13 at address 0x1842 is visited for 3 times
+Block exists: mov rsi,r13 at address 0x1842 is visited for 2 times
 
 0x1852: lea rsi,[rip+0x2afd]
 0x1859: mov edx,0x5
@@ -1746,72 +1281,16 @@ Execute the function: __printf_chk
 Execute the function: dcgettext
 
 0x1190: the return address is 0x17ba
-Block exists: mov edi,0x1 at address 0x17ba is visited for 3 times
+Block exists: mov edi,0x1 at address 0x17ba is visited for 2 times
 
 0x16d8: mov rdi,qword ptr [rdx+0x10]
 0x16dc: add rdx,0x10
 0x16e0: test rdi,rdi
 0x16e3: je 0x16f8
 0x16e3: jump address is 0x16f8
-Block exists: mov r12,qword ptr [rdx+0x8] at address 0x16f8 is visited for 4 times
+Block exists: mov r12,qword ptr [rdx+0x8] at address 0x16f8 is visited for 2 times
 
-0x16e5: mov ecx,0x5
-0x16ea: mov rsi,rbp
-0x16ed: repz cmps byte ptr ds:[rsi],byte ptr es:[rdi]
-0x16ef: seta al
-0x16f2: sbb al,0x0
-0x16f4: test al,al
-0x16f6: jne 0x16d8
-0x16f6: jump address is 0x16d8
-Block exists: mov rdi,qword ptr [rdx+0x10] at address 0x16d8 is visited for 2 times
-
-Block exists: mov r12,qword ptr [rdx+0x8] at address 0x16f8 is visited for 4 times
-
-0x16f8: mov r12,qword ptr [rdx+0x8]
-0x16fc: xor edi,edi
-0x16fe: mov edx,0x5
-0x1703: lea rsi,[rip+0x2c23]
-0x170a: test r12,r12
-0x170d: je 0x17d6
-0x170d: jump address is 0x17d6
-0x1713: call 0x1190
-0x1713: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x1718
-Block exists: lea rcx,[rip+0x2e21] at address 0x1718 is visited for 2 times
-
-0x17d6: call 0x1190
-0x17d6: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x17db
-Block exists: lea rcx,[rip+0x2d5e] at address 0x17db is visited for 2 times
-
-0x16f8: mov r12,qword ptr [rdx+0x8]
-0x16fc: xor edi,edi
-0x16fe: mov edx,0x5
-0x1703: lea rsi,[rip+0x2c23]
-0x170a: test r12,r12
-0x170d: je 0x17d6
-0x170d: jump address is 0x17d6
-0x1713: call 0x1190
-0x1713: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x1718
-Block exists: lea rcx,[rip+0x2e21] at address 0x1718 is visited for 2 times
-
-0x17d6: call 0x1190
-0x17d6: jump address is 0x1190
-0x1190: jmp qword ptr [rip+0x204d52]
-Execute the function: dcgettext
-
-0x1190: the return address is 0x17db
-Block exists: lea rcx,[rip+0x2d5e] at address 0x17db is visited for 2 times
+Block exists: mov ecx,0x5 at address 0x16e5 is visited for 2 times
 
 0x19dd: mov qword ptr [rip+0x2046dc],rbx
 0x19e4: mov qword ptr [rip+0x2046a5],rbx
@@ -1959,7 +1438,6 @@ Unreachable instructions:
 0x136b: jmp 0x10f0
 0x1370: jmp qword ptr [rip+0x204c82]
 0x1376: xchg ax,ax
-0x1429: jmp 0x13fa
 0x1432: nop word ptr cs:[rax+rax*1+0x0]
 0x143c: nop dword ptr [rax+0x0]
 0x146a: hlt 
@@ -3810,6 +3288,13 @@ Unreachable instructions:
 0x3698: nop dword ptr [rax+rax*1+0x0]
 0x3746: nop word ptr cs:[rax+rax*1+0x0]
 0x37d5: nop dword ptr [rax]
+0x37d8: mov r8,rcx
+0x37db: mov rcx,rdx
+0x37de: lea rdx,[rip+0x134f]
+0x37e5: mov esi,0x1
+0x37ea: xor eax,eax
+0x37ec: call 0x1330
+0x37f1: jmp 0x36dc
 0x37f6: nop word ptr cs:[rax+rax*1+0x0]
 0x3855: nop dword ptr [rax]
 0x3891: nop dword ptr [rax+0x0]
@@ -3861,13 +3346,6 @@ Unreachable instructions:
 0x3b52: mov qword ptr [r10+0x8],rax
 0x3b56: jmp 0x3b15
 0x3b58: nop dword ptr [rax+rax*1+0x0]
-0x3c06: mov rax,qword ptr [rsp+0x78]
-0x3c0b: xor rax,qword ptr fs:0x28
-0x3c14: jne 0x3c20
-0x3c16: add rsp,0xb8
-0x3c1d: pop rbx
-0x3c1e: pop rbp
-0x3c1f: ret 
 0x3c20: call 0x11c0
 0x3c35: nop 
 0x3c36: nop word ptr cs:[rax+rax*1+0x0]
@@ -4359,5 +3837,5 @@ Unreachable instructions:
 0x42b4: add rsp,0x8
 0x42b8: ret 
 3017
-609
-22
+610
+23

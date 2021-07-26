@@ -28,7 +28,9 @@ class Reachable(object):
             lines = f.readlines()
             for line in lines:
                 line = line.strip()
-                if line and line.startswith('0x') and ':' in line and 'the return address is' not in line and 'jump address' not in line:
+                if utils.LOG_UNREACHABLE_INDICATOR in line:
+                    break
+                elif line and line.startswith('0x') and ':' in line and 'the return address is' not in line and 'jump address' not in line:
                     address, inst = line.split(':', 1)
                     address = int(address, 16)
                     inst = inst.strip()

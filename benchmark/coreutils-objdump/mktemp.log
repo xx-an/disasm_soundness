@@ -3091,49 +3091,6 @@ Block exists: test dl,dl at address 0x28fc is visited for 1 times
 0x2936: test dl,dl
 0x2938: jne 0x2925
 0x2938: jump address is 0x2925
-Block exists: repz ret  at address 0x293a is visited for 1 times
-
-0x2925: cmp dl,0x2f
-0x2928: jne 0x2910
-0x2928: jump address is 0x2910
-0x292a: add rcx,0x1
-0x292e: movzx edx,byte ptr [rcx]
-0x2931: mov esi,0x1
-0x2936: test dl,dl
-0x2938: jne 0x2925
-0x2938: jump address is 0x2925
-Block exists: cmp dl,0x2f at address 0x2925 is visited for 2 times
-
-Block exists: repz ret  at address 0x293a is visited for 1 times
-
-0x2910: test sil,sil
-0x2913: je 0x291a
-0x2913: jump address is 0x291a
-0x2915: mov rax,rcx
-0x2918: xor esi,esi
-0x291a: add rcx,0x1
-0x291e: movzx edx,byte ptr [rcx]
-0x2921: test dl,dl
-0x2923: je 0x293a
-0x2923: jump address is 0x293a
-Block exists: repz ret  at address 0x293a is visited for 1 times
-
-Block exists: cmp dl,0x2f at address 0x2925 is visited for 2 times
-
-0x291a: add rcx,0x1
-0x291e: movzx edx,byte ptr [rcx]
-0x2921: test dl,dl
-0x2923: je 0x293a
-0x2923: jump address is 0x293a
-Block exists: repz ret  at address 0x293a is visited for 1 times
-
-Block exists: cmp dl,0x2f at address 0x2925 is visited for 2 times
-
-0x2910: test sil,sil
-0x2913: je 0x291a
-0x2913: jump address is 0x291a
-Block exists: add rcx,0x1 at address 0x291a is visited for 1 times
-
 0x293a: repz ret
 0x293a: the return address is 0x1dbe
 0x1dbe: mov r8,qword ptr [rsp+0x18]
@@ -3246,31 +3203,6 @@ Block exists: test dl,dl at address 0x28fc is visited for 2 times
 0x2936: test dl,dl
 0x2938: jne 0x2925
 0x2938: jump address is 0x2925
-Block exists: cmp dl,0x2f at address 0x2925 is visited for 3 times
-
-Block exists: repz ret  at address 0x293a is visited for 2 times
-
-0x2910: test sil,sil
-0x2913: je 0x291a
-0x2913: jump address is 0x291a
-0x2915: mov rax,rcx
-0x2918: xor esi,esi
-0x291a: add rcx,0x1
-0x291e: movzx edx,byte ptr [rcx]
-0x2921: test dl,dl
-0x2923: je 0x293a
-0x2923: jump address is 0x293a
-Block exists: repz ret  at address 0x293a is visited for 2 times
-
-Block exists: cmp dl,0x2f at address 0x2925 is visited for 3 times
-
-0x291a: add rcx,0x1
-0x291e: movzx edx,byte ptr [rcx]
-0x2921: test dl,dl
-0x2923: je 0x293a
-0x2923: jump address is 0x293a
-Block exists: repz ret  at address 0x293a is visited for 2 times
-
 Block exists: cmp dl,0x2f at address 0x2925 is visited for 3 times
 
 0x293a: repz ret
@@ -22871,12 +22803,12 @@ Block exists: cmp rbx,r14 at address 0x5706 is visited for 3 times
 0x5bd6: cmovne eax,edx
 0x5bd9: mov dword ptr [r13+0x0],eax
 0x5bdd: call qword ptr [r12+0x8]
-The path is infeasible at the jump address azc of call qword ptr [r12+0x8] at address 0x5bdd
+The path is infeasible at the jump address syc of call qword ptr [r12+0x8] at address 0x5bdd
 
 0x5bd6: cmovne eax,edx
 0x5bd9: mov dword ptr [r13+0x0],eax
 0x5bdd: call qword ptr [r12+0x8]
-The path is infeasible at the jump address azc of call qword ptr [r12+0x8] at address 0x5bdd
+The path is infeasible at the jump address syc of call qword ptr [r12+0x8] at address 0x5bdd
 
 0x5c18: mov r14,qword ptr [rdi+0x18]
 0x5c1c: lea rax,[rdi+0x838]
@@ -25529,6 +25461,49 @@ Block exists: sub rbx,r12 at address 0x29d7 is visited for 1 times
 0x295b: ret
 0x295b: the return address is 0x29d7
 Block exists: sub rbx,r12 at address 0x29d7 is visited for 1 times
+
+0x2910: test sil,sil
+0x2913: je 0x291a
+0x2913: jump address is 0x291a
+0x2915: mov rax,rcx
+0x2918: xor esi,esi
+0x291a: add rcx,0x1
+0x291e: movzx edx,byte ptr [rcx]
+0x2921: test dl,dl
+0x2923: je 0x293a
+0x2923: jump address is 0x293a
+Block exists: cmp dl,0x2f at address 0x2925 is visited for 3 times
+
+0x293a: repz ret
+0x293a: the return address is 0x29cc
+0x29cc: mov rbx,rax
+0x29cf: mov rdi,rax
+0x29d2: call 0x2940
+0x29d2: jump address is 0x2940
+0x2940: push rbx
+0x2941: mov rbx,rdi
+0x2944: call 0x18b0
+0x2944: jump address is 0x18b0
+0x18b0: jmp qword ptr [rip+0x2085c2]
+Execute the function: strlen
+
+0x18b0: the return address is 0x2949
+Block exists: cmp rax,0x1 at address 0x2949 is visited for 1 times
+
+0x291a: add rcx,0x1
+0x291e: movzx edx,byte ptr [rcx]
+0x2921: test dl,dl
+0x2923: je 0x293a
+0x2923: jump address is 0x293a
+Block exists: cmp dl,0x2f at address 0x2925 is visited for 3 times
+
+0x293a: repz ret
+0x293a: the return address is 0x29cc
+Block exists: mov rbx,rax at address 0x29cc is visited for 2 times
+
+0x293a: repz ret
+0x293a: the return address is 0x29cc
+Block exists: mov rbx,rax at address 0x29cc is visited for 2 times
 
 0x2193: mov rdi,rbx
 0x2196: call 0x47c0
@@ -29598,6 +29573,263 @@ Execute the function: dcgettext
 0x1a90: jmp qword ptr [rip+0x2084d2]
 Execute the function: error
 
+0x2925: cmp dl,0x2f
+0x2928: jne 0x2910
+0x2928: jump address is 0x2910
+0x292a: add rcx,0x1
+0x292e: movzx edx,byte ptr [rcx]
+0x2931: mov esi,0x1
+0x2936: test dl,dl
+0x2938: jne 0x2925
+0x2938: jump address is 0x2925
+0x293a: repz ret
+0x293a: the return address is 0x1dbe
+0x1dbe: mov r8,qword ptr [rsp+0x18]
+0x1dc3: cmp rax,r8
+0x1dc6: jne 0x21f7
+0x1dc6: jump address is 0x21f7
+0x1dcc: mov rax,r8
+0x1dcf: sub rax,rbx
+0x1dd2: je 0x21c5
+0x1dd2: jump address is 0x21c5
+0x1dd8: cmp byte ptr [r8-0x1],0x58
+0x1ddd: jne 0x21c5
+0x1ddd: jump address is 0x21c5
+Block exists: mov rdi,rbx at address 0x21c5 is visited for 2 times
+
+0x1de3: lea rax,[rbx+rax*1-0x2]
+0x1de8: lea rdx,[rbx-0x1]
+0x1dec: xor r13d,r13d
+0x1def: jmp 0x1e02
+0x1def: jump address is 0x1e02
+0x1e02: add r13,0x1
+0x1e06: cmp rdx,rax
+0x1e09: jne 0x1df8
+0x1e09: jump address is 0x1df8
+0x1e0b: cmp r13,0x2
+0x1e0f: jbe 0x21c5
+0x1e0f: jump address is 0x21c5
+Block exists: mov rdi,rbx at address 0x21c5 is visited for 2 times
+
+0x1e15: test r12b,r12b
+0x1e18: je 0x1e63
+0x1e18: jump address is 0x1e63
+Block exists: mov rdi,rbx at address 0x1e63 is visited for 3 times
+
+0x1e1a: cmp byte ptr [rsp+0x16],0x0
+0x1e1f: jne 0x20c7
+0x1e1f: jump address is 0x20c7
+0x1e25: mov rax,qword ptr [rsp+0x8]
+0x1e2a: test rax,rax
+0x1e2d: je 0x1f28
+0x1e2d: jump address is 0x1f28
+Block exists: lea rdi,[rip+0x4819] at address 0x1f28 is visited for 2 times
+
+0x1e33: cmp byte ptr [rax],0x0
+0x1e36: mov r12,rax
+0x1e39: je 0x1f28
+0x1e39: jump address is 0x1f28
+Block exists: lea rdi,[rip+0x4819] at address 0x1f28 is visited for 2 times
+
+Block exists: cmp byte ptr [rbx],0x2f at address 0x1e3f is visited for 2 times
+
+0x20c7: lea rdi,[rip+0x467a]
+0x20ce: call 0x1780
+0x20ce: jump address is 0x1780
+0x1780: jmp qword ptr [rip+0x20865a]
+Execute the function: getenv
+
+0x1780: the return address is 0x20d3
+0x20d3: test rax,rax
+0x20d6: mov r12,rax
+0x20d9: je 0x20e0
+0x20d9: jump address is 0x20e0
+Block exists: mov rax,qword ptr [rsp+0x8] at address 0x20e0 is visited for 1 times
+
+Block exists: cmp byte ptr [rax],0x0 at address 0x20db is visited for 1 times
+
+0x1df8: sub rax,0x1
+0x1dfc: cmp byte ptr [rax+0x1],0x58
+0x1e00: jne 0x1e0b
+0x1e00: jump address is 0x1e0b
+Block exists: cmp r13,0x2 at address 0x1e0b is visited for 3 times
+
+Block exists: add r13,0x1 at address 0x1e02 is visited for 3 times
+
+0x21c5: mov rdi,rbx
+0x21c8: call 0x47c0
+0x21c8: jump address is 0x47c0
+Execute the function: quote
+
+0x21c8: the return address is 0x21cd
+0x21cd: lea rsi,[rip+0x4559]
+0x21d4: mov rbx,rax
+0x21d7: mov edx,0x5
+0x21dc: xor edi,edi
+0x21de: call 0x1890
+0x21de: jump address is 0x1890
+0x1890: jmp qword ptr [rip+0x2085d2]
+Execute the function: dcgettext
+
+0x1890: the return address is 0x21e3
+0x21e3: mov rcx,rbx
+0x21e6: mov rdx,rax
+0x21e9: xor esi,esi
+0x21eb: mov edi,0x1
+0x21f0: xor eax,eax
+0x21f2: call 0x1a90
+0x21f2: jump address is 0x1a90
+0x1a90: jmp qword ptr [rip+0x2084d2]
+Execute the function: error
+
+0x2925: cmp dl,0x2f
+0x2928: jne 0x2910
+0x2928: jump address is 0x2910
+Block exists: test sil,sil at address 0x2910 is visited for 3 times
+
+Block exists: add rcx,0x1 at address 0x292a is visited for 3 times
+
+0x2910: test sil,sil
+0x2913: je 0x291a
+0x2913: jump address is 0x291a
+0x2915: mov rax,rcx
+0x2918: xor esi,esi
+0x291a: add rcx,0x1
+0x291e: movzx edx,byte ptr [rcx]
+0x2921: test dl,dl
+0x2923: je 0x293a
+0x2923: jump address is 0x293a
+Block exists: cmp dl,0x2f at address 0x2925 is visited for 4 times
+
+0x293a: repz ret
+0x293a: the return address is 0x1dbe
+0x1dbe: mov r8,qword ptr [rsp+0x18]
+0x1dc3: cmp rax,r8
+0x1dc6: jne 0x21f7
+0x1dc6: jump address is 0x21f7
+0x1dcc: mov rax,r8
+0x1dcf: sub rax,rbx
+0x1dd2: je 0x21c5
+0x1dd2: jump address is 0x21c5
+0x1dd8: cmp byte ptr [r8-0x1],0x58
+0x1ddd: jne 0x21c5
+0x1ddd: jump address is 0x21c5
+Block exists: mov rdi,rbx at address 0x21c5 is visited for 3 times
+
+0x1de3: lea rax,[rbx+rax*1-0x2]
+0x1de8: lea rdx,[rbx-0x1]
+0x1dec: xor r13d,r13d
+0x1def: jmp 0x1e02
+0x1def: jump address is 0x1e02
+0x1e02: add r13,0x1
+0x1e06: cmp rdx,rax
+0x1e09: jne 0x1df8
+0x1e09: jump address is 0x1df8
+0x1e0b: cmp r13,0x2
+0x1e0f: jbe 0x21c5
+0x1e0f: jump address is 0x21c5
+Block exists: mov rdi,rbx at address 0x21c5 is visited for 3 times
+
+0x1e15: test r12b,r12b
+0x1e18: je 0x1e63
+0x1e18: jump address is 0x1e63
+Block exists: mov rdi,rbx at address 0x1e63 is visited for 3 times
+
+0x1e1a: cmp byte ptr [rsp+0x16],0x0
+0x1e1f: jne 0x20c7
+0x1e1f: jump address is 0x20c7
+0x1e25: mov rax,qword ptr [rsp+0x8]
+0x1e2a: test rax,rax
+0x1e2d: je 0x1f28
+0x1e2d: jump address is 0x1f28
+0x1e33: cmp byte ptr [rax],0x0
+0x1e36: mov r12,rax
+0x1e39: je 0x1f28
+0x1e39: jump address is 0x1f28
+Block exists: lea rdi,[rip+0x4819] at address 0x1f28 is visited for 3 times
+
+Block exists: cmp byte ptr [rbx],0x2f at address 0x1e3f is visited for 2 times
+
+0x1f28: lea rdi,[rip+0x4819]
+0x1f2f: call 0x1780
+0x1f2f: jump address is 0x1780
+0x1780: jmp qword ptr [rip+0x20865a]
+Execute the function: getenv
+
+0x1780: the return address is 0x1f34
+Block exists: test rax,rax at address 0x1f34 is visited for 1 times
+
+0x20c7: lea rdi,[rip+0x467a]
+0x20ce: call 0x1780
+0x20ce: jump address is 0x1780
+0x1780: jmp qword ptr [rip+0x20865a]
+Execute the function: getenv
+
+0x1780: the return address is 0x20d3
+Block exists: test rax,rax at address 0x20d3 is visited for 2 times
+
+0x1df8: sub rax,0x1
+0x1dfc: cmp byte ptr [rax+0x1],0x58
+0x1e00: jne 0x1e0b
+0x1e00: jump address is 0x1e0b
+Block exists: cmp r13,0x2 at address 0x1e0b is visited for 4 times
+
+Block exists: add r13,0x1 at address 0x1e02 is visited for 4 times
+
+0x21c5: mov rdi,rbx
+0x21c8: call 0x47c0
+0x21c8: jump address is 0x47c0
+Execute the function: quote
+
+0x21c8: the return address is 0x21cd
+Block exists: lea rsi,[rip+0x4559] at address 0x21cd is visited for 2 times
+
+0x21f7: mov rdi,r8
+0x21fa: call 0x47c0
+0x21fa: jump address is 0x47c0
+Execute the function: quote
+
+0x21fa: the return address is 0x21ff
+0x21ff: lea rsi,[rip+0x4c0a]
+0x2206: mov rbx,rax
+0x2209: mov edx,0x5
+0x220e: xor edi,edi
+0x2210: call 0x1890
+0x2210: jump address is 0x1890
+0x1890: jmp qword ptr [rip+0x2085d2]
+Execute the function: dcgettext
+
+0x1890: the return address is 0x2215
+0x2215: mov rcx,rbx
+0x2218: mov rdx,rax
+0x221b: xor esi,esi
+0x221d: mov edi,0x1
+0x2222: xor eax,eax
+0x2224: call 0x1a90
+0x2224: jump address is 0x1a90
+0x1a90: jmp qword ptr [rip+0x2084d2]
+Execute the function: error
+
+0x291a: add rcx,0x1
+0x291e: movzx edx,byte ptr [rcx]
+0x2921: test dl,dl
+0x2923: je 0x293a
+0x2923: jump address is 0x293a
+Block exists: cmp dl,0x2f at address 0x2925 is visited for 4 times
+
+0x293a: repz ret
+0x293a: the return address is 0x1dbe
+Block exists: mov r8,qword ptr [rsp+0x18] at address 0x1dbe is visited for 3 times
+
+0x2910: test sil,sil
+0x2913: je 0x291a
+0x2913: jump address is 0x291a
+Block exists: add rcx,0x1 at address 0x291a is visited for 2 times
+
+0x293a: repz ret
+0x293a: the return address is 0x1dbe
+Block exists: mov r8,qword ptr [rsp+0x18] at address 0x1dbe is visited for 3 times
+
 0x213b: mov rdi,rsi
 0x213e: call 0x5310
 0x213e: jump address is 0x5310
@@ -29664,32 +29896,7 @@ Block exists: test dl,dl at address 0x28fc is visited for 3 times
 0x2936: test dl,dl
 0x2938: jne 0x2925
 0x2938: jump address is 0x2925
-Block exists: cmp dl,0x2f at address 0x2925 is visited for 4 times
-
-Block exists: repz ret  at address 0x293a is visited for 3 times
-
-0x2910: test sil,sil
-0x2913: je 0x291a
-0x2913: jump address is 0x291a
-0x2915: mov rax,rcx
-0x2918: xor esi,esi
-0x291a: add rcx,0x1
-0x291e: movzx edx,byte ptr [rcx]
-0x2921: test dl,dl
-0x2923: je 0x293a
-0x2923: jump address is 0x293a
-Block exists: repz ret  at address 0x293a is visited for 3 times
-
-Block exists: cmp dl,0x2f at address 0x2925 is visited for 4 times
-
-0x291a: add rcx,0x1
-0x291e: movzx edx,byte ptr [rcx]
-0x2921: test dl,dl
-0x2923: je 0x293a
-0x2923: jump address is 0x293a
-Block exists: repz ret  at address 0x293a is visited for 3 times
-
-Block exists: cmp dl,0x2f at address 0x2925 is visited for 4 times
+Block exists: cmp dl,0x2f at address 0x2925 is visited for 5 times
 
 0x293a: repz ret
 0x293a: the return address is 0x1dbe
@@ -29704,7 +29911,7 @@ Block exists: cmp dl,0x2f at address 0x2925 is visited for 4 times
 0x1dd8: cmp byte ptr [r8-0x1],0x58
 0x1ddd: jne 0x21c5
 0x1ddd: jump address is 0x21c5
-Block exists: mov rdi,rbx at address 0x21c5 is visited for 2 times
+Block exists: mov rdi,rbx at address 0x21c5 is visited for 4 times
 
 0x1de3: lea rax,[rbx+rax*1-0x2]
 0x1de8: lea rdx,[rbx-0x1]
@@ -29718,7 +29925,7 @@ Block exists: mov rdi,rbx at address 0x21c5 is visited for 2 times
 0x1e0b: cmp r13,0x2
 0x1e0f: jbe 0x21c5
 0x1e0f: jump address is 0x21c5
-Block exists: mov rdi,rbx at address 0x21c5 is visited for 2 times
+Block exists: mov rdi,rbx at address 0x21c5 is visited for 4 times
 
 0x1e15: test r12b,r12b
 0x1e18: je 0x1e63
@@ -29736,7 +29943,7 @@ Block exists: mov rdi,rbx at address 0x1e63 is visited for 3 times
 0x1e36: mov r12,rax
 0x1e39: je 0x1f28
 0x1e39: jump address is 0x1f28
-Block exists: lea rdi,[rip+0x4819] at address 0x1f28 is visited for 3 times
+Block exists: lea rdi,[rip+0x4819] at address 0x1f28 is visited for 4 times
 
 0x1e3f: cmp byte ptr [rbx],0x2f
 0x1e42: je 0x2193
@@ -30051,9 +30258,9 @@ Block exists: cmp rax,rbx at address 0x2100 is visited for 2 times
 0x1dfc: cmp byte ptr [rax+0x1],0x58
 0x1e00: jne 0x1e0b
 0x1e00: jump address is 0x1e0b
-Block exists: cmp r13,0x2 at address 0x1e0b is visited for 3 times
+Block exists: cmp r13,0x2 at address 0x1e0b is visited for 5 times
 
-Block exists: add r13,0x1 at address 0x1e02 is visited for 3 times
+Block exists: add r13,0x1 at address 0x1e02 is visited for 5 times
 
 0x21c5: mov rdi,rbx
 0x21c8: call 0x47c0
@@ -30071,15 +30278,38 @@ Execute the function: quote
 Execute the function: dcgettext
 
 0x1890: the return address is 0x21e3
-0x21e3: mov rcx,rbx
-0x21e6: mov rdx,rax
-0x21e9: xor esi,esi
-0x21eb: mov edi,0x1
-0x21f0: xor eax,eax
-0x21f2: call 0x1a90
-0x21f2: jump address is 0x1a90
-0x1a90: jmp qword ptr [rip+0x2084d2]
-Execute the function: error
+Block exists: mov rcx,rbx at address 0x21e3 is visited for 2 times
+
+0x2910: test sil,sil
+0x2913: je 0x291a
+0x2913: jump address is 0x291a
+0x2915: mov rax,rcx
+0x2918: xor esi,esi
+0x291a: add rcx,0x1
+0x291e: movzx edx,byte ptr [rcx]
+0x2921: test dl,dl
+0x2923: je 0x293a
+0x2923: jump address is 0x293a
+Block exists: cmp dl,0x2f at address 0x2925 is visited for 5 times
+
+0x293a: repz ret
+0x293a: the return address is 0x1dbe
+Block exists: mov r8,qword ptr [rsp+0x18] at address 0x1dbe is visited for 4 times
+
+0x291a: add rcx,0x1
+0x291e: movzx edx,byte ptr [rcx]
+0x2921: test dl,dl
+0x2923: je 0x293a
+0x2923: jump address is 0x293a
+Block exists: cmp dl,0x2f at address 0x2925 is visited for 5 times
+
+0x293a: repz ret
+0x293a: the return address is 0x1dbe
+Block exists: mov r8,qword ptr [rsp+0x18] at address 0x1dbe is visited for 4 times
+
+0x293a: repz ret
+0x293a: the return address is 0x1dbe
+Block exists: mov r8,qword ptr [rsp+0x18] at address 0x1dbe is visited for 4 times
 
 0x2176: or rcx,0xffffffffffffffff
 0x217a: mov rdi,rbx
@@ -30184,7 +30414,7 @@ Execute the function: memcpy
 Execute the function: last_component
 
 0x1db9: the return address is 0x1dbe
-Block exists: mov r8,qword ptr [rsp+0x18] at address 0x1dbe is visited for 2 times
+Block exists: mov r8,qword ptr [rsp+0x18] at address 0x1dbe is visited for 4 times
 
 0x213b: mov rdi,rsi
 0x213e: call 0x5310
@@ -30960,7 +31190,7 @@ Unreachable instructions:
 0x1766: je 0x176a
 0x1768: call rax
 0x176a: add rsp,0x8
-0x176e: ret 
+0x176e: ret
 0x1770: push qword ptr [rip+0x20865a]
 0x1776: jmp qword ptr [rip+0x20865c]
 0x177c: nop dword ptr [rax+0x0]
@@ -31099,27 +31329,14 @@ Unreachable instructions:
 0x1b66: xchg ax,ax
 0x1c3d: nop dword ptr [rax]
 0x1c63: nop dword ptr [rax+rax*1+0x0]
-0x1c7f: nop 
+0x1c7f: nop
 0x1c93: nop dword ptr [rax+rax*1+0x0]
 0x1ca8: nop dword ptr [rax+rax*1+0x0]
 0x1df1: nop dword ptr [rax+0x0]
 0x203e: jmp 0x1eae
 0x208a: jmp 0x1ea9
-0x21f7: mov rdi,r8
-0x21fa: call 0x47c0
-0x21ff: lea rsi,[rip+0x4c0a]
-0x2206: mov rbx,rax
-0x2209: mov edx,0x5
-0x220e: xor edi,edi
-0x2210: call 0x1890
-0x2215: mov rcx,rbx
-0x2218: mov rdx,rax
-0x221b: xor esi,esi
-0x221d: mov edi,0x1
-0x2222: xor eax,eax
-0x2224: call 0x1a90
 0x2229: nop dword ptr [rax+0x0]
-0x225a: hlt 
+0x225a: hlt
 0x225b: nop dword ptr [rax+rax*1+0x0]
 0x2260: lea rdi,[rip+0x207e19]
 0x2267: push rbp
@@ -31134,7 +31351,7 @@ Unreachable instructions:
 0x2284: jmp rax
 0x2286: nop word ptr cs:[rax+rax*1+0x0]
 0x2290: pop rbp
-0x2291: ret 
+0x2291: ret
 0x2292: nop dword ptr [rax+0x0]
 0x2296: nop word ptr cs:[rax+rax*1+0x0]
 0x22a0: lea rdi,[rip+0x207dd9]
@@ -31155,7 +31372,7 @@ Unreachable instructions:
 0x22d5: jmp rax
 0x22d7: nop word ptr [rax+rax*1+0x0]
 0x22e0: pop rbp
-0x22e1: ret 
+0x22e1: ret
 0x22e2: nop dword ptr [rax+0x0]
 0x22e6: nop word ptr cs:[rax+rax*1+0x0]
 0x22f0: cmp byte ptr [rip+0x207dd1],0x0
@@ -31169,9 +31386,9 @@ Unreachable instructions:
 0x2313: call 0x2260
 0x2318: mov byte ptr [rip+0x207da9],0x1
 0x231f: pop rbp
-0x2320: ret 
+0x2320: ret
 0x2321: nop dword ptr [rax+0x0]
-0x2328: repz ret 
+0x2328: repz ret
 0x232a: nop word ptr [rax+rax*1+0x0]
 0x2330: push rbp
 0x2331: mov rbp,rsp
@@ -31186,7 +31403,7 @@ Unreachable instructions:
 0x2359: test eax,eax
 0x235b: jne 0x236d
 0x235d: add rsp,0x8
-0x2361: ret 
+0x2361: ret
 0x2362: nop word ptr [rax+rax*1+0x0]
 0x2368: jmp 0x2830
 0x236d: mov edi,0x1
@@ -31198,10 +31415,10 @@ Unreachable instructions:
 0x27f2: nop word ptr [rax+rax*1+0x0]
 0x280d: nop dword ptr [rax]
 0x2810: mov qword ptr [rip+0x2078c1],rdi
-0x2817: ret 
+0x2817: ret
 0x2818: nop dword ptr [rax+rax*1+0x0]
 0x2820: mov byte ptr [rip+0x2078a9],dil
-0x2827: ret 
+0x2827: ret
 0x2828: nop dword ptr [rax+rax*1+0x0]
 0x2830: push rbp
 0x2831: push rbx
@@ -31223,7 +31440,7 @@ Unreachable instructions:
 0x286c: add rsp,0x8
 0x2870: pop rbx
 0x2871: pop rbp
-0x2872: ret 
+0x2872: ret
 0x2873: lea rsi,[rip+0x3ed5]
 0x287a: xor edi,edi
 0x287c: mov edx,0x5
@@ -31259,8 +31476,8 @@ Unreachable instructions:
 0x29a8: nop dword ptr [rax+rax*1+0x0]
 0x2a1c: nop dword ptr [rax+0x0]
 0x2a98: nop dword ptr [rax+rax*1+0x0]
-0x2aaf: nop 
-0x2b4f: nop 
+0x2aaf: nop
+0x2b4f: nop
 0x2b8c: nop dword ptr [rax+0x0]
 0x2bdd: nop dword ptr [rax]
 0x2c37: nop word ptr [rax+rax*1+0x0]
@@ -31272,17 +31489,17 @@ Unreachable instructions:
 0x3048: nop dword ptr [rax+rax*1+0x0]
 0x3071: nop dword ptr [rax+0x0]
 0x3087: nop word ptr [rax+rax*1+0x0]
-0x309f: nop 
+0x309f: nop
 0x30ce: xchg ax,ax
 0x30dd: nop dword ptr [rax]
-0x30ef: nop 
-0x30ff: nop 
-0x310f: nop 
-0x311f: nop 
-0x312f: nop 
+0x30ef: nop
+0x30ff: nop
+0x310f: nop
+0x311f: nop
+0x312f: nop
 0x319c: nop dword ptr [rax+0x0]
 0x31bc: nop dword ptr [rax+0x0]
-0x31df: nop 
+0x31df: nop
 0x31f2: nop word ptr [rax+rax*1+0x0]
 0x320a: nop word ptr [rax+rax*1+0x0]
 0x321a: nop word ptr [rax+rax*1+0x0]
@@ -31295,7 +31512,7 @@ Unreachable instructions:
 0x335a: nop word ptr [rax+rax*1+0x0]
 0x336a: nop word ptr [rax+rax*1+0x0]
 0x3378: nop dword ptr [rax+rax*1+0x0]
-0x339f: nop 
+0x339f: nop
 0x3439: nop dword ptr [rax+0x0]
 0x3482: nop word ptr [rax+rax*1+0x0]
 0x34c1: nop dword ptr [rax+0x0]
@@ -31332,20 +31549,20 @@ Unreachable instructions:
 0x4061: pop rbx
 0x4062: pop rbp
 0x4063: pop r12
-0x4065: ret 
+0x4065: ret
 0x4066: nop word ptr cs:[rax+rax*1+0x0]
 0x4070: lea rax,[rip+0x206189]
 0x4077: test rdi,rdi
 0x407a: cmove rdi,rax
 0x407e: mov eax,dword ptr [rdi]
-0x4080: ret 
+0x4080: ret
 0x4081: nop dword ptr [rax+rax*1+0x0]
 0x4086: nop word ptr cs:[rax+rax*1+0x0]
 0x4090: lea rax,[rip+0x206169]
 0x4097: test rdi,rdi
 0x409a: cmove rdi,rax
 0x409e: mov dword ptr [rdi],esi
-0x40a0: ret 
+0x40a0: ret
 0x40a1: nop dword ptr [rax+rax*1+0x0]
 0x40a6: nop word ptr cs:[rax+rax*1+0x0]
 0x40b0: lea rax,[rip+0x206149]
@@ -31366,16 +31583,16 @@ Unreachable instructions:
 0x40de: shl edx,cl
 0x40e0: xor edx,esi
 0x40e2: mov dword ptr [rdi],edx
-0x40e4: ret 
-0x40e5: nop 
+0x40e4: ret
+0x40e5: nop
 0x40e6: nop word ptr cs:[rax+rax*1+0x0]
 0x40f0: lea rax,[rip+0x206109]
 0x40f7: test rdi,rdi
 0x40fa: cmove rdi,rax
 0x40fe: mov eax,dword ptr [rdi+0x4]
 0x4101: mov dword ptr [rdi+0x4],esi
-0x4104: ret 
-0x4105: nop 
+0x4104: ret
+0x4105: nop
 0x4106: nop word ptr cs:[rax+rax*1+0x0]
 0x4110: lea rax,[rip+0x2060e9]
 0x4117: test rdi,rdi
@@ -31387,7 +31604,7 @@ Unreachable instructions:
 0x412c: je 0x4137
 0x412e: mov qword ptr [rdi+0x28],rsi
 0x4132: mov qword ptr [rdi+0x30],rdx
-0x4136: ret 
+0x4136: ret
 0x4137: sub rsp,0x8
 0x413b: call 0x17a0
 0x4140: push r15
@@ -31428,7 +31645,7 @@ Unreachable instructions:
 0x41ad: pop r13
 0x41af: pop r14
 0x41b1: pop r15
-0x41b3: ret 
+0x41b3: ret
 0x41b4: xchg ax,ax
 0x41b6: nop word ptr cs:[rax+rax*1+0x0]
 0x41c0: push r15
@@ -31500,7 +31717,7 @@ Unreachable instructions:
 0x429c: pop r13
 0x429e: pop r14
 0x42a0: pop r15
-0x42a2: ret 
+0x42a2: ret
 0x42a3: nop dword ptr [rax]
 0x42a6: nop word ptr cs:[rax+rax*1+0x0]
 0x42b0: mov rcx,rdx
@@ -31541,7 +31758,7 @@ Unreachable instructions:
 0x4345: mov dword ptr [rip+0x205d09],0x1
 0x434f: pop rbp
 0x4350: pop r12
-0x4352: ret 
+0x4352: ret
 0x4353: nop dword ptr [rax]
 0x4356: nop word ptr cs:[rax+rax*1+0x0]
 0x4360: lea rcx,[rip+0x205e99]
@@ -31588,7 +31805,7 @@ Unreachable instructions:
 0x4444: xor rcx,qword ptr fs:0x28
 0x444d: jne 0x4459
 0x444f: add rsp,0x48
-0x4453: ret 
+0x4453: ret
 0x4454: call 0x17a0
 0x4459: call 0x18d0
 0x445e: xchg ax,ax
@@ -31615,7 +31832,7 @@ Unreachable instructions:
 0x44d0: xor rdx,qword ptr fs:0x28
 0x44d9: jne 0x44e5
 0x44db: add rsp,0x48
-0x44df: ret 
+0x44df: ret
 0x44e0: call 0x17a0
 0x44e5: call 0x18d0
 0x44ea: nop word ptr [rax+rax*1+0x0]
@@ -31629,7 +31846,7 @@ Unreachable instructions:
 0x4506: mov esi,edi
 0x4508: xor edi,edi
 0x450a: jmp 0x4460
-0x450f: nop 
+0x450f: nop
 0x4510: sub rsp,0x48
 0x4514: mov ecx,edx
 0x4516: mov rax,qword ptr fs:0x28
@@ -31666,7 +31883,7 @@ Unreachable instructions:
 0x4593: xor rsi,qword ptr fs:0x28
 0x459c: jne 0x45a3
 0x459e: add rsp,0x48
-0x45a2: ret 
+0x45a2: ret
 0x45a3: call 0x18d0
 0x45a8: nop dword ptr [rax+rax*1+0x0]
 0x45b0: movsx edx,sil
@@ -31703,7 +31920,7 @@ Unreachable instructions:
 0x4664: xor rcx,qword ptr fs:0x28
 0x466d: jne 0x4679
 0x466f: add rsp,0x48
-0x4673: ret 
+0x4673: ret
 0x4674: call 0x17a0
 0x4679: call 0x18d0
 0x467e: xchg ax,ax
@@ -31735,7 +31952,7 @@ Unreachable instructions:
 0x46f7: xor rdi,qword ptr fs:0x28
 0x4700: jne 0x470c
 0x4702: add rsp,0x48
-0x4706: ret 
+0x4706: ret
 0x4707: call 0x17a0
 0x470c: call 0x18d0
 0x4711: nop dword ptr [rax+rax*1+0x0]
@@ -31844,7 +32061,7 @@ Unreachable instructions:
 0x4f55: xor rax,qword ptr fs:0x28
 0x4f5e: jne 0x4f65
 0x4f60: add rsp,0x68
-0x4f64: ret 
+0x4f64: ret
 0x4f65: call 0x18d0
 0x4f6a: mov r11,qword ptr [r10+0x8]
 0x4f6e: lea rax,[r11+0x8]
@@ -31852,7 +32069,7 @@ Unreachable instructions:
 0x4f76: jmp 0x4f35
 0x4f78: nop dword ptr [rax+rax*1+0x0]
 0x5040: call 0x18d0
-0x5055: nop 
+0x5055: nop
 0x5056: nop word ptr cs:[rax+rax*1+0x0]
 0x5060: push rbx
 0x5061: lea rsi,[rip+0x24f1]
@@ -31912,7 +32129,7 @@ Unreachable instructions:
 0x5168: call 0x1790
 0x516d: xor eax,eax
 0x516f: pop rbx
-0x5170: ret 
+0x5170: ret
 0x5171: call 0x5330
 0x5176: nop word ptr cs:[rax+rax*1+0x0]
 0x5180: mov rax,rsi
@@ -32012,7 +32229,7 @@ Unreachable instructions:
 0x52cf: test rax,rax
 0x52d2: je 0x52d9
 0x52d4: add rsp,0x8
-0x52d8: ret 
+0x52d8: ret
 0x52d9: call 0x5330
 0x52de: xchg ax,ax
 0x5308: nop dword ptr [rax+rax*1+0x0]
@@ -32020,11 +32237,11 @@ Unreachable instructions:
 0x532d: nop dword ptr [rax]
 0x5360: call 0x17a0
 0x5365: nop word ptr cs:[rax+rax*1+0x0]
-0x536f: nop 
+0x536f: nop
 0x53b5: nop dword ptr [rax]
 0x53eb: nop dword ptr [rax+rax*1+0x0]
 0x5413: nop dword ptr [rax+rax*1+0x0]
-0x543f: nop 
+0x543f: nop
 0x5487: nop word ptr [rax+rax*1+0x0]
 0x550e: call 0x18d0
 0x5513: nop word ptr cs:[rax+rax*1+0x0]
@@ -32040,17 +32257,17 @@ Unreachable instructions:
 0x55d1: mov qword ptr [rax+0x10],0x0
 0x55d9: mov qword ptr [rax+0x8],0x0
 0x55e1: pop rbx
-0x55e2: ret 
+0x55e2: ret
 0x55e3: nop dword ptr [rax]
 0x55e6: nop word ptr cs:[rax+rax*1+0x0]
 0x561d: nop dword ptr [rax]
 0x5624: xchg ax,ax
 0x5626: nop word ptr cs:[rax+rax*1+0x0]
 0x5630: mov rax,qword ptr [rdi]
-0x5633: ret 
+0x5633: ret
 0x5634: xchg ax,ax
 0x5636: nop word ptr cs:[rax+rax*1+0x0]
-0x567f: nop 
+0x567f: nop
 0x5741: nop dword ptr [rax+0x0]
 0x5755: call 0x18d0
 0x575a: nop word ptr [rax+rax*1+0x0]
@@ -32154,12 +32371,12 @@ Unreachable instructions:
 0x5b64: jmp 0x59ef
 0x5b69: nop dword ptr [rax+0x0]
 0x5b70: mov qword ptr [rdi+0x8],rsi
-0x5b74: ret 
-0x5b75: nop 
+0x5b74: ret
+0x5b75: nop
 0x5b76: nop word ptr cs:[rax+rax*1+0x0]
 0x5b80: mov qword ptr [rdi+0x10],rsi
-0x5b84: ret 
-0x5b85: nop 
+0x5b84: ret
+0x5b85: nop
 0x5b86: nop word ptr cs:[rax+rax*1+0x0]
 0x5bc3: nop dword ptr [rax+rax*1+0x0]
 0x5be2: mov rcx,qword ptr [r12]
@@ -32186,7 +32403,7 @@ Unreachable instructions:
 0x6274: pop rbx
 0x6275: pop rbp
 0x6276: pop r12
-0x6278: ret 
+0x6278: ret
 0x6279: nop dword ptr [rax+0x0]
 0x6280: mov edi,eax
 0x6282: call 0x62f0
@@ -32288,8 +32505,8 @@ Unreachable instructions:
 0x63fa: pop rbx
 0x63fb: pop rbp
 0x63fc: pop r12
-0x63fe: ret 
-0x63ff: nop 
+0x63fe: ret
+0x63ff: nop
 0x6400: cmp esi,0x407
 0x6406: jg 0x6450
 0x6408: cmp esi,0x406
@@ -32423,15 +32640,15 @@ Unreachable instructions:
 0x65de: pop r13
 0x65e0: pop r14
 0x65e2: pop r15
-0x65e4: ret 
-0x65e5: nop 
+0x65e4: ret
+0x65e5: nop
 0x65e6: nop word ptr cs:[rax+rax*1+0x0]
-0x65f0: repz ret 
+0x65f0: repz ret
 0x65f2: nop word ptr cs:[rax+rax*1+0x0]
 0x65fc: nop dword ptr [rax+0x0]
 0x6610: sub rsp,0x8
 0x6614: add rsp,0x8
-0x6618: ret 
+0x6618: ret
 4910
-3538
+3551
 107

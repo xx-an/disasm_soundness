@@ -109,13 +109,15 @@ class CFG(object):
                 ext_func_name = self.address_sym_table[new_address][0]
                 self.external_branch(ext_func_name, block, address, inst, sym_store, constraint)
             elif sym_helper.sym_is_int_or_bitvecnum(new_address):
-                ext_func_name = 'undefined'
+                ext_func_name = 'unresolved'
+                utils.logger.debug('Jump to an unresolved address ' + hex(new_address) + ' at ' + hex(address) + ': ' + inst)
+                print('There exists an unresolved jump address ' + hex(new_address) + ' at ' + hex(address) + ': ' + inst)
                 self.external_branch(ext_func_name, block, address, inst, sym_store, constraint)
-                utils.logger.debug('Jump to an undefined external address ' + str(new_address) + ' at address ' + hex(address))
+                # sys.exit('There exists an unresolved jump address ' + hex(new_address) + ' at ' + hex(address) + ': ' + inst)
             elif str(new_address).startswith(utils.MEM_DATA_SEC_SUFFIX):
                 ext_func_name = str(new_address)
+                utils.logger.debug('Jump to an external address ' + str(new_address) + ' at ' + hex(address) + ': ' + inst)
                 self.external_branch(ext_func_name, block, address, inst, sym_store, constraint)
-                utils.logger.debug('Jump to an undefined external address ' + str(new_address) + ' at address ' + hex(address))
             else:
                 self.handle_unresolved_indirect_jumps(block, address, inst, constraint, new_address)
                 
@@ -224,24 +226,8 @@ class CFG(object):
             # utils.logger.info(src_names)
             # utils.logger.info(blk.sym_store.pp_store())
             if need_stop and len(src_names) == 1:
-                trace_list = trace_list[::-1]
-                src_name = src_names[0]
-                src_len = utils.get_sym_length(src_name)
-                rip = blk.sym_store.rip
-                src_sym = sym_engine.get_sym(blk.sym_store.store, rip, src_name, src_len)
-                cjmp_blk_idx, jt_idx_upperbound = utils.gen_jt_idx_upperbound(trace_list, boundary)
-                if not jt_idx_upperbound: break
-                jt_assign_blk_idx, is_jt_assign_inst = utils.check_jump_table_assign_inst(trace_list, cjmp_blk_idx)
-                if not is_jt_assign_inst: break
-                jt_assign_blk = trace_list[jt_assign_blk_idx]
-                distinct_entries, inst_dest, src_len = self._get_distinct_jt_entries(jt_assign_blk, src_sym, jt_idx_upperbound)
-                if not distinct_entries: break
-                sym_store_list = self._reconstruct_jt_branches(jt_assign_blk, distinct_entries, inst_dest, src_len)
-                dest, target_addresses = self._reconstruct_jump_target_addresses(trace_list, jt_assign_blk_idx, sym_store_list)
-                if not target_addresses: break
-                utils.logger.info(hex(trace_list[-1].address) + ': jump addresses resolved using jump table [' + ', '.join(map(lambda x: hex(sym_helper.int_from_sym(x)), target_addresses)) + ']')
-                self._reconstruct_jump_targets(trace_list[-1], dest, target_addresses)
-                return 0
+                res = self.handle_unbounded_jump_table_w_tb(trace_list, src_names, boundary, blk)
+                return res
             elif still_tb:
                 trace_list.append(blk)
                 blk = self.block_set[blk.parent_no]
@@ -252,10 +238,31 @@ class CFG(object):
         return -1
 
 
+    def handle_unbounded_jump_table_w_tb(self, trace_list, src_names, boundary, blk):
+        trace_list = trace_list[::-1]
+        src_name = src_names[0]
+        src_len = utils.get_sym_length(src_name)
+        rip = blk.sym_store.rip
+        src_sym = sym_engine.get_sym(blk.sym_store.store, rip, src_name, src_len)
+        cjmp_blk_idx, jt_idx_upperbound = cfg_helper.gen_jt_idx_upperbound(trace_list, boundary)
+        if not jt_idx_upperbound: return -1
+        jt_assign_blk_idx, is_jt_assign_inst = cfg_helper.check_jump_table_assign_inst(trace_list, cjmp_blk_idx)
+        if not is_jt_assign_inst: return -1
+        jt_assign_blk = trace_list[jt_assign_blk_idx]
+        distinct_entries, inst_dest, src_len = cfg_helper.get_distinct_jt_entries(jt_assign_blk, src_sym, jt_idx_upperbound, self.block_set)
+        if not distinct_entries: return -1
+        sym_store_list = cfg_helper.reconstruct_jt_sym_stores(jt_assign_blk, distinct_entries, inst_dest, src_len)
+        dest, target_addresses = cfg_helper.reconstruct_jt_target_addresses(trace_list, jt_assign_blk_idx, sym_store_list, self.address_jt_entries_map)
+        if not target_addresses: return -1
+        utils.logger.info(hex(trace_list[-1].address) + ': jump addresses resolved using jump table [' + ', '.join(map(lambda x: hex(sym_helper.int_from_sym(x)), target_addresses)) + ']')
+        self._reconstruct_jump_targets(trace_list[-1], dest, target_addresses)
+        return 0
+
+
     def add_next_block(self, block, address, sym_store, constraint):
         new_address = self._get_next_address(address)
-        new_inst = self.address_inst_map[new_address]
         if new_address != -1:
+            new_inst = self.address_inst_map[new_address]
             self.add_new_block(block, new_address, new_inst, sym_store, constraint)
 
 
@@ -441,7 +448,7 @@ class CFG(object):
         for address, inst in self.address_inst_map.items():
             if utils.check_branch_inst(inst) or inst.startswith('cmov'):
                 self.address_except_set.add(address)
-
+        
 
     def _explored_func_block(self, sym_store, new_address):
         cnt, blk = self.address_block_map[new_address]

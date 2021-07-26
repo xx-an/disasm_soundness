@@ -22,6 +22,14 @@ import os
 import argparse
 from ..common import utils
 
+def semantics_equal(inst, of_inst):
+    res = False
+    res |= inst.startswith(('nop', 'xchg ax,ax')) and of_inst.startswith(('nop', 'xchg ax,ax'))
+    res |= inst.endswith('ret') and of_inst.endswith('ret')
+    res |= 'cmps' in inst and 'cmps' in of_inst
+    return res
+
+
 def check_diff(log_path, objdump_log_path, disasm_type):
     with open(log_path, 'r') as lf:
         with open(objdump_log_path, 'r') as of:
@@ -32,23 +40,35 @@ def check_diff(log_path, objdump_log_path, disasm_type):
                 line = line.strip()
                 of_line = of_lines[idx].strip()
                 if line and ':' in line:
-                    if utils.imm_start_pat.match(line):
+                    if utils.imm_start_pat.search(line):
+                        address, of_address = 0, 0
                         address_str, inst = line.split(':', 1)
-                        # print(line)
-                        # print(of_line)
                         of_address_str, of_inst = of_line.split(':', 1)
-                        address = int(address_str.strip(), 16)
-                        of_address = int(of_address_str.strip(), 16)
-                        inst = inst.replace(' + ', '+').replace(' - ', '-')
-                        of_inst = of_inst.strip().replace('*1+','+').replace('*1]',']').replace('+0x0]',']')
-                        for i in range(1, 10):
-                            of_inst = of_inst.replace('0x' + str(i) + ']',str(i) +']')
+                        try:
+                            address = int(address_str.strip(), 16)
+                            of_address = int(of_address_str.strip(), 16)
+                        except:
+                            print(disasm_type + ': ' + line)
+                            print('objdump: ' + of_line)
+                            break
+                        inst = inst.replace(' + ', '+').replace(' - ', '-').strip()
+                        # inst = inst.replace('jz', 'je').replace('jnz', 'jne').replace('cmovz', 'cmove').replace('cmovnz', 'cmovne').replace('setz', 'sete').replace('repe', 'repz').replace('nbe', 'a').replace('nb', 'ae')
+                        inst = inst.strip().replace('*1+','+').replace('*1]',']').replace('+0x0]',']')
+                        of_inst = of_inst.replace(' + ', '+').replace(' - ', '-').strip()
+                        of_inst = of_inst.strip().replace('*1+','+').replace('*1-','-').replace('*1]',']').replace('+0x0]',']')
+                        # of_inst = of_inst.strip().replace('*1+','+').replace('*1]',']').replace('+0x0]',']')
+                        # for i in range(1, 10):
+                        #     of_inst = of_inst.replace('0x' + str(i) + ']',str(i) +']')
                         if address != of_address:
                             print(disasm_type + ': ' + line)
                             print('objdump: ' + of_line)
                             break
-                        elif inst.strip() != of_inst.strip():
-                            if not inst.startswith(('lea')):
+                        # elif inst.split(' ', 1)[0] != of_inst.split(' ', 1)[0]:
+                        #     print(disasm_type + ': ' + line)
+                        #     print('objdump: ' + of_line)
+                        #     break
+                        elif inst != of_inst:
+                            if not semantics_equal(inst, of_inst):
                                 print(disasm_type + ': ' + line)
                                 print('objdump: ' + of_line)
                 idx += 1

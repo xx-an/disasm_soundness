@@ -41,42 +41,26 @@ PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(os
 ASSEMBLY_FILE_PATH = os.path.join(PROJECT_DIR, 'test.s')
 ASM_OBJ_FILE_PATH = os.path.join(PROJECT_DIR, 'test.o')
 
-LOG_NAMES = ['log', 'output']
+LOG_NAME = 'log'
 
-logger = logging.getLogger(LOG_NAMES[0])
-output_logger = logging.getLogger(LOG_NAMES[1])
+logger = logging.getLogger(LOG_NAME)
 
-def setup_logger(log_name, log_path, verbose, level=logging.INFO):
+def setup_logger(log_path, verbose, level=logging.INFO):
     file_handler = logging.FileHandler(log_path, mode='w+')
-    if log_name == LOG_NAMES[0]:
-        global logger
-        logger = logging.getLogger(log_name)
-        logger.setLevel(level)
-        if not verbose:
-            logger.propagate = False
-        logger.addHandler(file_handler) 
-    else:
-        global output_logger
-        output_logger = logging.getLogger(log_name)
-        output_logger.setLevel(level)
-        if not verbose:
-            output_logger.propagate = False
-        output_logger.addHandler(file_handler) 
+    global logger
+    logger = logging.getLogger(LOG_NAME)
+    logger.setLevel(level)
+    if not verbose:
+        logger.propagate = False
+    logger.addHandler(file_handler)
     
 
-def close_logger(log_name):
-    if log_name == LOG_NAMES[0]:
-        global logger
-        logger = logging.getLogger(log_name)
-        for handler in logger.handlers:
-            handler.close()
-            logger.removeHandler(handler)
-    else:
-        global output_logger
-        output_logger = logging.getLogger(log_name)
-        for handler in output_logger.handlers:
-            handler.close()
-            output_logger.removeHandler(handler)
+def close_logger():
+    global logger
+    logger = logging.getLogger(LOG_NAME)
+    for handler in logger.handlers:
+        handler.close()
+        logger.removeHandler(handler)
 
 
 delimits = {'(': ')', '[': ']', '{': '}'}
@@ -85,6 +69,8 @@ float_pat = re.compile('^[0-9.]+$|^-[0-9.]+$')
 simple_operator_pat = re.compile(r'(\+|-|\*)')
 imm_pat = re.compile('^0x[0-9a-fA-F]+$|^[0-9]+$|^-[0-9]+$|^-0x[0-9a-fA-F]+$')
 imm_start_pat = re.compile('^0x[0-9a-fA-F]+|^[0-9]+|^-[0-9]+|^-0x[0-9a-fA-F]+')
+
+DISASSEMBLER_TYPES = ['objdump', 'radare2', 'angr', 'bap', 'hopper', 'idapro', 'ghidra', 'dyninst']
 
 MEM_DATA_SEC_SUFFIX = 'mem@'
 LOG_UNREACHABLE_INDICATOR = 'Unreachable instructions:'
@@ -494,6 +480,7 @@ def check_branch_inst(inst):
     inst_name = inst.strip().split(' ', 1)[0]
     return inst_name in lib.JMP_INST or inst.endswith(' ret')
 
+
 def check_branch_inst_wo_call(inst):
     inst_name = inst.strip().split(' ', 1)[0]
     return inst_name in lib.JMP_INST_WITHOUT_CALL or inst.endswith(' ret')
@@ -687,12 +674,12 @@ def init_ida_struct_info():
             line = line.strip()
             if line and not line.startswith('#'):
                 line_split = line.split(':', 1)
-                if len(line_split) == 2:
-                    struct_name = line_split[0]
-                    ida_struct_table[struct_name] = {}
-                else:
+                if line_split[1]:
                     item_name = line_split[0]
                     offset_str, item_type = line_split[1].strip().split(',', 1)
                     offset = int(offset_str.strip())
                     ida_struct_table[struct_name][item_name] = (offset, item_type.strip())
+                else:
+                    struct_name = line_split[0]
+                    ida_struct_table[struct_name] = {}
     return ida_struct_table

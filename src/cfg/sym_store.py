@@ -121,8 +121,8 @@ class Sym_Store:
                             return False
             else:
                 if v_old is not None:
-                        if not sym_helper.bitvec_eq(v_old, v, address_inst_map):
-                            return False
+                    if not sym_helper.bitvec_eq(v_old, v, address_inst_map):
+                        return False
         return True
 
 

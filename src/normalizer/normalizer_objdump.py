@@ -54,7 +54,7 @@ class Disasm_Objdump(Disasm):
                     address, inst, bin_len = self._parse_line(line)
                     if inst:
                         inst = self._format_inst(address, inst)
-                        self.address_inst_map[address] = inst
+                        self.address_inst_map[address] = inst.strip()
                         if valid_section:
                             self.valid_address_no += 1
         inst_addresses = sorted(list(self.address_inst_map.keys()))

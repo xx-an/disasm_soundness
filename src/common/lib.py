@@ -110,10 +110,10 @@ AUX_REG_INFO = {
     64: ('rax', 'rdx', 'rdx:rax')
 }
 
-REG64_NAMES = {'rax', 'rbx', 'rcx', 'rdx', 'rsp', 'rbp', 'rsi', 'rdi', 
-    'r8', 'r9', 'r10', 'r11', 'r12', 'r13', 'r14', 'r15'}
+REG64_NAMES = ['rax', 'rbx', 'rcx', 'rdx', 'rsp', 'rbp', 'rsi', 'rdi', 
+    'r8', 'r9', 'r10', 'r11', 'r12', 'r13', 'r14', 'r15']
 
-REG_NAMES = REG64_NAMES | set(REG_INFO_DICT.keys())
+REG_NAMES = REG64_NAMES + list(REG_INFO_DICT.keys())
 
 FLOATING_POINT_ST_REGS = ('st0', 'st1', 'st2', 'st3', 'st4', 'st5', 'st6', 'st7')
 
