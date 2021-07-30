@@ -20,6 +20,7 @@ $ python -m src.dsv_check.detect_exception
 
 import os
 import re
+import time
 import argparse
 from ..common import utils
 
@@ -81,7 +82,6 @@ def detect_all_unchecked_diassembled_files(dir_path):
         
 
 def detect_all_incorrectly_disassembled_insts(dir_path):
-    print(dir_path)
     output_files = [os.path.join(dp, f) for dp, _, filenames in os.walk(dir_path) for f in filenames if f.endswith('.output')]
     for output_path in output_files:
         file_name = utils.get_file_name(output_path)
@@ -91,6 +91,19 @@ def detect_all_incorrectly_disassembled_insts(dir_path):
         no_of_incorrect = res[7].strip().split(':', 1)[1].strip()
         if no_of_incorrect != '0':
             print(file_name)
+
+
+def replace_all_log_files(dir_path):
+    log_files = [os.path.join(dp, f) for dp, _, filenames in os.walk(dir_path) for f in filenames if f.endswith('.log')]
+    for log_path in log_files:
+        file_name = utils.get_file_name(log_path)
+        print(file_name)
+        new_content = ''
+        with open(log_path, 'r') as f:
+            new_content = f.read()
+            new_content = new_content.replace('btl ', 'bt ')
+        with open(log_path, 'w') as f:
+            f.write(new_content)
 
     
 def print_correctly_disassembled_inst_ratio(dir_path):
@@ -104,7 +117,7 @@ def print_correctly_disassembled_inst_ratio(dir_path):
         res = res.strip().split('\n')
         no_of_white = int(res[1].strip().split(':', 1)[1].strip())
         no_of_incorrect = int(res[7].strip().split(':', 1)[1].strip())
-        ratio = round((no_of_white - no_of_incorrect) / no_of_white, 3)
+        ratio = round((no_of_white - no_of_incorrect) / no_of_white, 5)
         print(ratio)
 
 
@@ -143,4 +156,4 @@ if __name__=='__main__':
     # detect_all_incorrectly_disassembled_insts(dir_path)
     print_correctly_disassembled_inst_ratio(dir_path)
     # detect_all_unchecked_diassembled_files(dir_path)
-
+    

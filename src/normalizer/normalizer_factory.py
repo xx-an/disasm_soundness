@@ -27,10 +27,11 @@ from .normalizer_idapro import Disasm_IDAPro
 
 
 class Disasm_Factory(object):
-    def __init__(self, disasm_path, exec_path=None, disasm_type='objdump'):
+    def __init__(self, disasm_path, exec_path=None, elf_content=None, disasm_type='objdump'):
         self.disasm_type = disasm_type
         self.disasm_path = disasm_path
         self.exec_path = exec_path
+        self.elf_content = elf_content
 
 
     def get_disasm(self):
@@ -46,7 +47,7 @@ class Disasm_Factory(object):
             elif self.disasm_type == 'bap':
                 return Disasm_Bap(self.disasm_path)
             elif self.disasm_type == 'dyninst':
-                return Disasm_Dyninst(self.disasm_path)
+                return Disasm_Dyninst(self.disasm_path, self.elf_content)
             elif self.disasm_type == 'hopper':
                 return Disasm_Hopper(self.disasm_path)
             elif self.disasm_type == 'idapro':

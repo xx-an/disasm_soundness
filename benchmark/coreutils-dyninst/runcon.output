@@ -1,0 +1,25 @@
+# of total instructions: 3140
+# of white instructions: 768
+# of grey instructions: 8
+# of black instructions: 2364
+Ratio (grey/white): 0.01
+# of indirects: 23
+The disassembly process is unsound
+# of incorrectly disassembled instructions: 6
+
+The binary representations are not equivalent for inst: mov rax,0x28 at address 0x18db
+gcc binary rep: 48c7c028000000
+elf binary rep: 64488b04252800
+The binary representations are not equivalent for inst: mov rax,0x28 at address 0x14cf
+gcc binary rep: 48c7c028000000
+elf binary rep: 64488b04252800
+The binary representations are not equivalent for inst: cmp eax,0xff at address 0x1555
+gcc binary rep: 3dff000000
+elf binary rep: 83f8ff0f84
+The binary representations are not equivalent for inst: mov rax,0x28 at address 0x3f22
+gcc binary rep: 48c7c028000000
+elf binary rep: 64488b04252800
+The binary representations are invalid for inst: and rsp,0xfffffff0 at address 0x17b9
+The binary representations are not equivalent for inst: xor rax,0x28 at address 0x3fbb
+gcc binary rep: 4883f028
+elf binary rep: 64483304

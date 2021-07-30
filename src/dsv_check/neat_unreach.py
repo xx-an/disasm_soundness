@@ -197,10 +197,11 @@ def main_batch(exec_dir, log_dir, disasm_type, verbose):
                     f.endswith(disasm_type)]
     # sheet = add_xlws_sheet(workbook, disasm_type)
     line_no = 1
+    disasm_files.sort()
     for disasm_path in disasm_files:
         try:
             file_name = utils.get_file_name(disasm_path)
-            print(file_name)
+            # print(file_name)
             if not (file_name.startswith(('bench-', 'sha')) or file_name in (('sort', 'test-localcharset'))):
                 para_list = main_single(file_name, exec_dir, log_dir, disasm_type, verbose)
                 # sheet.write(line_no, 0, file_name)

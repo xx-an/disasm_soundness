@@ -74,6 +74,7 @@ DISASSEMBLER_TYPES = ['objdump', 'radare2', 'angr', 'bap', 'hopper', 'idapro', '
 
 MEM_DATA_SEC_SUFFIX = 'mem@'
 LOG_UNREACHABLE_INDICATOR = 'Unreachable instructions:'
+SOUNDNESS_EXCEPTION_INDICATOR = 'ambiguous operand size'
 
 OPPOSITE_FLAG_MAP = {
     'b': 'ae',
@@ -368,7 +369,7 @@ def replace_multiple(expr, os, ns):
 
 
 def execute_command(cmd):
-    out = subprocess.check_output(cmd, shell=True)
+    out = subprocess.check_output(cmd, shell=True ,stderr=subprocess.STDOUT)
     return out.decode("utf-8").strip()
 
 
@@ -432,8 +433,14 @@ def generate_inst_bin(line, syntax='intel'):
             if out_elem.startswith('  0x00'):
                 res = ''.join(out_elem.strip().split('    ')[0].split(' ')[1:])
                 break
-    except:
-        print('\'' + line + '\' is not a valid instruction for gcc (' + syntax + '-syntax format)')
+    except subprocess.CalledProcessError as e:
+        tmp = e.output.decode("utf-8")
+        # print(tmp)
+        if SOUNDNESS_EXCEPTION_INDICATOR in tmp:
+            res = tmp
+        else:
+            res = ''
+        # print('\'' + line + '\' is not a valid instruction for gcc (' + syntax + '-syntax format)')
     return res
 
     

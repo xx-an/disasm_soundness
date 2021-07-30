@@ -1,0 +1,17 @@
+# of total instructions: 23675
+# of white instructions: 20905
+# of grey instructions: 555
+# of black instructions: 2215
+Ratio (grey/white): 0.03
+# of indirects: 265
+The disassembly process is unsound
+# of incorrectly disassembled instructions: 3
+
+The binary representations are not equivalent for inst: bt rdi,r14 at address 0x10590
+gcc binary rep: 4c0fa3f7
+elf binary rep: 4d0fa3f7
+The binary representations are not equivalent for inst: bt rax,rcx at address 0xdef8
+gcc binary rep: 480fa3c8
+elf binary rep: 490fa3c8
+The binary representations are invalid for inst: and qword ptr [0x90+rsp],0xfffffbff at address 0xf197
+

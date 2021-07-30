@@ -21,8 +21,9 @@ from ..common.inst_element import Inst_Elem
 from .normalizer import Disasm
 
 class Disasm_Dyninst(Disasm):
-    def __init__(self, asm_path):
+    def __init__(self, asm_path, elf_content):
         self.asm_path = asm_path
+        self.elf_content = elf_content
         self.address_inst_map = {}
         self.address_next_map = {}
         self.read_asm_info()
@@ -45,7 +46,7 @@ class Disasm_Dyninst(Disasm):
                         inst = inst_split[0] + ' ' + self._format_inst(address, inst_split[1], bin_len)
                     else:
                         inst = self._format_inst(address, inst, bin_len)
-                    self.address_inst_map[address] = inst
+                    self.address_inst_map[address] = inst.strip()
                     self.address_next_map[address] = address + bin_len
 
 
@@ -63,9 +64,10 @@ class Disasm_Dyninst(Disasm):
         inst_elem = Inst_Elem(inst)
         inst_elem.reverse_arg_order()
         inst_elem.inst_args = list(map(lambda x: helper.rewrite_dyninst_memory_rep(x), inst_elem.inst_args))
-        byte_len_rep = helper.retrieve_bytelen_rep(inst_elem.inst_name, inst_elem.inst_args)
+        byte_len_rep = helper.retrieve_bytelen_rep(inst_elem.inst_name, inst_elem.inst_args, address, self.elf_content)
         if byte_len_rep:
             inst_elem.inst_args = list(map(lambda x: helper.add_att_memory_bytelen_rep(inst_elem.inst_name, x, byte_len_rep), inst_elem.inst_args))
+        inst_elem.inst_args = list(map(lambda x: helper.modify_st_rep(x), inst_elem.inst_args))
         inst_elem.inst_args = helper.modify_dyninst_operands(inst_elem.inst_name, inst_elem.inst_args)
         inst_elem.inst_args = list(map(lambda x: helper.rewrite_dyninst_arg_format(inst_elem.inst_name, x), inst_elem.inst_args))
         if utils.check_jmp_with_address(inst_elem.inst_name):

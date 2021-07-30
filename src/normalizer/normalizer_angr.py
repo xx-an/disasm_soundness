@@ -42,7 +42,7 @@ class Disasm_Angr(Disasm):
                     address, inst = self._parse_line(line)
                     if inst:
                         inst = self.format_inst(address, inst)
-                        self.address_inst_map[address] = inst
+                        self.address_inst_map[address] = inst.strip()
         inst_addresses = sorted(list(self.address_inst_map.keys()))
         inst_num = len(inst_addresses)
         for idx, address in enumerate(inst_addresses):

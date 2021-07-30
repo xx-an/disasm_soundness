@@ -1,0 +1,22 @@
+# of total instructions: 19694
+# of white instructions: 5461
+# of grey instructions: 502
+# of black instructions: 13731
+Ratio (grey/white): 0.09
+# of indirects: 109
+The disassembly process is unsound
+# of incorrectly disassembled instructions: 4
+
+The binary representations are not equivalent for inst: fdivrp st(1) at address 0x6232
+gcc binary rep: def1
+elf binary rep: def9
+The binary representations are not equivalent for inst: fdivp st(1) at address 0x628e
+gcc binary rep: def9
+elf binary rep: def1
+The binary representations are not equivalent for inst: fdivrp st(1) at address 0x6863
+gcc binary rep: def1
+elf binary rep: def9
+The binary representations are not equivalent for inst: fsub st(1),st(0) at address 0x60d9
+gcc binary rep: dce9
+elf binary rep: dce1
+

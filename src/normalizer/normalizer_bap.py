@@ -88,7 +88,7 @@ class Disasm_Bap(Disasm):
         inst_elem = Inst_Elem(inst)
         inst_elem.reverse_arg_order()
         inst_elem.inst_args = list(map(lambda x: helper.rewrite_att_memory_rep(inst_elem.inst_name, x), inst_elem.inst_args))
-        inst_elem.inst_name, byte_len_rep = helper.rewrite_att_inst_name(inst_elem.inst_name, inst)
+        inst_elem.inst_name, byte_len_rep = helper.rewrite_bap_inst_name(inst_elem.inst_name, inst)
         if byte_len_rep:
             inst_elem.inst_args = list(map(lambda x: helper.add_att_memory_bytelen_rep(inst_elem.inst_name, x, byte_len_rep), inst_elem.inst_args))
         if utils.check_jmp_with_address(inst_elem.inst_name):

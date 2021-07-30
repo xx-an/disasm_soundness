@@ -1,0 +1,17 @@
+# of total instructions: 600
+# of white instructions: 406
+# of grey instructions: 55
+# of black instructions: 139
+Ratio (grey/white): 0.14
+# of indirects: 18
+The disassembly process is unsound
+# of incorrectly disassembled instructions: 6
+
+The binary representations are invalid for inst: shrd rcx,0x1,r10 at address 0xac7
+The binary representations are invalid for inst: shld rbx,0x1,r13 at address 0xb04
+The binary representations are not equivalent for inst: mov rdi,0xffffffff at address 0xb4f
+gcc binary rep: 48bfffffffff00000000
+elf binary rep: 48c7c7ffffffff4d896b
+The binary representations are invalid for inst: and rsp,0xfffffff0 at address 0xdf9
+The binary representations are invalid for inst: shrd r9,0x38,r12 at address 0xf93
+The binary representations are invalid for inst: shrd r13,0x1c,r12 at address 0xfa2

@@ -1,0 +1,23 @@
+# of total instructions: 18303
+# of white instructions: 12751
+# of grey instructions: 267
+# of black instructions: 5285
+Ratio (grey/white): 0.02
+# of indirects: 230
+The disassembly process is unsound
+# of incorrectly disassembled instructions: 5
+
+The binary representations are not equivalent for inst: fmul st(1) at address 0xedc6
+gcc binary rep: d8c9
+elf binary rep: dcc9
+The binary representations are not equivalent for inst: fmul st(1) at address 0xf34e
+gcc binary rep: d8c9
+elf binary rep: dcc9
+The binary representations are not equivalent for inst: fmul st(1) at address 0xf301
+gcc binary rep: d8c9
+elf binary rep: dcc9
+The binary representations are invalid for inst: movsb rdi,rsi at address 0x72d3
+The binary representations are not equivalent for inst: bt rbp,r14 at address 0x14a40
+gcc binary rep: 4c0fa3f5
+elf binary rep: 4d0fa3f5
+

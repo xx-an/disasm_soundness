@@ -243,7 +243,7 @@ def add_att_memory_bytelen_rep(inst_name, arg, word_ptr_rep):
         res = word_ptr_rep + ' ' + arg
     return res
 
-def rewrite_att_inst_name(name, inst):
+def rewrite_bap_inst_name(name, inst):
     res = name
     word_ptr_rep = None
     if name.startswith('cmov'):
@@ -259,6 +259,8 @@ def rewrite_att_inst_name(name, inst):
         word_ptr_rep = 'byte ptr'
     elif name in (('subss', 'movss', 'ucomiss')):
         word_ptr_rep = 'dword ptr'
+    elif name in ('movsd') and 'xmm' in inst:
+        word_ptr_rep = 'qword ptr'
     elif name in (('movsb', 'movsw', 'movsd', 'movsq', 'movsxd')):
         suffix = name[-1]
         word_ptr_rep = BYTE_REP_PTR_MAP[suffix]
@@ -281,10 +283,10 @@ def rewrite_att_inst_name(name, inst):
             word_ptr_rep = BYTE_REP_PTR_MAP[src_len_rep]
         elif inst_name == 'movss':
             word_ptr_rep = 'dword ptr'
-    elif name.startswith(('fld', 'fadd', 'fstp')) and name.endswith('s'):
+    elif name.startswith(('fld', 'fadd', 'fstp', 'fdiv')) and name.endswith(('s', 'l')):
         inst_name, suffix = name[:-1], name[-1]
         res = inst_name
-        word_ptr_rep = 'dword ptr'
+        word_ptr_rep = 'dword ptr' if name[-1] == 's' else 'qword ptr'
     elif name.endswith(('q', 'l', 'w', 'b', 't')):
         inst_name, suffix = name[:-1], name[-1]
         if inst_name in lib.INSTRUCTIONS:
@@ -387,6 +389,13 @@ def modify_dyninst_operands(name, args):
         if len(args) == 3:
             res = [args[0], args[2], args[1]]
     elif name in (('idiv', 'div')):
+        if len(args) == 2:
+            res = [args[1]]
+    elif name in (('fld1', 'fldl2t', 'fldl2e', 'fldpi', 'fldlg2', 'fldln2', 'fldz', 'fchs')):
+        res = []
+    elif name in (('fstp', 'fistp')):
+        res = [args[0]]
+    elif name in (('fld', 'fxch', 'fild')):
         if len(args) == 2:
             res = [args[1]]
     return res
@@ -492,22 +501,37 @@ def normalize_arg_byte_len_rep(arg):
     return res
 
 
-def retrieve_bytelen_rep(name, args):
+def retrieve_bytelen_rep(name, args, address, elf_content):
     word_ptr_rep = None
-    if len(args) == 1:
-        if args[0].endswith(']'):
-            word_ptr_rep = 'qword ptr'
-    elif name in (('movsx', 'movzx')):
+    arg_rep = ', '.join(args)
+    if name.startswith('set'):
         word_ptr_rep = 'byte ptr'
-        # if args[0] in lib.REG_INFO_DICT:
-        #     word_len = lib.REG_INFO_DICT[args[0]][2]
-        #     if word_len == 16: word_ptr_rep = 'byte ptr'
-        #     else:
-        #         word_ptr_rep = 'word ptr'
-        # elif args[0] in lib.REG64_NAMES:
-        #     word_ptr_rep = 'word ptr'
-    elif name in (('movsd', 'movsb', 'movsxd')):
+    elif name == 'movzx':
+        byte_rep = elf_content.read_byte_sequence(address, 3)
+        if 'b7' in byte_rep:
+            word_ptr_rep = 'word ptr'
+        else:
+            word_ptr_rep = 'byte ptr'
+    elif name == 'movsx':
+        byte_rep = elf_content.read_byte_sequence(address, 3)
+        if 'bf' in byte_rep:
+            word_ptr_rep = 'word ptr'
+        else:
+            word_ptr_rep = 'byte ptr'
+    elif name == 'movsxd':
+        if args[0] in lib.REG_INFO_DICT:
+            word_len = lib.REG_INFO_DICT[args[0]][2]
+            word_ptr_rep = BYTELEN_REP_MAP[word_len]
+        elif args[0] in lib.REG64_NAMES:
+            word_ptr_rep = 'dword ptr'
+    elif name in (('subss', 'movss', 'ucomiss')):
+        word_ptr_rep = 'dword ptr'
+    elif name == 'movsd' and 'xmm' in arg_rep:
+        word_ptr_rep = 'qword ptr'
+    elif name in (('movsb', 'movsw', 'movsd', 'movsq')):
         word_ptr_rep = BYTE_REP_PTR_MAP[name[-1]]
+    elif name in (('movdqu', 'movaps', 'movdqa', 'movups')):
+        word_ptr_rep = 'xmmword ptr'
     elif utils.check_branch_inst(name):
         word_ptr_rep = 'qword ptr'
     elif name != 'lea':

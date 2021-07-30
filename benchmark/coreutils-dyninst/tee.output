@@ -1,0 +1,103 @@
+# of total instructions: 3850
+# of white instructions: 2630
+# of grey instructions: 52
+# of black instructions: 1168
+Ratio (grey/white): 0.02
+# of indirects: 77
+The disassembly process is unsound
+# of incorrectly disassembled instructions: 40
+
+The binary representations are not equivalent for inst: mov rdx,0x28 at address 0x4197
+gcc binary rep: 48c7c228000000
+elf binary rep: 64488b14252800
+The binary representations are not equivalent for inst: mov rdx,0xffffffff at address 0x41b2
+gcc binary rep: 48baffffffff00000000
+elf binary rep: 48c7c2ffffffff4889c6
+The binary representations are not equivalent for inst: xor rcx,0x28 at address 0x4204
+gcc binary rep: 4883f128
+elf binary rep: 6448330c
+The binary representations are not equivalent for inst: mov rdx,0x28 at address 0x43b7
+gcc binary rep: 48c7c228000000
+elf binary rep: 64488b14252800
+The binary representations are not equivalent for inst: mov rdx,0xffffffff at address 0x43d2
+gcc binary rep: 48baffffffff00000000
+elf binary rep: 48c7c2ffffffff4889c6
+The binary representations are not equivalent for inst: mov rax,0xfffffffe at address 0x241d
+gcc binary rep: 48b8feffffff00000000
+elf binary rep: 48c7c0feffffff480f44
+The binary representations are not equivalent for inst: xor rcx,0x28 at address 0x4424
+gcc binary rep: 4883f128
+elf binary rep: 6448330c
+The binary representations are invalid for inst: cmp rdx,0xffffffff at address 0x2460
+The binary representations are not equivalent for inst: mov rdx,0xffffffff at address 0x4567
+gcc binary rep: 48baffffffff00000000
+elf binary rep: 48c7c2ffffffffe9cdf6
+The binary representations are not equivalent for inst: and edx,0xdf at address 0x2923
+gcc binary rep: 81e2df000000
+elf binary rep: 83e2df80fa55
+The binary representations are not equivalent for inst: and edx,0xdf at address 0x2954
+gcc binary rep: 81e2df000000
+elf binary rep: 83e2df80fa42
+The binary representations are not equivalent for inst: and edx,0xdf at address 0x29a4
+gcc binary rep: 81e2df000000
+elf binary rep: 83e2df80fa54
+The binary representations are not equivalent for inst: and edx,0xdf at address 0x29b0
+gcc binary rep: 81e2df000000
+elf binary rep: 83e2df80fa46
+The binary representations are not equivalent for inst: mov rax,0x28 at address 0x2a59
+gcc binary rep: 48c7c028000000
+elf binary rep: 64488b04252800
+The binary representations are not equivalent for inst: mov rax,0x28 at address 0x4a82
+gcc binary rep: 48c7c028000000
+elf binary rep: 64488b04252800
+The binary representations are invalid for inst: cmp r11,0xffffffff at address 0x2aef
+The binary representations are not equivalent for inst: xor rax,0x28 at address 0x4b1b
+gcc binary rep: 4883f028
+elf binary rep: 64483304
+The binary representations are invalid for inst: cmp r11,0xffffffff at address 0x2b37
+The binary representations are invalid for inst: cmp r11,0xffffffff at address 0x2bfa
+The binary representations are invalid for inst: cmp rax,0xffffffff at address 0x4ebe
+The binary representations are not equivalent for inst: mov rax,0x28 at address 0x4eea
+gcc binary rep: 48c7c028000000
+elf binary rep: 64488b04252800
+The binary representations are not equivalent for inst: xor rcx,0x28 at address 0x4fc5
+gcc binary rep: 4883f128
+elf binary rep: 6448330c
+The binary representations are invalid for inst: cmp rax,0xffffffff at address 0x51e0
+The binary representations are not equivalent for inst: mov rax,0x28 at address 0x5213
+gcc binary rep: 48c7c028000000
+elf binary rep: 64488b04252800
+The binary representations are invalid for inst: cmp rax,0xfffffffd at address 0x5237
+The binary representations are not equivalent for inst: xor rdx,0x28 at address 0x5265
+gcc binary rep: 4883f228
+elf binary rep: 64483314
+The binary representations are invalid for inst: cmp r11,0xffffffff at address 0x32b0
+The binary representations are invalid for inst: cmp rax,0xffffffff at address 0x3363
+The binary representations are invalid for inst: cmp rax,0xfffffffe at address 0x336d
+The binary representations are not equivalent for inst: mov rsi,0x8589934635 at address 0x3563
+gcc binary rep: 48be3546938985000000
+elf binary rep: 48be2b00000002000000
+The binary representations are not equivalent for inst: and r9d,0xfd at address 0x35c9
+gcc binary rep: 4181e1fd000000
+elf binary rep: 4183e1fde82ef4
+The binary representations are not equivalent for inst: xor rbx,0x28 at address 0x35e1
+gcc binary rep: 4883f328
+elf binary rep: 6448331c
+The binary representations are not equivalent for inst: cmp eax,0xff at address 0x18d9
+gcc binary rep: 3dff000000
+elf binary rep: 83f8ff0f84
+The binary representations are invalid for inst: mov rax,0x8070630310989004800 at address 0x39ff
+The binary representations are invalid for inst: and rsp,0xfffffff0 at address 0x1a89
+The binary representations are not equivalent for inst: mov rax,0x28 at address 0x1bb2
+gcc binary rep: 48c7c028000000
+elf binary rep: 64488b04252800
+The binary representations are invalid for inst: cmp r12,0xffffffff at address 0x1d53
+The binary representations are not equivalent for inst: xor rcx,0x28 at address 0x1df0
+gcc binary rep: 4883f128
+elf binary rep: 6448330c
+The binary representations are not equivalent for inst: and edx,0xfd at address 0x1f0e
+gcc binary rep: 81e2fd000000
+elf binary rep: 83e2fd83fa01
+The binary representations are not equivalent for inst: mov rax,0x28 at address 0x1fbb
+gcc binary rep: 48c7c028000000
+elf binary rep: 64488b04252800

@@ -1,0 +1,18 @@
+# of total instructions: 17881
+# of white instructions: 15959
+# of grey instructions: 462
+# of black instructions: 1460
+Ratio (grey/white): 0.03
+# of indirects: 227
+The disassembly process is unsound
+# of incorrectly disassembled instructions: 4
+
+The binary representations are invalid for inst: cmp rbp,0xbfffffff at address 0x5700
+The binary representations are invalid for inst: and qword ptr [0x90+rsp],0xfffffbff at address 0xad27
+The binary representations are not equivalent for inst: bt rax,rcx at address 0x9a88
+gcc binary rep: 480fa3c8
+elf binary rep: 490fa3c8
+The binary representations are not equivalent for inst: bt rdi,r14 at address 0xc120
+gcc binary rep: 4c0fa3f7
+elf binary rep: 4d0fa3f7
+

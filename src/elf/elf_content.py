@@ -44,6 +44,7 @@ class ELF_Content(object):
                 return []
         return utils.bytes_to_int(res)
 
+
     def read_byte_sequence(self, address, length):
         res = []
         for i in range(length - 1, -1, -1):

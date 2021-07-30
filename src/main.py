@@ -103,7 +103,7 @@ def check_soundness_batch(elf_lib_dir, disasm_lib_dir, not_only, verbose):
         if os.path.exists(exec_path):
             print(file_name)
             check_soundness(exec_path, disasm_log_path, not_only, verbose)
-            time.sleep(10)
+            time.sleep(20)
 
 
 def check_soundness_specified(file_names, elf_lib_dir, disasm_lib_dir, not_only, verbose):
@@ -121,7 +121,7 @@ def dsv_main(elf_lib_dir, exec_path, disasm_path, disasm_type, not_only, verbose
     file_name = utils.get_file_name(disasm_path)
     global_var.get_elf_info(exec_path)
     helper.disassemble_to_asm(exec_path, disasm_path, disasm_type)
-    disasm_factory = Disasm_Factory(disasm_path, exec_path, disasm_type)
+    disasm_factory = Disasm_Factory(disasm_path, exec_path, global_var.elf_content, disasm_type)
     disasm_asm = disasm_factory.get_disasm()
     cfg = construct_cfg(disasm_asm, disasm_type)
     utils.close_logger()
@@ -200,9 +200,5 @@ if __name__=='__main__':
             exec_path = os.path.join(elf_lib_dir, args.file_name)
             dsv_main(elf_lib_dir, exec_path, disasm_path, disasm_type, args.not_only, args.verbose)
     # 
-    # file_names = ['getlimits', 'ginstall', 'groups', 'head', 'hostid', 'id', 'join', 'kill', 'link', 'ln', 'logname', 'ls', 'make-prime-list', 'md5sum', 'mkdir', 'mkfifo', 'mknod', 'mktemp', 'mv', 'nice', 'nl', 'nohup', 'nproc', 'numfmt', 'od', 'paste', 'pathchk', 'pinky', 'pr', 'printenv', 'printf', 'ptx', 'pwd', 'readlink', 'realpath', 'rm', 'rmdir', 'runcon', 'seq', 'shred', 'shuf', 'sleep', 'split', 'stat', 'stdbuf', 'stty', 'sum', 'sync', 'tac', 'tail', 'tee', 'test', 'timeout', 'touch', 'tr', 'true', 'truncate', 'tsort', 'tty', 'uname', 'unexpand', 'uniq', 'unlink', 'uptime', 'users', 'vdir', 'wc', 'who', 'whoami', 'yes']
-    # file_names = ['du', 'echo', 'env', 'expand', 'expr', 'factor', 'false', 'fmt', 'fold']
-    # dsv_specified(file_names, elf_lib_dir, disasm_lib_dir, disasm_type, args.not_only, args.verbose)
-    # check_soundness_specified(file_names, elf_lib_dir, disasm_lib_dir, args.not_only, args.verbose)
     
         

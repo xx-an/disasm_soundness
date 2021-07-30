@@ -1,0 +1,23 @@
+# of total instructions: 3330
+# of white instructions: 929
+# of grey instructions: 13
+# of black instructions: 2388
+Ratio (grey/white): 0.01
+# of indirects: 34
+The disassembly process is unsound
+# of incorrectly disassembled instructions: 6
+
+The binary representations are invalid for inst: and rsp,0xfffffff0 at address 0x1999
+The binary representations are not equivalent for inst: mov rax,0x28 at address 0x41f2
+gcc binary rep: 48c7c028000000
+elf binary rep: 64488b04252800
+The binary representations are not equivalent for inst: xor rax,0x28 at address 0x428b
+gcc binary rep: 4883f028
+elf binary rep: 64483304
+The binary representations are invalid for inst: add rsp,0xffffff80 at address 0x1b34
+The binary representations are not equivalent for inst: mov rax,0x28 at address 0x1b38
+gcc binary rep: 48c7c028000000
+elf binary rep: 64488b04252800
+The binary representations are not equivalent for inst: mov rdi,0x2203318222849 at address 0x160a
+gcc binary rep: 48bf4928221833200200
+elf binary rep: 48bf0100000001020000

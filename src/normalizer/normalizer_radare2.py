@@ -40,30 +40,6 @@ class Disasm_Radare2(Disasm):
         self.read_asm_info()
 
 
-    def parse_sym_table(self):
-        r2_info = r2pipe.open(self.exec_path)
-        sym_info = r2_info.cmd('is')
-        sym_lines = sym_info.split('\n')
-        for line in sym_lines:
-            line = line.strip()
-            if line and SYM_REP_PAT.match(line):
-                s_info_split = utils.remove_multiple_spaces(line).split(' ')
-                sym_name = s_info_split[-1]
-                if utils.imm_pat.match(s_info_split[2]):
-                    sym_address_str = hex(utils.imm_str_to_int(s_info_split[2]))
-                if sym_name in self.sym_table:
-                    new_sym_name = sym_name + '_' + str(self.sym_name_count[sym_name])
-                    self.sym_table[new_sym_name] = sym_address_str
-                    self.sym_name_count[sym_name] += 1
-                else:
-                    self.sym_table[sym_name] = sym_address_str
-                    self.sym_name_count[sym_name] = 1
-
-
-
-    def get_address_inst_map(self):
-        return self.address_inst_map
-
     def read_asm_info(self):
         with open(self.asm_path, 'r') as f:
             lines = f.readlines()
@@ -100,8 +76,12 @@ class Disasm_Radare2(Disasm):
             else:
                 inst = self._format_inst(address, inst, rip)
             self.valid_address_no += 1
-            self.address_inst_map[address] = inst
+            self.address_inst_map[address] = inst.strip()
             self.address_next_map[address] = rip
+
+
+    def get_address_inst_map(self):
+        return self.address_inst_map
 
 
     # line: ';-- section..text:'
@@ -214,14 +194,39 @@ class Disasm_Radare2(Disasm):
 
     def _format_arg(self, address, inst_name, arg, rip):
         res = helper.convert_to_hex_rep(arg)
+        res = self._add_missed_bracket(res)
         res = helper.add_or_remove_ptr_rep_arg(inst_name, res)
         res = helper.rewrite_absolute_address_to_relative(res, rip)
         return res
+
 
     def _rewrite_inst(self, inst):
         res = inst.replace(' + ', '+').replace(' - ', '-')
         return res
         
 
+    def _add_missed_bracket(self, arg):
+        res = arg
+        if '[' in arg and not arg.endswith(']'):
+            res = arg + ']'
+        return res
 
+    def parse_sym_table(self):
+        r2_info = r2pipe.open(self.exec_path)
+        sym_info = r2_info.cmd('is')
+        sym_lines = sym_info.split('\n')
+        for line in sym_lines:
+            line = line.strip()
+            if line and SYM_REP_PAT.match(line):
+                s_info_split = utils.remove_multiple_spaces(line).split(' ')
+                sym_name = s_info_split[-1]
+                if utils.imm_pat.match(s_info_split[2]):
+                    sym_address_str = hex(utils.imm_str_to_int(s_info_split[2]))
+                if sym_name in self.sym_table:
+                    new_sym_name = sym_name + '_' + str(self.sym_name_count[sym_name])
+                    self.sym_table[new_sym_name] = sym_address_str
+                    self.sym_name_count[sym_name] += 1
+                else:
+                    self.sym_table[sym_name] = sym_address_str
+                    self.sym_name_count[sym_name] = 1
 

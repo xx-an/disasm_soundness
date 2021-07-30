@@ -172,7 +172,7 @@ GENERAL_INSTRUCTIONS = {
 
 INSTS_AFF_FLAGS_WO_CMP_TEST = {
     'add', 'sub', 'xor', 'and', 'or', 'sar', 'shr', 'sal', 'shl',
-    'neg', 'not', 'imul', 'mul', 'inc', 'dec', 'adc', 'sbb', 'ror', 'rol'
+    'neg', 'not', 'imul', 'mul', 'inc', 'dec', 'adc', 'sbb', 'ror', 'rol', 'bt'
     }
 
 BAP_RELATED_INST = {'stos', 'fild', 'fld', 'fstp', 'fadd'}
