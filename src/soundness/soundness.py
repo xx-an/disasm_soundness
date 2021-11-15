@@ -19,10 +19,10 @@ from .reachable import Reachable
 
 optimized_exceptions = ['ret']
 
-def _check_bin_eq(address, inst, elf_content):
+def _check_bin_eq(address, inst, binary_content):
     print_info = ''
     bin_rep = utils.generate_inst_bin(inst)
-    elf_bytes = elf_content.read_byte_sequence(address, utils.get_bytes_len(bin_rep))
+    elf_bytes = binary_content.read_byte_sequence(address, utils.get_bytes_len(bin_rep))
     if utils.SOUNDNESS_EXCEPTION_INDICATOR in bin_rep:
         return True, print_info
     elif not bin_rep: 
@@ -36,7 +36,7 @@ def _check_bin_eq(address, inst, elf_content):
     return True, print_info
 
 
-def sound(elf_content, disasm_asm, cfg):
+def sound(binary_content, disasm_asm, cfg):
     res = True
     unsound_cases = 0
     print_info = ''
@@ -44,7 +44,7 @@ def sound(elf_content, disasm_asm, cfg):
     address_inst_map = disasm_asm.get_address_inst_map()
     for address in addresses:
         inst = address_inst_map[address]
-        bin_eq, p_info = _check_bin_eq(address, inst, elf_content)
+        bin_eq, p_info = _check_bin_eq(address, inst, binary_content)
         print_info += p_info
         if not bin_eq:
             unsound_cases += 1
@@ -52,7 +52,7 @@ def sound(elf_content, disasm_asm, cfg):
     return res, unsound_cases, print_info
         
 
-def sound_disasm_file(elf_content, disasm_log_file):
+def sound_disasm_file(binary_content, disasm_log_file):
     res = True
     unsound_cases = 0
     print_info = ''
@@ -60,7 +60,7 @@ def sound_disasm_file(elf_content, disasm_log_file):
     reachable_address_table = reachable.reachable_address_table
     for address in reachable_address_table.keys():
         inst = reachable_address_table[address]
-        bin_eq, p_info = _check_bin_eq(address, inst, elf_content)
+        bin_eq, p_info = _check_bin_eq(address, inst, binary_content)
         print_info += p_info
         if not bin_eq:
             unsound_cases += 1

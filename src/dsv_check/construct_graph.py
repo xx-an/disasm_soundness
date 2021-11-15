@@ -19,7 +19,7 @@ import argparse
 
 from ..common import lib
 from ..common import utils
-from ..elf.elf_info import ELF_Info
+from ..binary.binary_info import Binary_Info
 from .graph import Graph
 from .graph_node import Node
 from .disasm_objdump import Disasm_Objdump
@@ -30,11 +30,11 @@ $ python -m src.dsv_check.construct_graph -l benchmark/coreutils-build -L benchm
 '''
 
 class Construct_Graph(object):
-    def __init__(self, disasm_asm, log_path, elf_info):
+    def __init__(self, disasm_asm, log_path, binary_info):
         self.node_set = {}
         self.graph = Graph()
-        self.elf_info = elf_info
-        self.start_segment_address = elf_info.entry_address
+        self.binary_info = binary_info
+        self.start_segment_address = binary_info.entry_address
         self.address_entries_map = {}
         self.call_to_addr_set = set()
         self.address_inst_map = disasm_asm.address_inst_map
@@ -229,8 +229,8 @@ class Construct_Graph(object):
                                         next_addr = utils.extract_content(new_inst, '[')
                                         next_addr = next_addr.replace('rip', hex(rip))
                                         next_addr = eval(next_addr)
-                                        if next_addr in self.elf_info.address_sym_table:
-                                            sym_name = self.elf_info.address_sym_table[next_addr][0]
+                                        if next_addr in self.binary_info.address_sym_table:
+                                            sym_name = self.binary_info.address_sym_table[next_addr][0]
                                             if sym_name in lib.TERMINATION_FUNCTIONS:
                                                 self.call_to_addr_set.add(addr)
                             else:
@@ -313,7 +313,7 @@ if __name__ == '__main__':
     log_path = os.path.join(log_dir, file_name + '.log')
     aux_path = os.path.join(log_dir, file_name + '.aux')
     disasm_asm = Disasm_Objdump(disasm_path)
-    ei = ELF_Info(exec_path)
+    ei = Binary_Info(exec_path)
     cg = Construct_Graph(disasm_asm, log_path, ei)
     # cg.draw()
     cg.find_path(0x201e, 0x22a4)

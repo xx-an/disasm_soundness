@@ -19,13 +19,14 @@ from z3 import *
 from ..common import lib
 from ..common import utils
 from . import sym_helper
+from . import sym_register
 from ..common import global_var
 
 
 def get_sym_val(str_val, store, length):
     res = None
     if str_val in lib.REG_NAMES:
-        res = store[lib.REG][str_val]
+        res = sym_register.get_register_sym(store, str_val)
     elif utils.imm_pat.match(str_val):
         res = BitVecVal(utils.imm_str_to_int(str_val), length)
     elif str_val in lib.SEG_REGS:
@@ -94,7 +95,7 @@ def calc_effective_address(line, store, length):
 
 
 # arg: DWORD PTR [rcx+rdx*4]
-def get_jump_table_address(store, arg, src_sym, src_val, length=lib.DEFAULT_REG_LEN):
+def get_jump_table_address(store, arg, src_sym, src_val, length=utils.MEM_ADDR_SIZE):
     arg = utils.extract_content(arg, '[')
     stack = []
     op_stack = []
@@ -110,7 +111,7 @@ def get_jump_table_address(store, arg, src_sym, src_val, length=lib.DEFAULT_REG_
     return res
 
 
-def get_effective_address(store, rip, src, length=lib.DEFAULT_REG_LEN):
+def get_effective_address(store, rip, src, length=utils.MEM_ADDR_SIZE):
     res = None
     if src.endswith(']'):
         res = utils.extract_content(src, '[')
@@ -119,7 +120,7 @@ def get_effective_address(store, rip, src, length=lib.DEFAULT_REG_LEN):
         elif 'rip' in res:  # 'rip+0x2009a6'
             res = res.replace('rip', hex(rip))
             res = eval(res)
-            res = BitVecVal(res & 0xffffffffffffffff, length)
+            res = BitVecVal(utils.norm_num_w_length(res, length), length)
         else:  # 'rax + rbx * 1'
             res = calc_effective_address(res, store, length)
     elif 's:' in src:
@@ -142,7 +143,7 @@ def pollute_all_mem_content(store):
                 store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
         else:
             int_addr = sym_helper.int_from_sym(addr)
-            if int_addr >= global_var.elf_info.data_start_addr and int_addr < utils.MAX_HEAP_ADDR:
+            if int_addr >= global_var.binary_info.data_start_addr and int_addr < utils.MAX_HEAP_ADDR:
                 if sym_helper.sym_is_int_or_bitvecnum(store[lib.MEM][addr]):
                     store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
 
@@ -154,7 +155,7 @@ def pollute_mem_w_sym_address(store):
                 store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
 
 
-def set_mem_sym(store, address, sym, length=lib.DEFAULT_REG_LEN):
+def set_mem_sym(store, address, sym, length):
     # If the memory address is not concrete
     if not sym_helper.sym_is_int_or_bitvecnum(address):
         pollute_all_mem_content(store)
@@ -187,7 +188,7 @@ def set_mem_sym(store, address, sym, length=lib.DEFAULT_REG_LEN):
 
             
     
-def get_mem_sym(store, address, length=lib.DEFAULT_REG_LEN):
+def get_mem_sym(store, address, length):
     byte_len = length // 8
     res = None
     start_address = None
@@ -224,14 +225,14 @@ def get_mem_sym(store, address, length=lib.DEFAULT_REG_LEN):
     return res
 
 
-def read_memory_val(store, address, length=lib.DEFAULT_REG_LEN):
+def read_memory_val(store, address, length):
     res = None
     if sym_helper.is_bit_vec_num(address):
         val = None
         int_address = address.as_long()
-        if int_address >= global_var.elf_info.rodata_start_addr and int_address < global_var.elf_info.rodata_end_addr:
-            rodata_base_addr = global_var.elf_info.rodata_base_addr
-            val = global_var.elf_content.read_bytes(int_address - rodata_base_addr, length // 8)
+        if int_address >= global_var.binary_info.rodata_start_addr and int_address < global_var.binary_info.rodata_end_addr:
+            rodata_base_addr = global_var.binary_info.rodata_base_addr
+            val = global_var.binary_content.read_bytes(int_address - rodata_base_addr, length // 8)
         if val:
             res = BitVecVal(val, length)
         else:
@@ -245,7 +246,7 @@ def read_memory_val(store, address, length=lib.DEFAULT_REG_LEN):
     return res
 
 
-def get_memory_val(store, address, length=lib.DEFAULT_REG_LEN):
+def get_memory_val(store, address, length):
     res = get_mem_sym(store, address, length)
     if res == None:
         res = read_memory_val(store, address, length)

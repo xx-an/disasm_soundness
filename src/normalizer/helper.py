@@ -73,12 +73,18 @@ def disassemble_to_asm(exec_path, disasm_path, disasm_type='objdump'):
         utils.execute_command(cmd)
     elif disasm_type == 'angr':
         disassemble_angr(exec_path, disasm_path)
+    elif disasm_type == 'dyninst':
+        dyninst_path = os.path.join(utils.PROJECT_DIR, 'lib/disassemble_dyninst')
+        cmd = dyninst_path + ' ' + exec_path + ' > ' + disasm_path
+        utils.execute_command(cmd)
+    elif disasm_type == 'ghidra':
+        disassemble_ghidra(exec_path, disasm_path)
     else:
         raise Exception('The assembly file has not been generated')
 
 
 def disassemble_angr(exec_path, asm_path):
-    proj = angr.Project(exec_path, auto_load_libs=False, load_options={'main_opts': {'base_addr': 0x000000}})
+    proj = angr.Project(exec_path, auto_load_libs=False, load_options={'main_opts': {'base_addr': utils.DISASSEMBLE_BASE_ADDR}})
     cfg = proj.analyses.CFGFast()
     nodes = cfg.graph.nodes()
     sys.stdout = open(asm_path, 'w+')
@@ -104,28 +110,42 @@ def disassemble_radare2(exec_path, asm_path):
         f.write(res)
 
     
+
+def disassemble_ghidra(exec_path, asm_path):
+    cmd = os.path.join(utils.PROJECT_DIR, 'lib/ghidra_9.0.4/support/analyzeHeadless') + ' '
+    cmd += os.path.join(utils.PROJECT_DIR, 'lib/ghidra_9.0.4/') + ' ghidra.gpr -deleteProject'
+    cmd += ' -import ' + exec_path
+    cmd += ' -scriptPath ' + os.path.join(utils.PROJECT_DIR, 'src/disassembler/')
+    cmd += ' -postScript ghidra_disasm.py'
+    res = utils.execute_command(cmd)
+    lines = res.split('\n')
+    with open(asm_path, 'w+') as f:
+        code_start = False
+        for line in lines:
+            if code_start:
+                if line.startswith('--- instructions ---'):
+                    break
+                else:
+                    f.write(line + '\n')
+            if line.startswith('--- instructions ---'):
+                code_start = True
+
+                
 # [Sections]
 # Nm Paddr       Size Vaddr      Memsz Perms Name
 # ...
 # 14 0x00001510 13070 0x00001510 13070 -r-x .text
 # 15 0x00004820     9 0x00004820     9 -r-x .fini
 def parse_r2_section_info(section_info):
-    prev_name = ''
-    prev_address = 0
     lines = section_info.split('\n')
     sec_size_table = {}
-    sec_start = False
     for line in lines:
         line_split = utils.remove_multiple_spaces(line).split(' ')
         if len(line_split) == 7:
             if utils.imm_pat.match(line_split[1]):
+                name = line_split[-1]
                 address = utils.imm_str_to_int(line_split[1])
-                if sec_start:
-                    sec_size_table[prev_name] = address - prev_address
-                else:
-                    sec_start = True
-                prev_address = address
-                prev_name = line_split[-1]
+                sec_size_table[name] = utils.imm_str_to_int(line_split[2])
     return sec_size_table
 
 
@@ -501,19 +521,19 @@ def normalize_arg_byte_len_rep(arg):
     return res
 
 
-def retrieve_bytelen_rep(name, args, address, elf_content):
+def retrieve_bytelen_rep(name, args, address, binary_content):
     word_ptr_rep = None
     arg_rep = ', '.join(args)
     if name.startswith('set'):
         word_ptr_rep = 'byte ptr'
     elif name == 'movzx':
-        byte_rep = elf_content.read_byte_sequence(address, 3)
+        byte_rep = binary_content.read_byte_sequence(address, 3)
         if 'b7' in byte_rep:
             word_ptr_rep = 'word ptr'
         else:
             word_ptr_rep = 'byte ptr'
     elif name == 'movsx':
-        byte_rep = elf_content.read_byte_sequence(address, 3)
+        byte_rep = binary_content.read_byte_sequence(address, 3)
         if 'bf' in byte_rep:
             word_ptr_rep = 'word ptr'
         else:

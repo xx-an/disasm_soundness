@@ -18,14 +18,14 @@ import re
 from ..common import utils
 
 
-class ELF_Content(object):
+class Binary_Content(object):
     def __init__(self, src_path):
         self.src_path = src_path
         self.address_bytes_map = {}
-        self.read_elf_contents()
+        self.read_binary_contents()
 
 
-    def read_elf_contents(self):
+    def read_binary_contents(self):
         idx = 0
         with open(self.src_path, 'rb') as f:
             bytes_read = f.read()

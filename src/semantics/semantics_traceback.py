@@ -39,7 +39,8 @@ def sym_bin_on_src(store, sym_names, src):
             if is_reg_bottom:
                 src_names = src_names + new_srcs
             else:
-                addr = sym_engine.get_effective_address(store, rip, src)
+                addr_rep_length = utils.get_addr_rep_length(src)
+                addr = sym_engine.get_effective_address(store, rip, src, addr_rep_length)
                 src_names = src_names + [str(addr)]
             # src_names = src_names + new_srcs
         else:
@@ -77,7 +78,8 @@ def mov(store, sym_names, dest, src):
             if is_reg_bottom:
                 src_names = src_names + new_srcs
             else:
-                addr = sym_engine.get_effective_address(store, rip, src)
+                addr_rep_length = utils.get_addr_rep_length(src)
+                addr = sym_engine.get_effective_address(store, rip, src, addr_rep_length)
                 src_names = src_names + [str(addr)]
     return list(set(src_names))
 

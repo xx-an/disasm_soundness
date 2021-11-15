@@ -23,7 +23,7 @@ from ..common.inst_element import Inst_Elem
 from . import helper
 from .normalizer import Disasm
 
-address_inst_pattern = re.compile('^[.a-zA-Z]+:[0-9a-zA-Z]{16}[ ]{17}[a-zA-Z]')
+address_inst_pattern = re.compile('^[.a-zA-Z]+:[0-9a-zA-Z]+[ ]{17}[a-zA-Z]')
 
 imm_pat = re.compile('^0x[0-9a-fA-F]+$|^[0-9]+$|^-[0-9]+$|^-0x[0-9a-fA-F]+$|^[0-9a-fA-F]+$|^-[0-9a-fA-F]+$')
 
@@ -31,6 +31,8 @@ variable_expr_pat = re.compile(r'^[.a-zA-Z_0-9]+:[0-9a-zA-Z]{16} [a-zA-Z0-9_]+')
 ida_immediate_pat = re.compile(r'^[0-9A-F]+h')
 
 subtract_hex_pat = re.compile(r'-[0-9a-fA-F]+h')
+
+non_inst_prefix = ('dd ', 'text ', 'align', 'assume', 'public')
 
 class Disasm_IDAPro(Disasm):
     def __init__(self, disasm_path):
@@ -72,7 +74,7 @@ class Disasm_IDAPro(Disasm):
                 elif self._is_located_at_code_segments(line):
                     if address_inst_pattern.search(line):
                         address, inst = self._parse_line(line)
-                        if inst and not inst.startswith(('align', 'assume', 'public')):
+                        if inst and not inst.startswith(non_inst_prefix):
                             inst = self._replace_inst_var_arg(address, inst, line)
                             self.address_inst_map[address] = inst
                             self._address_line_map[address] = line

@@ -148,14 +148,6 @@ def parse_predicate(store, inst, val, prefix='j'):
     return expr
 
 
-def top_stack(store, rip):
-    sym_rsp = sym_engine.get_sym(store, rip, 'rsp')
-    res = sym_engine.get_mem_sym(store, sym_rsp)
-    if res != None and sym_helper.sym_is_int_or_bitvecnum(res):
-        res = res.as_long()
-    return res
-
-
 def is_inst_aff_flag(store, rip, address, inst):
     inst_split = inst.strip().split(' ', 1)
     inst_name = inst_split[0]
@@ -178,7 +170,8 @@ def add_aux_memory(store, rip, inst):
 def _add_aux_memory(store, rip, inst_args):
     for arg in inst_args:
         if arg.endswith(']'):
-            address = sym_engine.get_effective_address(store, rip, arg)
+            addr_rep_length = utils.get_addr_rep_length(arg)
+            address = sym_engine.get_effective_address(store, rip, arg, addr_rep_length)
             if address in store[lib.MEM] and address not in store[lib.AUX_MEM]:
                 sym_arg = store[lib.MEM][address]
                 if sym_helper.is_bit_vec_num(sym_arg):
@@ -243,7 +236,8 @@ def check_source_is_sym(store, rip, src, syms):
         lhs, rhs = src.split(':')
         res = check_source_is_sym(store, rip, lhs, syms) or check_source_is_sym(store, rip, rhs, syms)
     elif src.endswith(']'):
-        addr = sym_engine.get_effective_address(store, rip, src)
+        addr_rep_length = utils.get_addr_rep_length(src)
+        addr = sym_engine.get_effective_address(store, rip, src, addr_rep_length)
         res = str(addr) in syms
     return res
 
@@ -259,7 +253,8 @@ def check_cmp_dest_is_sym(store, rip, dest, sym_names):
                 if len(new_srcs) == 1:
                     res = new_srcs[0] == sym_names[0]
             else:
-                addr = sym_engine.get_effective_address(store, rip, dest)
+                addr_rep_length = utils.get_addr_rep_length(dest)
+                addr = sym_engine.get_effective_address(store, rip, dest, addr_rep_length)
                 res = str(addr) == sym_names[0]
     return res
 
@@ -284,3 +279,26 @@ def add_src_to_syms(store, sym_names, src):
         src_names.append(get_root_reg(src))
     return src_names
 
+
+def sym_bin_op_na_flags(store, rip, op, dest, src):
+    res = sym_engine.sym_bin_op(store, rip, op, dest, src)
+    sym_engine.set_sym(store, rip, dest, res)
+    return res
+
+
+def get_sym_rsp(store, rip):
+    sym_rsp = sym_engine.get_sym(store, rip, utils.ADDR_SIZE_SP_MAP[utils.MEM_ADDR_SIZE], utils.MEM_ADDR_SIZE)
+    return sym_rsp
+
+def push_val(store, rip, sym_val):
+    operand_size = sym_val.size()
+    sym_rsp = sym_bin_op_na_flags(store, rip, '-', utils.ADDR_SIZE_SP_MAP[utils.MEM_ADDR_SIZE], str(operand_size//8))
+    sym_engine.set_mem_sym(store, sym_rsp, sym_val, sym_val.size())
+
+
+def set_rsp_init(store, rip):
+    if utils.MEM_ADDR_SIZE == 64:
+        sym_engine.set_sym(store, rip, 'rsp', sym_helper.bit_vec_val_sym(utils.INIT_STACK_FRAME_POINTER))
+    elif utils.MEM_ADDR_SIZE == 32:
+        sym_engine.set_sym(store, rip, 'esp', sym_helper.bit_vec_val_sym(utils.INIT_STACK_FRAME_POINTER))
+    

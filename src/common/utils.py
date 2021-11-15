@@ -32,14 +32,26 @@ MAX_MALLOC_SIZE = 16711568
 MIN_HEAP_ADDR = 0x10000000
 MAX_HEAP_ADDR = MIN_HEAP_ADDR
 
-INIT_STACK_FRAME_POINTER = 2**48-9
 MAX_DEVIATION = 5
 SEGMENT_REG_INIT_VAL = 0
+DISASSEMBLE_BASE_ADDR = 0x000000
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(os.path.realpath(__file__)))))
 
 ASSEMBLY_FILE_PATH = os.path.join(PROJECT_DIR, 'test.s')
 ASM_OBJ_FILE_PATH = os.path.join(PROJECT_DIR, 'test.o')
+
+MEM_ADDR_SIZE = 32
+ADDR_SIZE_SP_MAP = {
+    16: 'sp',
+    32: 'esp',
+    64: 'rsp'
+}
+INIT_STACK_FRAME_POINTER = {
+    16: 2**12-3,
+    32: 2**24-5,
+    64: 2**48-9
+}
 
 LOG_NAME = 'log'
 
@@ -180,6 +192,11 @@ def get_file_dir(file_path):
 
 def get_file_name(path):
     file_name = path.rsplit('/', 1)[1].split('.', 1)[0]
+    return file_name
+
+
+def get_exec_file_name(path):
+    file_name = path.rsplit('/', 1)[1].strip()
     return file_name
 
 
@@ -369,8 +386,15 @@ def replace_multiple(expr, os, ns):
 
 
 def execute_command(cmd):
-    out = subprocess.check_output(cmd, shell=True ,stderr=subprocess.STDOUT)
-    return out.decode("utf-8").strip()
+    res = ''
+    try:
+        out = subprocess.check_output(cmd, shell=True ,stderr=subprocess.STDOUT)
+        res = out.decode("utf-8").strip()
+    except subprocess.CalledProcessError as exc:
+        pass
+    else:
+        pass
+    return res
 
 
 def write_file(file_path, data):
@@ -558,7 +582,7 @@ def get_mem_sym_length(sym_name):
     elif sym_name.startswith('byte '):res = 8
     return res
 
-def get_sym_length(sym_name, length=lib.DEFAULT_REG_LEN):
+def get_sym_length(sym_name, length=MEM_ADDR_SIZE):
     res = length
     if sym_name in lib.REG64_NAMES: res = 64
     elif sym_name in lib.REG_INFO_DICT:
@@ -566,10 +590,15 @@ def get_sym_length(sym_name, length=lib.DEFAULT_REG_LEN):
     elif sym_name.endswith(']') or ' ptr ' in sym_name:
         res = get_mem_sym_length(sym_name)
     elif ':' in sym_name:     #rax:rdx
-        regs = sym_name.split(':')
-        left_len = get_sym_length(regs[0])
-        right_len = get_sym_length(regs[1])
-        res = left_len + right_len
+        if 's:' not in sym_name:
+            regs = sym_name.split(':')
+            left_len = get_sym_length(regs[0])
+            right_len = get_sym_length(regs[1])
+            res = left_len + right_len
+        else:
+            new_sym = sym_name.split(':', 1)[1].strip()
+            if new_sym:
+                res = get_sym_length(new_sym)
     return res
 
 
@@ -663,6 +692,13 @@ def u_hex(num):
     return res
 
 
+def norm_num_w_length(num, length):
+    res = num
+    mask_str = '1' * length
+    res = res & int(mask_str, 2)
+    return res
+
+
 def rm_unused_spaces(content):
     res = content.strip()
     res = re.sub(r'[ ]*\+[ ]*', '+', res)
@@ -690,3 +726,19 @@ def init_ida_struct_info():
                     struct_name = line_split[0]
                     ida_struct_table[struct_name] = {}
     return ida_struct_table
+
+
+
+def get_addr_rep_length(line):
+    res = lib.DEFAULT_REG_LEN
+    content = extract_content(line.strip(), '[')
+    content = rm_unused_spaces(content)
+    content_split = simple_operator_pat.split(content)
+    for csi in content_split:
+        if simple_operator_pat.match(csi):
+            pass
+        else:
+            if csi in lib.REG_NAMES:
+                res = get_sym_length(csi)
+                break
+    return res

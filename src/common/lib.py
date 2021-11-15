@@ -130,6 +130,7 @@ JMP_INST_WITHOUT_CALL = CONDITIONAL_JMP_INST | {'jmp', 'ret'}
 JMP_INST_WITH_ADDRESS = CONDITIONAL_JMP_INST | {'jmp', 'call'}
 
 DEFAULT_REG_LEN = 64
+DEFAULT_MEM_ARR_LEN = 64
 C_INT_LEN = 32
 
 REG = 'register'
@@ -137,8 +138,10 @@ MEM = 'memory'
 FLAGS = 'flags'
 SEG = 'segment_register'
 AUX_MEM = 'aux_memory'
+HEAP_ADDR = 'heap_addr'
+SYM_CONC_MAP = 'sym_conc_map'
 
-STATE_NAMES = {REG, MEM, FLAGS, SEG, AUX_MEM}
+STATE_NAMES = {REG, MEM, FLAGS, SEG, AUX_MEM, SYM_CONC_MAP}
 RECORD_STATE_NAMES = [REG, MEM]
 
 TERMINATION_FUNCTIONS = {

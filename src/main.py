@@ -31,10 +31,11 @@ CHECK_RESULTS = ['', '$\\times$']
 
 
 def construct_cfg(disasm_asm, disasm_type):
-    start_address = global_var.elf_info.entry_address
-    main_address = global_var.elf_info.main_address
-    address_sym_table = global_var.elf_info.address_sym_table
+    start_address = global_var.binary_info.entry_address
+    main_address = global_var.binary_info.main_address
+    address_sym_table = global_var.binary_info.address_sym_table
     address_inst_map = disasm_asm.get_address_inst_map()
+    # print(global_var.binary_info.sym_table)
     cfg = CFG(address_sym_table, address_inst_map, disasm_asm.address_next_map, start_address, main_address, disasm_asm.valid_address_no, disasm_type)
     return cfg
 
@@ -86,8 +87,8 @@ def update_soundness_results(disasm_log_path, res, unsound_cases, print_info):
 
 
 def check_soundness(exec_path, disasm_log_path, not_only, verbose):
-    global_var.get_elf_info(exec_path)
-    res, unsound_cases, print_info = soundness.sound_disasm_file(global_var.elf_content, disasm_log_path)
+    global_var.get_binary_info(exec_path)
+    res, unsound_cases, print_info = soundness.sound_disasm_file(global_var.binary_content, disasm_log_path)
     if verbose:
         print(print_info)
     if not_only:
@@ -118,10 +119,10 @@ def check_soundness_specified(file_names, elf_lib_dir, disasm_lib_dir, not_only,
 
 def dsv_main(elf_lib_dir, exec_path, disasm_path, disasm_type, not_only, verbose):
     set_logger(disasm_path, disasm_type, verbose)
-    file_name = utils.get_file_name(disasm_path)
-    global_var.get_elf_info(exec_path)
+    file_name = utils.get_exec_file_name(exec_path)
+    global_var.get_binary_info(exec_path)
     helper.disassemble_to_asm(exec_path, disasm_path, disasm_type)
-    disasm_factory = Disasm_Factory(disasm_path, exec_path, global_var.elf_content, disasm_type)
+    disasm_factory = Disasm_Factory(disasm_path, exec_path, global_var.binary_content, disasm_type)
     disasm_asm = disasm_factory.get_disasm()
     cfg = construct_cfg(disasm_asm, disasm_type)
     utils.close_logger()
@@ -130,7 +131,7 @@ def dsv_main(elf_lib_dir, exec_path, disasm_path, disasm_type, not_only, verbose
     print(file_name + '\t' + '\t'.join(list(map(lambda x: str(x), cnt_list))))
     write_results(disasm_path, disasm_type, cnt_list)
     if not_only:
-        res, unsound_cases, print_info = soundness.sound(global_var.elf_content, disasm_asm, cfg)
+        res, unsound_cases, print_info = soundness.sound(global_var.binary_content, disasm_asm, cfg)
         write_soundness_results(disasm_path, disasm_type, res, unsound_cases, print_info)
     time.sleep(10)
 
@@ -200,5 +201,9 @@ if __name__=='__main__':
             exec_path = os.path.join(elf_lib_dir, args.file_name)
             dsv_main(elf_lib_dir, exec_path, disasm_path, disasm_type, args.not_only, args.verbose)
     # 
+    # disasm_path = os.path.join(disasm_lib_dir, args.file_name + '.' + disasm_type)
+    # exec_path = os.path.join(elf_lib_dir, args.file_name)
+    # helper.disassemble_to_asm(exec_path, disasm_path, disasm_type)
+    
     
         

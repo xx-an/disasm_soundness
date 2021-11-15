@@ -15,13 +15,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 class Constraint:
-    cnt = 0
 
     def __init__(self, parent, last_predicate):
         self.predicate = last_predicate
         self.parent = parent
-        self.id = self.__class__.cnt
-        self.__class__.cnt += 1
 
     def __eq__(self, other):
         """Two Constraints are equal iff they have the same chain of predicates"""

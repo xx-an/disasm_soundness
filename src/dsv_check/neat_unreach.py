@@ -23,7 +23,7 @@ import xlwt
 import argparse
 
 from ..common import utils
-from ..elf.elf_info import ELF_Info
+from ..binary.binary_info import Binary_Info
 from .disasm_objdump import Disasm_Objdump
 from .construct_graph import Construct_Graph
 
@@ -102,7 +102,10 @@ def not_continuous(prev_address, address, disasm_asm):
     if prev_address:
         if prev_address in disasm_asm.inst_addresses:
             p_idx = disasm_asm.inst_addresses.index(prev_address)
-            if disasm_asm.inst_addresses[p_idx + 1] != address:
+            if p_idx + 1 < len(disasm_asm.inst_addresses):
+                if disasm_asm.inst_addresses[p_idx + 1] != address:
+                    return True
+            else:
                 return True
         else:
             return False
@@ -184,7 +187,8 @@ def main_single(file_name, exec_dir, log_dir, disasm_type, verbose):
     utils.execute_command(cmd)
     new_log_path = os.path.join(target_dir, file_name + '.log')
     disasm_asm = Disasm_Objdump(disasm_path)
-    ei = ELF_Info(exec_path)
+    print(exec_path)
+    ei = Binary_Info(exec_path)
     cg = Construct_Graph(disasm_asm, new_log_path, ei)
     para_list = neat_main(disasm_asm, cg, log_path, new_log_path)
     if verbose:

@@ -48,20 +48,22 @@ class Disasm_Radare2(Disasm):
             prev_inst_str = ''
             for line in lines:
                 line = line.strip()
-                if line.startswith(';-- section.'):
-                    code_valid = self._parse_section_valid(line)
-                elif code_valid:
-                    if INST_REP_PAT.match(line):
-                        if prev_inst_str:
-                            address, inst, bin_len = self._parse_line(prev_inst_str)
-                            self.address_inst_map[address] = inst
-                        prev_inst_str = line
-                    elif line.startswith(';-'):
-                        pass
-                    else:
-                        prev_inst_str = prev_inst_str + ' ' + line
-            address, inst, bin_len = self._parse_line(prev_inst_str)
-            self.address_inst_map[address] = inst
+                if line:
+                    if line.startswith(';-- section.'):
+                        code_valid = self._parse_section_valid(line)
+                    elif code_valid:
+                        if INST_REP_PAT.match(line):
+                            if prev_inst_str:
+                                address, inst, bin_len = self._parse_line(prev_inst_str)
+                                self.address_inst_map[address] = inst
+                            prev_inst_str = line
+                        elif line.startswith(';-'):
+                            pass
+                        else:
+                            prev_inst_str = prev_inst_str + ' ' + line
+            if prev_inst_str:
+                address, inst, bin_len = self._parse_line(prev_inst_str)
+                self.address_inst_map[address] = inst
         inst_addresses = list(self.address_inst_map.keys())
         inst_num = len(inst_addresses)
         for idx, (address, inst) in enumerate(self.address_inst_map.items()):

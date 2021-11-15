@@ -22,7 +22,7 @@ from . import helper
 from .normalizer import Disasm
 
 label_pattern = re.compile('^[A-Za-z_@.0-9]+:[A-Za-z_@.0-9 /]*$')
-address_inst_pattern = re.compile('^000000[0-9a-f]+         ')
+address_inst_pattern = re.compile('^00[0-9a-f]+         ')
 
 imm_pat = re.compile('^0x[0-9a-fA-F]+$|^[0-9]+$|^-[0-9]+$|^-0x[0-9a-fA-F]+$|^[0-9a-fA-F]+$|^-[0-9a-fA-F]+$')
 variable_expr_pat = re.compile(r'^[0-9a-zA-Z_@.]+:')

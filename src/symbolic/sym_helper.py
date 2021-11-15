@@ -28,7 +28,7 @@ def cnt_init():
     cnt = 0
     mem_cnt = 0
 
-def gen_sym(length=lib.DEFAULT_REG_LEN):
+def gen_sym(length):
     global cnt
     if cnt == 23: cnt += 1
     expr = utils.generate_sym_expr(cnt)
@@ -36,25 +36,25 @@ def gen_sym(length=lib.DEFAULT_REG_LEN):
     cnt += 1
     return res
 
-def gen_mem_sym(length=lib.DEFAULT_REG_LEN):
+def gen_mem_sym(length):
     global mem_cnt
     expr = utils.generate_sym_expr(mem_cnt)
     res = BitVec('m#' + expr, length)
     mem_cnt += 1
     return res
 
-def gen_seg_reg_sym(name, length=lib.DEFAULT_REG_LEN):
+def gen_seg_reg_sym(name, length):
     res = BitVec('_' + name, length)
     return res
 
-def gen_sym_x(length=lib.DEFAULT_REG_LEN):
+def gen_sym_x(length):
     res = BitVec('x', length)
     return res
     
-def bottom(length=lib.DEFAULT_REG_LEN):
+def bottom(length):
     return BitVec('Bottom', length)
 
-def gen_spec_sym(name, length=lib.DEFAULT_REG_LEN):
+def gen_spec_sym(name, length):
     return BitVec(name, length)
 
 def is_bit_vec_num(sym):
@@ -169,7 +169,7 @@ def extract_bytes(high, low, sym):
     return Extract(high * 8 - 1, low * 8, sym)
 
 
-def bit_vec_val_sym(val, length=lib.DEFAULT_REG_LEN):
+def bit_vec_val_sym(val, length):
     return BitVecVal(val, length)
 
 def neg(sym):
@@ -189,7 +189,7 @@ def update_sym_expr(expr, new_expr, rel='or'):
     return res
 
 def is_term_address(address):
-    return is_equal(address, BitVec('x', lib.DEFAULT_REG_LEN))
+    return is_equal(address, BitVec('x', utils.MEM_ADDR_SIZE))
 
 
 def remove_memory_content(store, mem_address):
@@ -221,14 +221,15 @@ def bitvec_eq(v_old, v, address_inst_map):
 
 def merge_sym(lhs, rhs, address_inst_map):
     res = rhs
+    pred_expr = None
     if isinstance(lhs, BitVecNumRef) and isinstance(rhs, BitVecNumRef):
         lhs_num = lhs.as_long()
         rhs_num = rhs.as_long()
         if rhs_num not in address_inst_map:
             if not bvnum_eq(lhs, rhs):
-                if lhs_num >= global_var.elf_info.rodata_start_addr and lhs_num < global_var.elf_info.rodata_end_addr:
+                if lhs_num >= global_var.binary_info.rodata_start_addr and lhs_num < global_var.binary_info.rodata_end_addr:
                     res = gen_sym(rhs.size())
-                elif rhs_num < global_var.elf_info.rodata_start_addr or rhs_num >= global_var.elf_info.rodata_end_addr:
+                elif rhs_num < global_var.binary_info.rodata_start_addr or rhs_num >= global_var.binary_info.rodata_end_addr:
                     res = gen_sym(rhs.size())
     elif isinstance(rhs, BitVecNumRef):
         rhs_num = rhs.as_long()
@@ -236,6 +237,20 @@ def merge_sym(lhs, rhs, address_inst_map):
             res = gen_sym(rhs.size())
     return res
 
+
+def merge_state(new_sym_store, new_constraint, prev_sym_store, prev_constraint, address_inst_map):
+    for k in lib.RECORD_STATE_NAMES:
+        s = new_sym_store.store[k]
+        s_old = prev_sym_store.store[k]
+        for ki, v in s.items():
+            v_old = s_old.get(ki, None)
+            if k == lib.REG:
+                if ki not in ('rsp', 'rbp'):
+                    if v_old is not None:
+                        s[ki] = merge_sym(v_old, v, address_inst_map)
+            else:
+                if v_old is not None:
+                    s[ki] = merge_sym(v_old, v, address_inst_map)
 
 def is_bottom(sym_val, dest_len):
     return sym_val == bottom(dest_len)

@@ -21,9 +21,9 @@ from ..common.inst_element import Inst_Elem
 from .normalizer import Disasm
 
 class Disasm_Dyninst(Disasm):
-    def __init__(self, asm_path, elf_content):
+    def __init__(self, asm_path, binary_content):
         self.asm_path = asm_path
-        self.elf_content = elf_content
+        self.binary_content = binary_content
         self.address_inst_map = {}
         self.address_next_map = {}
         self.read_asm_info()
@@ -64,7 +64,7 @@ class Disasm_Dyninst(Disasm):
         inst_elem = Inst_Elem(inst)
         inst_elem.reverse_arg_order()
         inst_elem.inst_args = list(map(lambda x: helper.rewrite_dyninst_memory_rep(x), inst_elem.inst_args))
-        byte_len_rep = helper.retrieve_bytelen_rep(inst_elem.inst_name, inst_elem.inst_args, address, self.elf_content)
+        byte_len_rep = helper.retrieve_bytelen_rep(inst_elem.inst_name, inst_elem.inst_args, address, self.binary_content)
         if byte_len_rep:
             inst_elem.inst_args = list(map(lambda x: helper.add_att_memory_bytelen_rep(inst_elem.inst_name, x, byte_len_rep), inst_elem.inst_args))
         inst_elem.inst_args = list(map(lambda x: helper.modify_st_rep(x), inst_elem.inst_args))

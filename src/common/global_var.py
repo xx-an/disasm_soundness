@@ -14,14 +14,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from ..elf import ELF_Info
-from ..elf import ELF_Content
+from ..binary import Binary_Info
+from ..binary import Binary_Content
 
-elf_info = None
-elf_content = None
+binary_info = None
+binary_content = None
 
-def get_elf_info(exec_path):
-    global elf_info
-    global elf_content
-    elf_info = ELF_Info(exec_path)
-    elf_content = ELF_Content(exec_path)
+def get_binary_info(exec_path):
+    global binary_info
+    global binary_content
+    binary_info = Binary_Info(exec_path)
+    binary_content = Binary_Content(exec_path)

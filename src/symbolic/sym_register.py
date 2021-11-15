@@ -34,7 +34,7 @@ def get_register_sym(store, name):
     if name in lib.REG_INFO_DICT:
         p_name, start_idx, length = lib.REG_INFO_DICT[name]
         p_sym = store[lib.REG][p_name]
-        if p_sym == sym_helper.bottom(): 
+        if p_sym == sym_helper.bottom(p_sym.size()): 
             sym = sym_helper.bottom(length)
         else:
             sym = bitwise_sub(p_sym, start_idx, length)

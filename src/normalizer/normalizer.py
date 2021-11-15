@@ -18,7 +18,7 @@ from abc import ABCMeta, abstractmethod
 
 class Disasm(object):
     __metaclass__ = ABCMeta
-    def __init__(self, asm_path, exec_path=None, elf_content=None):
+    def __init__(self, asm_path, exec_path=None, binary_content=None):
         pass
 
     @abstractmethod
