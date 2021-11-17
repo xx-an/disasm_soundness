@@ -190,18 +190,23 @@ def get_jump_address(store, rip, operand):
 # line: 'rax + rbx * 1 + 0'
 # line: 'rbp - 0x14'
 # line: 'rax'
-def get_bottom_source(line, store):
-    line = utils.rm_unused_spaces(line)
-    line_split = utils.simple_operator_pat.split(line)
-    res, still_tb = [], False
+def get_bottom_source(line, store, rip):
+    line_split = re.split(r'(\W+)', line)
+    res, is_reg_bottom = [], False
+    for lsi in line_split:
+        lsi = lsi.strip()
     for lsi in line_split:
         lsi = lsi.strip()
         if lsi in lib.REG_NAMES:
-            val = store[lib.REG][lsi]
+            val = sym_engine.get_sym(store, rip, lsi, utils.MEM_ADDR_SIZE)
             if not sym_helper.sym_is_int_or_bitvecnum(val):
-                res.append(lsi)
-                still_tb = True
-    return res, still_tb
+                root_reg = get_root_reg(lsi)
+                res.append(root_reg)
+                is_reg_bottom = True
+    if not is_reg_bottom:
+        addr = sym_engine.get_effective_address(store, rip, line)
+        res.append(str(addr))
+    return res, is_reg_bottom
 
 # line: 'rax + rbx * 1 + 0'
 # line: 'rbp - 0x14'
@@ -248,7 +253,7 @@ def check_cmp_dest_is_sym(store, rip, dest, sym_names):
         if dest in lib.REG_NAMES:
             res = check_source_is_sym(store, rip, dest, sym_names)
         elif dest.endswith(']'):
-            new_srcs, is_reg_bottom = get_bottom_source(dest, store)
+            new_srcs, is_reg_bottom = get_bottom_source(dest, store, rip)
             if is_reg_bottom:
                 if len(new_srcs) == 1:
                     res = new_srcs[0] == sym_names[0]

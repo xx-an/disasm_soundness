@@ -51,8 +51,7 @@ def mov(store, dest, src):
 
 def lea(store, dest, src):
     addr_rep_length = utils.get_addr_rep_length(src)
-    address = sym_engine.get_effective_address(
-        store, rip, src, addr_rep_length)
+    address = sym_engine.get_effective_address(store, rip, src, addr_rep_length)
     sym_engine.set_sym(store, rip, dest, address)
 
 
@@ -66,10 +65,56 @@ def pop(store, dest):
     sym_bin_op_na_flags(store, '+', utils.ADDR_SIZE_SP_MAP[utils.MEM_ADDR_SIZE], str(dest_len // 8))
     
 
+def popad(store):
+    pop(store, 'edi')
+    pop(store, 'esi')
+    pop(store, 'ebp')
+    sym_bin_op_na_flags(store, '+', 'esp', '4')
+    pop(store, 'ebx')
+    pop(store, 'edx')
+    pop(store, 'ecx')
+    pop(store, 'eax')
+
+
+def popa(store):
+    pop(store, 'di')
+    pop(store, 'si')
+    pop(store, 'bp')
+    sym_bin_op_na_flags(store, '+', 'sp', '2')
+    pop(store, 'bx')
+    pop(store, 'dx')
+    pop(store, 'cx')
+    pop(store, 'ax')
+
+
 def push(store, src):
     src_len = utils.get_sym_length(src)
     sym_src = sym_engine.get_sym(store, rip, src, src_len)
     smt_helper.push_val(store, rip, sym_src)
+
+
+def pushad(store):
+    sym_rsp = sym_engine.get_sym(store, rip, 'esp', 32)
+    push(store, 'eax')
+    push(store, 'ecx')
+    push(store, 'edx')
+    push(store, 'ebx')
+    push(store, str(sym_rsp))
+    push(store, 'ebp')
+    push(store, 'esi')
+    push(store, 'edi')
+
+
+def pusha(store):
+    sym_rsp = sym_engine.get_sym(store, rip, 'sp', 16)
+    push(store, 'ax')
+    push(store, 'cx')
+    push(store, 'dx')
+    push(store, 'bx')
+    push(store, str(sym_rsp))
+    push(store, 'bp')
+    push(store, 'si')
+    push(store, 'di')
 
 
 def call(store, dest):
@@ -81,6 +126,7 @@ def ret(store, inst):
     res = sym_engine.get_mem_sym(store, sym_rsp, utils.MEM_ADDR_SIZE)
     if res is not None:
         sym_helper.remove_memory_content(store, sym_rsp)
+    sym_bin_op_na_flags(store, '+', utils.ADDR_SIZE_SP_MAP[utils.MEM_ADDR_SIZE], str(utils.MEM_ADDR_SIZE // 8))
     if inst.startswith('ret '):
         arg = utils.remove_multiple_spaces(inst).split(' ', 1)[1].strip()
         if utils.imm_start_pat.match(arg):
@@ -89,8 +135,6 @@ def ret(store, inst):
         else:
             utils.logger.info('Invalid instruction format: ' + inst)
             exit('Invalid instruction format: ' + inst)
-    else:
-        sym_bin_op_na_flags(store, '+', utils.ADDR_SIZE_SP_MAP[utils.MEM_ADDR_SIZE], str(utils.MEM_ADDR_SIZE // 8))
     if res != None:
         if utils.MEM_ADDR_SIZE == 16:
             res = simplify(res & 0x0000ffff)
@@ -230,7 +274,7 @@ def set_op(store, inst, dest):
 
 
 def rep(store, inst_name, inst):
-    sym_rcx = sym_engine.get_sym(store, rip, 'rcx')
+    sym_rcx = sym_engine.get_sym(store, rip, 'rcx', utils.MEM_ADDR_SIZE)
     rcx_is_0 = sym_helper.is_equal(sym_rcx, 0)
     while rcx_is_0 == False:
         res = parse_semantics(store, rip, inst)
@@ -384,7 +428,7 @@ def parse_semantics(store, curr_rip, inst):
     global rip
     rip = curr_rip
     # print(inst)
-    if inst.startswith('lock '):
+    if inst.startswith(('lock ', 'data16 ')):
         inst = inst.split(' ', 1)[1]
     inst_split = inst.strip().split(' ', 1)
     inst_name = inst_split[0]
@@ -416,7 +460,11 @@ INSTRUCTION_SEMANTICS_MAP = {
     'movabs': mov,
     'lea': lea,
     'push': push,
+    'pusha': pusha,
+    'pushad': pushad,
     'pop': pop,
+    'popa': popa,
+    'popad': popad,
     'add': sym_bin_op('+'),
     'sub': sym_bin_op('-'),
     'xor': sym_bin_op('^'),

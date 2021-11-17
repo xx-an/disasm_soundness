@@ -36,7 +36,8 @@ def construct_cfg(disasm_asm, disasm_type):
     address_sym_table = global_var.binary_info.address_sym_table
     address_inst_map = disasm_asm.get_address_inst_map()
     # print(global_var.binary_info.sym_table)
-    cfg = CFG(address_sym_table, address_inst_map, disasm_asm.address_next_map, start_address, main_address, disasm_asm.valid_address_no, disasm_type)
+    # print(global_var.binary_info.dll_func_info)
+    cfg = CFG(address_sym_table, address_inst_map, disasm_asm.address_next_map, start_address, main_address, disasm_asm.valid_address_no, disasm_type, global_var.binary_info.dll_func_info)
     return cfg
 
 

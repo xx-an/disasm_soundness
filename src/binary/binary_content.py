@@ -41,7 +41,8 @@ class Binary_Content(object):
             if curr in self.address_bytes_map:
                 res.append(self.address_bytes_map[curr])
             else:
-                return []
+                res = []
+                break
         return utils.bytes_to_int(res)
 
 

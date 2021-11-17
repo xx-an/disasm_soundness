@@ -219,13 +219,13 @@ def bitvec_eq(v_old, v, address_inst_map):
     return res
 
 
-def merge_sym(lhs, rhs, address_inst_map):
+def merge_sym(lhs, rhs, address_inst_map, mem_store):
     res = rhs
     pred_expr = None
     if isinstance(lhs, BitVecNumRef) and isinstance(rhs, BitVecNumRef):
         lhs_num = lhs.as_long()
         rhs_num = rhs.as_long()
-        if rhs_num not in address_inst_map:
+        if rhs_num not in address_inst_map and rhs not in mem_store:
             if not bvnum_eq(lhs, rhs):
                 if lhs_num >= global_var.binary_info.rodata_start_addr and lhs_num < global_var.binary_info.rodata_end_addr:
                     res = gen_sym(rhs.size())
@@ -236,21 +236,7 @@ def merge_sym(lhs, rhs, address_inst_map):
         if rhs_num not in address_inst_map:
             res = gen_sym(rhs.size())
     return res
-
-
-def merge_state(new_sym_store, new_constraint, prev_sym_store, prev_constraint, address_inst_map):
-    for k in lib.RECORD_STATE_NAMES:
-        s = new_sym_store.store[k]
-        s_old = prev_sym_store.store[k]
-        for ki, v in s.items():
-            v_old = s_old.get(ki, None)
-            if k == lib.REG:
-                if ki not in ('rsp', 'rbp'):
-                    if v_old is not None:
-                        s[ki] = merge_sym(v_old, v, address_inst_map)
-            else:
-                if v_old is not None:
-                    s[ki] = merge_sym(v_old, v, address_inst_map)
+    
 
 def is_bottom(sym_val, dest_len):
     return sym_val == bottom(dest_len)

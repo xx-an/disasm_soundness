@@ -63,7 +63,8 @@ class Sym_Store:
         result = ''
         if self.rip:
             result += 'rip:' + hex(self.rip) + '\n'
-        pp_lib_names = [lib.REG, lib.MEM]
+        # pp_lib_names = [lib.REG, lib.MEM]
+        pp_lib_names = [lib.REG]
         for k in pp_lib_names:
             v = self.store[k]
             res_str = ''
@@ -83,10 +84,10 @@ class Sym_Store:
                     if k == lib.REG:
                         if ki not in ('rsp', 'rbp'):
                             if v_old is not None:
-                                s[ki] = sym_helper.merge_sym(v_old, v, address_inst_map)
+                                s[ki] = sym_helper.merge_sym(v_old, v, address_inst_map, self.store[lib.MEM])
                     else:
                         if v_old is not None:
-                            s[ki] = sym_helper.merge_sym(v_old, v, address_inst_map)
+                            s[ki] = sym_helper.merge_sym(v_old, v, address_inst_map, self.store[lib.MEM])
 
 
     def aux_mem_eq(self, other, address_inst_map, k=lib.AUX_MEM):

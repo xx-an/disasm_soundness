@@ -71,7 +71,16 @@ def check_jt_assign_inst(inst_args):
         inst_arg_0 = inst_arg_s[0].strip()
         inst_arg_1 = inst_arg_s[1].strip()
         if inst_arg_0 in lib.REG_NAMES and inst_arg_1.endswith(']') and 'rip' not in inst_arg_1:
-            res = '*' in inst_arg_1 and '+' in inst_arg_1
+            res = '+' in inst_arg_1
+    return res
+
+def check_jt_jmp_inst(inst_args):
+    res = False
+    inst_arg_s = inst_args.split(',')
+    if len(inst_arg_s) == 1:
+        inst_arg = inst_arg_s[0].strip()
+        if inst_arg.endswith(']') and 'rip' not in inst_arg:
+            res = '*' in inst_arg and '+' in inst_arg
     return res
 
 
@@ -84,6 +93,9 @@ def check_jump_table_assign_inst(trace_list, idx):
         if inst.startswith('mov'):
             res = check_jt_assign_inst(inst.split(' ', 1)[1].strip())
             if res: break
+        # elif inst.startswith('jmp'):
+        #     res = check_jt_jmp_inst(inst.split(' ', 1)[1].strip())
+        #     if res: break
     return n_idx, res
 
 
@@ -133,7 +145,7 @@ def reconstruct_jt_target_addresses(trace_list, blk_idx, sym_store_list, address
             inst_dest = inst_split[1].strip()
             target_addresses = []
             for sym_store in sym_store_list:
-                target_addr = sym_engine.get_sym(sym_store.store, rip, inst_dest)
+                target_addr = sym_engine.get_sym(sym_store.store, rip, inst_dest, utils.MEM_ADDR_SIZE)
                 target_addresses.append(target_addr)
             address_jt_entries_map[address] = (inst_dest, target_addresses)
             return inst_dest, target_addresses

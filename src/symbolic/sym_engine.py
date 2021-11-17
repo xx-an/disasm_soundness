@@ -40,8 +40,7 @@ def get_sym(store, rip, src, length):
         src = src_split[1].strip()
         val = None
         if src.endswith(']'):
-            addr_rep_length = utils.get_addr_rep_length(src)
-            val = sym_memory.get_effective_address(store, rip, src, addr_rep_length)
+            val = sym_memory.get_effective_address(store, rip, src)
         else:
             src_len = utils.get_sym_length(src)
             val = get_sym(store, rip, src, src_len)
@@ -56,6 +55,8 @@ def get_sym(store, rip, src, length):
         left = sym_register.get_register_sym(store, regs[0])
         right = sym_register.get_register_sym(store, regs[1])
         res = simplify(Concat(left, right))
+    elif src in lib.SEG_REGS:
+        res = sym_register.get_segment_reg_val(store, src.strip())
     return res
 
 

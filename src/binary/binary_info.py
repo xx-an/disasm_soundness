@@ -34,12 +34,16 @@ class Binary_Info(object):
         self.rodata_start_addr = sys.maxsize
         self.rodata_base_addr = None
         self.rodata_end_addr = -sys.maxsize - 1
+        self.text_start_addr = sys.maxsize
+        self.text_base_addr = None
+        self.text_end_addr = -sys.maxsize - 1
+        self.dll_func_info = {}
         self.read_binary_info()
 
 
     def read_binary_info(self):
-        elf_header = utils.execute_command('objdump -f ' + self.src_path)
-        self._parse_entry_address(elf_header)
+        bin_header = utils.execute_command('objdump -f ' + self.src_path)
+        self._parse_entry_address(bin_header)
         section_headers = utils.execute_command('objdump -h ' + self.src_path)
         self._parse_section_headers(section_headers)
         sym_table = utils.execute_command('objdump -t ' + self.src_path)
@@ -47,6 +51,8 @@ class Binary_Info(object):
         relocation = utils.execute_command('objdump -R ' + self.src_path)
         self._parse_relocation(relocation)
         self._reverse_sym_table()
+        external_info = utils.execute_command('objdump -x ' + self.src_path)
+        self._parse_external_info(external_info)
 
 
     def get_entry_address(self):
@@ -73,7 +79,7 @@ class Binary_Info(object):
                 section_name = line_split[1]
                 section_size = int(line_split[2], 16)
                 section_address = int(line_split[3], 16)
-                section_offset = int(line_split[4], 16)
+                section_offset = int(line_split[5], 16)
                 self.sym_table[section_name] = section_address
                 self.section_address_map[section_name] = section_address
                 if section_name == '.data':
@@ -85,7 +91,9 @@ class Binary_Info(object):
                     self.rodata_base_addr = section_address - section_offset
                     self.rodata_end_addr = section_address + section_size + 1
                 elif section_name == '.text':
-                    self.code_base_addr = section_address - section_offset
+                    self.text_start_addr = section_address
+                    self.text_base_addr = section_address - section_offset
+                    self.text_end_addr = section_address + section_size + 1
 
 
 
@@ -160,3 +168,47 @@ class Binary_Info(object):
                     self.address_sym_table[address].append(sym)
                 else:
                     self.address_sym_table[address] = [sym]
+
+
+    def _parse_external_info(self, external_info):
+        lines = external_info.split('\n')
+        parse_start = False
+        vma_addr_parsed = False
+        vma_count = 0
+        dll_count = 0
+        start_address = None
+        vma_addr = None
+        for line in lines:
+            line = line.strip()
+            if line:
+                if parse_start:
+                    if not line.startswith('vma:  '):
+                        line = utils.remove_multiple_spaces(line)
+                        line_split = line.split(' ')
+                        ext_name = line_split[-1]
+                        if ext_name != '<none>':
+                            addr = base_addr + first_chunk + dll_count * 4
+                            sym_addr = sym_helper.gen_spec_sym('mem@' + hex(addr), utils.MEM_ADDR_SIZE)
+                            self.dll_func_info[sym_addr] = ext_name
+                        dll_count += 1
+                elif vma_addr_parsed:
+                    if utils.imm_start_pat.match(line):
+                        line_split = line.split()
+                        if vma_count == 0:
+                            vma_addr = int(line_split[0], 16)
+                            base_addr = start_address - vma_addr
+                            first_chunk = int(line_split[-1], 16)
+                        else:
+                            first_chunk = int(line_split[-1], 16)
+                        vma_count += 1
+                if 'There is an import table in .idata' in line:
+                    start_address = int(line.rsplit(' ', 1)[1], 16)
+                elif line.startswith('The Import Tables '):
+                    vma_addr_parsed = True
+                elif line.startswith('DLL Name'):
+                    parse_start = True
+                    dll_count = 0
+                elif line.startswith('PE File Base Relocation'):
+                    vma_addr_parsed = False
+            else:
+                parse_start = False

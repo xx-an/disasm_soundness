@@ -432,7 +432,10 @@ def bytes_to_int(bytes):
     for bs in bytes:
         n = '{0:02x}'.format(bs)
         res += n
-    return int(res, 16)
+    if res != '':
+        return int(res, 16)
+    else:
+        return None
 
 
 def dump_str_to_file(content, file_path):

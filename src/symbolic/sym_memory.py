@@ -15,6 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import re
+import sys
 from z3 import *
 from ..common import lib
 from ..common import utils
@@ -35,10 +36,20 @@ def get_sym_val(str_val, store, length):
         res = BitVec(str_val, length)
     return res
 
+
+def get_root_reg(src):
+    res = None
+    if src in lib.REG64_NAMES:
+        res = src
+    elif src in lib.REG_INFO_DICT:
+        res = lib.REG_INFO_DICT[src][0]
+    return res
+
+
 def get_idx_sym_val(store, arg, src_sym, src_val, length):
     res = None
     if arg in lib.REG_NAMES:
-        res = store[lib.REG][arg]
+        res = sym_register.get_register_sym(store, arg)
         if not sym_helper.is_bit_vec_num(res):
             m = sym_helper.check_pred_satisfiable([src_sym == src_val])
             if m is not False:
@@ -131,34 +142,45 @@ def get_effective_address(store, rip, src, length=utils.MEM_ADDR_SIZE):
     elif utils.imm_pat.match(src):
         res = BitVecVal(utils.imm_str_to_int(src), length)
     else:
-        utils.logger.debug('Cannot recognize the effective address of ' + src)
+        utils.logger.info('Cannot recognize the effective address of ' + src)
     return res
 
 
-def pollute_all_mem_content(store):
-    addr_list = list(store[lib.MEM].keys())
-    for addr in addr_list:
-        if not sym_helper.sym_is_int_or_bitvecnum(addr):
-            if sym_helper.sym_is_int_or_bitvecnum(store[lib.MEM][addr]):
-                store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
-        else:
-            int_addr = sym_helper.int_from_sym(addr)
-            if int_addr >= global_var.binary_info.data_start_addr and int_addr < utils.MAX_HEAP_ADDR:
-                if sym_helper.sym_is_int_or_bitvecnum(store[lib.MEM][addr]):
-                    store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
+def addr_in_rodata_section(int_addr):
+    return global_var.binary_info.rodata_start_addr <= int_addr < global_var.binary_info.rodata_end_addr
 
 
-def pollute_mem_w_sym_address(store):
-    for addr in store[lib.MEM]:
-        if not sym_helper.sym_is_int_or_bitvecnum(addr):
-            if sym_helper.sym_is_int_or_bitvecnum(store[lib.MEM][addr]):
-                store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
+def addr_in_data_section(int_addr):
+    return global_var.binary_info.data_start_addr <= int_addr < global_var.binary_info.data_end_addr
+
+
+def addr_in_text_section(int_addr):
+    return global_var.binary_info.text_start_addr <= int_addr < global_var.binary_info.text_end_addr
+
+
+# def pollute_all_mem_content(store):
+#     addr_list = list(store[lib.MEM].keys())
+#     for addr in addr_list:
+#         if not sym_helper.sym_is_int_or_bitvecnum(addr):
+#             if sym_helper.sym_is_int_or_bitvecnum(store[lib.MEM][addr]):
+#                 store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
+#         else:
+#             int_addr = sym_helper.int_from_sym(addr)
+#             if int_addr >= global_var.binary_info.data_start_addr and int_addr < utils.MAX_HEAP_ADDR:
+#                 if sym_helper.sym_is_int_or_bitvecnum(store[lib.MEM][addr]):
+#                     store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
+
+
+# def pollute_mem_w_sym_address(store):
+#     for addr in store[lib.MEM]:
+#         if not sym_helper.sym_is_int_or_bitvecnum(addr):
+#             if sym_helper.sym_is_int_or_bitvecnum(store[lib.MEM][addr]):
+#                 store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
 
 
 def set_mem_sym(store, address, sym, length):
     # If the memory address is not concrete
     if not sym_helper.sym_is_int_or_bitvecnum(address):
-        pollute_all_mem_content(store)
         store[lib.MEM][address] = sym
     else:
         byte_len = length // 8
@@ -174,17 +196,18 @@ def set_mem_sym(store, address, sym, length):
                 curr_address = simplify(address + offset)
                 if curr_address in store[lib.MEM]:
                     prev_sym = store[lib.MEM][curr_address]
-                    prev_len = prev_sym.size() // 8
-                    if offset < 0 and prev_len > -offset:
-                        store[lib.MEM][curr_address] = simplify(sym_helper.extract_bytes(-offset, 0, prev_sym))
-                    elif offset > 0:
-                        sym_helper.remove_memory_content(store, curr_address)
-                        if prev_len - byte_len + offset > 0:
-                            new_address = simplify(address + byte_len)
-                            new_sym = simplify(sym_helper.extract_bytes(prev_len, byte_len - offset, prev_sym))
-                            store[lib.MEM][new_address] = new_sym
-                            break
-        pollute_mem_w_sym_address(store)
+                    if prev_sym != None:
+                        prev_len = prev_sym.size() // 8
+                        if offset < 0 and prev_len > -offset:
+                            store[lib.MEM][curr_address] = simplify(sym_helper.extract_bytes(-offset, 0, prev_sym))
+                        elif offset > 0:
+                            sym_helper.remove_memory_content(store, curr_address)
+                            if prev_len - byte_len + offset > 0:
+                                new_address = simplify(address + byte_len)
+                                new_sym = simplify(sym_helper.extract_bytes(prev_len, byte_len - offset, prev_sym))
+                                store[lib.MEM][new_address] = new_sym
+                                break
+        # pollute_mem_w_sym_address(store)
 
             
     
@@ -230,17 +253,21 @@ def read_memory_val(store, address, length):
     if sym_helper.is_bit_vec_num(address):
         val = None
         int_address = address.as_long()
-        if int_address >= global_var.binary_info.rodata_start_addr and int_address < global_var.binary_info.rodata_end_addr:
+        if addr_in_rodata_section(int_address):
             rodata_base_addr = global_var.binary_info.rodata_base_addr
             val = global_var.binary_content.read_bytes(int_address - rodata_base_addr, length // 8)
-        if val:
+        elif addr_in_data_section(int_address):
+            data_base_addr = global_var.binary_info.data_base_addr
+            val = global_var.binary_content.read_bytes(int_address - data_base_addr, length // 8)
+        elif addr_in_text_section(int_address):
+            text_base_addr = global_var.binary_info.text_base_addr
+            val = global_var.binary_content.read_bytes(int_address - text_base_addr, length // 8)
+        if val != None:
             res = BitVecVal(val, length)
         else:
             res = BitVec(utils.MEM_DATA_SEC_SUFFIX + hex(int_address), length)
         store[lib.MEM][address] = res
-        pollute_mem_w_sym_address(store)
     else:
-        pollute_all_mem_content(store)
         res = sym_helper.gen_mem_sym(length)
         store[lib.MEM][address] = res
     return res
