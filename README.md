@@ -41,21 +41,21 @@ The compiled binary files for Coreutils library is located at `benchmark/coreuti
 
 DSV is carried out using the *python -m src.main* command. We use different command-line flags to pass on different arguments and to indicate specific operation. 
 
-  -e, --elf_dir
+    -e, --elf_dir
       Relative path to a binary file
-  -l, --log_dir
+    -l, --log_dir
       Relative path to the assembly file
-  -t, --disasm_type
+    -t, --disasm_type
       Type of the disassembler, which could be *objdump, ghidra, radare2, angr, bap, dyninst, hopper, idapro*
-  -f, --file_name
+    -f, --file_name
       Name of the binary file
-  -b, --batch
+    -b, --batch
       Run DSV in batch mode
-  -s, --soundness
+    -s, --soundness
       Only check the soundness for specific disassembly process
-  -v, --verbose
+    -v, --verbose
       Whether to print the logging information on the screen
-  -c, --bmc_bound
+    -c, --bmc_bound
       The default bound of the bounded model checking
 
 For example, to construct the control flow of a specific assembly file disasembled by a disassembler and get the information regarding the number of reachable and unreachable instructions, you could use the following command:
