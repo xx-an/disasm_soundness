@@ -427,7 +427,6 @@ def bytes_to_hex(bytes):
 
 
 def bytes_to_int(bytes):
-    # logger.debug(bytes)
     res = ''
     for bs in bytes:
         n = '{0:02x}'.format(bs)
@@ -462,12 +461,10 @@ def generate_inst_bin(line, syntax='intel'):
                 break
     except subprocess.CalledProcessError as e:
         tmp = e.output.decode("utf-8")
-        # print(tmp)
         if SOUNDNESS_EXCEPTION_INDICATOR in tmp:
             res = tmp
         else:
             res = ''
-        # print('\'' + line + '\' is not a valid instruction for gcc (' + syntax + '-syntax format)')
     return res
 
     

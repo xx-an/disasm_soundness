@@ -73,9 +73,6 @@ class Disasm_Dyninst(Disasm):
         if utils.check_jmp_with_address(inst_elem.inst_name):
             rip = address + bin_len
             inst_elem.inst_args[0] = helper.calculate_dyninst_jmp_address(inst_elem.inst_args[0], address, rip)
-        #     inst_elem.inst_args[0] = helper.add_jump_address_wordptr_rep(inst_elem.inst_args[0])
-        #     rip = address + bin_rep_len
-        #     inst_elem.inst_args[0] = helper.calculate_absolute_address(inst_elem.inst_args[0], rip)
         inst_elem.inst_name = helper.normalize_dyninst_inst_name(inst_elem.inst_name)
         inst = inst_elem.normalize(address, self._format_arg, self._rewrite_inst)
         if inst.startswith('ret '): inst = 'ret'

@@ -52,21 +52,13 @@ def check_diff(log_path, objdump_log_path, disasm_type):
                             print('objdump: ' + of_line)
                             break
                         inst = inst.replace(' + ', '+').replace(' - ', '-').strip()
-                        # inst = inst.replace('jz', 'je').replace('jnz', 'jne').replace('cmovz', 'cmove').replace('cmovnz', 'cmovne').replace('setz', 'sete').replace('repe', 'repz').replace('nbe', 'a').replace('nb', 'ae')
                         inst = inst.strip().replace('*1+','+').replace('*1]',']').replace('+0x0]',']')
                         of_inst = of_inst.replace(' + ', '+').replace(' - ', '-').strip()
                         of_inst = of_inst.strip().replace('*1+','+').replace('*1-','-').replace('*1]',']').replace('+0x0]',']')
-                        # of_inst = of_inst.strip().replace('*1+','+').replace('*1]',']').replace('+0x0]',']')
-                        # for i in range(1, 10):
-                        #     of_inst = of_inst.replace('0x' + str(i) + ']',str(i) +']')
                         if address != of_address:
                             print(disasm_type + ': ' + line)
                             print('objdump: ' + of_line)
                             break
-                        # elif inst.split(' ', 1)[0] != of_inst.split(' ', 1)[0]:
-                        #     print(disasm_type + ': ' + line)
-                        #     print('objdump: ' + of_line)
-                        #     break
                         elif inst != of_inst:
                             if not semantics_equal(inst, of_inst):
                                 print(disasm_type + ': ' + line)

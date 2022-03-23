@@ -46,7 +46,7 @@ class Constraint:
         return 1 + self.parent.get_length()
 
     def __str__(self):
-        return str(self.predicate)#  + " (path_len: %d)" % (self.get_length())
+        return str(self.predicate)
 
     def __repr__(self):
         s = repr(self.predicate)

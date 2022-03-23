@@ -102,7 +102,6 @@ class Disasm_Hopper(Disasm):
                 rip = inst_addresses[n_idx]
             inst = self.address_inst_map[address]
             inst = self._format_inst(address, inst, rip)
-            # print(hex(address) + ':' + inst)
             self.address_inst_map[address] = inst.strip()
             self.address_next_map[address] = rip
 
@@ -168,8 +167,6 @@ class Disasm_Hopper(Disasm):
                     remaining = symbol.split('switch_table_', 1)[1].strip()
                     if imm_pat.match(remaining):
                         res = hex(int(remaining, 16))
-                # else:
-                #     print(symbol)
         return res
         
     def _reconstruct_w_replaced_val(self, stack, op_stack):

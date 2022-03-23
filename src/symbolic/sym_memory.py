@@ -158,26 +158,6 @@ def addr_in_text_section(int_addr):
     return global_var.binary_info.text_start_addr <= int_addr < global_var.binary_info.text_end_addr
 
 
-# def pollute_all_mem_content(store):
-#     addr_list = list(store[lib.MEM].keys())
-#     for addr in addr_list:
-#         if not sym_helper.sym_is_int_or_bitvecnum(addr):
-#             if sym_helper.sym_is_int_or_bitvecnum(store[lib.MEM][addr]):
-#                 store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
-#         else:
-#             int_addr = sym_helper.int_from_sym(addr)
-#             if int_addr >= global_var.binary_info.data_start_addr and int_addr < utils.MAX_HEAP_ADDR:
-#                 if sym_helper.sym_is_int_or_bitvecnum(store[lib.MEM][addr]):
-#                     store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
-
-
-# def pollute_mem_w_sym_address(store):
-#     for addr in store[lib.MEM]:
-#         if not sym_helper.sym_is_int_or_bitvecnum(addr):
-#             if sym_helper.sym_is_int_or_bitvecnum(store[lib.MEM][addr]):
-#                 store[lib.MEM][addr] = sym_helper.gen_sym(store[lib.MEM][addr].size())
-
-
 def set_mem_sym(store, address, sym, length):
     # If the memory address is not concrete
     if not sym_helper.sym_is_int_or_bitvecnum(address):
@@ -207,9 +187,7 @@ def set_mem_sym(store, address, sym, length):
                                 new_sym = simplify(sym_helper.extract_bytes(prev_len, byte_len - offset, prev_sym))
                                 store[lib.MEM][new_address] = new_sym
                                 break
-        # pollute_mem_w_sym_address(store)
 
-            
     
 def get_mem_sym(store, address, length):
     byte_len = length // 8

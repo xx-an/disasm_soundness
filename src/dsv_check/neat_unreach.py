@@ -97,8 +97,6 @@ def remove_implicit_called_functions(new_content, unreach_addresses, disasm_asm,
 
 
 def not_continuous(prev_address, address, disasm_asm):
-    # print('addr: ' + hex(address))
-    # print('prev_addr: ' + hex(prev_address))
     if prev_address:
         if prev_address in disasm_asm.inst_addresses:
             p_idx = disasm_asm.inst_addresses.index(prev_address)
@@ -199,20 +197,13 @@ def main_single(file_name, exec_dir, log_dir, disasm_type, verbose):
 def main_batch(exec_dir, log_dir, disasm_type, verbose):
     disasm_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(log_dir) for f in filenames if
                     f.endswith(disasm_type)]
-    # sheet = add_xlws_sheet(workbook, disasm_type)
     line_no = 1
     disasm_files.sort()
     for disasm_path in disasm_files:
         try:
             file_name = utils.get_file_name(disasm_path)
-            # print(file_name)
             if not (file_name.startswith(('bench-', 'sha')) or file_name in (('sort', 'test-localcharset'))):
                 para_list = main_single(file_name, exec_dir, log_dir, disasm_type, verbose)
-                # sheet.write(line_no, 0, file_name)
-                # i = 1
-                # for para in para_list:
-                #     # sheet.write(line_no, i, para)
-                #     i += 1
                 print(file_name + '\t' + '\t'.join(list(map(lambda x: str(x), para_list))))
                 line_no += 1
         except:
@@ -267,16 +258,3 @@ if __name__ == '__main__':
         para_list = main_single(args.file_name, exec_dir, log_dir, args.disasm_type, args.verbose)
         print(args.file_name + '\t' + '\t'.join(list(map(lambda x: str(x), para_list))))
         print(args.file_name + ' & ' + ' & '.join(list(map(lambda x: str(x), para_list))))
-   
-    
-    # # Execute the results for specified test cases
-    # file_names = ['mknod', 'date', 'id', 'csplit', 'paste', 'du', 'logname', 'pr']
-    # main_specified(file_names, exec_dir, log_dir, args.disasm_type, args.verbose)
-    
-    # # Save the results for all the disassemblers
-    # workbook = create_statistics_xlsw()
-    # for disasm_type in ['objdump', 'radare2', 'angr', 'bap', 'hopper', 'idapro', 'ghidra', 'dyninst']:
-    #     log_dir = log_dir if 'objdump' not in log_dir else log_dir.replace('objdump', disasm_type)
-    #     main_batch(exec_dir, log_dir, disasm_type, args.verbose)
-    # xls_path = os.path.join(os.path.dirname(exec_dir), 'statistics.xls')
-    # workbook.save(xls_path)

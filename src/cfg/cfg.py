@@ -55,7 +55,6 @@ class CFG(object):
         sym_helper.cnt_init()
         semantics.start_init(sym_store.store, start_address)
         self.build_cfg(start_address, sym_store, constraint)
-        # print(self.ret_call_address_map)
         self.pp_unreachable_instrs()
 
     
@@ -73,12 +72,6 @@ class CFG(object):
                 
 
     def construct_conditional_branches(self, block, address, inst, new_address, sym_store, constraint):
-        # res = smt_helper.parse_predicate(sym_store.store, inst, True)
-        # if res == False:
-        #     self.add_fall_through_block(block, address, inst, sym_store, constraint)
-        # elif res == True:
-        #     self.jump_to_block(block, inst, new_address, sym_store, constraint)
-        # else:
         jmp_constraint = self.add_new_constraint(sym_store.store, constraint, inst, True)
         self.jump_to_block(block, inst, new_address, sym_store, jmp_constraint)
         fall_through_constraint = self.add_new_constraint(sym_store.store, constraint, inst, False)
@@ -118,7 +111,6 @@ class CFG(object):
                 utils.logger.debug('Jump to an unresolved address ' + hex(new_address) + ' at ' + hex(address) + ': ' + inst)
                 print('There exists an unresolved jump address ' + hex(new_address) + ' at ' + hex(address) + ': ' + inst)
                 self.external_branch(ext_func_name, block, address, inst, sym_store, constraint)
-                # sys.exit('There exists an unresolved jump address ' + hex(new_address) + ' at ' + hex(address) + ': ' + inst)
             elif str(new_address).startswith(utils.MEM_DATA_SEC_SUFFIX):
                 ext_func_name = str(new_address)
                 utils.logger.debug('Jump to an external address ' + str(new_address) + ' at ' + hex(address) + ': ' + inst)
@@ -198,8 +190,6 @@ class CFG(object):
                 utils.logger.info(hex(address) + ': the return address is {}'.format(hex(new_address)))
                 if new_address in self.address_inst_map:
                     if new_address not in self.ret_call_address_map:
-                        # call 0x1453: 
-                        # call_target: 0x1453
                         call_target = self._get_prev_inst_target(new_address)
                         if call_target:
                             self.ret_call_address_map[new_address] = call_target
@@ -210,7 +200,6 @@ class CFG(object):
                 self.jump_to_dummy(block)
                 utils.logger.info('The symbolic execution has been successfully terminated\n')
             else:
-                # utils.logger.info(hex(address) + ': the return address is {}'.format(new_address))
                 if constraint is not None:
                     path_reachable = self._check_path_reachability(constraint)
                     if path_reachable == False: return
@@ -219,10 +208,7 @@ class CFG(object):
         else:
             utils.logger.info('Cannot resolve the null return address at ' + hex(address) + ': ' + inst)
             sys.exit('Cannot resolve the null return address')
-            utils.logger.info(hex(address) + ': the return address is {}'.format(new_address))
-        #     trace_list = cfg_helper.backtrack_to_start(block, address, self.block_set)
-        #     cfg_helper.pp_trace_list(trace_list, self.address_inst_map)
-
+            
 
     def trace_back(self, blk, sym_names, trace_list):
         utils.logger.info('trace back')
@@ -241,7 +227,6 @@ class CFG(object):
                     return -1
             src_names, need_stop, boundary, still_tb = semantics_traceback.parse_sym_src(p_store, blk.sym_store.rip, blk.inst, sym_names)
             utils.logger.info(hex(blk.address) + ': ' + blk.inst)
-            # utils.logger.info(src_names)
             if need_stop and len(src_names) == 1:
                 res = self.handle_unbounded_jump_table_w_tb(trace_list, src_names, boundary, blk)
                 return res
@@ -504,21 +489,12 @@ class CFG(object):
             prev_constraint = blk.constraint
             rip = prev_sym_store.rip
             new_sym_store = Sym_Store(sym_store.store, rip, new_inst)
-            # new_constraint = constraint
-            # sym_helper.merge_state(new_sym_store, new_constraint, prev_sym_store, prev_constraint, self.address_inst_map)
             new_sym_store.merge_store(prev_sym_store, self.address_inst_map)
-            # if not new_sym_store.state_ith_eq(prev_sym_store) or not new_sym_store.aux_mem_eq(prev_sym_store, lib.AUX_MEM):
-            #     new_sym_store.merge_store(prev_sym_store, self.address_inst_map)
-            #     return False, new_sym_store
             if new_sym_store.state_equal(prev_sym_store, self.address_inst_map): 
                 utils.logger.info('Block exists: ' + new_inst + ' at address ' + hex(new_address) + ' is visited for ' + str(cnt) + ' times\n')
-                # utils.logger.info(prev_sym_store.pp_store())
-                # utils.logger.info(sym_store.pp_store())
-                # utils.logger.info(new_sym_store.pp_store())
                 return True, blk
             else:
                 self.address_block_map[new_address][0] = cnt + 1
-                # new_sym_store.merge_store(prev_sym_store, self.address_inst_map)
                 return False, new_sym_store
         return False, None
 

@@ -35,8 +35,6 @@ def construct_cfg(disasm_asm, disasm_type):
     main_address = global_var.binary_info.main_address
     address_sym_table = global_var.binary_info.address_sym_table
     address_inst_map = disasm_asm.get_address_inst_map()
-    # print(global_var.binary_info.sym_table)
-    # print(global_var.binary_info.dll_func_info)
     cfg = CFG(address_sym_table, address_inst_map, disasm_asm.address_next_map, start_address, main_address, disasm_asm.valid_address_no, disasm_type, global_var.binary_info.dll_func_info)
     return cfg
 
@@ -186,7 +184,6 @@ if __name__=='__main__':
         log_dir = log_dir.replace('objdump', disasm_type)
     disasm_lib_dir = os.path.join(utils.PROJECT_DIR, log_dir)
     elf_lib_dir = os.path.join(utils.PROJECT_DIR, args.elf_dir)
-    # 
     if args.soundness:
         if args.batch:
             check_soundness_batch(elf_lib_dir, disasm_lib_dir, args.not_only, args.verbose)   
@@ -201,10 +198,5 @@ if __name__=='__main__':
             disasm_path = os.path.join(disasm_lib_dir, args.file_name + '.' + disasm_type)
             exec_path = os.path.join(elf_lib_dir, args.file_name)
             dsv_main(elf_lib_dir, exec_path, disasm_path, disasm_type, args.not_only, args.verbose)
-    # 
-    # disasm_path = os.path.join(disasm_lib_dir, args.file_name + '.' + disasm_type)
-    # exec_path = os.path.join(elf_lib_dir, args.file_name)
-    # helper.disassemble_to_asm(exec_path, disasm_path, disasm_type)
-    
     
         

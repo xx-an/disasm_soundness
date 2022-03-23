@@ -174,10 +174,6 @@ class Disasm_Radare2(Disasm):
             else:
                 sym_name = SYM_NAME_PAT.search(arg).group(0)
                 arg = arg.replace(sym_name, sym_address_str)
-            # elif arg.startswith(('qword', 'dword', 'word', 'byte')):
-            #     arg = arg.split(' ', 1)[0].strip() + ' [' + sym_address_str + ']'
-            # else:
-            #     arg = sym_address_str
         elif arg == 'main' or arg == 'entry0':
             if inst_name == 'lea':
                 arg = '[' + sym_address_str + ']'

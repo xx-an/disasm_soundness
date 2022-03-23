@@ -194,7 +194,6 @@ def add_latex_for_row(row_values):
             if val:
                 res += CHECK_RESULTS[2]
             res += ' & '
-    # res += ' & ' + ' & '.join(list(map(lambda x: str(x), row_values))) + ' \\\\\n'
     return res
 
 def add_latex_foot(disasm_type):
@@ -267,14 +266,10 @@ def generate_latex_from_xls_with_designated_batch(file_dir, workbook, file_names
     for disasm_type in utils.DISASSEMBLER_TYPES:
         res += generate_latex_from_xls_with_designated(workbook, disasm_type, file_names)
     print(res)
-    # latex_path = os.path.join(file_dir, 'latex.info')
-    # with open(latex_path, 'w+') as f:
-    #     f.write(res)
 
 def generate_latex_from_xls_batch(file_dir, workbook_name, file_names):
     file_path = os.path.join(file_dir, workbook_name)
     workbook = open_statistics_xls(file_path)
-    # generate_latex_from_xls_wo_designated_batch(file_dir, workbook, file_names)
     generate_latex_from_xls_with_designated_batch(file_dir, workbook, file_names)
 
 def find_unchecked(a):
@@ -316,7 +311,6 @@ def detect_all_ida_unhandled_struct(dir_path):
     print(dir_path)
     disasm_files = [os.path.join(dp, f) for dp, _, filenames in os.walk(dir_path) for f in filenames if f.endswith('.idapro')]
     for disasm_path in disasm_files:
-        # detect_ida_unhandled_struct(disasm_path)
         detect_all_ida_types(disasm_path, type_list)
     print(type_list)
 
@@ -392,7 +386,6 @@ def modify_output_files(dir_path):
                 else:
                     new_content += line
                 idx += 1
-        # print(new_content)
         with open(output_path, 'w') as f:
             f.write(new_content)
 
@@ -403,11 +396,5 @@ if __name__=='__main__':
     args = parser.parse_args()
     disasm_type = args.disasm_type
     dir_path = os.path.join(utils.PROJECT_DIR, os.path.join('benchmark', 'coreutils-' + disasm_type))
-    # detect_all_ida_unhandled_struct(dir_path)
-    # a = ''
-    # find_unchecked(a)
-    # detect_all_incorrectly_disassembled_insts(dir_path)
-    # print_correctly_disassembled_inst_ratio(dir_path)
-    # detect_all_unchecked_diassembled_files(dir_path)
     file_names = ['basename', 'expand', 'mknod', 'realpath', 'dir']
     generate_latex_from_xls_batch(utils.PROJECT_DIR, 'statistics.xlsx', file_names)

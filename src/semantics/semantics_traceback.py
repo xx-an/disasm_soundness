@@ -41,7 +41,6 @@ def sym_bin_on_src(store, sym_names, src):
             else:
                 addr = sym_engine.get_effective_address(store, rip, src)
                 src_names = src_names + [str(addr)]
-            # src_names = src_names + new_srcs
         else:
             src_names.append(smt_helper.get_root_reg(src))
     else:
@@ -87,21 +86,6 @@ def mov(store, sym_names, dest, src):
                 addr = sym_engine.get_effective_address(store, rip, src)
                 src_names = src_names + [str(addr)]
     return list(set(src_names))
-
-    # src_names = sym_names
-    # if smt_helper.check_source_is_sym(store, rip, dest, sym_names):
-    #     if src in lib.REG_NAMES:
-    #         src_names = smt_helper.add_new_reg_src(sym_names, dest, src)
-    #     elif src.endswith(']'):
-    #         smt_helper.remove_reg_from_sym_srcs(dest, src_names)
-    #         new_srcs, is_reg_bottom = smt_helper.get_bottom_source(src, store, rip)
-    #         if is_reg_bottom:
-    #             src_names = src_names + new_srcs
-    #         else:
-    #             addr_rep_length = utils.get_addr_rep_length(src)
-    #             addr = sym_engine.get_effective_address(store, rip, src, addr_rep_length)
-    #             src_names = src_names + [str(addr)]
-    # return list(set(src_names))
 
 
 def lea(store, sym_names, dest, src):

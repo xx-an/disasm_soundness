@@ -53,10 +53,8 @@ class Construct_Graph(object):
     def construct_edges(self, address):
         if address in self.address_entries_map:
             address_entries = self.address_entries_map[address]
-            # print(hex(address) + ': ' + str(address_entries))
             for addr in address_entries:
                 node_id = self.search_node_id(addr)
-                # print(node_id)
                 if node_id:
                     if address != node_id:
                         self.graph.add_edge([node_id, address])
@@ -66,7 +64,6 @@ class Construct_Graph(object):
         node_id = None
         for start_addr, end_addr in zip(self.start_address_list, self.end_address_list):
             if address >= start_addr and address <= end_addr:
-                # print(hex(start_addr) + ', ' + hex(end_addr))
                 node = self.node_set[start_addr]
                 if node.located_in_this_node(address):
                     node_id = start_addr
@@ -135,13 +132,11 @@ class Construct_Graph(object):
                 v_entries = self.address_entries_map[v]
                 for ve in v_entries:
                     if node.located_in_this_node(ve):
-                        # if end_addr == 15656: print(ve)
                         if ve >= start_addr:
                             queue.append(v)
                             prev_node[v] = n
                             visited[v] = True
                             break
-        # if end_addr == 15656: print(queue)
         while queue:
             n = queue.pop(0)
             if n == end_vertex:
@@ -211,7 +206,6 @@ class Construct_Graph(object):
                         infix = ': jump address is ' if ': jump address is ' in line else ': the return address is '
                         line_split = line.split(infix)
                         addr = int(line_split[0].strip(), 16)
-                        # if addr not in disasm_asm.unexplored_address_list:
                         jmp_addr_str = line_split[1].strip()
                         if utils.imm_pat.match(jmp_addr_str):
                             inst = self.address_inst_map[addr]
@@ -238,7 +232,6 @@ class Construct_Graph(object):
                     elif ': jump addresses resolved using jump table ' in line:
                         line_split = line.split(': jump addresses resolved using jump table ')
                         addr = int(line_split[0].strip(), 16)
-                        # if addr not in disasm_asm.unexplored_address_list:
                         jmp_table_entries = utils.extract_content(line_split[1].strip(), '[')
                         jmp_table_entries = jmp_table_entries.split(',')
                         jump_targets = [utils.imm_str_to_int(x.strip()) for x in jmp_table_entries]
@@ -249,7 +242,6 @@ class Construct_Graph(object):
     def construct_splitted_content(self, disasm_asm):
         new_content = ''
         for address in self.address_inst_map:
-            # if address not in disasm_asm.unexplored_address_list:
             inst = self.address_inst_map[address]
             if address in disasm_asm.address_label_map:
                 new_content += '\n'
@@ -263,7 +255,6 @@ class Construct_Graph(object):
                 new_content += '\n'
             new_content += hex(address) + ': ' + inst + '\n'
             prev_address = address
-        # print(new_content)
         return new_content
 
     def draw(self):
@@ -315,5 +306,4 @@ if __name__ == '__main__':
     disasm_asm = Disasm_Objdump(disasm_path)
     ei = Binary_Info(exec_path)
     cg = Construct_Graph(disasm_asm, log_path, ei)
-    # cg.draw()
     cg.find_path(0x201e, 0x22a4)

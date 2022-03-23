@@ -427,7 +427,6 @@ def bt(store, bit_base, bit_offset):
 def parse_semantics(store, curr_rip, inst):
     global rip
     rip = curr_rip
-    # print(inst)
     if inst.startswith(('lock ', 'data16 ')):
         inst = inst.split(' ', 1)[1]
     inst_split = inst.strip().split(' ', 1)

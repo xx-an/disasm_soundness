@@ -76,8 +76,6 @@ class Disasm_Ghidra(Disasm):
         res = helper.rewrite_absolute_address_to_relative(res, rip)
         res = helper.switch_mem_arg_order(res)
         if '.rep' in inst_name:
-            # inst_name_1 = inst_name.split('.', 1)[0]
-            # byte_len_rep = helper.BYTE_REP_PTR_MAP[inst_name_1[-1]]
             res = ' [' + res + ']'
         res = helper.modify_st_rep(res)
         return res

@@ -185,7 +185,6 @@ def calculate_dyninst_jmp_address(line, address, rip):
         res = utils.extract_content(line, '[')
         if remote_addr_pat.search(line):
             res = line
-            # res = res.replace('rip', hex(rip))
         else:
             res = res.replace('rip', hex(address))
             res = hex(eval(res))

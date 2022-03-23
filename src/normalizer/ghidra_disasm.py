@@ -3,16 +3,6 @@ from ghidra.app.cmd.disassemble import DisassembleCommand
 from ghidra.app.script import GhidraScript
 from ghidra.program.model.address import AddressSet
 
-# addset = AddressSet()
-# addset.add(currentAddress)
-# print(currentProgram.getLanguage().getProcessor())
-# print(currentAddress)
-# cmd = DisassembleCommand(addset, None, True)
-# cmd.applyTo(currentProgram, ConsoleTaskMonitor())
-# res = cmd.getDisassembledAddressSet()
-# activeAddr = currentLocation.getByteAddress()
-# print(activeAddr)
-# print(res)
 args = getScriptArgs()
 code_base_addr = int(args[0])
 curr_base_addr = currentProgram.getImageBase().getOffset()

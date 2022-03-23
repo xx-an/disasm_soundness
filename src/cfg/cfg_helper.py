@@ -93,9 +93,6 @@ def check_jump_table_assign_inst(trace_list, idx):
         if inst.startswith('mov'):
             res = check_jt_assign_inst(inst.split(' ', 1)[1].strip())
             if res: break
-        # elif inst.startswith('jmp'):
-        #     res = check_jt_jmp_inst(inst.split(' ', 1)[1].strip())
-        #     if res: break
     return n_idx, res
 
 
@@ -169,7 +166,3 @@ def backtrack_to_start(block, address, block_set):
 
 def pp_trace_list(trace_list, address_inst_map):
     utils.logger.debug(', '.join([hex(address) + ': ' + address_inst_map[address] for address in trace_list[::-1]]))
-    # for address in trace_list:
-    #     inst = address_inst_map[address]
-    #     utils.logger.debug(hex(address) + ': ' + inst)
-    #     utils.logger.debug(curr.sym_store.pp_store())

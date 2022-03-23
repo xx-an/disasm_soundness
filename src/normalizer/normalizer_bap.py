@@ -84,7 +84,6 @@ class Disasm_Bap(Disasm):
         return section_name
 
     def _format_inst(self, address, inst, bin_len):
-        # print(inst)
         inst_elem = Inst_Elem(inst)
         inst_elem.reverse_arg_order()
         inst_elem.inst_args = list(map(lambda x: helper.rewrite_att_memory_rep(inst_elem.inst_name, x), inst_elem.inst_args))
@@ -96,7 +95,6 @@ class Disasm_Bap(Disasm):
             inst_elem.inst_args[0] = helper.calculate_absolute_address(inst_elem.inst_args[0], rip)
         inst_elem.inst_args = list(map(lambda x: helper.format_bap_lea_inst_arg(inst_elem.inst_name, x), inst_elem.inst_args))
         inst = inst_elem.normalize(address, self._format_arg, utils.id_op)
-        # print(hex(address) + ': ' + inst)
         return inst
 
     def _format_arg(self, address, inst_name, arg):
