@@ -65,11 +65,6 @@ class CFG(object):
         while self.block_stack:
             curr = self.block_stack.pop()
             utils.logger.debug('%s: %s' % (hex(curr.address), curr.inst))
-            # utils.logger.debug(sym_engine.get_sym(curr.sym_store.store, curr.sym_store.rip, 'rsp', 64))
-            # utils.logger.debug(sym_engine.get_sym(curr.sym_store.store, curr.sym_store.rip, 'rbp', 64))
-            # if BitVecVal(16773003, 32) in curr.sym_store.store[lib.MEM]:
-            #     utils.logger.debug(curr.sym_store.store[lib.MEM][BitVecVal(16773003, 32)])
-            # utils.logger.debug(curr.sym_store.pp_store())
             address, inst, sym_store, constraint = curr.address, curr.inst, curr.sym_store, curr.constraint
             if utils.check_branch_inst(inst):
                 self.construct_branch(curr, address, inst, sym_store, constraint)
